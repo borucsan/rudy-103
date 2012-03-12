@@ -57,11 +57,23 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="src\Form1.cs">
+    <Compile Include="src\MenuGlowne.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="src\Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="src\MenuGlowne.Designer.cs">
+      <DependentUpon>MenuGlowne.cs</DependentUpon>
+    </Compile>
+    <Compile Include="src\NowaGra.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="src\NowaGra.Designer.cs">
+      <DependentUpon>NowaGra.cs</DependentUpon>
+    </Compile>
+    <Compile Include="src\Opcje.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="src\Opcje.Designer.cs">
+      <DependentUpon>Opcje.cs</DependentUpon>
     </Compile>
     <Compile Include="src\Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -70,8 +82,20 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="src\Form1.resx">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <EmbeddedResource Include="src\MenuGlowne.resx">
+      <DependentUpon>MenuGlowne.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="src\NowaGra.resx">
+      <DependentUpon>NowaGra.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="src\Opcje.resx">
+      <DependentUpon>Opcje.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="src\Top10.resx">
+      <DependentUpon>Top10.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <Compile Include="Properties\Resources.Designer.cs">
@@ -79,9 +103,15 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <Compile Include="src\Top10.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="src\Top10.Designer.cs">
+      <DependentUpon>Top10.cs</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Resources\" />
+    <Content Include="Resources\rudy_logo.png" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CompactFramework.CSharp.targets" />
   <ProjectExtensions>
