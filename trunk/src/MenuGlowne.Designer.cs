@@ -33,19 +33,19 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainWindow));
             this.panel1 = new System.Windows.Forms.Panel();
+            this.label1 = new System.Windows.Forms.Label();
             this.WyjdzButton = new System.Windows.Forms.Button();
             this.Top10Button = new System.Windows.Forms.Button();
             this.NowaGraButton = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
+            this.linkLabel1 = new System.Windows.Forms.LinkLabel();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.White;
-            this.panel1.Controls.Add(this.label2);
+            this.panel1.Controls.Add(this.linkLabel1);
             this.panel1.Controls.Add(this.label1);
             this.panel1.Controls.Add(this.WyjdzButton);
             this.panel1.Controls.Add(this.Top10Button);
@@ -55,6 +55,15 @@
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(240, 294);
+            // 
+            // label1
+            // 
+            this.label1.Font = new System.Drawing.Font("Tahoma", 8F, System.Drawing.FontStyle.Regular);
+            this.label1.Location = new System.Drawing.Point(3, 243);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(233, 20);
+            this.label1.Text = "Programowanie Urządzeń Mobilnych";
+            this.label1.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
             // WyjdzButton
             // 
@@ -94,23 +103,16 @@
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(238, 83);
             // 
-            // label1
+            // linkLabel1
             // 
-            this.label1.Font = new System.Drawing.Font("Tahoma", 8F, System.Drawing.FontStyle.Regular);
-            this.label1.Location = new System.Drawing.Point(3, 252);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(232, 20);
-            this.label1.Text = "Programowanie Urządzeń Mobilnych";
-            this.label1.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            // 
-            // label2
-            // 
-            this.label2.Font = new System.Drawing.Font("Tahoma", 8F, System.Drawing.FontStyle.Regular);
-            this.label2.Location = new System.Drawing.Point(3, 272);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(232, 20);
-            this.label2.Text = "Projekt 2012";
-            this.label2.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.linkLabel1.Font = new System.Drawing.Font("Tahoma", 8F, System.Drawing.FontStyle.Underline);
+            this.linkLabel1.Location = new System.Drawing.Point(3, 263);
+            this.linkLabel1.Name = "linkLabel1";
+            this.linkLabel1.Size = new System.Drawing.Size(233, 20);
+            this.linkLabel1.TabIndex = 5;
+            this.linkLabel1.Text = "Strona Główna Projektu";
+            this.linkLabel1.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.linkLabel1.Click += new System.EventHandler(this.linkLabel1_Click);
             // 
             // MainWindow
             // 
@@ -137,7 +139,7 @@
         private System.Windows.Forms.Button NowaGraButton;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.LinkLabel linkLabel1;
     }
 }
 
