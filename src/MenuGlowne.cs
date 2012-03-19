@@ -49,5 +49,10 @@ namespace Rudy_103
             e.Cancel = (wybor == DialogResult.No);
         }
 
+        private void linkLabel1_Click(object sender, EventArgs e)
+        {
+            System.Diagnostics.Process.Start("http://www.google.pl/", "");
+        }
+
     }
 }

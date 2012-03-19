@@ -46,6 +46,7 @@
     <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.WindowsCE.Forms" />
     <Reference Include="mscorlib" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -69,12 +70,6 @@
     <Compile Include="src\NowaGra.Designer.cs">
       <DependentUpon>NowaGra.cs</DependentUpon>
     </Compile>
-    <Compile Include="src\Opcje.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="src\Opcje.Designer.cs">
-      <DependentUpon>Opcje.cs</DependentUpon>
-    </Compile>
     <Compile Include="src\Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -88,10 +83,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="src\NowaGra.resx">
       <DependentUpon>NowaGra.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="src\Opcje.resx">
-      <DependentUpon>Opcje.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="src\Top10.resx">
@@ -111,7 +102,26 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Resources\rudy_logo.png" />
+    <EmbeddedResource Include="Resources\rudy_logo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\czolg_down_1.png" />
+    <EmbeddedResource Include="Resources\czolg_down_2.png" />
+    <EmbeddedResource Include="Resources\czolg_left_1.png" />
+    <EmbeddedResource Include="Resources\czolg_left_2.png" />
+    <EmbeddedResource Include="Resources\czolg_right_1.png" />
+    <EmbeddedResource Include="Resources\czolg_right_2.png" />
+    <EmbeddedResource Include="Resources\czolg_up_1.png" />
+    <EmbeddedResource Include="Resources\czolg_up_2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\pocisk.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\pocisk_down.png" />
+    <EmbeddedResource Include="Resources\pocisk_left.png" />
+    <EmbeddedResource Include="Resources\pocisk_right.png" />
+    <EmbeddedResource Include="Resources\pocisk_up.png" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CompactFramework.CSharp.targets" />
   <ProjectExtensions>
