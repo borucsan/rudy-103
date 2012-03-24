@@ -58,6 +58,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="src\Gracz.cs" />
     <Compile Include="src\MenuGlowne.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -94,6 +95,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <Compile Include="src\Przeciwnik.cs" />
     <Compile Include="src\Top10.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -122,6 +124,37 @@
     <EmbeddedResource Include="Resources\pocisk_left.png" />
     <EmbeddedResource Include="Resources\pocisk_right.png" />
     <EmbeddedResource Include="Resources\pocisk_up.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\tank_down.png" />
+    <EmbeddedResource Include="Resources\tank_up.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\bateria_10.png" />
+    <EmbeddedResource Include="Resources\bateria_100.png" />
+    <EmbeddedResource Include="Resources\bateria_25.png" />
+    <EmbeddedResource Include="Resources\bateria_40.png" />
+    <EmbeddedResource Include="Resources\bateria_55.png" />
+    <EmbeddedResource Include="Resources\bateria_70.png" />
+    <EmbeddedResource Include="Resources\bateria_85.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\tlo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\tank2_1_down.png" />
+    <EmbeddedResource Include="Resources\tank2_1_left.png" />
+    <EmbeddedResource Include="Resources\tank2_1_right.png" />
+    <EmbeddedResource Include="Resources\tank2_1_up.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\ziemia.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\ziemia_tlo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\cegielka.png" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CompactFramework.CSharp.targets" />
   <ProjectExtensions>
