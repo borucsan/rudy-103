@@ -14,10 +14,9 @@ namespace Rudy_103.src
     /// </summary>
     public partial class NowaGra : Form
     {
-        private int punkty; //tymczasowe zanim klasa gracz nie bedzie miała własnych punktów
         private int czas_sekundy;
         private int czas_minuty;
-        
+        private Gracz player;
 
         private Image [] czolg;
         private int pozycja_x, pozycja_y;
@@ -51,14 +50,12 @@ namespace Rudy_103.src
         public NowaGra()
         {
             InitializeComponent();
-            punkty = 0;
             szybkosc = 5;
             pozycja_x = 100;
             pozycja_y = 100;
             kierunek = "up";
             wytrzymalosc = 100;
             energia = 3;
-
             kierunek_pocisku = null;
             szybkosc_pocisku = 10;
             pozycja_pocisku_x = 0;
@@ -66,7 +63,7 @@ namespace Rudy_103.src
 
             pocisk_na_mapie = false;
             
-
+            
             rozmiar_mapy.X = 1000;
             rozmiar_mapy.Y = 1000;
             
@@ -122,6 +119,18 @@ namespace Rudy_103.src
             pocisk[1] = new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.pocisk_down.png"));
             pocisk[2] = new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.pocisk_left.png"));
             pocisk[3] = new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.pocisk_right.png"));
+            /*player = new Gracz(100, 100, 50, 50, 100, 5, 10, 3);
+            player.WczytajObrazy(
+                new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.tank2_1_up.png")),
+                new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.czolg_up_2.png")),
+                new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.tank2_1_right.png")),
+                new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.czolg_right_2.png")),
+                new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.tank2_1_down.png")),
+                new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.czolg_down_2.png")),
+                new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.tank2_1_left.png")),
+                new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.czolg_left_2.png"))
+                );*/
+
 
             this.timer1.Enabled = true;
             this.czas_rozgrywki.Enabled = true;
@@ -148,8 +157,10 @@ namespace Rudy_103.src
                             pozycja_kamery.Y -= szybkosc;
                             if (pozycja_kamery.Y <= 0) pozycja_kamery.Y = 0;//zmien pozycje kamery
                             kierunek = "up";
+                            //player.Ruch(Czolg.Kierunek.GORA, rozmiar_mapy);
                             if (pozycja_y >= szybkosc) pozycja_y -= szybkosc;
                             else pozycja_y = 0;
+                           
                         } break;
                     case Keys.Down:
                         {
@@ -157,6 +168,8 @@ namespace Rudy_103.src
                             if (pozycja_kamery.Y + pictureBox1.Height >= rozmiar_mapy.Y) 
                                 pozycja_kamery.Y = rozmiar_mapy.Y - pictureBox1.Height;
                             kierunek = "down";
+                            //player.Ruch(Czolg.Kierunek.DOL, rozmiar_mapy);
+                            
                             if (pozycja_y <= rozmiar_mapy.Y - (szybkosc + czolg[0].Width)) pozycja_y += szybkosc;
                             else pozycja_y = rozmiar_mapy.Y - czolg[0].Width;
                         } break;
@@ -166,6 +179,8 @@ namespace Rudy_103.src
                             if (pozycja_kamery.X <= 0) pozycja_kamery.X = 0;
                             
                             kierunek = "left";
+                            //player.Ruch(Czolg.Kierunek.LEWO, rozmiar_mapy);
+                            
                             if (pozycja_x >= szybkosc) pozycja_x -= szybkosc;
                             else pozycja_x = 0;
                         }break;
@@ -174,8 +189,9 @@ namespace Rudy_103.src
                             pozycja_kamery.X += szybkosc;
                             if (pozycja_kamery.X + pictureBox1.Width >= rozmiar_mapy.X)
                                 pozycja_kamery.X = rozmiar_mapy.X - pictureBox1.Width;
-
+                            
                             kierunek = "right";
+                            //player.Ruch(Czolg.Kierunek.PRAWO, rozmiar_mapy);
                             if (pozycja_x <= rozmiar_mapy.X - (szybkosc + czolg[0].Width)) pozycja_x += szybkosc;
                             else pozycja_x = rozmiar_mapy.X - czolg[0].Width;
                         } break;

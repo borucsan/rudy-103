@@ -31,7 +31,7 @@
     <FileAlignment>512</FileAlignment>
     <WarningLevel>4</WarningLevel>
     <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
-    <DocumentationFile>doc\dokumentacja automatyczna.XML</DocumentationFile>
+    <DocumentationFile>doc/dokumentacja.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -58,6 +58,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="src\Czolg.cs" />
     <Compile Include="src\Gracz.cs" />
     <Compile Include="src\MenuGlowne.cs">
       <SubType>Form</SubType>
@@ -71,6 +72,9 @@
     <Compile Include="src\NowaGra.Designer.cs">
       <DependentUpon>NowaGra.cs</DependentUpon>
     </Compile>
+    <Compile Include="src\Obiekty.CollisionDetection.cs" />
+    <Compile Include="src\Obiekty.cs" />
+    <Compile Include="src\Pocisk.cs" />
     <Compile Include="src\Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
