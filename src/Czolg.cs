@@ -24,6 +24,11 @@ namespace Rudy_103.src
             this.sila = sila;
             this.kierunek = Kierunek.GORA;
         }
+        /// <summary>
+        /// Metoda do poruszania czołgami
+        /// </summary>
+        /// <param name="kierunek">Enumeracja reprezentująca kierunek</param>
+        /// <param name="rozmiar_mapy">Struktura rozmiaru mapy</param>
         public void Ruch(Kierunek kierunek, Point rozmiar_mapy)
         {
             this.kierunek = kierunek;
@@ -38,11 +43,11 @@ namespace Rudy_103.src
                     else Pozycja.X = rozmiar_mapy.X - CollisonDetectRect.Width;
                     break;
                 case Kierunek.DOL:
-                    if (Pozycja.Y <= rozmiar_mapy.Y - (szybkosc + CollisonDetectRect.Width)) Pozycja.Y += szybkosc;
-                    else Pozycja.Y = rozmiar_mapy.Y - CollisonDetectRect.Width;
+                    if (Pozycja.Y <= rozmiar_mapy.Y - (szybkosc + CollisonDetectRect.Height)) Pozycja.Y += szybkosc;
+                    else Pozycja.Y = rozmiar_mapy.Y - CollisonDetectRect.Height;
                     break;
                 case Kierunek.LEWO:
-                    if (Pozycja.X >= szybkosc) Pozycja.Y -= szybkosc;
+                    if (Pozycja.X >= szybkosc) Pozycja.X -= szybkosc;
                     else Pozycja.X = 0;
                     break;
             }
@@ -51,8 +56,12 @@ namespace Rudy_103.src
         {
 
         }
-        public enum Kierunek { GORA, PRAWO, DOL, LEWO }
-        public override void Rysuj(PaintEventArgs e){}
+        public enum Kierunek : int { GORA=0, PRAWO, DOL, LEWO }
+        public override void Rysuj(Graphics g, Point pozycja_kamery, System.Drawing.Imaging.ImageAttributes transparentPink)
+        {
+            g.DrawImage(obrazy[(int)kierunek], new Rectangle(Pozycja.X - pozycja_kamery.X, Pozycja.Y - pozycja_kamery.Y, CollisonDetectRect.Width, CollisonDetectRect.Height), 0, 0,
+                        CollisonDetectRect.Width, CollisonDetectRect.Height, GraphicsUnit.Pixel, transparentPink);
+        }
           
     }
 }

@@ -3,6 +3,7 @@ using System.Linq;
 using System.Collections.Generic;
 using System.Text;
 using System.Windows.Forms;
+using System.Drawing;
 
 namespace Rudy_103.src
 {
@@ -13,6 +14,6 @@ namespace Rudy_103.src
         {
             
         }
-        public override void Rysuj(PaintEventArgs e) { }
+        public override void Rysuj(Graphics g, Point pozycja_kamery, System.Drawing.Imaging.ImageAttributes transparentPink) { }
     }
 }
