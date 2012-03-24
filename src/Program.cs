@@ -3,7 +3,7 @@ using System.Linq;
 using System.Collections.Generic;
 using System.Windows.Forms;
 
-namespace Rudy_103
+namespace Rudy_103.src
 {
     static class Program
     {

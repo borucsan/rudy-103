@@ -1,4 +1,4 @@
-﻿namespace Rudy_103
+﻿namespace Rudy_103.src
 {
     /// <summary>
     /// Główne okno aplikacji.

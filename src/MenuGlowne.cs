@@ -6,9 +6,9 @@ using System.Data;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
-using Rudy_103.src;
+//using Rudy_103.src;
 
-namespace Rudy_103
+namespace Rudy_103.src
 {
     public partial class MainWindow : Form
     {
