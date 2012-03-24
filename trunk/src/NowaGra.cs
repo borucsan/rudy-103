@@ -119,17 +119,17 @@ namespace Rudy_103.src
             pocisk[1] = new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.pocisk_down.png"));
             pocisk[2] = new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.pocisk_left.png"));
             pocisk[3] = new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.pocisk_right.png"));
-            /*player = new Gracz(100, 100, 50, 50, 100, 5, 10, 3);
+            player = new Gracz(100, 100, 50, 50, 100, 5, 10, 3);
             player.WczytajObrazy(
                 new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.tank2_1_up.png")),
-                new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.czolg_up_2.png")),
+                //new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.czolg_up_2.png")),
                 new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.tank2_1_right.png")),
-                new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.czolg_right_2.png")),
+                //new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.czolg_right_2.png")),
                 new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.tank2_1_down.png")),
-                new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.czolg_down_2.png")),
-                new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.tank2_1_left.png")),
-                new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.czolg_left_2.png"))
-                );*/
+                //new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.czolg_down_2.png")),
+                new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.tank2_1_left.png"))
+                //new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.czolg_left_2.png"))
+                );
 
 
             this.timer1.Enabled = true;
@@ -157,9 +157,9 @@ namespace Rudy_103.src
                             pozycja_kamery.Y -= szybkosc;
                             if (pozycja_kamery.Y <= 0) pozycja_kamery.Y = 0;//zmien pozycje kamery
                             kierunek = "up";
-                            //player.Ruch(Czolg.Kierunek.GORA, rozmiar_mapy);
-                            if (pozycja_y >= szybkosc) pozycja_y -= szybkosc;
-                            else pozycja_y = 0;
+                            player.Ruch(Czolg.Kierunek.GORA, rozmiar_mapy);
+                            /*if (pozycja_y >= szybkosc) pozycja_y -= szybkosc;
+                            else pozycja_y = 0;*/
                            
                         } break;
                     case Keys.Down:
@@ -168,10 +168,10 @@ namespace Rudy_103.src
                             if (pozycja_kamery.Y + pictureBox1.Height >= rozmiar_mapy.Y) 
                                 pozycja_kamery.Y = rozmiar_mapy.Y - pictureBox1.Height;
                             kierunek = "down";
-                            //player.Ruch(Czolg.Kierunek.DOL, rozmiar_mapy);
-                            
+                            player.Ruch(Czolg.Kierunek.DOL, rozmiar_mapy);
+                            /*
                             if (pozycja_y <= rozmiar_mapy.Y - (szybkosc + czolg[0].Width)) pozycja_y += szybkosc;
-                            else pozycja_y = rozmiar_mapy.Y - czolg[0].Width;
+                            else pozycja_y = rozmiar_mapy.Y - czolg[0].Width;*/
                         } break;
                     case Keys.Left:
                         {
@@ -179,10 +179,10 @@ namespace Rudy_103.src
                             if (pozycja_kamery.X <= 0) pozycja_kamery.X = 0;
                             
                             kierunek = "left";
-                            //player.Ruch(Czolg.Kierunek.LEWO, rozmiar_mapy);
+                            player.Ruch(Czolg.Kierunek.LEWO, rozmiar_mapy);
                             
-                            if (pozycja_x >= szybkosc) pozycja_x -= szybkosc;
-                            else pozycja_x = 0;
+                            /*if (pozycja_x >= szybkosc) pozycja_x -= szybkosc;
+                            else pozycja_x = 0;*/
                         }break;
                     case Keys.Right:
                         {
@@ -191,9 +191,9 @@ namespace Rudy_103.src
                                 pozycja_kamery.X = rozmiar_mapy.X - pictureBox1.Width;
                             
                             kierunek = "right";
-                            //player.Ruch(Czolg.Kierunek.PRAWO, rozmiar_mapy);
-                            if (pozycja_x <= rozmiar_mapy.X - (szybkosc + czolg[0].Width)) pozycja_x += szybkosc;
-                            else pozycja_x = rozmiar_mapy.X - czolg[0].Width;
+                            player.Ruch(Czolg.Kierunek.PRAWO, rozmiar_mapy);
+                            /*if (pozycja_x <= rozmiar_mapy.X - (szybkosc + czolg[0].Width)) pozycja_x += szybkosc;
+                            else pozycja_x = rozmiar_mapy.X - czolg[0].Width;*/
                         } break;
                     case Keys.Enter:
                         {
@@ -346,7 +346,7 @@ namespace Rudy_103.src
                         cegielka.Width, cegielka.Height, GraphicsUnit.Pixel, transparentPink);
                 g.DrawImage(cegielka, new Rectangle(325 - pozycja_kamery.X, 300 - pozycja_kamery.Y, cegielka.Width, cegielka.Height), 0, 0,
                         cegielka.Width, cegielka.Height, GraphicsUnit.Pixel, transparentPink);
-
+                /*
                 if (kierunek == "up")
                 {
                     //e.Graphics.DrawImage(czolg[0], pozycja_x, pozycja_y);
@@ -372,7 +372,8 @@ namespace Rudy_103.src
                     //e.Graphics.DrawImage(czolg[6], pozycja_x, pozycja_y);
                     g.DrawImage(czolg[6], new Rectangle(pozycja_x - pozycja_kamery.X, pozycja_y - pozycja_kamery.Y, czolg[6].Width, czolg[6].Height), 0, 0,
                         czolg[6].Width, czolg[6].Height, GraphicsUnit.Pixel, transparentPink);
-                }
+                }*/
+                player.Rysuj(g, pozycja_kamery, transparentPink);
                 if (pocisk_na_mapie == true)
                 {
                     if (kierunek_pocisku == "up")
@@ -417,7 +418,7 @@ namespace Rudy_103.src
             }*/
             //e.Graphics.DrawEllipse(new Pen(Color.Red), (int)pozycja_x/20, (int)pozycja_y/20, 2, 2);
             
-            e.Graphics.FillEllipse(new SolidBrush(Color.Red), new Rectangle((int)pozycja_x / 20, (int)pozycja_y / 20, 2, 2));
+            e.Graphics.FillEllipse(new SolidBrush(Color.Red), new Rectangle(((int)player.pozycja.X / 20), ((int)player.pozycja.Y / 20), 2, 2));
             e.Graphics.DrawRectangle(new Pen(Color.Black), (int)pozycja_kamery.X/20, (int)pozycja_kamery.Y/20, 12, 13);
         }
 

@@ -14,7 +14,19 @@ namespace Rudy_103.src
     {
         protected Point Pozycja;
         protected Image[] obrazy;
-        
+
+        public Point pozycja
+        {
+            get
+            {
+                return Pozycja;
+            }
+            set
+            {
+                Pozycja = value;
+            }
+        }
+      
         /// <summary>
         /// Konstruktor bazowy dla obiektów
         /// </summary>
@@ -39,6 +51,6 @@ namespace Rudy_103.src
         /// <summary>
         /// Abstrakcyjna metoda do rysowania. Parametry do ustalenia.
         /// </summary>
-        abstract public void Rysuj(PaintEventArgs e);
+        abstract public void Rysuj(Graphics g, Point pozycja_kamery, System.Drawing.Imaging.ImageAttributes transparentPink);
     }
 }

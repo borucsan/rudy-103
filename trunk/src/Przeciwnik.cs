@@ -10,7 +10,7 @@ namespace Rudy_103.src
     {
         public Przeciwnik(int X, int Y, int Szer, int Wys, int wytrzymalosc, int szybkosc, int sila)
             : base(X, Y, Szer, Wys, wytrzymalosc, szybkosc, sila) { }
-        public override void Rysuj(PaintEventArgs e) { }
+        //public override void Rysuj(PaintEventArgs e) { }
 
         public object Clone()
         {
