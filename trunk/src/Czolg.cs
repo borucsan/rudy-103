@@ -16,8 +16,17 @@ namespace Rudy_103.src
         protected int szybkosc;
         protected int sila;
         protected Kierunek kierunek;
+        protected Pocisk pocisk;
         public Czolg(int X, int Y, int Szer, int Wys, int wytrzymalosc, int szybkosc, int sila)
             : base(X, Y, Szer, Wys)
+        {
+            this.wytrzymalosc = wytrzymalosc;
+            this.szybkosc = szybkosc;
+            this.sila = sila;
+            this.kierunek = Kierunek.GORA;
+        }
+        public Czolg(int X, int Y, int Szer, int Wys, int wytrzymalosc, int szybkosc, int sila, params Image[] obrazy)
+            : base(X, Y, Szer, Wys, obrazy)
         {
             this.wytrzymalosc = wytrzymalosc;
             this.szybkosc = szybkosc;
@@ -35,32 +44,74 @@ namespace Rudy_103.src
             switch (kierunek)
             {
                 case Kierunek.GORA:
-                    if (Pozycja.Y >= szybkosc) Pozycja.Y -= szybkosc;
-                    else Pozycja.Y = 0;
+                    if (Wymiary.Y >= szybkosc) Wymiary.Y -= szybkosc;
+                    else Wymiary.Y = 0;
                     break;
                 case Kierunek.PRAWO:
-                    if (Pozycja.X <= rozmiar_mapy.X - (szybkosc + CollisonDetectRect.Width)) Pozycja.X += szybkosc;
-                    else Pozycja.X = rozmiar_mapy.X - CollisonDetectRect.Width;
+                    if (Wymiary.X <= rozmiar_mapy.X - (szybkosc + Wymiary.Width)) Wymiary.X += szybkosc;
+                    else Wymiary.X = rozmiar_mapy.X - Wymiary.Width;
                     break;
                 case Kierunek.DOL:
-                    if (Pozycja.Y <= rozmiar_mapy.Y - (szybkosc + CollisonDetectRect.Height)) Pozycja.Y += szybkosc;
-                    else Pozycja.Y = rozmiar_mapy.Y - CollisonDetectRect.Height;
+                    if (Wymiary.Y <= rozmiar_mapy.Y - (szybkosc + Wymiary.Height)) Wymiary.Y += szybkosc;
+                    else Wymiary.Y = rozmiar_mapy.Y - Wymiary.Height;
                     break;
                 case Kierunek.LEWO:
-                    if (Pozycja.X >= szybkosc) Pozycja.X -= szybkosc;
-                    else Pozycja.X = 0;
+                    if (Wymiary.X >= szybkosc) Wymiary.X -= szybkosc;
+                    else Wymiary.X = 0;
                     break;
             }
         }
-        public void Strzelaj()
+        public void Strzelaj(Fabryka fabryka)
         {
-
+            if (pocisk == null)
+            {
+                pocisk = fabryka.ProdukujPocisk();
+                pocisk.UstawPocisk(Wymiary.X + Wymiary.Width/2, Wymiary.Y + Wymiary.Height/2, kierunek);
+            }
+        }
+        public void RuchPocisku()
+        {
+            if (pocisk != null)
+            {
+                switch (pocisk.kierunek)
+                {
+                    case Czolg.Kierunek.GORA:
+                        if (pocisk.wymiary.Y > 0)
+                        {
+                            pocisk.ZmienPozycje(0, -pocisk.szybkosc);
+                        }
+                        else pocisk = null;
+                        break;
+                    case Czolg.Kierunek.PRAWO:
+                        if (pocisk.wymiary.X < 1000)
+                        {
+                            pocisk.ZmienPozycje(pocisk.szybkosc, 0);
+                        }
+                        else pocisk = null;
+                        break;
+                    case Czolg.Kierunek.DOL:
+                        if (pocisk.wymiary.Y < 1000)
+                        {
+                            pocisk.ZmienPozycje(0, pocisk.szybkosc);
+                        }
+                        else pocisk = null;
+                        break;
+                    case Czolg.Kierunek.LEWO:
+                        if (pocisk.wymiary.X > 0)
+                        {
+                            pocisk.ZmienPozycje(-pocisk.szybkosc, 0);
+                        }
+                        else pocisk = null;
+                        break;
+                }
+            }
         }
         public enum Kierunek : int { GORA=0, PRAWO, DOL, LEWO }
         public override void Rysuj(Graphics g, Point pozycja_kamery, System.Drawing.Imaging.ImageAttributes transparentPink)
         {
-            g.DrawImage(obrazy[(int)kierunek], new Rectangle(Pozycja.X - pozycja_kamery.X, Pozycja.Y - pozycja_kamery.Y, CollisonDetectRect.Width, CollisonDetectRect.Height), 0, 0,
-                        CollisonDetectRect.Width, CollisonDetectRect.Height, GraphicsUnit.Pixel, transparentPink);
+            g.DrawImage(obrazy[(int)kierunek], new Rectangle(Wymiary.X - pozycja_kamery.X, Wymiary.Y - pozycja_kamery.Y, Wymiary.Width, Wymiary.Height), 0, 0,
+                        Wymiary.Width, Wymiary.Height, GraphicsUnit.Pixel, transparentPink);
+            if (pocisk != null) pocisk.Rysuj(g, pozycja_kamery, transparentPink);
         }
           
     }

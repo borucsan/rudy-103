@@ -10,20 +10,19 @@ namespace Rudy_103.src
     /// <summary>
     /// Klasa bazowa dla wszystkich obiektów na planszy(np. przeszkody, czołgi...)
     /// </summary>
-    abstract partial class Obiekty
+    abstract class Obiekty
     {
-        protected Point Pozycja;
+        protected Rectangle Wymiary;
         protected Image[] obrazy;
-
-        public Point pozycja
+        public Rectangle wymiary
         {
             get
             {
-                return Pozycja;
+                return Wymiary;
             }
             set
             {
-                Pozycja = value;
+                Wymiary = value;
             }
         }
       
@@ -36,9 +35,12 @@ namespace Rudy_103.src
         /// <param name="Wys">Prawdopodobnie tymczasowy parametr wysokości obiektu</param>
         public Obiekty(int X, int Y, int Szer, int Wys)
         {
-            Pozycja.X = X;
-            Pozycja.Y = Y;
-            CollisonDetectRect = new Rectangle(X, Y, Szer, Wys);
+            Wymiary = new Rectangle(X, Y, Szer, Wys);
+        }
+        public Obiekty(int X, int Y, int Szer, int Wys, params Image[] obrazy)
+        {
+            Wymiary = new Rectangle(X, Y, Szer, Wys);
+            this.obrazy = obrazy;
         }
         /// <summary>
         /// Metoda wczytująca obrazy dla obiektów.

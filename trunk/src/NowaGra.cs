@@ -17,8 +17,10 @@ namespace Rudy_103.src
         private int czas_sekundy;
         private int czas_minuty;
         private Gracz player;
+        private Fabryka fabryka;
+        private Plansza plansza;
 
-        private Image [] czolg;
+        //private Image [] czolg;
         private int pozycja_x, pozycja_y;
         private int szybkosc;
         private String kierunek;
@@ -81,7 +83,7 @@ namespace Rudy_103.src
             
             kamera = new Rectangle(pozycja_kamery.X, pozycja_kamery.Y, pictureBox1.Width, pictureBox1.Height);
             
-            czolg = new Image[8];
+            //czolg = new Image[8];
             pocisk = new Image[4];
             i_bateria = new Image[7];
 
@@ -96,7 +98,7 @@ namespace Rudy_103.src
             i_bateria[4] = new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.bateria_40.png"));
             i_bateria[5] = new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.bateria_25.png"));
             i_bateria[6] = new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.bateria_10.png"));
-
+            /*
             //czolg[0] = new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.tank_up.png"));
             //czolg[0] = new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.czolg_up_1.png"));
             czolg[0] = new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.tank2_1_up.png"));
@@ -114,22 +116,17 @@ namespace Rudy_103.src
             //czolg[6] = new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.czolg_right_1.png"));
             czolg[6] = new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.tank2_1_right.png"));
             czolg[7] = new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.czolg_right_2.png"));
-
+            
             pocisk[0] = new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.pocisk_up.png"));
             pocisk[1] = new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.pocisk_down.png"));
             pocisk[2] = new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.pocisk_left.png"));
             pocisk[3] = new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.pocisk_right.png"));
-            player = new Gracz(100, 100, 50, 50, 100, 5, 10, 3);
-            player.WczytajObrazy(
-                new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.tank2_1_up.png")),
-                //new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.czolg_up_2.png")),
-                new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.tank2_1_right.png")),
-                //new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.czolg_right_2.png")),
-                new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.tank2_1_down.png")),
-                //new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.czolg_down_2.png")),
-                new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.tank2_1_left.png"))
-                //new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.czolg_left_2.png"))
-                );
+            */
+            fabryka = new Fabryka(execAssem, true);
+            plansza = new Plansza(1000, 1000);
+            plansza.GenerujDebugMapa(fabryka);
+            label2.Text = "Demo";
+            player = Fabryka.ProdukujDomyslnegoGracza(execAssem);
 
 
             this.timer1.Enabled = true;
@@ -197,13 +194,7 @@ namespace Rudy_103.src
                         } break;
                     case Keys.Enter:
                         {
-                            bool strzela = false;
-                            if (strzela == false)
-                            {
-                                pociskStrzelaj();
-                                strzela = true;
-                            }
-                            strzela = false;
+                            player.Strzelaj(fabryka);
                         } break;
                     case Keys.Space:
                         {
@@ -322,9 +313,12 @@ namespace Rudy_103.src
             {
                 //g.Clear(Color.White);
                 g.DrawImage(tlo, 0, 0);
-                g.DrawImage(czolg[0], new Rectangle(500 - pozycja_kamery.X, 500 - pozycja_kamery.Y, czolg[0].Width, czolg[0].Height), 0, 0,
-                    czolg[0].Width, czolg[0].Height, GraphicsUnit.Pixel, transparentPink);
-
+                plansza.RysujElementy(g, pozycja_kamery, transparentPink);
+                player.Rysuj(g, pozycja_kamery, transparentPink);
+                e.Graphics.DrawImage(bitmapBuffor, 0, 0);
+                /*g.DrawImage(czolg[0], new Rectangle(500 - pozycja_kamery.X, 500 - pozycja_kamery.Y, czolg[0].Width, czolg[0].Height), 0, 0,
+                    czolg[0].Width, czolg[0].Height, GraphicsUnit.Pixel, transparentPink);*/
+                /*
                 g.DrawImage(cegielka, new Rectangle(300 - pozycja_kamery.X, 200 - pozycja_kamery.Y, cegielka.Width, cegielka.Height), 0, 0,
                         cegielka.Width, cegielka.Height, GraphicsUnit.Pixel, transparentPink);
                 g.DrawImage(cegielka, new Rectangle(300 - pozycja_kamery.X, 225 - pozycja_kamery.Y, cegielka.Width, cegielka.Height), 0, 0,
@@ -346,7 +340,7 @@ namespace Rudy_103.src
                         cegielka.Width, cegielka.Height, GraphicsUnit.Pixel, transparentPink);
                 g.DrawImage(cegielka, new Rectangle(325 - pozycja_kamery.X, 300 - pozycja_kamery.Y, cegielka.Width, cegielka.Height), 0, 0,
                         cegielka.Width, cegielka.Height, GraphicsUnit.Pixel, transparentPink);
-                /*
+                
                 if (kierunek == "up")
                 {
                     //e.Graphics.DrawImage(czolg[0], pozycja_x, pozycja_y);
@@ -373,8 +367,8 @@ namespace Rudy_103.src
                     g.DrawImage(czolg[6], new Rectangle(pozycja_x - pozycja_kamery.X, pozycja_y - pozycja_kamery.Y, czolg[6].Width, czolg[6].Height), 0, 0,
                         czolg[6].Width, czolg[6].Height, GraphicsUnit.Pixel, transparentPink);
                 }*/
-                player.Rysuj(g, pozycja_kamery, transparentPink);
-                if (pocisk_na_mapie == true)
+                
+                /*if (pocisk_na_mapie == true)
                 {
                     if (kierunek_pocisku == "up")
                     {
@@ -392,17 +386,17 @@ namespace Rudy_103.src
                     {
                         g.DrawImage(pocisk[3], pozycja_pocisku_x - pozycja_kamery.X, pozycja_pocisku_y - pozycja_kamery.Y);
                     }
-                }
+                }*/
             }
             //Teraz wczytujemy to co w bufforze na ekran
-            e.Graphics.DrawImage(bitmapBuffor, 0, 0);
+            
             
         }
 
         private void timer1_Tick(object sender, EventArgs e)
         {
             zmienPozycjeGracza();
-            zmienPozycjePocisku();
+            player.RuchPocisku();
             pictureBox1.Invalidate();
             minimapapictureBox.Invalidate();
             
@@ -418,7 +412,7 @@ namespace Rudy_103.src
             }*/
             //e.Graphics.DrawEllipse(new Pen(Color.Red), (int)pozycja_x/20, (int)pozycja_y/20, 2, 2);
             
-            e.Graphics.FillEllipse(new SolidBrush(Color.Red), new Rectangle(((int)player.pozycja.X / 20), ((int)player.pozycja.Y / 20), 2, 2));
+            e.Graphics.FillEllipse(new SolidBrush(Color.Red), new Rectangle(((int)player.wymiary.X / 20), ((int)player.wymiary.Y / 20), 2, 2));
             e.Graphics.DrawRectangle(new Pen(Color.Black), (int)pozycja_kamery.X/20, (int)pozycja_kamery.Y/20, 12, 13);
         }
 

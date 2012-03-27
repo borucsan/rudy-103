@@ -59,6 +59,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="src\Czolg.cs" />
+    <Compile Include="src\Fabryka.cs" />
     <Compile Include="src\Gracz.cs" />
     <Compile Include="src\MenuGlowne.cs">
       <SubType>Form</SubType>
@@ -72,8 +73,8 @@
     <Compile Include="src\NowaGra.Designer.cs">
       <DependentUpon>NowaGra.cs</DependentUpon>
     </Compile>
-    <Compile Include="src\Obiekty.CollisionDetection.cs" />
     <Compile Include="src\Obiekty.cs" />
+    <Compile Include="src\Plansza.cs" />
     <Compile Include="src\Pocisk.cs" />
     <Compile Include="src\Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -100,6 +101,7 @@
       <DesignTime>True</DesignTime>
     </Compile>
     <Compile Include="src\Przeciwnik.cs" />
+    <Compile Include="src\Przeszkoda.cs" />
     <Compile Include="src\Top10.cs">
       <SubType>Form</SubType>
     </Compile>
