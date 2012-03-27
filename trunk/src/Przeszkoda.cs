@@ -26,7 +26,7 @@ namespace Rudy_103.src
         public override void Rysuj(Graphics g, Point pozycja_kamery, System.Drawing.Imaging.ImageAttributes transparentPink) 
         {
             g.DrawImage(obrazy[0], new Rectangle(Wymiary.X - pozycja_kamery.X, Wymiary.Y - pozycja_kamery.Y, Wymiary.Width, Wymiary.Height), 0, 0,
-                        Wymiary.Width, Wymiary.Height, GraphicsUnit.Pixel, transparentPink);
+                        obrazy[0].Width, obrazy[0].Height, GraphicsUnit.Pixel, transparentPink);
         }
         public object Clone()
         {
