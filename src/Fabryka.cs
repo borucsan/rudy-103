@@ -90,6 +90,7 @@ namespace Rudy_103.src
         public static Gracz ProdukujDomyslnegoGracza(System.Reflection.Assembly execAssem)
         {
             Gracz player = new Gracz(100, 100, 50, 50, 100, 5, 10, 3);
+            
             player.WczytajObrazy(
                 new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.tank3_up.png")),
                 //new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.czolg_up_2.png")),
