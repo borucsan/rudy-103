@@ -21,7 +21,7 @@ namespace Rudy_103.src
         private Plansza plansza;
 
         //private Image [] czolg;
-        private int pozycja_x, pozycja_y;
+        
         private int szybkosc;
         private String kierunek;
         private int wytrzymalosc;   //wytrzymalość czołgu
@@ -53,8 +53,6 @@ namespace Rudy_103.src
         {
             InitializeComponent();
             szybkosc = 5;
-            pozycja_x = 100;
-            pozycja_y = 100;
             kierunek = "up";
             wytrzymalosc = 100;
             energia = 3;
@@ -151,44 +149,43 @@ namespace Rudy_103.src
                 {
                     case Keys.Up:
                         {
-                            pozycja_kamery.Y -= szybkosc;
+                            pozycja_kamery.Y -= player.Szybkosc;
                             if (pozycja_kamery.Y <= 0) pozycja_kamery.Y = 0;//zmien pozycje kamery
-                            kierunek = "up";
-                            player.Ruch(Czolg.Kierunek.GORA, rozmiar_mapy);
+                            player.Ruch(Czolg.Kierunek.GORA, plansza);
                             /*if (pozycja_y >= szybkosc) pozycja_y -= szybkosc;
                             else pozycja_y = 0;*/
                            
                         } break;
                     case Keys.Down:
                         {
-                            pozycja_kamery.Y += szybkosc;
+                            pozycja_kamery.Y += player.Szybkosc;
                             if (pozycja_kamery.Y + pictureBox1.Height >= rozmiar_mapy.Y) 
                                 pozycja_kamery.Y = rozmiar_mapy.Y - pictureBox1.Height;
                             kierunek = "down";
-                            player.Ruch(Czolg.Kierunek.DOL, rozmiar_mapy);
+                            player.Ruch(Czolg.Kierunek.DOL, plansza);
                             /*
                             if (pozycja_y <= rozmiar_mapy.Y - (szybkosc + czolg[0].Width)) pozycja_y += szybkosc;
                             else pozycja_y = rozmiar_mapy.Y - czolg[0].Width;*/
                         } break;
                     case Keys.Left:
                         {
-                            pozycja_kamery.X -= szybkosc;
+                            pozycja_kamery.X -= player.Szybkosc;
                             if (pozycja_kamery.X <= 0) pozycja_kamery.X = 0;
                             
                             kierunek = "left";
-                            player.Ruch(Czolg.Kierunek.LEWO, rozmiar_mapy);
+                            player.Ruch(Czolg.Kierunek.LEWO, plansza);
                             
                             /*if (pozycja_x >= szybkosc) pozycja_x -= szybkosc;
                             else pozycja_x = 0;*/
                         }break;
                     case Keys.Right:
                         {
-                            pozycja_kamery.X += szybkosc;
+                            pozycja_kamery.X += player.Szybkosc;
                             if (pozycja_kamery.X + pictureBox1.Width >= rozmiar_mapy.X)
                                 pozycja_kamery.X = rozmiar_mapy.X - pictureBox1.Width;
                             
                             kierunek = "right";
-                            player.Ruch(Czolg.Kierunek.PRAWO, rozmiar_mapy);
+                            player.Ruch(Czolg.Kierunek.PRAWO, plansza);
                             /*if (pozycja_x <= rozmiar_mapy.X - (szybkosc + czolg[0].Width)) pozycja_x += szybkosc;
                             else pozycja_x = rozmiar_mapy.X - czolg[0].Width;*/
                         } break;
@@ -207,31 +204,7 @@ namespace Rudy_103.src
                 
             }
         }
-        private void pociskStrzelaj()
-        {
-            kierunek_pocisku = kierunek;
-            if (kierunek_pocisku == "up")
-            {
-                pozycja_pocisku_x = pozycja_x + 8;
-                pozycja_pocisku_y = pozycja_y;
-            }
-            if (kierunek_pocisku == "down")
-            {
-                pozycja_pocisku_x = pozycja_x + 8;
-                pozycja_pocisku_y = pozycja_y + 14;
-            }
-            if (kierunek_pocisku == "left")
-            {
-                pozycja_pocisku_x = pozycja_x;
-                pozycja_pocisku_y = pozycja_y +8;
-            }
-            if (kierunek_pocisku == "right")
-            {
-                pozycja_pocisku_x = pozycja_x + 14;
-                pozycja_pocisku_y = pozycja_y + 8;
-            }
-            pocisk_na_mapie = true;
-        }
+       
         private void zmienPozycjePocisku()
         {
             if (pocisk_na_mapie == true)
