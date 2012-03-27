@@ -168,6 +168,12 @@
     <EmbeddedResource Include="Resources\tank3_right.png" />
     <EmbeddedResource Include="Resources\tank3_up.png" />
   </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\cegielka2.png" />
+    <EmbeddedResource Include="Resources\cegielka3.png" />
+    <EmbeddedResource Include="Resources\cegielka4.png" />
+    <EmbeddedResource Include="Resources\drzewo.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CompactFramework.CSharp.targets" />
   <ProjectExtensions>
     <VisualStudio>

@@ -107,6 +107,10 @@ namespace Rudy_103.src
         {
             DodajWzorzecPrzeszkody("ziemia", new Przeszkoda(0, 0, 25, 25, true, new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.ziemia.png"))));
             DodajWzorzecPrzeszkody("cegielka", new Przeszkoda(0, 0, 25, 25, false, new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.cegielka.png"))));
+            DodajWzorzecPrzeszkody("cegielka2", new Przeszkoda(0, 0, 25, 25, false, new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.cegielka2.png"))));
+            DodajWzorzecPrzeszkody("cegielka3", new Przeszkoda(0, 0, 25, 25, false, new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.cegielka3.png"))));
+            DodajWzorzecPrzeszkody("cegielka4", new Przeszkoda(0, 0, 25, 25, false, new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.cegielka4.png"))));
+            DodajWzorzecPrzeszkody("drzewo", new Przeszkoda(0, 0, 25, 25, false, new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.drzewo.png"))));
         }
     }
 }

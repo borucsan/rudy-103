@@ -27,6 +27,12 @@ namespace Rudy_103.src
         private int wytrzymalosc;   //wytrzymalość czołgu
         private int energia;        //ilość żyć, energii
 
+        //Wartości określające minimalne i maksymalne wartości pola wyświetlającego grafike 
+        private int minX;
+        private int maxX;
+        private int minY;
+        private int maxY;
+
         private Image [] i_bateria;
 
         private Image [] pocisk;
@@ -66,7 +72,12 @@ namespace Rudy_103.src
             
             rozmiar_mapy.X = 1000;
             rozmiar_mapy.Y = 1000;
-            
+
+            minX = 0;
+            minY = 0;
+            maxX = 240;
+            maxY = 240;
+
             czas_minuty = 0;
             czas_sekundy = 0;
 
@@ -76,10 +87,10 @@ namespace Rudy_103.src
             transparentPink = new System.Drawing.Imaging.ImageAttributes();
             transparentPink.SetColorKey(Color.Pink, Color.Pink);
 
-            pozycja_kamery.X = 0;
-            pozycja_kamery.Y = 0;
+            pozycja_kamery.X = minX;
+            pozycja_kamery.Y = minY;
             
-            kamera = new Rectangle(pozycja_kamery.X, pozycja_kamery.Y, pictureBox1.Width, pictureBox1.Height);
+            kamera = new Rectangle(pozycja_kamery.X, pozycja_kamery.Y, maxX, maxY);
             
             //czolg = new Image[8];
             pocisk = new Image[4];
@@ -126,6 +137,7 @@ namespace Rudy_103.src
             label2.Text = "Demo";
             player = Fabryka.ProdukujDomyslnegoGracza(execAssem);
 
+            
 
             this.timer1.Enabled = true;
             this.czas_rozgrywki.Enabled = true;
@@ -149,43 +161,73 @@ namespace Rudy_103.src
                 {
                     case Keys.Up:
                         {
-                            pozycja_kamery.Y -= player.Szybkosc;
-                            if (pozycja_kamery.Y <= 0) pozycja_kamery.Y = 0;//zmien pozycje kamery
-                            player.Ruch(Czolg.Kierunek.GORA, plansza);
+                            if ((player.wymiary.Y + player.wymiary.Height / 2) > (pozycja_kamery.Y + maxY / 2))
+                            {
+                                player.Ruch(Czolg.Kierunek.GORA, plansza);
+                            }
+                            else
+                            {
+                                pozycja_kamery.Y -= player.Szybkosc;
+                                if (pozycja_kamery.Y <= minY) pozycja_kamery.Y = minY;//zmien pozycje kamery
+                                player.Ruch(Czolg.Kierunek.GORA, plansza);
+                            }
+                            
                             /*if (pozycja_y >= szybkosc) pozycja_y -= szybkosc;
                             else pozycja_y = 0;*/
                            
                         } break;
                     case Keys.Down:
                         {
-                            pozycja_kamery.Y += player.Szybkosc;
-                            if (pozycja_kamery.Y + pictureBox1.Height >= rozmiar_mapy.Y) 
-                                pozycja_kamery.Y = rozmiar_mapy.Y - pictureBox1.Height;
-                            kierunek = "down";
-                            player.Ruch(Czolg.Kierunek.DOL, plansza);
+                            if ((player.wymiary.Y + player.wymiary.Height / 2) < (pozycja_kamery.Y + maxY / 2))
+                            {
+                                player.Ruch(Czolg.Kierunek.DOL, plansza);
+                            }
+                            else
+                            {
+                                pozycja_kamery.Y += player.Szybkosc;
+                                if (pozycja_kamery.Y + maxY >= rozmiar_mapy.Y)
+                                    pozycja_kamery.Y = rozmiar_mapy.Y - maxY;
+                                player.Ruch(Czolg.Kierunek.DOL, plansza);
+                            }
+                            
+                            //kierunek = "down";
+                            
                             /*
                             if (pozycja_y <= rozmiar_mapy.Y - (szybkosc + czolg[0].Width)) pozycja_y += szybkosc;
                             else pozycja_y = rozmiar_mapy.Y - czolg[0].Width;*/
                         } break;
                     case Keys.Left:
                         {
-                            pozycja_kamery.X -= player.Szybkosc;
-                            if (pozycja_kamery.X <= 0) pozycja_kamery.X = 0;
-                            
-                            kierunek = "left";
-                            player.Ruch(Czolg.Kierunek.LEWO, plansza);
+                            if ((player.wymiary.X + player.wymiary.Width / 2) > (pozycja_kamery.X + maxX / 2))
+                            {
+                                player.Ruch(Czolg.Kierunek.LEWO, plansza);
+                            }
+                            else
+                            {
+                                pozycja_kamery.X -= player.Szybkosc;
+                                if (pozycja_kamery.X <= minX) pozycja_kamery.X = minX;
+
+                                player.Ruch(Czolg.Kierunek.LEWO, plansza);
+                            }
                             
                             /*if (pozycja_x >= szybkosc) pozycja_x -= szybkosc;
                             else pozycja_x = 0;*/
                         }break;
                     case Keys.Right:
                         {
-                            pozycja_kamery.X += player.Szybkosc;
-                            if (pozycja_kamery.X + pictureBox1.Width >= rozmiar_mapy.X)
-                                pozycja_kamery.X = rozmiar_mapy.X - pictureBox1.Width;
+                            if ((player.wymiary.X + player.wymiary.Height / 2) < (pozycja_kamery.X + maxX / 2))
+                            {
+                                player.Ruch(Czolg.Kierunek.PRAWO, plansza);
+                            }
+                            else
+                            {
+                                pozycja_kamery.X += player.Szybkosc;
+                                if (pozycja_kamery.X + maxX >= rozmiar_mapy.X)
+                                    pozycja_kamery.X = rozmiar_mapy.X - maxX;
+
+                                player.Ruch(Czolg.Kierunek.PRAWO, plansza);
+                            }
                             
-                            kierunek = "right";
-                            player.Ruch(Czolg.Kierunek.PRAWO, plansza);
                             /*if (pozycja_x <= rozmiar_mapy.X - (szybkosc + czolg[0].Width)) pozycja_x += szybkosc;
                             else pozycja_x = rozmiar_mapy.X - czolg[0].Width;*/
                         } break;
@@ -200,7 +242,7 @@ namespace Rudy_103.src
                             
                         } break;
                 }
-                kamera = new Rectangle(pozycja_kamery.X, pozycja_kamery.Y, pictureBox1.Width, pictureBox1.Height);
+                kamera = new Rectangle(pozycja_kamery.X, pozycja_kamery.Y, maxX, maxY);
                 
             }
         }
@@ -223,7 +265,7 @@ namespace Rudy_103.src
                 }
                 if (kierunek_pocisku == "down")
                 {
-                    if (pozycja_pocisku_y < pictureBox1.Height)
+                    if (pozycja_pocisku_y < maxY)
                     {
                         pozycja_pocisku_y += szybkosc_pocisku;
                     }
@@ -247,7 +289,7 @@ namespace Rudy_103.src
                 }
                 if (kierunek_pocisku == "right")
                 {
-                    if (pozycja_pocisku_x < pictureBox1.Width)
+                    if (pozycja_pocisku_x < maxX)
                     {
                         pozycja_pocisku_x += szybkosc_pocisku;
                     }
@@ -259,118 +301,15 @@ namespace Rudy_103.src
                 }
             }
         }
-        private Bitmap bitmapBuffor = null;
-        private void pictureBox1_Paint(object sender, PaintEventArgs e)
-        {
-            /*cos w tym stylu trzeba bedzie zaimplementować kiedy będą dane wrzucane do jakiegoś kontenera danych
-            for(int x = 0; x<rozmiar_mapy.X; x++)
-            {
-                for(int y = 0; y<rozmiar_mapy.Y; y++)
-                {
-                    if (lista[x][y].pozycja_obiektu.x <= pozycja_kamery.X + pictureBox1.Width + 50
-                        && lista[x][y].pozycja_obiektu.y <= pozycja_kamery.Y + pictureBox1.Height + 50)
-                    {
-                        lista[x][y].Rysuj(PaintEventArgs e);
-                    }
-                }
-            }
-            */
-            //Tworzymy nowy buffor jezeli potrzebny.
-            if (bitmapBuffor == null)
-            {
-                bitmapBuffor = new Bitmap(this.ClientSize.Width, this.ClientSize.Height);
-            }
-
-            //Tutaj ladujemy cala grafike
-            using (Graphics g = Graphics.FromImage(bitmapBuffor))
-            {
-                //g.Clear(Color.White);
-                g.DrawImage(tlo, 0, 0);
-                plansza.RysujElementy(g, pozycja_kamery, transparentPink);
-                player.Rysuj(g, pozycja_kamery, transparentPink);
-                
-                /*g.DrawImage(czolg[0], new Rectangle(500 - pozycja_kamery.X, 500 - pozycja_kamery.Y, czolg[0].Width, czolg[0].Height), 0, 0,
-                    czolg[0].Width, czolg[0].Height, GraphicsUnit.Pixel, transparentPink);*/
-                /*
-                g.DrawImage(cegielka, new Rectangle(300 - pozycja_kamery.X, 200 - pozycja_kamery.Y, cegielka.Width, cegielka.Height), 0, 0,
-                        cegielka.Width, cegielka.Height, GraphicsUnit.Pixel, transparentPink);
-                g.DrawImage(cegielka, new Rectangle(300 - pozycja_kamery.X, 225 - pozycja_kamery.Y, cegielka.Width, cegielka.Height), 0, 0,
-                        cegielka.Width, cegielka.Height, GraphicsUnit.Pixel, transparentPink);
-                g.DrawImage(cegielka, new Rectangle(300 - pozycja_kamery.X, 250 - pozycja_kamery.Y, cegielka.Width, cegielka.Height), 0, 0,
-                        cegielka.Width, cegielka.Height, GraphicsUnit.Pixel, transparentPink);
-                g.DrawImage(cegielka, new Rectangle(300 - pozycja_kamery.X, 275 - pozycja_kamery.Y, cegielka.Width, cegielka.Height), 0, 0,
-                        cegielka.Width, cegielka.Height, GraphicsUnit.Pixel, transparentPink);
-                g.DrawImage(cegielka, new Rectangle(300 - pozycja_kamery.X, 300 - pozycja_kamery.Y, cegielka.Width, cegielka.Height), 0, 0,
-                        cegielka.Width, cegielka.Height, GraphicsUnit.Pixel, transparentPink);
-
-                g.DrawImage(cegielka, new Rectangle(325 - pozycja_kamery.X, 200 - pozycja_kamery.Y, cegielka.Width, cegielka.Height), 0, 0,
-                        cegielka.Width, cegielka.Height, GraphicsUnit.Pixel, transparentPink);
-                g.DrawImage(cegielka, new Rectangle(325 - pozycja_kamery.X, 225 - pozycja_kamery.Y, cegielka.Width, cegielka.Height), 0, 0,
-                        cegielka.Width, cegielka.Height, GraphicsUnit.Pixel, transparentPink);
-                g.DrawImage(cegielka, new Rectangle(325 - pozycja_kamery.X, 250 - pozycja_kamery.Y, cegielka.Width, cegielka.Height), 0, 0,
-                        cegielka.Width, cegielka.Height, GraphicsUnit.Pixel, transparentPink);
-                g.DrawImage(cegielka, new Rectangle(325 - pozycja_kamery.X, 275 - pozycja_kamery.Y, cegielka.Width, cegielka.Height), 0, 0,
-                        cegielka.Width, cegielka.Height, GraphicsUnit.Pixel, transparentPink);
-                g.DrawImage(cegielka, new Rectangle(325 - pozycja_kamery.X, 300 - pozycja_kamery.Y, cegielka.Width, cegielka.Height), 0, 0,
-                        cegielka.Width, cegielka.Height, GraphicsUnit.Pixel, transparentPink);
-                
-                if (kierunek == "up")
-                {
-                    //e.Graphics.DrawImage(czolg[0], pozycja_x, pozycja_y);
-                    g.DrawImage(czolg[0], new Rectangle(pozycja_x - pozycja_kamery.X, pozycja_y - pozycja_kamery.Y, czolg[0].Width, czolg[0].Height), 0, 0,
-                        czolg[0].Width, czolg[0].Height, GraphicsUnit.Pixel, transparentPink);
-
-                }
-                if (kierunek == "down")
-                {
-                    //e.Graphics.DrawImage(czolg[2], pozycja_x, pozycja_y);
-                    g.DrawImage(czolg[2], new Rectangle(pozycja_x - pozycja_kamery.X, pozycja_y - pozycja_kamery.Y, czolg[2].Width, czolg[2].Height), 0, 0,
-                        czolg[2].Width, czolg[2].Height, GraphicsUnit.Pixel, transparentPink);
-
-                }
-                if (kierunek == "left")
-                {
-                    //e.Graphics.DrawImage(czolg[4], pozycja_x, pozycja_y);
-                    g.DrawImage(czolg[4], new Rectangle(pozycja_x - pozycja_kamery.X, pozycja_y - pozycja_kamery.Y, czolg[4].Width, czolg[4].Height), 0, 0,
-                        czolg[4].Width, czolg[4].Height, GraphicsUnit.Pixel, transparentPink);
-                }
-                if (kierunek == "right")
-                {
-                    //e.Graphics.DrawImage(czolg[6], pozycja_x, pozycja_y);
-                    g.DrawImage(czolg[6], new Rectangle(pozycja_x - pozycja_kamery.X, pozycja_y - pozycja_kamery.Y, czolg[6].Width, czolg[6].Height), 0, 0,
-                        czolg[6].Width, czolg[6].Height, GraphicsUnit.Pixel, transparentPink);
-                }*/
-                
-                /*if (pocisk_na_mapie == true)
-                {
-                    if (kierunek_pocisku == "up")
-                    {
-                        g.DrawImage(pocisk[0], pozycja_pocisku_x - pozycja_kamery.X, pozycja_pocisku_y - pozycja_kamery.Y);
-                    }
-                    if (kierunek_pocisku == "down")
-                    {
-                        g.DrawImage(pocisk[1], pozycja_pocisku_x - pozycja_kamery.X, pozycja_pocisku_y - pozycja_kamery.Y);
-                    }
-                    if (kierunek_pocisku == "left")
-                    {
-                        g.DrawImage(pocisk[2], pozycja_pocisku_x - pozycja_kamery.X, pozycja_pocisku_y - pozycja_kamery.Y);
-                    }
-                    if (kierunek_pocisku == "right")
-                    {
-                        g.DrawImage(pocisk[3], pozycja_pocisku_x - pozycja_kamery.X, pozycja_pocisku_y - pozycja_kamery.Y);
-                    }
-                }*/
-            }
-            //Teraz wczytujemy to co w bufforze na ekran
-            e.Graphics.DrawImage(bitmapBuffor, 0, 0);
-            
-        }
+        
+        
 
         private void timer1_Tick(object sender, EventArgs e)
         {
             zmienPozycjeGracza();
             player.RuchPocisku();
-            pictureBox1.Invalidate();
+            //pictureBox1.Invalidate();
+            Invalidate();
             minimapapictureBox.Invalidate();
             
         }
@@ -518,6 +457,43 @@ namespace Rudy_103.src
                     e.Graphics.DrawImage(i_bateria[6], new Rectangle(1, 20, 18, 38), 0, 0, i_bateria[0].Width, i_bateria[0].Height, GraphicsUnit.Pixel, transparentPink);
                 }
             }
+        }
+        protected override void OnPaintBackground(PaintEventArgs e)
+        {
+            //base.OnPaintBackground(e);
+        }
+        private Bitmap bitmapBuffor = null;
+        private void NowaGra_Paint(object sender, PaintEventArgs e)
+        {
+            /*cos w tym stylu trzeba bedzie zaimplementować kiedy będą dane wrzucane do jakiegoś kontenera danych
+            for(int x = 0; x<rozmiar_mapy.X; x++)
+            {
+                for(int y = 0; y<rozmiar_mapy.Y; y++)
+                {
+                    if (lista[x][y].pozycja_obiektu.x <= pozycja_kamery.X + pictureBox1.Width + 50
+                        && lista[x][y].pozycja_obiektu.y <= pozycja_kamery.Y + pictureBox1.Height + 50)
+                    {
+                        lista[x][y].Rysuj(PaintEventArgs e);
+                    }
+                }
+            }
+            */
+            //Tworzymy nowy buffor jezeli potrzebny.
+            if (bitmapBuffor == null)
+            {
+                bitmapBuffor = new Bitmap(this.ClientSize.Width, this.ClientSize.Height);
+            }
+
+            //Tutaj ladujemy cala grafike
+            using (Graphics g = Graphics.FromImage(bitmapBuffor))
+            {
+                //g.Clear(Color.White);
+                g.DrawImage(tlo, 0, 0);
+                plansza.RysujElementy(g, pozycja_kamery, transparentPink);
+                player.Rysuj(g, pozycja_kamery, transparentPink);
+
+            }                
+            e.Graphics.DrawImage(bitmapBuffor, 0, 0);
         }
     }
 }
