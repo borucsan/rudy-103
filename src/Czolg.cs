@@ -14,6 +14,17 @@ namespace Rudy_103.src
     {
         protected int wytrzymalosc;
         protected int szybkosc;
+        public int Szybkosc
+        {
+            get
+            {
+                return szybkosc;
+            }
+            set
+            {
+                szybkosc = value;
+            }
+        }
         protected int sila;
         protected Kierunek kierunek;
         protected Pocisk pocisk;
@@ -37,27 +48,55 @@ namespace Rudy_103.src
         /// Metoda do poruszania czołgami
         /// </summary>
         /// <param name="kierunek">Enumeracja reprezentująca kierunek</param>
-        /// <param name="rozmiar_mapy">Struktura rozmiaru mapy</param>
-        public void Ruch(Kierunek kierunek, Point rozmiar_mapy)
+        /// <param name="plansza">Referencja obiektu mapy</param>
+        public void Ruch(Kierunek kierunek, Plansza plansza)
         {
             this.kierunek = kierunek;
             switch (kierunek)
             {
                 case Kierunek.GORA:
-                    if (Wymiary.Y >= szybkosc) Wymiary.Y -= szybkosc;
-                    else Wymiary.Y = 0;
+                    if (Wymiary.Y >= szybkosc)
+                    {
+                        Wymiary.Y -= szybkosc;
+                        if (Zderzenie(plansza))
+                        {
+                            Wymiary.Y = Wymiary.Y + szybkosc;
+                        }
+                    }
+                    //else Wymiary.Y = 0;
                     break;
                 case Kierunek.PRAWO:
-                    if (Wymiary.X <= rozmiar_mapy.X - (szybkosc + Wymiary.Width)) Wymiary.X += szybkosc;
-                    else Wymiary.X = rozmiar_mapy.X - Wymiary.Width;
+                    if (Wymiary.X <= plansza.Szerokosc - (szybkosc + Wymiary.Width))
+                    {
+                        Wymiary.X += szybkosc;
+                        if(Zderzenie(plansza))
+                        {
+                            Wymiary.X = Wymiary.X - szybkosc;
+                        }
+                    }
+                    //else Wymiary.X = plansza.Szerokosc - Wymiary.Width;
                     break;
                 case Kierunek.DOL:
-                    if (Wymiary.Y <= rozmiar_mapy.Y - (szybkosc + Wymiary.Height)) Wymiary.Y += szybkosc;
-                    else Wymiary.Y = rozmiar_mapy.Y - Wymiary.Height;
+                    if (Wymiary.Y <= plansza.Wysokosc - (szybkosc + Wymiary.Height))
+                    {
+                        Wymiary.Y += szybkosc;
+                        if (Zderzenie(plansza))
+                        {
+                            Wymiary.Y = Wymiary.Y - szybkosc;
+                        }
+                    }
+                    //else Wymiary.Y = plansza.Wysokosc - Wymiary.Height;
                     break;
                 case Kierunek.LEWO:
-                    if (Wymiary.X >= szybkosc) Wymiary.X -= szybkosc;
-                    else Wymiary.X = 0;
+                    if (Wymiary.X >= szybkosc && !Zderzenie(plansza))
+                    {
+                        Wymiary.X -= szybkosc;
+                        if (Zderzenie(plansza))
+                        {
+                            Wymiary.X = Wymiary.X + szybkosc;
+                        }
+                    }
+                    //else Wymiary.X = 0;
                     break;
             }
         }
@@ -106,7 +145,46 @@ namespace Rudy_103.src
                 }
             }
         }
-        public enum Kierunek : int { GORA=0, PRAWO, DOL, LEWO }
+        public Rectangle StworzProstokatMozliwychKolizji(Plansza plansza)
+        {
+            Rectangle ProstokatMozliwychKolizji = new Rectangle() ;
+            switch(kierunek)
+            {
+                case Kierunek.GORA:
+                    ProstokatMozliwychKolizji = new Rectangle(Wymiary.X, 0, Wymiary.Width, Wymiary.Y);
+                break;
+                case Kierunek.PRAWO:
+                    ProstokatMozliwychKolizji = new Rectangle(Wymiary.X + Wymiary.Width, Wymiary.Y,plansza.Szerokosc - (Wymiary.X + Wymiary.Width), Wymiary.Height);
+                break;
+                case Kierunek.DOL:
+                    ProstokatMozliwychKolizji = new Rectangle(Wymiary.X, Wymiary.Y + Wymiary.Height, Wymiary.Width, plansza.Wysokosc - (Wymiary.Y + Wymiary.Height));
+                break;
+                case Kierunek.LEWO:
+                    ProstokatMozliwychKolizji = new Rectangle(0, Wymiary.Y, Wymiary.X, Wymiary.Height);
+                break;
+            }
+            return ProstokatMozliwychKolizji;
+        }
+        public bool Zderzenie(Plansza plansza)
+        {
+            Rectangle pmk = StworzProstokatMozliwychKolizji(plansza);
+           /* for (int i = 0; i < plansza.przeciwnicy_na_mapie.Capacity; ++i)
+            {
+                if (plansza.przeciwnicy_na_mapie[i].Wymiary.IntersectsWith(pmk))
+                {
+                    if(plansza.przeciwnicy_na_mapie[i].Wymiary.IntersectsWith(Wymiary)) return true;
+                }
+            }*/
+            for (int i = 0; i < plansza.przeszkody.Count(); ++i)
+            {
+                if ((plansza.przeszkody[i]).wymiary.IntersectsWith(pmk))
+                {
+                    if (plansza.przeszkody[i].wymiary.IntersectsWith(Wymiary)) return true;
+                }
+            }
+            return false;
+        }
+        public enum Kierunek : int { GORA = 0, PRAWO, DOL, LEWO }
         public override void Rysuj(Graphics g, Point pozycja_kamery, System.Drawing.Imaging.ImageAttributes transparentPink)
         {
             //Tutaj jest cos nie tak bo nie dokonca Wymiary dzialaja, 

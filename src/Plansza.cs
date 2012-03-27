@@ -13,9 +13,9 @@ namespace Rudy_103.src
         public List<Przeciwnik> przeciwnicy_na_mapie { get; set; }
         public List<Przeszkoda> przeszkody { get; set; }
         public uint poziom { get; set; }
-        public uint Wysokosc { get; set; }
-        public uint Szerokosc { get; set; }
-        public Plansza(uint X, uint Y)
+        public int Wysokosc { get; set; }
+        public int Szerokosc { get; set; }
+        public Plansza(int X, int Y)
         {
             Wysokosc = Y;
             Szerokosc = X;
