@@ -315,7 +315,7 @@ namespace Rudy_103.src
                 g.DrawImage(tlo, 0, 0);
                 plansza.RysujElementy(g, pozycja_kamery, transparentPink);
                 player.Rysuj(g, pozycja_kamery, transparentPink);
-                e.Graphics.DrawImage(bitmapBuffor, 0, 0);
+                
                 /*g.DrawImage(czolg[0], new Rectangle(500 - pozycja_kamery.X, 500 - pozycja_kamery.Y, czolg[0].Width, czolg[0].Height), 0, 0,
                     czolg[0].Width, czolg[0].Height, GraphicsUnit.Pixel, transparentPink);*/
                 /*
@@ -389,7 +389,7 @@ namespace Rudy_103.src
                 }*/
             }
             //Teraz wczytujemy to co w bufforze na ekran
-            
+            e.Graphics.DrawImage(bitmapBuffor, 0, 0);
             
         }
 
