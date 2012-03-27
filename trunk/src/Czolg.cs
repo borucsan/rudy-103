@@ -112,8 +112,8 @@ namespace Rudy_103.src
             //Tutaj jest cos nie tak bo nie dokonca Wymiary dzialaja, 
             //50, 50 to jest rozmiar prostokata ktory jest wyswietlany
             //240, 240 jest to rozmiar obrazka, ktory jest przeskalowywany do 50, 50
-            g.DrawImage(obrazy[(int)kierunek], new Rectangle(Wymiary.X - pozycja_kamery.X, Wymiary.Y - pozycja_kamery.Y, 50, 50), 0, 0,
-                        240, 240, GraphicsUnit.Pixel, transparentPink);
+            g.DrawImage(obrazy[(int)kierunek], new Rectangle(Wymiary.X - pozycja_kamery.X, Wymiary.Y - pozycja_kamery.Y, Wymiary.Width, Wymiary.Height), 0, 0,
+                        obrazy[(int)kierunek].Width, obrazy[(int)kierunek].Width, GraphicsUnit.Pixel, transparentPink);
             if (pocisk != null) pocisk.Rysuj(g, pozycja_kamery, transparentPink);
         }
           
