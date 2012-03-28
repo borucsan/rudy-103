@@ -20,10 +20,6 @@ namespace Rudy_103.src
         private Fabryka fabryka;
         private Plansza plansza;
 
-        //private Image [] czolg;
-        
-        private int szybkosc;
-        private String kierunek;
         private int wytrzymalosc;   //wytrzymalość czołgu
         private int energia;        //ilość żyć, energii
 
@@ -35,22 +31,14 @@ namespace Rudy_103.src
 
         private Image [] i_bateria;
 
-        private Image [] pocisk;
-        private int pozycja_pocisku_x, pozycja_pocisku_y;
-        private int szybkosc_pocisku;
-        private String kierunek_pocisku;
-
-        private Image cegielka;
+     
 
         //Zmienne dotyczące rysowania
         private System.Drawing.Imaging.ImageAttributes transparentPink;
-        bool pocisk_na_mapie;
-        Point rozmiar_mapy;
         
         Rectangle kamera;
         Point pozycja_kamery; //Lewy górny róg  kamery
         
-        Image ziemia;
         Image tlo;
         /// <summary>
         /// Konstruktor klasy nowej gry.
@@ -58,20 +46,8 @@ namespace Rudy_103.src
         public NowaGra()
         {
             InitializeComponent();
-            szybkosc = 5;
-            kierunek = "up";
             wytrzymalosc = 100;
             energia = 3;
-            kierunek_pocisku = null;
-            szybkosc_pocisku = 10;
-            pozycja_pocisku_x = 0;
-            pozycja_pocisku_y = 0;
-
-            pocisk_na_mapie = false;
-            
-            
-            rozmiar_mapy.X = 1000;
-            rozmiar_mapy.Y = 1000;
 
             minX = 0;
             minY = 0;
@@ -91,13 +67,9 @@ namespace Rudy_103.src
             pozycja_kamery.Y = minY;
             
             kamera = new Rectangle(pozycja_kamery.X, pozycja_kamery.Y, maxX, maxY);
-            
-            //czolg = new Image[8];
-            pocisk = new Image[4];
+
             i_bateria = new Image[7];
 
-            ziemia = new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.ziemia.png"));
-            cegielka = new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.cegielka.png"));
             tlo = new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.ziemia_tlo.png"));
 
             i_bateria[0] = new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.bateria_100.png"));
@@ -107,30 +79,7 @@ namespace Rudy_103.src
             i_bateria[4] = new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.bateria_40.png"));
             i_bateria[5] = new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.bateria_25.png"));
             i_bateria[6] = new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.bateria_10.png"));
-            /*
-            //czolg[0] = new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.tank_up.png"));
-            //czolg[0] = new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.czolg_up_1.png"));
-            czolg[0] = new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.tank2_1_up.png"));
-            czolg[1] = new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.czolg_up_2.png"));
 
-            //czolg[2] = new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.tank_down.png"));
-            //czolg[2] = new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.czolg_down_1.png"));
-            czolg[2] = new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.tank2_1_down.png"));
-            czolg[3] = new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.czolg_down_2.png"));
-
-            //czolg[4] = new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.czolg_left_1.png"));
-            czolg[4] = new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.tank2_1_left.png"));
-            czolg[5] = new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.czolg_left_2.png"));
-
-            //czolg[6] = new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.czolg_right_1.png"));
-            czolg[6] = new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.tank2_1_right.png"));
-            czolg[7] = new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.czolg_right_2.png"));
-            
-            pocisk[0] = new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.pocisk_up.png"));
-            pocisk[1] = new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.pocisk_down.png"));
-            pocisk[2] = new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.pocisk_left.png"));
-            pocisk[3] = new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.pocisk_right.png"));
-            */
             fabryka = new Fabryka(execAssem, true);
             plansza = new Plansza(1000, 1000);
             plansza.GenerujDebugMapa(fabryka);
@@ -185,8 +134,8 @@ namespace Rudy_103.src
                             else
                             {
                                 pozycja_kamery.Y += player.Szybkosc;
-                                if (pozycja_kamery.Y + maxY >= rozmiar_mapy.Y)
-                                    pozycja_kamery.Y = rozmiar_mapy.Y - maxY;
+                                if (pozycja_kamery.Y + maxY >= plansza.Wysokosc)
+                                    pozycja_kamery.Y = plansza.Wysokosc - maxY;
                                 player.Ruch(Czolg.Kierunek.DOL, plansza);
                             }
                             
@@ -222,8 +171,8 @@ namespace Rudy_103.src
                             else
                             {
                                 pozycja_kamery.X += player.Szybkosc;
-                                if (pozycja_kamery.X + maxX >= rozmiar_mapy.X)
-                                    pozycja_kamery.X = rozmiar_mapy.X - maxX;
+                                if (pozycja_kamery.X + maxX >= plansza.Szerokosc)
+                                    pozycja_kamery.X = plansza.Szerokosc - maxX;
 
                                 player.Ruch(Czolg.Kierunek.PRAWO, plansza);
                             }
@@ -246,68 +195,10 @@ namespace Rudy_103.src
                 
             }
         }
-       
-        private void zmienPozycjePocisku()
-        {
-            if (pocisk_na_mapie == true)
-            {
-                if (kierunek_pocisku == "up")
-                {
-                    if (pozycja_pocisku_y > 0)
-                    {
-                        pozycja_pocisku_y -= szybkosc_pocisku;
-                    }
-                    else
-                    {
-                        pocisk_na_mapie = false;
-                        kierunek_pocisku = null;
-                    }
-                }
-                if (kierunek_pocisku == "down")
-                {
-                    if (pozycja_pocisku_y < maxY)
-                    {
-                        pozycja_pocisku_y += szybkosc_pocisku;
-                    }
-                    else
-                    {
-                        pocisk_na_mapie = false;
-                        kierunek_pocisku = null;
-                    }
-                }
-                if (kierunek_pocisku == "left")
-                {
-                    if (pozycja_pocisku_x > 0)
-                    {
-                        pozycja_pocisku_x -= szybkosc_pocisku;
-                    }
-                    else
-                    {
-                        pocisk_na_mapie = false;
-                        kierunek_pocisku = null;
-                    }
-                }
-                if (kierunek_pocisku == "right")
-                {
-                    if (pozycja_pocisku_x < maxX)
-                    {
-                        pozycja_pocisku_x += szybkosc_pocisku;
-                    }
-                    else
-                    {
-                        pocisk_na_mapie = false;
-                        kierunek_pocisku = null;
-                    }
-                }
-            }
-        }
-        
-        
-
         private void timer1_Tick(object sender, EventArgs e)
         {
             zmienPozycjeGracza();
-            player.RuchPocisku();
+            player.RuchPocisku(plansza);
             //pictureBox1.Invalidate();
             Invalidate();
             minimapapictureBox.Invalidate();
@@ -489,8 +380,8 @@ namespace Rudy_103.src
             {
                 //g.Clear(Color.White);
                 g.DrawImage(tlo, 0, 0);
-                plansza.RysujElementy(g, pozycja_kamery, transparentPink);
                 player.Rysuj(g, pozycja_kamery, transparentPink);
+                plansza.RysujElementy(g, pozycja_kamery, transparentPink);
 
             }                
             e.Graphics.DrawImage(bitmapBuffor, 0, 0);
