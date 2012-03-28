@@ -188,7 +188,6 @@ namespace Rudy_103.src
                         {
                             zmniejsz_energie();
                             energiapicture.Invalidate();
-                            
                         } break;
                 }
                 kamera = new Rectangle(pozycja_kamery.X, pozycja_kamery.Y, maxX, maxY);
