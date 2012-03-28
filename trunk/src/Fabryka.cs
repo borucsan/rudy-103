@@ -31,12 +31,12 @@ namespace Rudy_103.src
         {
             wzorce_przeszkod = new Dictionary<string,Przeszkoda>();
             wzorce_przeciwnikow = new Dictionary<string,Przeciwnik>();
-            wzorzec_pocisku = new Pocisk(0, 0, 8, 10, 5, 10, Czolg.Kierunek.GORA);
+            wzorzec_pocisku = new Pocisk(0, 0, 10, 10, 5, 10, Czolg.Kierunek.GORA);
             wzorzec_pocisku.WczytajObrazy(
-                new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.pocisk_up.png")),
-                new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.pocisk_right.png")),
-                new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.pocisk_down.png")),
-                new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.pocisk_left.png"))
+                new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.pocisk2_up.png")),
+                new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.pocisk2_right.png")),
+                new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.pocisk2_down.png")),
+                new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.pocisk2_left.png"))
                 );
             if (TworzDomyslneWzorce) this.TworzDomyslneWzorce(execAssem);
 
@@ -89,7 +89,7 @@ namespace Rudy_103.src
         /// <returns>Zwraca instancję gracza</returns>
         public static Gracz ProdukujDomyslnegoGracza(System.Reflection.Assembly execAssem)
         {
-            Gracz player = new Gracz(100, 100, 50, 50, 100, 5, 10, 3);
+            Gracz player = new Gracz(100, 100, 40, 40, 100, 5, 10, 3);
             
             player.WczytajObrazy(
                 new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.tank3_up.png")),

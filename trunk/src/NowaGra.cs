@@ -52,7 +52,7 @@ namespace Rudy_103.src
             minX = 0;
             minY = 0;
             maxX = 240;
-            maxY = 240;
+            maxY = 320;
 
             czas_minuty = 0;
             czas_sekundy = 0;
@@ -70,7 +70,7 @@ namespace Rudy_103.src
 
             i_bateria = new Image[7];
 
-            tlo = new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.ziemia_tlo.png"));
+            tlo = new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.tlo.png"));
 
             i_bateria[0] = new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.bateria_100.png"));
             i_bateria[1] = new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.bateria_85.png"));
@@ -177,8 +177,6 @@ namespace Rudy_103.src
                                 player.Ruch(Czolg.Kierunek.PRAWO, plansza);
                             }
                             
-                            /*if (pozycja_x <= rozmiar_mapy.X - (szybkosc + czolg[0].Width)) pozycja_x += szybkosc;
-                            else pozycja_x = rozmiar_mapy.X - czolg[0].Width;*/
                         } break;
                     case Keys.Enter:
                         {
