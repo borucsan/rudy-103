@@ -118,6 +118,7 @@ namespace Rudy_103.src
                         if (pocisk.wymiary.Y > 0)
                         {
                             pocisk.ZmienPozycje(0, -pocisk.szybkosc);
+                            Trafienie(plansza);
                         }
                         else pocisk = null;
                         break;
@@ -125,6 +126,7 @@ namespace Rudy_103.src
                         if (pocisk.wymiary.X < 1000)
                         {
                             pocisk.ZmienPozycje(pocisk.szybkosc, 0);
+                            Trafienie(plansza);
                         }
                         else pocisk = null;
                         break;
@@ -132,6 +134,7 @@ namespace Rudy_103.src
                         if (pocisk.wymiary.Y < 1000)
                         {
                             pocisk.ZmienPozycje(0, pocisk.szybkosc);
+                            Trafienie(plansza);
                         }
                         else pocisk = null;
                         break;
@@ -139,6 +142,7 @@ namespace Rudy_103.src
                         if (pocisk.wymiary.X > 0)
                         {
                             pocisk.ZmienPozycje(-pocisk.szybkosc, 0);
+                            Trafienie(plansza);
                         }
                         else pocisk = null;
                         break;
@@ -204,8 +208,10 @@ namespace Rudy_103.src
                     {
                         if (plansza.przeszkody[i].Uszkodz(sila) <= 0)
                         {
-                            
-                        } 
+                            plansza.przeszkody.RemoveAt(i);
+                        }
+                        pocisk = null;
+                        return;
                     }
                 }
             }
