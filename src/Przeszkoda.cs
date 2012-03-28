@@ -9,8 +9,8 @@ namespace Rudy_103.src
 {
     class Przeszkoda : Obiekty, ICloneable
     {
-        private int energia;
-        private bool transparent;
+        private int energia { get; set; }
+        public bool transparent { get; set; }
         public Przeszkoda(int X, int Y, int Szer, int Wys, bool transparent)
             : base(X, Y, Szer, Wys)
         {
@@ -33,6 +33,10 @@ namespace Rudy_103.src
             Przeszkoda klon = new Przeszkoda(0, 0, this.Wymiary.Width, this.Wymiary.Height, transparent);
             klon.WczytajObrazy(this.obrazy);
             return klon;
+        }
+        public int Uszkodz(int sila)
+        {
+            return energia = energia - sila;
         }
         public void UstawPozycje(int X, int Y)
         {

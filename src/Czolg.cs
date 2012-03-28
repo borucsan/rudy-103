@@ -108,7 +108,7 @@ namespace Rudy_103.src
                 pocisk.UstawPocisk(Wymiary.X + Wymiary.Width/2, Wymiary.Y + Wymiary.Height/2, kierunek);
             }
         }
-        public void RuchPocisku()
+        public void RuchPocisku(Plansza plansza)
         {
             if (pocisk != null)
             {
@@ -179,10 +179,36 @@ namespace Rudy_103.src
             {
                 if ((plansza.przeszkody[i]).wymiary.IntersectsWith(pmk))
                 {
+                    if (plansza.przeszkody[i].transparent) continue;
                     if (plansza.przeszkody[i].wymiary.IntersectsWith(Wymiary)) return true;
                 }
             }
             return false;
+        }
+        public void Trafienie(Plansza plansza)
+        {
+            Rectangle pmk = StworzProstokatMozliwychKolizji(plansza);
+            /* for (int i = 0; i < plansza.przeciwnicy_na_mapie.Capacity; ++i)
+            {
+                if (plansza.przeciwnicy_na_mapie[i].Wymiary.IntersectsWith(pmk))
+                {
+                    if(plansza.przeciwnicy_na_mapie[i].Wymiary.IntersectsWith(Wymiary)) return true;
+                }
+            }*/
+            for (int i = 0; i < plansza.przeszkody.Count(); ++i)
+            {
+                if ((plansza.przeszkody[i]).wymiary.IntersectsWith(pmk))
+                {
+                    if (plansza.przeszkody[i].transparent) continue;
+                    if (plansza.przeszkody[i].wymiary.IntersectsWith(pocisk.wymiary))
+                    {
+                        if (plansza.przeszkody[i].Uszkodz(sila) <= 0)
+                        {
+                            
+                        } 
+                    }
+                }
+            }
         }
         public enum Kierunek : int { GORA = 0, PRAWO, DOL, LEWO }
         public override void Rysuj(Graphics g, Point pozycja_kamery, System.Drawing.Imaging.ImageAttributes transparentPink)
