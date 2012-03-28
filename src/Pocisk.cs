@@ -28,7 +28,9 @@ namespace Rudy_103.src
         }
         public override void Rysuj(Graphics g, Point pozycja_kamery, System.Drawing.Imaging.ImageAttributes transparentPink) 
         {
-            g.DrawImage(obrazy[(int)kierunek], Wymiary.X - pozycja_kamery.X, Wymiary.Y - pozycja_kamery.Y);
+            //g.DrawImage(obrazy[(int)kierunek], Wymiary.X - pozycja_kamery.X, Wymiary.Y - pozycja_kamery.Y);
+            g.DrawImage(obrazy[(int)kierunek], new Rectangle(Wymiary.X - pozycja_kamery.X, Wymiary.Y - pozycja_kamery.Y, Wymiary.Width, Wymiary.Height), 0, 0,
+                        obrazy[(int)kierunek].Width, obrazy[(int)kierunek].Width, GraphicsUnit.Pixel, transparentPink);
         }
         public void UstawPocisk(int X, int Y, Czolg.Kierunek kierunek)
         {
@@ -37,13 +39,11 @@ namespace Rudy_103.src
             this.kierunek = kierunek;
             if (kierunek == Czolg.Kierunek.GORA || kierunek == Czolg.Kierunek.DOL)
             {
-                Wymiary.Width = 8;
-                Wymiary.Height = 10;
+                Wymiary.X -= 5;
             }
-            else
+            if (kierunek == Czolg.Kierunek.LEWO || kierunek == Czolg.Kierunek.PRAWO)
             {
-                Wymiary.Width = 10;
-                Wymiary.Height = 8;
+                Wymiary.Y -= 5;
             }
         }
         public void ZmienPozycje(int zmiana_X, int zmiana_Y)

@@ -174,6 +174,15 @@
     <EmbeddedResource Include="Resources\cegielka4.png" />
     <EmbeddedResource Include="Resources\drzewo.png" />
   </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\pocisk2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\pocisk2_down.png" />
+    <EmbeddedResource Include="Resources\pocisk2_left.png" />
+    <EmbeddedResource Include="Resources\pocisk2_right.png" />
+    <EmbeddedResource Include="Resources\pocisk2_up.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CompactFramework.CSharp.targets" />
   <ProjectExtensions>
     <VisualStudio>
