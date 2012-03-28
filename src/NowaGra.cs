@@ -19,6 +19,7 @@ namespace Rudy_103.src
         private Gracz player;
         private Fabryka fabryka;
         private Plansza plansza;
+        private Przeciwnik [] enemy;
 
         private int wytrzymalosc;   //wytrzymalość czołgu
         private int energia;        //ilość żyć, energii
@@ -30,8 +31,8 @@ namespace Rudy_103.src
         private int maxY;
 
         private Image [] i_bateria;
-
-     
+        private Image [] i_ogien;
+        private int numer_efektu;
 
         //Zmienne dotyczące rysowania
         private System.Drawing.Imaging.ImageAttributes transparentPink;
@@ -52,7 +53,7 @@ namespace Rudy_103.src
             minX = 0;
             minY = 0;
             maxX = 240;
-            maxY = 320;
+            maxY = 240;
 
             czas_minuty = 0;
             czas_sekundy = 0;
@@ -69,6 +70,7 @@ namespace Rudy_103.src
             kamera = new Rectangle(pozycja_kamery.X, pozycja_kamery.Y, maxX, maxY);
 
             i_bateria = new Image[7];
+            i_ogien = new Image[5];
 
             tlo = new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.tlo.png"));
 
@@ -80,16 +82,33 @@ namespace Rudy_103.src
             i_bateria[5] = new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.bateria_25.png"));
             i_bateria[6] = new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.bateria_10.png"));
 
+            i_ogien[0] = new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Efekty.flame_1.png"));
+            i_ogien[1] = new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Efekty.flame_2.png"));
+            i_ogien[2] = new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Efekty.flame_3.png"));
+            i_ogien[3] = new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Efekty.flame_4.png"));
+            i_ogien[4] = new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Efekty.flame_5.png"));
+
+            numer_efektu = 0;
+
             fabryka = new Fabryka(execAssem, true);
             plansza = new Plansza(1000, 1000);
             plansza.GenerujDebugMapa(fabryka);
             label2.Text = "Demo";
             player = Fabryka.ProdukujDomyslnegoGracza(execAssem);
 
-            
+            Random pozycja = new Random();
+            enemy = new Przeciwnik[10];
+            for (int i = 0; i < 10; i++)
+            {
+                enemy[i] = fabryka.ProdukujPrzeciwnika("przeciwnik_poziom_1");
+                enemy[i].wymiary = new Rectangle(pozycja.Next(0, 1000), pozycja.Next(0, 1000), 40, 40);
+            }
+            //enemy[0] = fabryka.ProdukujPrzeciwnika("przeciwnik_poziom_1");
+            //enemy[0].wymiary = new Rectangle(900, 20, 40, 40);
 
             this.timer1.Enabled = true;
             this.czas_rozgrywki.Enabled = true;
+            this.czas_efektow.Enabled = true;
         }
 
         private System.Windows.Forms.KeyEventArgs wcisniety_klawisz = null;
@@ -196,9 +215,16 @@ namespace Rudy_103.src
         {
             zmienPozycjeGracza();
             player.RuchPocisku(plansza);
+            for (int i = 0; i < 10; i++)
+            {
+                enemy[i].Ruch_Przeciwnika(plansza, fabryka);
+            }
+            
             //pictureBox1.Invalidate();
             Invalidate();
             minimapapictureBox.Invalidate();
+            
+            
             
         }
 
@@ -213,6 +239,11 @@ namespace Rudy_103.src
             //e.Graphics.DrawEllipse(new Pen(Color.Red), (int)pozycja_x/20, (int)pozycja_y/20, 2, 2);
             
             e.Graphics.FillEllipse(new SolidBrush(Color.Red), new Rectangle(((int)player.wymiary.X / 20), ((int)player.wymiary.Y / 20), 2, 2));
+            for (int i = 0; i < 10; i++)
+            {
+                e.Graphics.FillEllipse(new SolidBrush(Color.Blue), new Rectangle(((int)enemy[i].wymiary.X / 20), ((int)enemy[i].wymiary.Y / 20), 2, 2));
+            }
+            
             e.Graphics.DrawRectangle(new Pen(Color.Black), (int)pozycja_kamery.X/20, (int)pozycja_kamery.Y/20, 12, 13);
         }
 
@@ -224,7 +255,6 @@ namespace Rudy_103.src
                 czas_sekundy = 0;
                 czas_minuty += 1;
             }
-            
             czaslabel.Text = czas_minuty + ":" + czas_sekundy;
             //czaslabel.Text = "Czas: %0.2d"+czas_sekundy;
         }
@@ -378,10 +408,34 @@ namespace Rudy_103.src
                 //g.Clear(Color.White);
                 g.DrawImage(tlo, 0, 0);
                 player.Rysuj(g, pozycja_kamery, transparentPink);
+                
+                for (int i = 0; i < 10; i++)
+                {
+                    enemy[i].Rysuj(g, pozycja_kamery, transparentPink);
+                }
+                
                 plansza.RysujElementy(g, pozycja_kamery, transparentPink);
+                DodajOgien(g, new Point(200, 200), transparentPink, numer_efektu);
 
             }                
             e.Graphics.DrawImage(bitmapBuffor, 0, 0);
+        }
+
+        private void DodajOgien(Graphics g, Point pozycja_uderzenia, System.Drawing.Imaging.ImageAttributes transparentPink, int numer)
+        {
+            
+            g.DrawImage(i_ogien[numer], new Rectangle(pozycja_uderzenia.X-50 - pozycja_kamery.X, pozycja_uderzenia.Y - pozycja_kamery.Y, 25, 25), 0, 0,
+                        i_ogien[numer].Width, i_ogien[numer].Height, GraphicsUnit.Pixel, transparentPink);
+            g.DrawImage(i_ogien[numer], new Rectangle(pozycja_uderzenia.X - pozycja_kamery.X, pozycja_uderzenia.Y-50 - pozycja_kamery.Y, 25, 25), 0, 0,
+                        i_ogien[numer].Width, i_ogien[numer].Height, GraphicsUnit.Pixel, transparentPink);
+            g.DrawImage(i_ogien[numer], new Rectangle(pozycja_uderzenia.X - 25 - pozycja_kamery.X, pozycja_uderzenia.Y+25 - pozycja_kamery.Y, 25, 25), 0, 0,
+                        i_ogien[numer].Width, i_ogien[numer].Height, GraphicsUnit.Pixel, transparentPink);
+        }
+
+        private void czas_efektow_Tick(object sender, EventArgs e)
+        {
+            numer_efektu += 1;
+            if (numer_efektu > 4) numer_efektu = 0;
         }
     }
 }
