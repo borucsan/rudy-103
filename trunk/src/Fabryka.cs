@@ -111,6 +111,17 @@ namespace Rudy_103.src
             DodajWzorzecPrzeszkody("cegielka3", new Przeszkoda(0, 0, 25, 25, false, new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.cegielka3.png"))));
             DodajWzorzecPrzeszkody("cegielka4", new Przeszkoda(0, 0, 25, 25, false, new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.cegielka4.png"))));
             DodajWzorzecPrzeszkody("drzewo", new Przeszkoda(0, 0, 25, 25, true, new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.drzewo.png"))));
+
+            
+            Przeciwnik enemy = new Przeciwnik(0, 0, 40, 40, 100, 5, 10);
+            enemy.WczytajObrazy(
+                new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Przeciwnicy.enemy_tank_1_up.png")),
+                new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Przeciwnicy.enemy_tank_1_right.png")),
+                new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Przeciwnicy.enemy_tank_1_down.png")),
+                new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Przeciwnicy.enemy_tank_1_left.png"))
+                );
+
+            DodajWzorzecPrzeciwnika("przeciwnik_poziom_1", enemy); 
         }
     }
 }

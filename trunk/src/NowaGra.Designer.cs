@@ -40,6 +40,7 @@
             this.timer1 = new System.Windows.Forms.Timer();
             this.czas_rozgrywki = new System.Windows.Forms.Timer();
             this.label4 = new System.Windows.Forms.Label();
+            this.czas_efektow = new System.Windows.Forms.Timer();
             this.poziompanel.SuspendLayout();
             this.czaspanel.SuspendLayout();
             this.mapapanel.SuspendLayout();
@@ -130,7 +131,7 @@
             // 
             // timer1
             // 
-            this.timer1.Interval = 30;
+            this.timer1.Interval = 50;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
             // czas_rozgrywki
@@ -147,6 +148,10 @@
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(57, 19);
             this.label4.Text = "Energia";
+            // 
+            // czas_efektow
+            // 
+            this.czas_efektow.Tick += new System.EventHandler(this.czas_efektow_Tick);
             // 
             // NowaGra
             // 
@@ -190,5 +195,6 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.PictureBox energiapicture;
         private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Timer czas_efektow;
     }
 }
