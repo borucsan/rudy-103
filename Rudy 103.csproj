@@ -196,6 +196,15 @@
     <EmbeddedResource Include="Resources\Przeciwnicy\enemy_tank_1_right.png" />
     <EmbeddedResource Include="Resources\Przeciwnicy\enemy_tank_1_up.png" />
   </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\transp_rect.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\transp_rect2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\menu.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CompactFramework.CSharp.targets" />
   <ProjectExtensions>
     <VisualStudio>

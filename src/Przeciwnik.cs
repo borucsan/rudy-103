@@ -29,8 +29,8 @@ namespace Rudy_103.src
             bool WykrytoPrzeszkode = false;
             bool LosujKierunek = false;
             //this.Ruch(kierunek, mapa);
-            int losuj = random.Next(50);
-            if (losuj == 1) { LosujKierunek = true; }
+            int losuj = random.Next(0,51);
+            if (losuj == 49) { LosujKierunek = true; }
             
             switch (kierunek)
             {
@@ -71,7 +71,7 @@ namespace Rudy_103.src
                     else WykrytoPrzeszkode = true;
                     break;
                 case Kierunek.LEWO:
-                    if (Wymiary.X >= szybkosc && !Zderzenie(mapa))
+                    if (Wymiary.X >= szybkosc) //&& !Zderzenie(mapa))
                     {
                         Wymiary.X -= szybkosc;
                         if (Zderzenie(mapa))
@@ -84,27 +84,23 @@ namespace Rudy_103.src
                     break;
             }
 
-            if (WykrytoPrzeszkode || LosujKierunek)
+            if ( (WykrytoPrzeszkode == true) || (LosujKierunek == true) )
             {
                 this.Strzelaj(fabryczka);
-                int losuj_kierunek = random.Next(1, 4);
-                switch ( losuj_kierunek )
-                {
-                    case 1: kierunek = Kierunek.GORA; 
-                            break;
-                    case 2: kierunek = Kierunek.PRAWO; 
-                            break;
-                    case 3: kierunek = Kierunek.DOL; 
-                            break;
-                    case 4: kierunek = Kierunek.LEWO; 
-                            break;
-                }
+                random = new Random();
+                int losuj_kierunek = (int)random.Next(0, 5);
+                if (losuj_kierunek == 1) kierunek = Kierunek.GORA;
+                if (losuj_kierunek == 2) kierunek = Kierunek.PRAWO;
+                if (losuj_kierunek == 3) kierunek = Kierunek.DOL;
+                if (losuj_kierunek == 4) kierunek = Kierunek.LEWO;
+                
                 WykrytoPrzeszkode = false;
                 LosujKierunek = false;
             }
 
             int CzyStrzelac;
-            CzyStrzelac = random.Next(1, 3);
+            random = new Random();
+            CzyStrzelac = random.Next(0, 3);
             if (CzyStrzelac == 2) this.Strzelaj(fabryczka);
         }
     }

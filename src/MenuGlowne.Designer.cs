@@ -33,12 +33,12 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainWindow));
             this.panel1 = new System.Windows.Forms.Panel();
+            this.linkLabel1 = new System.Windows.Forms.LinkLabel();
             this.label1 = new System.Windows.Forms.Label();
             this.WyjdzButton = new System.Windows.Forms.Button();
             this.Top10Button = new System.Windows.Forms.Button();
             this.NowaGraButton = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.linkLabel1 = new System.Windows.Forms.LinkLabel();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -54,7 +54,18 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(240, 294);
+            this.panel1.Size = new System.Drawing.Size(240, 320);
+            // 
+            // linkLabel1
+            // 
+            this.linkLabel1.Font = new System.Drawing.Font("Tahoma", 8F, System.Drawing.FontStyle.Underline);
+            this.linkLabel1.Location = new System.Drawing.Point(3, 263);
+            this.linkLabel1.Name = "linkLabel1";
+            this.linkLabel1.Size = new System.Drawing.Size(233, 20);
+            this.linkLabel1.TabIndex = 5;
+            this.linkLabel1.Text = "Strona Główna Projektu";
+            this.linkLabel1.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.linkLabel1.Click += new System.EventHandler(this.linkLabel1_Click);
             // 
             // label1
             // 
@@ -103,28 +114,19 @@
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(238, 83);
             // 
-            // linkLabel1
-            // 
-            this.linkLabel1.Font = new System.Drawing.Font("Tahoma", 8F, System.Drawing.FontStyle.Underline);
-            this.linkLabel1.Location = new System.Drawing.Point(3, 263);
-            this.linkLabel1.Name = "linkLabel1";
-            this.linkLabel1.Size = new System.Drawing.Size(233, 20);
-            this.linkLabel1.TabIndex = 5;
-            this.linkLabel1.Text = "Strona Główna Projektu";
-            this.linkLabel1.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.linkLabel1.Click += new System.EventHandler(this.linkLabel1_Click);
-            // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.AutoScroll = true;
-            this.ClientSize = new System.Drawing.Size(240, 294);
+            this.ClientSize = new System.Drawing.Size(240, 320);
             this.ControlBox = false;
             this.Controls.Add(this.panel1);
+            this.Location = new System.Drawing.Point(0, 0);
             this.MinimizeBox = false;
             this.Name = "MainWindow";
             this.Text = "Rudy 103";
+            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Closing += new System.ComponentModel.CancelEventHandler(this.MainWindow_Closing);
             this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);

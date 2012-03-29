@@ -10,6 +10,16 @@ namespace Rudy_103.src
     {
         private int punkty;
         private int energia;
+        public int Punkty
+        {
+            get { return punkty; }
+            set { punkty = value; }
+        }
+        public int Energia
+        {
+            get { return energia; }
+            set { energia = value; }
+        }
         public Gracz(int X, int Y, int Szer, int Wys, int wytrzymalosc, int szybkosc, int sila, int energia)
             : base(X, Y, Szer, Wys, wytrzymalosc, szybkosc, sila)
         {

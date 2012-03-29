@@ -13,7 +13,30 @@ namespace Rudy_103.src
     abstract class Czolg : Obiekty
     {
         protected int wytrzymalosc;
+        protected int aktualna_wytrzymalosc;
         protected int szybkosc;
+        public int Wytrzymalosc
+        {
+            get
+            {
+                return wytrzymalosc;
+            }
+            set
+            {
+                wytrzymalosc = value;
+            }
+        }
+        public int AktualnaWytrzymalosc
+        {
+            get
+            {
+                return aktualna_wytrzymalosc;
+            }
+            set
+            {
+                aktualna_wytrzymalosc = value;
+            }
+        }
         public int Szybkosc
         {
             get
@@ -32,6 +55,7 @@ namespace Rudy_103.src
             : base(X, Y, Szer, Wys)
         {
             this.wytrzymalosc = wytrzymalosc;
+            this.aktualna_wytrzymalosc = wytrzymalosc;
             this.szybkosc = szybkosc;
             this.sila = sila;
             this.kierunek = Kierunek.GORA;
@@ -40,6 +64,7 @@ namespace Rudy_103.src
             : base(X, Y, Szer, Wys, obrazy)
         {
             this.wytrzymalosc = wytrzymalosc;
+            this.aktualna_wytrzymalosc = wytrzymalosc;
             this.szybkosc = szybkosc;
             this.sila = sila;
             this.kierunek = Kierunek.GORA;
