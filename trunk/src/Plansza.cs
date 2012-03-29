@@ -9,7 +9,7 @@ namespace Rudy_103.src
 {
     class Plansza
     {
-        private Stack<Przeciwnik> przeciwnicy = new Stack<Przeciwnik>();
+        public Stack<Przeciwnik> przeciwnicy = new Stack<Przeciwnik>();
         public List<Przeciwnik> przeciwnicy_na_mapie { get; set; }
         public List<Przeszkoda> przeszkody { get; set; }
         public uint poziom { get; set; }
@@ -55,7 +55,8 @@ namespace Rudy_103.src
             przeszkody.Last().UstawPozycje(175, 150);
             przeszkody.Add(fabryka.ProdukujPrzeszkode("drzewo"));
             przeszkody.Last().UstawPozycje(200, 150);
-
+            
+            
 
 
         }

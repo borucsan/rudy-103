@@ -16,6 +16,14 @@ namespace Rudy_103.src
     {
         private int czas_sekundy;
         private int czas_minuty;
+
+        private String s_czas;  //String do wyświetlania czasu
+        private String s_poziom; //String do wyświetlania poziomu
+        private String s_przeciwnicy; //String do wyświetlania liczby przeciwników
+        private String s_punkty;    //String do wyświetlania liczby punktów
+        private int licznik_informacji; //Licznik potrzebny do timera informacji (czas_informacji)
+        
+
         private Gracz player;
         private Fabryka fabryka;
         private Plansza plansza;
@@ -32,6 +40,8 @@ namespace Rudy_103.src
 
         private Image [] i_bateria;
         private Image [] i_ogien;
+        private Image i_menu;
+        private Image i_rect;
         private int numer_efektu;
 
         //Zmienne dotyczące rysowania
@@ -53,7 +63,7 @@ namespace Rudy_103.src
             minX = 0;
             minY = 0;
             maxX = 240;
-            maxY = 240;
+            maxY = 320;
 
             czas_minuty = 0;
             czas_sekundy = 0;
@@ -82,6 +92,9 @@ namespace Rudy_103.src
             i_bateria[5] = new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.bateria_25.png"));
             i_bateria[6] = new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.bateria_10.png"));
 
+            i_rect = new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.transp_rect2.png"));
+            i_menu = new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.menu.png"));
+
             i_ogien[0] = new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Efekty.flame_1.png"));
             i_ogien[1] = new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Efekty.flame_2.png"));
             i_ogien[2] = new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Efekty.flame_3.png"));
@@ -89,11 +102,12 @@ namespace Rudy_103.src
             i_ogien[4] = new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Efekty.flame_5.png"));
 
             numer_efektu = 0;
+            licznik_informacji = 1;
 
             fabryka = new Fabryka(execAssem, true);
             plansza = new Plansza(1000, 1000);
             plansza.GenerujDebugMapa(fabryka);
-            label2.Text = "Demo";
+            
             player = Fabryka.ProdukujDomyslnegoGracza(execAssem);
 
             Random pozycja = new Random();
@@ -109,6 +123,7 @@ namespace Rudy_103.src
             this.timer1.Enabled = true;
             this.czas_rozgrywki.Enabled = true;
             this.czas_efektow.Enabled = true;
+            this.czas_informacji.Enabled = true;
         }
 
         private System.Windows.Forms.KeyEventArgs wcisniety_klawisz = null;
@@ -204,7 +219,6 @@ namespace Rudy_103.src
                     case Keys.Space:
                         {
                             zmniejsz_energie();
-                            energiapicture.Invalidate();
                         } break;
                 }
                 kamera = new Rectangle(pozycja_kamery.X, pozycja_kamery.Y, maxX, maxY);
@@ -220,31 +234,11 @@ namespace Rudy_103.src
                 enemy[i].Ruch_Przeciwnika(plansza, fabryka);
             }
             
-            //pictureBox1.Invalidate();
+            s_poziom = "Poziom: "+plansza.poziom;
+            s_przeciwnicy = "Przeciwnicy: " + plansza.przeciwnicy.Count;
+            s_punkty = "Punkty: " + player.Punkty;
+            
             Invalidate();
-            minimapapictureBox.Invalidate();
-            
-            
-            
-        }
-
-        private void minimapapictureBox_Paint(object sender, PaintEventArgs e)
-        {
-            /*Rysowanie przeciwnikow zrespionych na minimapie
-            for (int i = 0; i < liczba_przeciwnikow_na_mapie; i++)
-            {
-                e.Graphics.DrawEllipse(new Pen(Color.Blue), (int)przeciwnicy_na_mapie[i].X / 20, 
-                    (int)przeciwnicy_na_mapie[i].Y / 20, 2, 2);
-            }*/
-            //e.Graphics.DrawEllipse(new Pen(Color.Red), (int)pozycja_x/20, (int)pozycja_y/20, 2, 2);
-            
-            e.Graphics.FillEllipse(new SolidBrush(Color.Red), new Rectangle(((int)player.wymiary.X / 20), ((int)player.wymiary.Y / 20), 2, 2));
-            for (int i = 0; i < 10; i++)
-            {
-                e.Graphics.FillEllipse(new SolidBrush(Color.Blue), new Rectangle(((int)enemy[i].wymiary.X / 20), ((int)enemy[i].wymiary.Y / 20), 2, 2));
-            }
-            
-            e.Graphics.DrawRectangle(new Pen(Color.Black), (int)pozycja_kamery.X/20, (int)pozycja_kamery.Y/20, 12, 13);
         }
 
         private void czas_rozgrywki_Tick(object sender, EventArgs e)
@@ -255,127 +249,25 @@ namespace Rudy_103.src
                 czas_sekundy = 0;
                 czas_minuty += 1;
             }
-            czaslabel.Text = czas_minuty + ":" + czas_sekundy;
-            //czaslabel.Text = "Czas: %0.2d"+czas_sekundy;
+            s_czas = string.Format("{0:00}:{1:00}", czas_minuty, czas_sekundy); //czas_minuty.ToString() + ":" + czas_sekundy.ToString();
+            
         }
 
         //Metoda do testowania dzialania bateri energii
         //Testowane za pomocą spacji
         private void zmniejsz_energie()
         {
-            wytrzymalosc -= 1;
-            if (wytrzymalosc <= 0)
+            player.AktualnaWytrzymalosc -= 1;
+            if (player.AktualnaWytrzymalosc <= 0)
             {
-                wytrzymalosc = 100;
-                energia -= 1;
-                if (energia <= 0) energia = 0;
+                player.AktualnaWytrzymalosc = player.Wytrzymalosc;
+                player.Energia -= 1;
+                if (player.Energia <= 0) player.Energia = 0;
             }
         }
 
         //Do przerobienia, wersja alpha, nie optymalna
-        private void energiapicture_Paint(object sender, PaintEventArgs e)
-        {
-            int procent_wytrzymalosci = (wytrzymalosc * 100) / 100;
-            
-            if (energia == 3)
-            {
-                e.Graphics.DrawImage(i_bateria[0], new Rectangle(1, 20, 18, 38), 0, 0, i_bateria[0].Width, i_bateria[0].Height, GraphicsUnit.Pixel, transparentPink);
-                e.Graphics.DrawImage(i_bateria[0], new Rectangle(19, 20, 18, 38), 0, 0, i_bateria[0].Width, i_bateria[0].Height, GraphicsUnit.Pixel, transparentPink);
-                if (procent_wytrzymalosci <= 100 && procent_wytrzymalosci > 85)
-                {
-                    e.Graphics.DrawImage(i_bateria[0], new Rectangle(37, 20, 18, 38), 0, 0, i_bateria[0].Width, i_bateria[0].Height, GraphicsUnit.Pixel, transparentPink);
-                }
-                if (procent_wytrzymalosci <= 85 && procent_wytrzymalosci > 70)
-                {
-                    e.Graphics.DrawImage(i_bateria[1], new Rectangle(37, 20, 18, 38), 0, 0, i_bateria[0].Width, i_bateria[0].Height, GraphicsUnit.Pixel, transparentPink);
-                }
-                if (procent_wytrzymalosci <= 70 && procent_wytrzymalosci > 55)
-                {
-                    e.Graphics.DrawImage(i_bateria[2], new Rectangle(37, 20, 18, 38), 0, 0, i_bateria[0].Width, i_bateria[0].Height, GraphicsUnit.Pixel, transparentPink);
-                }
-                if (procent_wytrzymalosci <= 55 && procent_wytrzymalosci > 40)
-                {
-                    e.Graphics.DrawImage(i_bateria[3], new Rectangle(37, 20, 18, 38), 0, 0, i_bateria[0].Width, i_bateria[0].Height, GraphicsUnit.Pixel, transparentPink);
-                }
-                if (procent_wytrzymalosci <= 40 && procent_wytrzymalosci > 25)
-                {
-                    e.Graphics.DrawImage(i_bateria[4], new Rectangle(37, 20, 18, 38), 0, 0, i_bateria[0].Width, i_bateria[0].Height, GraphicsUnit.Pixel, transparentPink);
-                }
-                if (procent_wytrzymalosci <= 25 && procent_wytrzymalosci > 10)
-                {
-                    e.Graphics.DrawImage(i_bateria[5], new Rectangle(37, 20, 18, 38), 0, 0, i_bateria[0].Width, i_bateria[0].Height, GraphicsUnit.Pixel, transparentPink);
-                }
-                if (procent_wytrzymalosci <= 10)
-                {
-                    e.Graphics.DrawImage(i_bateria[6], new Rectangle(37, 20, 18, 38), 0, 0, i_bateria[0].Width, i_bateria[0].Height, GraphicsUnit.Pixel, transparentPink);
-                }
-            }
-            if (energia == 2)
-            {
-                e.Graphics.DrawImage(i_bateria[0], new Rectangle(1, 20, 18, 38), 0, 0, i_bateria[0].Width, i_bateria[0].Height, GraphicsUnit.Pixel, transparentPink);
-                
-                if (procent_wytrzymalosci <= 100 && procent_wytrzymalosci > 85)
-                {
-                    e.Graphics.DrawImage(i_bateria[0], new Rectangle(19, 20, 18, 38), 0, 0, i_bateria[0].Width, i_bateria[0].Height, GraphicsUnit.Pixel, transparentPink);
-                }
-                if (procent_wytrzymalosci <= 85 && procent_wytrzymalosci > 70)
-                {
-                    e.Graphics.DrawImage(i_bateria[1], new Rectangle(19, 20, 18, 38), 0, 0, i_bateria[0].Width, i_bateria[0].Height, GraphicsUnit.Pixel, transparentPink);
-                }
-                if (procent_wytrzymalosci <= 70 && procent_wytrzymalosci > 55)
-                {
-                    e.Graphics.DrawImage(i_bateria[2], new Rectangle(19, 20, 18, 38), 0, 0, i_bateria[0].Width, i_bateria[0].Height, GraphicsUnit.Pixel, transparentPink);
-                }
-                if (procent_wytrzymalosci <= 55 && procent_wytrzymalosci > 40)
-                {
-                    e.Graphics.DrawImage(i_bateria[3], new Rectangle(19, 20, 18, 38), 0, 0, i_bateria[0].Width, i_bateria[0].Height, GraphicsUnit.Pixel, transparentPink);
-                }
-                if (procent_wytrzymalosci <= 40 && procent_wytrzymalosci > 25)
-                {
-                    e.Graphics.DrawImage(i_bateria[4], new Rectangle(19, 20, 18, 38), 0, 0, i_bateria[0].Width, i_bateria[0].Height, GraphicsUnit.Pixel, transparentPink);
-                }
-                if (procent_wytrzymalosci <= 25 && procent_wytrzymalosci > 10)
-                {
-                    e.Graphics.DrawImage(i_bateria[5], new Rectangle(19, 20, 18, 38), 0, 0, i_bateria[0].Width, i_bateria[0].Height, GraphicsUnit.Pixel, transparentPink);
-                }
-                if (procent_wytrzymalosci <= 10)
-                {
-                    e.Graphics.DrawImage(i_bateria[6], new Rectangle(19, 20, 18, 38), 0, 0, i_bateria[0].Width, i_bateria[0].Height, GraphicsUnit.Pixel, transparentPink);
-                }
-            }
-            if (energia == 1)
-            {
-                
-                if (procent_wytrzymalosci <= 100 && procent_wytrzymalosci > 85)
-                {
-                    e.Graphics.DrawImage(i_bateria[0], new Rectangle(1, 20, 18, 38), 0, 0, i_bateria[0].Width, i_bateria[0].Height, GraphicsUnit.Pixel, transparentPink);
-                }
-                if (procent_wytrzymalosci <= 85 && procent_wytrzymalosci > 70)
-                {
-                    e.Graphics.DrawImage(i_bateria[1], new Rectangle(1, 20, 18, 38), 0, 0, i_bateria[0].Width, i_bateria[0].Height, GraphicsUnit.Pixel, transparentPink);
-                }
-                if (procent_wytrzymalosci <= 70 && procent_wytrzymalosci > 55)
-                {
-                    e.Graphics.DrawImage(i_bateria[2], new Rectangle(1, 20, 18, 38), 0, 0, i_bateria[0].Width, i_bateria[0].Height, GraphicsUnit.Pixel, transparentPink);
-                }
-                if (procent_wytrzymalosci <= 55 && procent_wytrzymalosci > 40)
-                {
-                    e.Graphics.DrawImage(i_bateria[3], new Rectangle(1, 20, 18, 38), 0, 0, i_bateria[0].Width, i_bateria[0].Height, GraphicsUnit.Pixel, transparentPink);
-                }
-                if (procent_wytrzymalosci <= 40 && procent_wytrzymalosci > 25)
-                {
-                    e.Graphics.DrawImage(i_bateria[4], new Rectangle(1, 20, 18, 38), 0, 0, i_bateria[0].Width, i_bateria[0].Height, GraphicsUnit.Pixel, transparentPink);
-                }
-                if (procent_wytrzymalosci <= 25 && procent_wytrzymalosci > 10)
-                {
-                    e.Graphics.DrawImage(i_bateria[5], new Rectangle(1, 20, 18, 38), 0, 0, i_bateria[0].Width, i_bateria[0].Height, GraphicsUnit.Pixel, transparentPink);
-                }
-                if (procent_wytrzymalosci <= 10)
-                {
-                    e.Graphics.DrawImage(i_bateria[6], new Rectangle(1, 20, 18, 38), 0, 0, i_bateria[0].Width, i_bateria[0].Height, GraphicsUnit.Pixel, transparentPink);
-                }
-            }
-        }
+        
         protected override void OnPaintBackground(PaintEventArgs e)
         {
             //base.OnPaintBackground(e);
@@ -416,6 +308,7 @@ namespace Rudy_103.src
                 
                 plansza.RysujElementy(g, pozycja_kamery, transparentPink);
                 DodajOgien(g, new Point(200, 200), transparentPink, numer_efektu);
+                RysujInterfejs(g, transparentPink);
 
             }                
             e.Graphics.DrawImage(bitmapBuffor, 0, 0);
@@ -436,6 +329,150 @@ namespace Rudy_103.src
         {
             numer_efektu += 1;
             if (numer_efektu > 4) numer_efektu = 0;
+        }
+        private void RysujInterfejs(Graphics g, System.Drawing.Imaging.ImageAttributes transparentPink)
+        {
+            //Color kolor = Color.FromArgb(10, 155, 10);
+            //kolor.A = 100;
+            //System.Drawing.Color kolor = System.Drawing.Color.FromArgb(0xAA00DD00);
+            Rectangle prostokat = new Rectangle(170, 20, 50, 50);
+            Rectangle prostokat2 = new Rectangle(169, 19, 51, 51);
+            Brush pedzel = new SolidBrush(Color.FromArgb(0x7800FF00));
+            g.DrawRectangle(new Pen(Color.Blue), prostokat2);
+            g.DrawImage(i_rect, prostokat, 0, 0, i_rect.Width, i_rect.Height, GraphicsUnit.Pixel, transparentPink);
+            //g.FillRectangle(pedzel, prostokat);
+            g.FillEllipse(new SolidBrush(Color.White), new Rectangle( prostokat.X + ((int)player.wymiary.X / 20), prostokat.Y + ((int)player.wymiary.Y / 20), 2, 2));
+            for (int i = 0; i < 10; i++)
+            {
+                g.FillEllipse(new SolidBrush(Color.Yellow), new Rectangle( prostokat.X + ((int)enemy[i].wymiary.X / 20), prostokat.Y + ((int)enemy[i].wymiary.Y / 20), 2, 2));
+            }
+
+            g.DrawRectangle(new Pen(Color.Red), prostokat.X + (int)pozycja_kamery.X / 20, prostokat.Y + (int)pozycja_kamery.Y / 20, 12, 13);
+            g.DrawImage(i_menu, new Rectangle(minX, maxY-30, 240, 30), 0, 0, i_menu.Width, i_menu.Height, GraphicsUnit.Pixel, transparentPink);
+            
+            #region RysowanieInformacji
+            StringFormat drawFormat = new StringFormat();
+            drawFormat.Alignment = StringAlignment.Center;
+            if (licznik_informacji == 1) g.DrawString(s_poziom, new Font("Arial", 12, FontStyle.Regular), new SolidBrush(Color.White), new RectangleF(minX, maxY - 25, maxX, 25), drawFormat);
+            if (licznik_informacji == 2) g.DrawString(s_czas, new Font("Arial", 12, FontStyle.Regular), new SolidBrush(Color.White), new RectangleF(minX, maxY - 25, maxX, 25), drawFormat);
+            if (licznik_informacji == 3) g.DrawString(s_przeciwnicy, new Font("Arial", 12, FontStyle.Regular), new SolidBrush(Color.White), new RectangleF(minX, maxY - 25, maxX, 25), drawFormat);
+            if (licznik_informacji == 4) g.DrawString(s_punkty, new Font("Arial", 12, FontStyle.Regular), new SolidBrush(Color.White), new RectangleF(minX, maxY - 25, maxX, 25), drawFormat);
+            #endregion RysowanieInformacji
+            #region RysowanieBaterii
+            int procent_wytrzymalosci = (player.AktualnaWytrzymalosc * 100) / player.Wytrzymalosc;
+            if (player.Energia == 3)
+            {
+                Rectangle prostokat3 = new Rectangle(minX + 20, minY + 34, 18, 36);
+                g.DrawImage(i_bateria[0], prostokat3, 0, 0, i_bateria[0].Width, i_bateria[0].Height, GraphicsUnit.Pixel, transparentPink);
+                prostokat3.X += 20;
+                g.DrawImage(i_bateria[0], prostokat3, 0, 0, i_bateria[0].Width, i_bateria[0].Height, GraphicsUnit.Pixel, transparentPink);
+                prostokat3.X += 20;
+                if (procent_wytrzymalosci <= 100 && procent_wytrzymalosci > 85)
+                {
+                    g.DrawImage(i_bateria[0], prostokat3, 0, 0, i_bateria[0].Width, i_bateria[0].Height, GraphicsUnit.Pixel, transparentPink);
+                }
+                if (procent_wytrzymalosci <= 85 && procent_wytrzymalosci > 70)
+                {
+                    g.DrawImage(i_bateria[1], prostokat3, 0, 0, i_bateria[0].Width, i_bateria[0].Height, GraphicsUnit.Pixel, transparentPink);
+                }
+                if (procent_wytrzymalosci <= 70 && procent_wytrzymalosci > 55)
+                {
+                    g.DrawImage(i_bateria[2], prostokat3, 0, 0, i_bateria[0].Width, i_bateria[0].Height, GraphicsUnit.Pixel, transparentPink);
+                }
+                if (procent_wytrzymalosci <= 55 && procent_wytrzymalosci > 40)
+                {
+                    g.DrawImage(i_bateria[3], prostokat3, 0, 0, i_bateria[0].Width, i_bateria[0].Height, GraphicsUnit.Pixel, transparentPink);
+                }
+                if (procent_wytrzymalosci <= 40 && procent_wytrzymalosci > 25)
+                {
+                    g.DrawImage(i_bateria[4], prostokat3, 0, 0, i_bateria[0].Width, i_bateria[0].Height, GraphicsUnit.Pixel, transparentPink);
+                }
+                if (procent_wytrzymalosci <= 25 && procent_wytrzymalosci > 10)
+                {
+                    g.DrawImage(i_bateria[5], prostokat3, 0, 0, i_bateria[0].Width, i_bateria[0].Height, GraphicsUnit.Pixel, transparentPink);
+                }
+                if (procent_wytrzymalosci <= 10)
+                {
+                    g.DrawImage(i_bateria[6], prostokat3, 0, 0, i_bateria[0].Width, i_bateria[0].Height, GraphicsUnit.Pixel, transparentPink);
+                }
+            }
+            if (player.Energia == 2)
+            {
+                Rectangle prostokat3 = new Rectangle(minX + 20, minY + 20, 18, 36);
+                g.DrawImage(i_bateria[0], prostokat3, 0, 0, i_bateria[0].Width, i_bateria[0].Height, GraphicsUnit.Pixel, transparentPink);
+                
+                prostokat3.X += 20;
+                if (procent_wytrzymalosci <= 100 && procent_wytrzymalosci > 85)
+                {
+                    g.DrawImage(i_bateria[0], prostokat3, 0, 0, i_bateria[0].Width, i_bateria[0].Height, GraphicsUnit.Pixel, transparentPink);
+                }
+                if (procent_wytrzymalosci <= 85 && procent_wytrzymalosci > 70)
+                {
+                    g.DrawImage(i_bateria[1], prostokat3, 0, 0, i_bateria[0].Width, i_bateria[0].Height, GraphicsUnit.Pixel, transparentPink);
+                }
+                if (procent_wytrzymalosci <= 70 && procent_wytrzymalosci > 55)
+                {
+                    g.DrawImage(i_bateria[2], prostokat3, 0, 0, i_bateria[0].Width, i_bateria[0].Height, GraphicsUnit.Pixel, transparentPink);
+                }
+                if (procent_wytrzymalosci <= 55 && procent_wytrzymalosci > 40)
+                {
+                    g.DrawImage(i_bateria[3], prostokat3, 0, 0, i_bateria[0].Width, i_bateria[0].Height, GraphicsUnit.Pixel, transparentPink);
+                }
+                if (procent_wytrzymalosci <= 40 && procent_wytrzymalosci > 25)
+                {
+                    g.DrawImage(i_bateria[4], prostokat3, 0, 0, i_bateria[0].Width, i_bateria[0].Height, GraphicsUnit.Pixel, transparentPink);
+                }
+                if (procent_wytrzymalosci <= 25 && procent_wytrzymalosci > 10)
+                {
+                    g.DrawImage(i_bateria[5], prostokat3, 0, 0, i_bateria[0].Width, i_bateria[0].Height, GraphicsUnit.Pixel, transparentPink);
+                }
+                if (procent_wytrzymalosci <= 10)
+                {
+                    g.DrawImage(i_bateria[6], prostokat3, 0, 0, i_bateria[0].Width, i_bateria[0].Height, GraphicsUnit.Pixel, transparentPink);
+                }
+            }
+            if (player.Energia == 1)
+            {
+                Rectangle prostokat3 = new Rectangle(minX + 20, minY + 20, 18, 36);
+                if (procent_wytrzymalosci <= 100 && procent_wytrzymalosci > 85)
+                {
+                    g.DrawImage(i_bateria[0], prostokat3, 0, 0, i_bateria[0].Width, i_bateria[0].Height, GraphicsUnit.Pixel, transparentPink);
+                }
+                if (procent_wytrzymalosci <= 85 && procent_wytrzymalosci > 70)
+                {
+                    g.DrawImage(i_bateria[1], prostokat3, 0, 0, i_bateria[0].Width, i_bateria[0].Height, GraphicsUnit.Pixel, transparentPink);
+                }
+                if (procent_wytrzymalosci <= 70 && procent_wytrzymalosci > 55)
+                {
+                    g.DrawImage(i_bateria[2], prostokat3, 0, 0, i_bateria[0].Width, i_bateria[0].Height, GraphicsUnit.Pixel, transparentPink);
+                }
+                if (procent_wytrzymalosci <= 55 && procent_wytrzymalosci > 40)
+                {
+                    g.DrawImage(i_bateria[3], prostokat3, 0, 0, i_bateria[0].Width, i_bateria[0].Height, GraphicsUnit.Pixel, transparentPink);
+                }
+                if (procent_wytrzymalosci <= 40 && procent_wytrzymalosci > 25)
+                {
+                    g.DrawImage(i_bateria[4], prostokat3, 0, 0, i_bateria[0].Width, i_bateria[0].Height, GraphicsUnit.Pixel, transparentPink);
+                }
+                if (procent_wytrzymalosci <= 25 && procent_wytrzymalosci > 10)
+                {
+                    g.DrawImage(i_bateria[5], prostokat3, 0, 0, i_bateria[0].Width, i_bateria[0].Height, GraphicsUnit.Pixel, transparentPink);
+                }
+                if (procent_wytrzymalosci <= 10)
+                {
+                    g.DrawImage(i_bateria[6], prostokat3, 0, 0, i_bateria[0].Width, i_bateria[0].Height, GraphicsUnit.Pixel, transparentPink);
+                }
+            }
+            #endregion RysowanieBaterii
+        }
+
+        private void czas_informacji_Tick(object sender, EventArgs e)
+        {
+            
+            licznik_informacji += 1;
+            if (licznik_informacji > 4) licznik_informacji = 1;
+
+            
         }
     }
 }
