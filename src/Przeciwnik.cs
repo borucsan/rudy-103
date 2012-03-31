@@ -86,7 +86,7 @@ namespace Rudy_103.src
 
             if ( (WykrytoPrzeszkode == true) || (LosujKierunek == true) )
             {
-                this.Strzelaj(fabryczka);
+                Strzelaj(fabryczka);
                 random = new Random();
                 int losuj_kierunek = (int)random.Next(0, 5);
                 if (losuj_kierunek == 1) kierunek = Kierunek.GORA;
@@ -101,7 +101,7 @@ namespace Rudy_103.src
             int CzyStrzelac;
             random = new Random();
             CzyStrzelac = random.Next(0, 3);
-            if (CzyStrzelac == 2) this.Strzelaj(fabryczka);
+            if (CzyStrzelac == 2) Strzelaj(fabryczka);
         }
     }
 }

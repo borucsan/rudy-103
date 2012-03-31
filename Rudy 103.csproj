@@ -205,6 +205,17 @@
   <ItemGroup>
     <EmbeddedResource Include="Resources\menu.png" />
   </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Wczytywanie\load_1.png" />
+    <EmbeddedResource Include="Resources\Wczytywanie\load_2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Wczytywanie\load_3.png" />
+    <EmbeddedResource Include="Resources\Wczytywanie\load_4.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\mur.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CompactFramework.CSharp.targets" />
   <ProjectExtensions>
     <VisualStudio>

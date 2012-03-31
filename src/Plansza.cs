@@ -26,6 +26,32 @@ namespace Rudy_103.src
         }
         public void GenerujDebugMapa(Fabryka fabryka)
         {
+            
+            Random random = new Random();
+
+            for (int szerokosc = 0; szerokosc < this.Szerokosc; szerokosc += 25)
+            {
+                for (int wysokosc = 0; wysokosc < this.Wysokosc; wysokosc += 25)
+                {
+                    switch (random.Next(0, 4))
+                    {
+                        case 1:
+                            {
+                                przeszkody.Add(fabryka.ProdukujPrzeszkode("cegielka"));
+                                przeszkody.Last().UstawPozycje(szerokosc, wysokosc);
+                            } break;
+                        case 2:
+                            {
+                            } break;
+                        case 3:
+                            {
+                            } break;
+                    }
+                   
+                 }
+            }
+            
+            /*
             przeszkody.Add(fabryka.ProdukujPrzeszkode("cegielka"));
             przeszkody.Last().UstawPozycje(25,25);
             przeszkody.Add(fabryka.ProdukujPrzeszkode("cegielka"));
@@ -55,17 +81,24 @@ namespace Rudy_103.src
             przeszkody.Last().UstawPozycje(175, 150);
             przeszkody.Add(fabryka.ProdukujPrzeszkode("drzewo"));
             przeszkody.Last().UstawPozycje(200, 150);
-            
+            */
             
 
 
         }
         public void RysujElementy(Graphics g, Point pozycja_kamery, System.Drawing.Imaging.ImageAttributes transparentPink)
         {
-            for (int i = 0; i < przeszkody.Count; ++i)
+            if (przeszkody != null)
             {
-                przeszkody[i].Rysuj(g, pozycja_kamery, transparentPink);
+                for (int i = 0; i < przeszkody.Count; ++i)
+                {
+                    if (przeszkody[i].wymiary.IntersectsWith(new Rectangle(pozycja_kamery.X, pozycja_kamery.Y, 240, 320)))
+                    {
+                        przeszkody[i].Rysuj(g, pozycja_kamery, transparentPink);
+                    }
+                }
             }
+            
         }
 
     }
