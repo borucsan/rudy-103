@@ -14,8 +14,17 @@ namespace Rudy_103.src
     /// </summary>
     public partial class NowaGra : Form
     {
+        //Wartości określające graficzny interfejs użytkownika
+        private bool panelEnergii;
+        private bool panelMinimapy;
+        private bool panelInformacji;
+        private bool przyciskMapy;      //przycisk, który będzie otwierał większą mapę
+        private bool panelMapy;         //większa mapa
+
         private int czas_sekundy;
         private int czas_minuty;
+
+        public bool graWczytana = false;
 
         private String s_czas;  //String do wyświetlania czasu
         private String s_poziom; //String do wyświetlania poziomu
@@ -28,9 +37,7 @@ namespace Rudy_103.src
         private Fabryka fabryka;
         private Plansza plansza;
         private Przeciwnik [] enemy;
-
-        private int wytrzymalosc;   //wytrzymalość czołgu
-        private int energia;        //ilość żyć, energii
+        private Przeciwnik przeciwnik;
 
         //Wartości określające minimalne i maksymalne wartości pola wyświetlającego grafike 
         private int minX;
@@ -57,8 +64,6 @@ namespace Rudy_103.src
         public NowaGra()
         {
             InitializeComponent();
-            wytrzymalosc = 100;
-            energia = 3;
 
             minX = 0;
             minY = 0;
@@ -111,19 +116,30 @@ namespace Rudy_103.src
             player = Fabryka.ProdukujDomyslnegoGracza(execAssem);
 
             Random pozycja = new Random();
-            enemy = new Przeciwnik[10];
-            for (int i = 0; i < 10; i++)
+            enemy = new Przeciwnik[5];
+            for (int i = 0; i < 5; i++)
             {
                 enemy[i] = fabryka.ProdukujPrzeciwnika("przeciwnik_poziom_1");
-                enemy[i].wymiary = new Rectangle(pozycja.Next(0, 1000), pozycja.Next(0, 1000), 40, 40);
+                enemy[i].wymiary = new Rectangle(pozycja.Next(10, 900), pozycja.Next(10, 900), 40, 40);
             }
-            //enemy[0] = fabryka.ProdukujPrzeciwnika("przeciwnik_poziom_1");
-            //enemy[0].wymiary = new Rectangle(900, 20, 40, 40);
+            
+            //przeciwnik = fabryka.ProdukujPrzeciwnika("przeciwnik_poziom_1");
+            //przeciwnik.wymiary = new Rectangle(50, 50, 40, 40);
+
+
+            //Ustawiamy początkowy GUI 
+            panelEnergii = true;
+            panelMinimapy = true;
+            panelInformacji = true;
+            przyciskMapy = true;
+            panelMapy = false;
 
             this.timer1.Enabled = true;
             this.czas_rozgrywki.Enabled = true;
             this.czas_efektow.Enabled = true;
             this.czas_informacji.Enabled = true;
+
+            graWczytana = true;
         }
 
         private System.Windows.Forms.KeyEventArgs wcisniety_klawisz = null;
@@ -229,16 +245,18 @@ namespace Rudy_103.src
         {
             zmienPozycjeGracza();
             player.RuchPocisku(plansza);
-            for (int i = 0; i < 10; i++)
+            
+            for (int i = 0; i < 5; i++)
             {
                 enemy[i].Ruch_Przeciwnika(plansza, fabryka);
+                //enemy[i].RuchPocisku(plansza); //po wlaczeniu tej funkcji, pocisk bardzo szybko zmienia pozycje
             }
             
             s_poziom = "Poziom: "+plansza.poziom;
             s_przeciwnicy = "Przeciwnicy: " + plansza.przeciwnicy.Count;
             s_punkty = "Punkty: " + player.Punkty;
-            
-            Invalidate();
+
+            Invalidate(new Rectangle(minX, minY, maxX, maxY));
         }
 
         private void czas_rozgrywki_Tick(object sender, EventArgs e)
@@ -275,19 +293,6 @@ namespace Rudy_103.src
         private Bitmap bitmapBuffor = null;
         private void NowaGra_Paint(object sender, PaintEventArgs e)
         {
-            /*cos w tym stylu trzeba bedzie zaimplementować kiedy będą dane wrzucane do jakiegoś kontenera danych
-            for(int x = 0; x<rozmiar_mapy.X; x++)
-            {
-                for(int y = 0; y<rozmiar_mapy.Y; y++)
-                {
-                    if (lista[x][y].pozycja_obiektu.x <= pozycja_kamery.X + pictureBox1.Width + 50
-                        && lista[x][y].pozycja_obiektu.y <= pozycja_kamery.Y + pictureBox1.Height + 50)
-                    {
-                        lista[x][y].Rysuj(PaintEventArgs e);
-                    }
-                }
-            }
-            */
             //Tworzymy nowy buffor jezeli potrzebny.
             if (bitmapBuffor == null)
             {
@@ -301,7 +306,7 @@ namespace Rudy_103.src
                 g.DrawImage(tlo, 0, 0);
                 player.Rysuj(g, pozycja_kamery, transparentPink);
                 
-                for (int i = 0; i < 10; i++)
+                for (int i = 0; i < 5; i++)
                 {
                     enemy[i].Rysuj(g, pozycja_kamery, transparentPink);
                 }
@@ -332,147 +337,195 @@ namespace Rudy_103.src
         }
         private void RysujInterfejs(Graphics g, System.Drawing.Imaging.ImageAttributes transparentPink)
         {
-            //Color kolor = Color.FromArgb(10, 155, 10);
-            //kolor.A = 100;
-            //System.Drawing.Color kolor = System.Drawing.Color.FromArgb(0xAA00DD00);
-            Rectangle prostokat = new Rectangle(170, 20, 50, 50);
-            Rectangle prostokat2 = new Rectangle(169, 19, 51, 51);
-            Brush pedzel = new SolidBrush(Color.FromArgb(0x7800FF00));
-            g.DrawRectangle(new Pen(Color.Blue), prostokat2);
-            g.DrawImage(i_rect, prostokat, 0, 0, i_rect.Width, i_rect.Height, GraphicsUnit.Pixel, transparentPink);
-            //g.FillRectangle(pedzel, prostokat);
-            g.FillEllipse(new SolidBrush(Color.White), new Rectangle( prostokat.X + ((int)player.wymiary.X / 20), prostokat.Y + ((int)player.wymiary.Y / 20), 2, 2));
-            for (int i = 0; i < 10; i++)
-            {
-                g.FillEllipse(new SolidBrush(Color.Yellow), new Rectangle( prostokat.X + ((int)enemy[i].wymiary.X / 20), prostokat.Y + ((int)enemy[i].wymiary.Y / 20), 2, 2));
-            }
-
-            g.DrawRectangle(new Pen(Color.Red), prostokat.X + (int)pozycja_kamery.X / 20, prostokat.Y + (int)pozycja_kamery.Y / 20, 12, 13);
-            g.DrawImage(i_menu, new Rectangle(minX, maxY-30, 240, 30), 0, 0, i_menu.Width, i_menu.Height, GraphicsUnit.Pixel, transparentPink);
-            
-            #region RysowanieInformacji
             StringFormat drawFormat = new StringFormat();
             drawFormat.Alignment = StringAlignment.Center;
-            if (licznik_informacji == 1) g.DrawString(s_poziom, new Font("Arial", 12, FontStyle.Regular), new SolidBrush(Color.White), new RectangleF(minX, maxY - 25, maxX, 25), drawFormat);
-            if (licznik_informacji == 2) g.DrawString(s_czas, new Font("Arial", 12, FontStyle.Regular), new SolidBrush(Color.White), new RectangleF(minX, maxY - 25, maxX, 25), drawFormat);
-            if (licznik_informacji == 3) g.DrawString(s_przeciwnicy, new Font("Arial", 12, FontStyle.Regular), new SolidBrush(Color.White), new RectangleF(minX, maxY - 25, maxX, 25), drawFormat);
-            if (licznik_informacji == 4) g.DrawString(s_punkty, new Font("Arial", 12, FontStyle.Regular), new SolidBrush(Color.White), new RectangleF(minX, maxY - 25, maxX, 25), drawFormat);
-            #endregion RysowanieInformacji
-            #region RysowanieBaterii
-            int procent_wytrzymalosci = (player.AktualnaWytrzymalosc * 100) / player.Wytrzymalosc;
-            if (player.Energia == 3)
+            if (panelMinimapy)
             {
-                Rectangle prostokat3 = new Rectangle(minX + 20, minY + 34, 18, 36);
-                g.DrawImage(i_bateria[0], prostokat3, 0, 0, i_bateria[0].Width, i_bateria[0].Height, GraphicsUnit.Pixel, transparentPink);
-                prostokat3.X += 20;
-                g.DrawImage(i_bateria[0], prostokat3, 0, 0, i_bateria[0].Width, i_bateria[0].Height, GraphicsUnit.Pixel, transparentPink);
-                prostokat3.X += 20;
-                if (procent_wytrzymalosci <= 100 && procent_wytrzymalosci > 85)
+                #region RysowanieMiniMapy
+                Rectangle prostokat = new Rectangle(170, 20, 50, 50);
+                Rectangle prostokat2 = new Rectangle(169, 19, 51, 51);
+
+                g.DrawRectangle(new Pen(Color.Blue), prostokat2);
+                g.DrawImage(i_rect, prostokat, 0, 0, i_rect.Width, i_rect.Height, GraphicsUnit.Pixel, transparentPink);
+                //g.FillRectangle(pedzel, prostokat);
+                g.FillEllipse(new SolidBrush(Color.White), new Rectangle(prostokat.X + ((int)player.wymiary.X / 20), prostokat.Y + ((int)player.wymiary.Y / 20), 2, 2));
+                for (int i = 0; i < 5; i++)
                 {
-                    g.DrawImage(i_bateria[0], prostokat3, 0, 0, i_bateria[0].Width, i_bateria[0].Height, GraphicsUnit.Pixel, transparentPink);
+                    g.FillEllipse(new SolidBrush(Color.Yellow), new Rectangle(prostokat.X + ((int)enemy[i].wymiary.X / 20), prostokat.Y + ((int)enemy[i].wymiary.Y / 20), 2, 2));
                 }
-                if (procent_wytrzymalosci <= 85 && procent_wytrzymalosci > 70)
-                {
-                    g.DrawImage(i_bateria[1], prostokat3, 0, 0, i_bateria[0].Width, i_bateria[0].Height, GraphicsUnit.Pixel, transparentPink);
-                }
-                if (procent_wytrzymalosci <= 70 && procent_wytrzymalosci > 55)
-                {
-                    g.DrawImage(i_bateria[2], prostokat3, 0, 0, i_bateria[0].Width, i_bateria[0].Height, GraphicsUnit.Pixel, transparentPink);
-                }
-                if (procent_wytrzymalosci <= 55 && procent_wytrzymalosci > 40)
-                {
-                    g.DrawImage(i_bateria[3], prostokat3, 0, 0, i_bateria[0].Width, i_bateria[0].Height, GraphicsUnit.Pixel, transparentPink);
-                }
-                if (procent_wytrzymalosci <= 40 && procent_wytrzymalosci > 25)
-                {
-                    g.DrawImage(i_bateria[4], prostokat3, 0, 0, i_bateria[0].Width, i_bateria[0].Height, GraphicsUnit.Pixel, transparentPink);
-                }
-                if (procent_wytrzymalosci <= 25 && procent_wytrzymalosci > 10)
-                {
-                    g.DrawImage(i_bateria[5], prostokat3, 0, 0, i_bateria[0].Width, i_bateria[0].Height, GraphicsUnit.Pixel, transparentPink);
-                }
-                if (procent_wytrzymalosci <= 10)
-                {
-                    g.DrawImage(i_bateria[6], prostokat3, 0, 0, i_bateria[0].Width, i_bateria[0].Height, GraphicsUnit.Pixel, transparentPink);
-                }
+
+                g.DrawRectangle(new Pen(Color.Red), prostokat.X + (int)pozycja_kamery.X / 20, prostokat.Y + (int)pozycja_kamery.Y / 20, 12, 13);
+                #endregion RysowanieMiniMapy
             }
-            if (player.Energia == 2)
+            if (przyciskMapy)
             {
-                Rectangle prostokat3 = new Rectangle(minX + 20, minY + 20, 18, 36);
-                g.DrawImage(i_bateria[0], prostokat3, 0, 0, i_bateria[0].Width, i_bateria[0].Height, GraphicsUnit.Pixel, transparentPink);
+                #region RysowaniePrzyciskuMapa
+                Rectangle prostokatPrzycisk = new Rectangle(170, 73, 50, 15);
+                Rectangle prostokatPrzycisk2 = new Rectangle(169, 72, 51, 16);
+
+                g.DrawRectangle(new Pen(Color.Black), prostokatPrzycisk2);
+                g.FillRectangle(new SolidBrush(Color.Black), prostokatPrzycisk);
+                g.DrawString("MAPA", new Font("Arial", 10, FontStyle.Bold), new SolidBrush(Color.Green), prostokatPrzycisk, drawFormat);
                 
-                prostokat3.X += 20;
-                if (procent_wytrzymalosci <= 100 && procent_wytrzymalosci > 85)
-                {
-                    g.DrawImage(i_bateria[0], prostokat3, 0, 0, i_bateria[0].Width, i_bateria[0].Height, GraphicsUnit.Pixel, transparentPink);
-                }
-                if (procent_wytrzymalosci <= 85 && procent_wytrzymalosci > 70)
-                {
-                    g.DrawImage(i_bateria[1], prostokat3, 0, 0, i_bateria[0].Width, i_bateria[0].Height, GraphicsUnit.Pixel, transparentPink);
-                }
-                if (procent_wytrzymalosci <= 70 && procent_wytrzymalosci > 55)
-                {
-                    g.DrawImage(i_bateria[2], prostokat3, 0, 0, i_bateria[0].Width, i_bateria[0].Height, GraphicsUnit.Pixel, transparentPink);
-                }
-                if (procent_wytrzymalosci <= 55 && procent_wytrzymalosci > 40)
-                {
-                    g.DrawImage(i_bateria[3], prostokat3, 0, 0, i_bateria[0].Width, i_bateria[0].Height, GraphicsUnit.Pixel, transparentPink);
-                }
-                if (procent_wytrzymalosci <= 40 && procent_wytrzymalosci > 25)
-                {
-                    g.DrawImage(i_bateria[4], prostokat3, 0, 0, i_bateria[0].Width, i_bateria[0].Height, GraphicsUnit.Pixel, transparentPink);
-                }
-                if (procent_wytrzymalosci <= 25 && procent_wytrzymalosci > 10)
-                {
-                    g.DrawImage(i_bateria[5], prostokat3, 0, 0, i_bateria[0].Width, i_bateria[0].Height, GraphicsUnit.Pixel, transparentPink);
-                }
-                if (procent_wytrzymalosci <= 10)
-                {
-                    g.DrawImage(i_bateria[6], prostokat3, 0, 0, i_bateria[0].Width, i_bateria[0].Height, GraphicsUnit.Pixel, transparentPink);
-                }
+                #endregion RysowaniePrzyciskuMapa
             }
-            if (player.Energia == 1)
+            if (panelInformacji)
             {
-                Rectangle prostokat3 = new Rectangle(minX + 20, minY + 20, 18, 36);
-                if (procent_wytrzymalosci <= 100 && procent_wytrzymalosci > 85)
-                {
-                    g.DrawImage(i_bateria[0], prostokat3, 0, 0, i_bateria[0].Width, i_bateria[0].Height, GraphicsUnit.Pixel, transparentPink);
-                }
-                if (procent_wytrzymalosci <= 85 && procent_wytrzymalosci > 70)
-                {
-                    g.DrawImage(i_bateria[1], prostokat3, 0, 0, i_bateria[0].Width, i_bateria[0].Height, GraphicsUnit.Pixel, transparentPink);
-                }
-                if (procent_wytrzymalosci <= 70 && procent_wytrzymalosci > 55)
-                {
-                    g.DrawImage(i_bateria[2], prostokat3, 0, 0, i_bateria[0].Width, i_bateria[0].Height, GraphicsUnit.Pixel, transparentPink);
-                }
-                if (procent_wytrzymalosci <= 55 && procent_wytrzymalosci > 40)
-                {
-                    g.DrawImage(i_bateria[3], prostokat3, 0, 0, i_bateria[0].Width, i_bateria[0].Height, GraphicsUnit.Pixel, transparentPink);
-                }
-                if (procent_wytrzymalosci <= 40 && procent_wytrzymalosci > 25)
-                {
-                    g.DrawImage(i_bateria[4], prostokat3, 0, 0, i_bateria[0].Width, i_bateria[0].Height, GraphicsUnit.Pixel, transparentPink);
-                }
-                if (procent_wytrzymalosci <= 25 && procent_wytrzymalosci > 10)
-                {
-                    g.DrawImage(i_bateria[5], prostokat3, 0, 0, i_bateria[0].Width, i_bateria[0].Height, GraphicsUnit.Pixel, transparentPink);
-                }
-                if (procent_wytrzymalosci <= 10)
-                {
-                    g.DrawImage(i_bateria[6], prostokat3, 0, 0, i_bateria[0].Width, i_bateria[0].Height, GraphicsUnit.Pixel, transparentPink);
-                }
+                #region RysowanieInformacji
+                g.DrawImage(i_menu, new Rectangle(minX, maxY - 30, 240, 30), 0, 0, i_menu.Width, i_menu.Height, GraphicsUnit.Pixel, transparentPink);
+
+                if (licznik_informacji == 1) g.DrawString(s_poziom, new Font("Arial", 12, FontStyle.Regular), new SolidBrush(Color.White), new RectangleF(minX, maxY - 25, maxX, 25), drawFormat);
+                if (licznik_informacji == 2) g.DrawString(s_czas, new Font("Arial", 12, FontStyle.Regular), new SolidBrush(Color.White), new RectangleF(minX, maxY - 25, maxX, 25), drawFormat);
+                if (licznik_informacji == 3) g.DrawString(s_przeciwnicy, new Font("Arial", 12, FontStyle.Regular), new SolidBrush(Color.White), new RectangleF(minX, maxY - 25, maxX, 25), drawFormat);
+                if (licznik_informacji == 4) g.DrawString(s_punkty, new Font("Arial", 12, FontStyle.Regular), new SolidBrush(Color.White), new RectangleF(minX, maxY - 25, maxX, 25), drawFormat);
+
+                #endregion RysowanieInformacji
             }
-            #endregion RysowanieBaterii
+            if (panelEnergii)
+            {
+                #region RysowanieBaterii
+                int procent_wytrzymalosci = (player.AktualnaWytrzymalosc * 100) / player.Wytrzymalosc;
+                if (player.Energia == 3)
+                {
+                    Rectangle prostokat3 = new Rectangle(minX + 20, minY + 34, 18, 36);
+                    g.DrawImage(i_bateria[0], prostokat3, 0, 0, i_bateria[0].Width, i_bateria[0].Height, GraphicsUnit.Pixel, transparentPink);
+                    prostokat3.X += 20;
+                    g.DrawImage(i_bateria[0], prostokat3, 0, 0, i_bateria[0].Width, i_bateria[0].Height, GraphicsUnit.Pixel, transparentPink);
+                    prostokat3.X += 20;
+                    if (procent_wytrzymalosci <= 100 && procent_wytrzymalosci > 85)
+                    {
+                        g.DrawImage(i_bateria[0], prostokat3, 0, 0, i_bateria[0].Width, i_bateria[0].Height, GraphicsUnit.Pixel, transparentPink);
+                    }
+                    if (procent_wytrzymalosci <= 85 && procent_wytrzymalosci > 70)
+                    {
+                        g.DrawImage(i_bateria[1], prostokat3, 0, 0, i_bateria[0].Width, i_bateria[0].Height, GraphicsUnit.Pixel, transparentPink);
+                    }
+                    if (procent_wytrzymalosci <= 70 && procent_wytrzymalosci > 55)
+                    {
+                        g.DrawImage(i_bateria[2], prostokat3, 0, 0, i_bateria[0].Width, i_bateria[0].Height, GraphicsUnit.Pixel, transparentPink);
+                    }
+                    if (procent_wytrzymalosci <= 55 && procent_wytrzymalosci > 40)
+                    {
+                        g.DrawImage(i_bateria[3], prostokat3, 0, 0, i_bateria[0].Width, i_bateria[0].Height, GraphicsUnit.Pixel, transparentPink);
+                    }
+                    if (procent_wytrzymalosci <= 40 && procent_wytrzymalosci > 25)
+                    {
+                        g.DrawImage(i_bateria[4], prostokat3, 0, 0, i_bateria[0].Width, i_bateria[0].Height, GraphicsUnit.Pixel, transparentPink);
+                    }
+                    if (procent_wytrzymalosci <= 25 && procent_wytrzymalosci > 10)
+                    {
+                        g.DrawImage(i_bateria[5], prostokat3, 0, 0, i_bateria[0].Width, i_bateria[0].Height, GraphicsUnit.Pixel, transparentPink);
+                    }
+                    if (procent_wytrzymalosci <= 10)
+                    {
+                        g.DrawImage(i_bateria[6], prostokat3, 0, 0, i_bateria[0].Width, i_bateria[0].Height, GraphicsUnit.Pixel, transparentPink);
+                    }
+                }
+                if (player.Energia == 2)
+                {
+                    Rectangle prostokat3 = new Rectangle(minX + 20, minY + 20, 18, 36);
+                    g.DrawImage(i_bateria[0], prostokat3, 0, 0, i_bateria[0].Width, i_bateria[0].Height, GraphicsUnit.Pixel, transparentPink);
+
+                    prostokat3.X += 20;
+                    if (procent_wytrzymalosci <= 100 && procent_wytrzymalosci > 85)
+                    {
+                        g.DrawImage(i_bateria[0], prostokat3, 0, 0, i_bateria[0].Width, i_bateria[0].Height, GraphicsUnit.Pixel, transparentPink);
+                    }
+                    if (procent_wytrzymalosci <= 85 && procent_wytrzymalosci > 70)
+                    {
+                        g.DrawImage(i_bateria[1], prostokat3, 0, 0, i_bateria[0].Width, i_bateria[0].Height, GraphicsUnit.Pixel, transparentPink);
+                    }
+                    if (procent_wytrzymalosci <= 70 && procent_wytrzymalosci > 55)
+                    {
+                        g.DrawImage(i_bateria[2], prostokat3, 0, 0, i_bateria[0].Width, i_bateria[0].Height, GraphicsUnit.Pixel, transparentPink);
+                    }
+                    if (procent_wytrzymalosci <= 55 && procent_wytrzymalosci > 40)
+                    {
+                        g.DrawImage(i_bateria[3], prostokat3, 0, 0, i_bateria[0].Width, i_bateria[0].Height, GraphicsUnit.Pixel, transparentPink);
+                    }
+                    if (procent_wytrzymalosci <= 40 && procent_wytrzymalosci > 25)
+                    {
+                        g.DrawImage(i_bateria[4], prostokat3, 0, 0, i_bateria[0].Width, i_bateria[0].Height, GraphicsUnit.Pixel, transparentPink);
+                    }
+                    if (procent_wytrzymalosci <= 25 && procent_wytrzymalosci > 10)
+                    {
+                        g.DrawImage(i_bateria[5], prostokat3, 0, 0, i_bateria[0].Width, i_bateria[0].Height, GraphicsUnit.Pixel, transparentPink);
+                    }
+                    if (procent_wytrzymalosci <= 10)
+                    {
+                        g.DrawImage(i_bateria[6], prostokat3, 0, 0, i_bateria[0].Width, i_bateria[0].Height, GraphicsUnit.Pixel, transparentPink);
+                    }
+                }
+                if (player.Energia == 1)
+                {
+                    Rectangle prostokat3 = new Rectangle(minX + 20, minY + 20, 18, 36);
+                    if (procent_wytrzymalosci <= 100 && procent_wytrzymalosci > 85)
+                    {
+                        g.DrawImage(i_bateria[0], prostokat3, 0, 0, i_bateria[0].Width, i_bateria[0].Height, GraphicsUnit.Pixel, transparentPink);
+                    }
+                    if (procent_wytrzymalosci <= 85 && procent_wytrzymalosci > 70)
+                    {
+                        g.DrawImage(i_bateria[1], prostokat3, 0, 0, i_bateria[0].Width, i_bateria[0].Height, GraphicsUnit.Pixel, transparentPink);
+                    }
+                    if (procent_wytrzymalosci <= 70 && procent_wytrzymalosci > 55)
+                    {
+                        g.DrawImage(i_bateria[2], prostokat3, 0, 0, i_bateria[0].Width, i_bateria[0].Height, GraphicsUnit.Pixel, transparentPink);
+                    }
+                    if (procent_wytrzymalosci <= 55 && procent_wytrzymalosci > 40)
+                    {
+                        g.DrawImage(i_bateria[3], prostokat3, 0, 0, i_bateria[0].Width, i_bateria[0].Height, GraphicsUnit.Pixel, transparentPink);
+                    }
+                    if (procent_wytrzymalosci <= 40 && procent_wytrzymalosci > 25)
+                    {
+                        g.DrawImage(i_bateria[4], prostokat3, 0, 0, i_bateria[0].Width, i_bateria[0].Height, GraphicsUnit.Pixel, transparentPink);
+                    }
+                    if (procent_wytrzymalosci <= 25 && procent_wytrzymalosci > 10)
+                    {
+                        g.DrawImage(i_bateria[5], prostokat3, 0, 0, i_bateria[0].Width, i_bateria[0].Height, GraphicsUnit.Pixel, transparentPink);
+                    }
+                    if (procent_wytrzymalosci <= 10)
+                    {
+                        g.DrawImage(i_bateria[6], prostokat3, 0, 0, i_bateria[0].Width, i_bateria[0].Height, GraphicsUnit.Pixel, transparentPink);
+                    }
+                }
+                #endregion RysowanieBaterii
+            }
+            if (panelMapy)
+            {
+                Rectangle mapa = new Rectangle(20, 90, 200, 200);
+                g.FillRectangle(new SolidBrush(Color.Black), mapa);
+                for (int i = 0; i < plansza.przeszkody.Count; i++)
+                {
+                    g.DrawRectangle(new Pen(Color.Red, 1), new Rectangle(plansza.przeszkody[i].wymiary.X/5 + 20, 
+                        plansza.przeszkody[i].wymiary.Y/5 + 90, plansza.przeszkody[i].wymiary.Width/5, 
+                        plansza.przeszkody[i].wymiary.Height/5) );
+                    
+                }
+                g.DrawRectangle(new Pen(Color.White, 1), new Rectangle(player.wymiary.X / 5 + 20, player.wymiary.Y / 5 + 90,
+                        player.wymiary.Width/5, player.wymiary.Height/5) );
+                
+            }
         }
 
         private void czas_informacji_Tick(object sender, EventArgs e)
         {
             
             licznik_informacji += 1;
-            if (licznik_informacji > 4) licznik_informacji = 1;
+            if (licznik_informacji > 4) licznik_informacji = 1;  
+        }
 
+        private void NowaGra_Click(object sender, EventArgs e)
+        {
             
+            if (przyciskMapy)
+            {
+                Rectangle mysz = new Rectangle(MousePosition.X, MousePosition.Y, 1, 1);
+                Rectangle pozycjaprzyciskuMapy = new Rectangle(170, 72, 50, 15);
+                if(mysz.IntersectsWith(pozycjaprzyciskuMapy))
+                {
+                    panelMapy = !panelMapy;
+                }
+            }
         }
     }
 }

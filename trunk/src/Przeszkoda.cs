@@ -14,13 +14,13 @@ namespace Rudy_103.src
         public Przeszkoda(int X, int Y, int Szer, int Wys, bool transparent)
             : base(X, Y, Szer, Wys)
         {
-            energia = 100;
+            energia = 20;
             this.transparent = transparent;
         }
         public Przeszkoda(int X, int Y, int Szer, int Wys, bool transparent, params Image[] obrazy)
             : base(X, Y, Szer, Wys, obrazy)
         {
-            energia = 100;
+            energia = 20;
             this.transparent = transparent;
         }
         public override void Rysuj(Graphics g, Point pozycja_kamery, System.Drawing.Imaging.ImageAttributes transparentPink) 
