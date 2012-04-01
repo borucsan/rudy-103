@@ -37,14 +37,16 @@ namespace Rudy_103.src
                     {
                         case 1:
                             {
-                                przeszkody.Add(fabryka.ProdukujPrzeszkode("cegielka"));
+                                przeszkody.Add(fabryka.ProdukujPrzeszkode("cegielka2"));
                                 przeszkody.Last().UstawPozycje(szerokosc, wysokosc);
                             } break;
                         case 2:
                             {
+                                
                             } break;
                         case 3:
                             {
+                                
                             } break;
                     }
                    
