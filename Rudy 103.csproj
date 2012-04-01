@@ -216,6 +216,17 @@
   <ItemGroup>
     <EmbeddedResource Include="Resources\mur.png" />
   </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Mapa\gracz.png" />
+    <EmbeddedResource Include="Resources\Mapa\przeszkoda.png" />
+    <EmbeddedResource Include="Resources\Mapa\pusta_mapa.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Mapa\tlo_mapa.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\przycisk.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CompactFramework.CSharp.targets" />
   <ProjectExtensions>
     <VisualStudio>
