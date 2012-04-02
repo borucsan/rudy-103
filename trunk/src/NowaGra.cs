@@ -265,16 +265,7 @@ namespace Rudy_103.src
         {
             zmienPozycjeGracza();
             player.RuchPocisku(plansza);
-            if (plansza.przeciwnicy_na_mapie != null)
-            {
-                for (int i = 0; i < plansza.przeciwnicy_na_mapie.Count; i++)
-                {
-                    plansza.przeciwnicy_na_mapie[i].Ruch_Przeciwnika(plansza, fabryka);
-                    
-                    plansza.przeciwnicy_na_mapie[i].RuchPocisku(plansza); 
-                    //po wlaczeniu tej funkcji, pocisk bardzo szybko zmienia pozycje
-                }
-            }
+            plansza.RuszPrzeciwnikow(fabryka, player);
             s_poziom = "Poziom: "+plansza.poziom;
             s_przeciwnicy = "Przeciwnicy: " + (plansza.przeciwnicy.Count/*+plansza.przeciwnicy_na_mapie.Count*/);
             s_punkty = "Punkty: " + player.Punkty;
@@ -287,10 +278,7 @@ namespace Rudy_103.src
             czas_sekundy += 1;
             if (czas_sekundy == 5)
             {
-                if (plansza.przeciwnicy.Count > 0)
-                {
-                    plansza.przeciwnicy_na_mapie.Add(plansza.przeciwnicy.Pop());
-                }
+                plansza.Respawn();
             }
 
             if (czas_sekundy == 60)

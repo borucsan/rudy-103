@@ -10,7 +10,7 @@ namespace Rudy_103.src
     /// </summary>
     class Fabryka
     {
-        private Dictionary<String, Przeciwnik> wzorce_przeciwnikow;
+        public Dictionary<String, Przeciwnik> wzorce_przeciwnikow;
         private Dictionary<String, Przeszkoda> wzorce_przeszkod;
         private Pocisk wzorzec_pocisku;
         public Pocisk WzorzecPocisku
@@ -82,7 +82,7 @@ namespace Rudy_103.src
         }
         public Pocisk ProdukujPocisk()
         {
-            return wzorzec_pocisku;
+            return (Pocisk)wzorzec_pocisku.Clone();
         }
         /// <summary>
         /// Metoda statyczna tworząca nową instancje gracza z podstawowymi parametrami.
@@ -104,15 +104,19 @@ namespace Rudy_103.src
                 );
             return player;
         }
+        /// <summary>
+        /// Metoda tworząca domyślne wzorce. Jest to metoda pomocnicza
+        /// </summary>
+        /// <param name="execAssem"></param>
         public void TworzDomyslneWzorce(System.Reflection.Assembly execAssem)
         {
-            DodajWzorzecPrzeszkody("ziemia", new Przeszkoda(0, 0, 25, 25, true, new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.ziemia.png"))));
-            DodajWzorzecPrzeszkody("cegielka", new Przeszkoda(0, 0, 25, 25, false, new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.cegielka.png"))));
-            DodajWzorzecPrzeszkody("cegielka2", new Przeszkoda(0, 0, 25, 25, false, new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.cegielka2.png"))));
-            DodajWzorzecPrzeszkody("cegielka3", new Przeszkoda(0, 0, 25, 25, false, new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.cegielka3.png"))));
-            DodajWzorzecPrzeszkody("cegielka4", new Przeszkoda(0, 0, 25, 25, false, new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.cegielka4.png"))));
-            DodajWzorzecPrzeszkody("drzewo", new Przeszkoda(0, 0, 25, 25, true, new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.drzewo.png"))));
-            DodajWzorzecPrzeszkody("mur", new Przeszkoda(0, 0, 25, 25, false, new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.mur.png"))));
+            DodajWzorzecPrzeszkody("cegielka", new Przeszkoda(0, 0, 25, 25, 20, false, new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.cegielka.png"))));
+            DodajWzorzecPrzeszkody("cegielka2", new Przeszkoda(0, 0, 25, 25, 30, false, new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.cegielka2.png"))));
+            DodajWzorzecPrzeszkody("cegielka3", new Przeszkoda(0, 0, 25, 25, 40, false, new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.cegielka3.png"))));
+            DodajWzorzecPrzeszkody("cegielka4", new Przeszkoda(0, 0, 25, 25, 50, false, new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.cegielka4.png"))));
+            DodajWzorzecPrzeszkody("mur", new Przeszkoda(0, 0, 25, 25, 20, false, new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.mur.png"))));
+            DodajWzorzecPrzeszkody("drzewo", new Przeszkoda(0, 0, 25, 25, 0, true, new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.drzewo.png"))));
+            //DodajWzorzecPrzeszkody("ziemia", new Przeszkoda(0, 0, 25, 25, 0, true, new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.ziemia.png"))));
             
             Przeciwnik enemy = new Przeciwnik(0, 0, 40, 40, 100, 5, 10);
             

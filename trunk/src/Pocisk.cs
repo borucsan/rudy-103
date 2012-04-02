@@ -7,7 +7,7 @@ using System.Drawing;
 
 namespace Rudy_103.src
 {
-    class Pocisk : Obiekty
+    class Pocisk : Obiekty, ICloneable
     {
         public Czolg.Kierunek kierunek { get; set; }
         public int sila { get; set; }
@@ -28,7 +28,6 @@ namespace Rudy_103.src
         }
         public override void Rysuj(Graphics g, Point pozycja_kamery, System.Drawing.Imaging.ImageAttributes transparentPink) 
         {
-            //g.DrawImage(obrazy[(int)kierunek], Wymiary.X - pozycja_kamery.X, Wymiary.Y - pozycja_kamery.Y);
             g.DrawImage(obrazy[(int)kierunek], new Rectangle(Wymiary.X - pozycja_kamery.X, Wymiary.Y - pozycja_kamery.Y, Wymiary.Width, Wymiary.Height), 0, 0,
                         obrazy[(int)kierunek].Width, obrazy[(int)kierunek].Width, GraphicsUnit.Pixel, transparentPink);
         }
@@ -46,10 +45,15 @@ namespace Rudy_103.src
                 Wymiary.Y -= 5;
             }
         }
-        public void ZmienPozycje(int zmiana_X, int zmiana_Y)
+        #region ICloneable Members
+
+        public object Clone()
         {
-            Wymiary.X = Wymiary.X + zmiana_X;
-            Wymiary.Y = Wymiary.Y + zmiana_Y;
+            Pocisk klon = new Pocisk(0, 0, this.wymiary.Width, this.wymiary.Height, this.sila, this.szybkosc, Czolg.Kierunek.GORA);
+            klon.WczytajObrazy(this.obrazy);
+            return klon;
         }
+
+        #endregion
     }
 }
