@@ -61,20 +61,16 @@ namespace Rudy_103.src
             this.kierunek = Kierunek.GORA;
         }
         public Czolg(int X, int Y, int Szer, int Wys, int wytrzymalosc, int szybkosc, int sila, params Image[] obrazy)
-            : base(X, Y, Szer, Wys, obrazy)
+            : this(X, Y, Szer, Wys, wytrzymalosc, szybkosc, sila)
         {
-            this.wytrzymalosc = wytrzymalosc;
-            this.aktualna_wytrzymalosc = wytrzymalosc;
-            this.szybkosc = szybkosc;
-            this.sila = sila;
-            this.kierunek = Kierunek.GORA;
+            this.obrazy = obrazy;
         }
         /// <summary>
         /// Metoda do poruszania czołgami
         /// </summary>
         /// <param name="kierunek">Enumeracja reprezentująca kierunek</param>
         /// <param name="plansza">Referencja obiektu mapy</param>
-        public void Ruch(Kierunek kierunek, Plansza plansza)
+        public virtual void Ruch(Kierunek kierunek, Plansza plansza)
         {
             this.kierunek = kierunek;
             switch (kierunek)
@@ -194,16 +190,16 @@ namespace Rudy_103.src
             }
             return ProstokatMozliwychKolizji;
         }
-        public bool Zderzenie(Plansza plansza)
+        public virtual bool Zderzenie(Plansza plansza)
         {
             Rectangle pmk = StworzProstokatMozliwychKolizji(plansza);
-           /* for (int i = 0; i < plansza.przeciwnicy_na_mapie.Capacity; ++i)
+           for (int i = 0; i < plansza.przeciwnicy_na_mapie.Count; ++i)
             {
-                if (plansza.przeciwnicy_na_mapie[i].Wymiary.IntersectsWith(pmk))
+                if ((plansza.przeciwnicy_na_mapie[i]).wymiary.IntersectsWith(pmk))
                 {
-                    if(plansza.przeciwnicy_na_mapie[i].Wymiary.IntersectsWith(Wymiary)) return true;
+                    if(plansza.przeciwnicy_na_mapie[i].wymiary.IntersectsWith(Wymiary)) return true;
                 }
-            }*/
+            }
             for (int i = 0; i < plansza.przeszkody.Count(); ++i)
             {
                 if ((plansza.przeszkody[i]).wymiary.IntersectsWith(pmk))
@@ -214,7 +210,7 @@ namespace Rudy_103.src
             }
             return false;
         }
-        public void Trafienie(Plansza plansza)
+        public virtual void Trafienie(Plansza plansza)
         {
             Rectangle pmk = StworzProstokatMozliwychKolizji(plansza);
             /* for (int i = 0; i < plansza.przeciwnicy_na_mapie.Capacity; ++i)

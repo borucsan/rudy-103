@@ -9,19 +9,18 @@ namespace Rudy_103.src
 {
     class Przeszkoda : Obiekty, ICloneable
     {
-        private int energia { get; set; }
+        public int energia { get; set; }
         public bool transparent { get; set; }
-        public Przeszkoda(int X, int Y, int Szer, int Wys, bool transparent)
+        public Przeszkoda(int X, int Y, int Szer, int Wys, int energia, bool transparent)
             : base(X, Y, Szer, Wys)
         {
-            energia = 20;
+            this.energia = energia;
             this.transparent = transparent;
         }
-        public Przeszkoda(int X, int Y, int Szer, int Wys, bool transparent, params Image[] obrazy)
-            : base(X, Y, Szer, Wys, obrazy)
+        public Przeszkoda(int X, int Y, int Szer, int Wys, int energia, bool transparent, params Image[] obrazy)
+            : this(X, Y, Szer, Wys, energia, transparent)
         {
-            energia = 20;
-            this.transparent = transparent;
+            this.obrazy = obrazy;
         }
         public override void Rysuj(Graphics g, Point pozycja_kamery, System.Drawing.Imaging.ImageAttributes transparentPink) 
         {
@@ -30,7 +29,7 @@ namespace Rudy_103.src
         }
         public object Clone()
         {
-            Przeszkoda klon = new Przeszkoda(0, 0, this.Wymiary.Width, this.Wymiary.Height, transparent);
+            Przeszkoda klon = new Przeszkoda(0, 0, this.Wymiary.Width, this.Wymiary.Height, this.energia, transparent);
             klon.WczytajObrazy(this.obrazy);
             return klon;
         }

@@ -21,7 +21,7 @@ namespace Rudy_103.src
             klon.WczytajObrazy(this.obrazy);
             return klon;
         }
-        public void Ruch_Przeciwnika(Plansza mapa, Fabryka fabryczka)
+        public void Ruch_Przeciwnika(Plansza mapa, Fabryka fabryczka, Gracz gracz)
         {
            //Losuj kierunek
             Random random = new Random();
@@ -38,7 +38,7 @@ namespace Rudy_103.src
                     if (Wymiary.Y >= szybkosc)
                     {
                         Wymiary.Y -= szybkosc;
-                        if (Zderzenie(mapa))
+                        if (Zderzenie(mapa, gracz))
                         {
                             Wymiary.Y = Wymiary.Y + szybkosc;
                             WykrytoPrzeszkode = true;
@@ -50,7 +50,7 @@ namespace Rudy_103.src
                     if (Wymiary.X <= mapa.Szerokosc - (szybkosc + Wymiary.Width))
                     {
                         Wymiary.X += szybkosc;
-                        if (Zderzenie(mapa))
+                        if (Zderzenie(mapa, gracz))
                         {
                             Wymiary.X = Wymiary.X - szybkosc;
                             WykrytoPrzeszkode = true;
@@ -62,7 +62,7 @@ namespace Rudy_103.src
                     if (Wymiary.Y <= mapa.Wysokosc - (szybkosc + Wymiary.Height))
                     {
                         Wymiary.Y += szybkosc;
-                        if (Zderzenie(mapa))
+                        if (Zderzenie(mapa, gracz))
                         {
                             Wymiary.Y = Wymiary.Y - szybkosc;
                             WykrytoPrzeszkode = true;
@@ -74,7 +74,7 @@ namespace Rudy_103.src
                     if (Wymiary.X >= szybkosc) //&& !Zderzenie(mapa))
                     {
                         Wymiary.X -= szybkosc;
-                        if (Zderzenie(mapa))
+                        if (Zderzenie(mapa, gracz))
                         {
                             Wymiary.X = Wymiary.X + szybkosc;
                             WykrytoPrzeszkode = true;
@@ -103,6 +103,12 @@ namespace Rudy_103.src
             random = new Random();
             CzyStrzelac = random.Next(0, 3);
             if (CzyStrzelac == 2) { }//Strzelaj(fabryczka);
+        }
+        public bool Zderzenie(Plansza plansza, Gracz gracz)
+        {
+            if (gracz.wymiary.IntersectsWith(Wymiary)) return true;
+            
+            return base.Zderzenie(plansza);
         }
     }
 }

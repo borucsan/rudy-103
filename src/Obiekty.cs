@@ -50,6 +50,21 @@ namespace Rudy_103.src
         {
             obrazy = obraz;
         }
+        public void ZmienPozycje(int zmiana_X, int zmiana_Y)
+        {
+            Wymiary.X = Wymiary.X + zmiana_X;
+            Wymiary.Y = Wymiary.Y + zmiana_Y;
+        }
+        public void UstawPozycje(int X, int Y)
+        {
+            Wymiary.X = X;
+            Wymiary.Y = Y;
+        }
+        public void UstawPozycje(Point poz)
+        {
+            Wymiary.X = poz.X;
+            Wymiary.Y = poz.Y;
+        }
         /// <summary>
         /// Abstrakcyjna metoda do rysowania. Parametry do ustalenia.
         /// </summary>
