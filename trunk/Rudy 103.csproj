@@ -227,6 +227,10 @@
   <ItemGroup>
     <EmbeddedResource Include="Resources\przycisk.png" />
   </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Baza\baza_nowa.png" />
+    <EmbeddedResource Include="Resources\Baza\baza_zniszczona.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CompactFramework.CSharp.targets" />
   <ProjectExtensions>
     <VisualStudio>
