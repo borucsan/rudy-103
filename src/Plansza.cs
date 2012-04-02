@@ -28,7 +28,21 @@ namespace Rudy_103.src
         {
             
             Random random = new Random();
+            int ilosc_przeciwnikow = 5;
+            Przeciwnik przeciwnik;
+            
+            
+            for (int i = 0; i < ilosc_przeciwnikow; i++)
+            {
+                przeciwnik = fabryka.ProdukujPrzeciwnika("przeciwnik_poziom_1");
+                przeciwnik.wymiary = new Rectangle(900, 100, 40, 40);
+                przeciwnicy.Push(przeciwnik);
 
+                przeciwnik = fabryka.ProdukujPrzeciwnika("przeciwnik_poziom_1");
+                przeciwnik.wymiary = new Rectangle(100, 100, 40, 40);
+                przeciwnicy.Push(przeciwnik);
+            }
+            
             for (int szerokosc = 0; szerokosc < this.Szerokosc; szerokosc += 25)
             {
                 for (int wysokosc = 0; wysokosc < this.Wysokosc; wysokosc += 25)
@@ -53,40 +67,6 @@ namespace Rudy_103.src
                  }
             }
             
-            /*
-            przeszkody.Add(fabryka.ProdukujPrzeszkode("cegielka"));
-            przeszkody.Last().UstawPozycje(25,25);
-            przeszkody.Add(fabryka.ProdukujPrzeszkode("cegielka"));
-            przeszkody.Last().UstawPozycje(25, 50);
-            przeszkody.Add(fabryka.ProdukujPrzeszkode("cegielka2"));
-            przeszkody.Last().UstawPozycje(150, 25);
-            przeszkody.Add(fabryka.ProdukujPrzeszkode("cegielka2"));
-            przeszkody.Last().UstawPozycje(175, 25);
-            przeszkody.Add(fabryka.ProdukujPrzeszkode("cegielka3"));
-            przeszkody.Last().UstawPozycje(150, 75);
-            przeszkody.Add(fabryka.ProdukujPrzeszkode("cegielka3"));
-            przeszkody.Last().UstawPozycje(175, 75);
-            przeszkody.Add(fabryka.ProdukujPrzeszkode("cegielka4"));
-            przeszkody.Last().UstawPozycje(150, 100);
-            przeszkody.Add(fabryka.ProdukujPrzeszkode("cegielka4"));
-            przeszkody.Last().UstawPozycje(175, 100);
-
-            przeszkody.Add(fabryka.ProdukujPrzeszkode("drzewo"));
-            przeszkody.Last().UstawPozycje(150, 125);
-            przeszkody.Add(fabryka.ProdukujPrzeszkode("drzewo"));
-            przeszkody.Last().UstawPozycje(175, 125);
-            przeszkody.Add(fabryka.ProdukujPrzeszkode("drzewo"));
-            przeszkody.Last().UstawPozycje(200, 125);
-            przeszkody.Add(fabryka.ProdukujPrzeszkode("drzewo"));
-            przeszkody.Last().UstawPozycje(150, 150);
-            przeszkody.Add(fabryka.ProdukujPrzeszkode("drzewo"));
-            przeszkody.Last().UstawPozycje(175, 150);
-            przeszkody.Add(fabryka.ProdukujPrzeszkode("drzewo"));
-            przeszkody.Last().UstawPozycje(200, 150);
-            */
-            
-
-
         }
         public void RysujElementy(Graphics g, Point pozycja_kamery, System.Drawing.Imaging.ImageAttributes transparentPink)
         {
@@ -97,6 +77,17 @@ namespace Rudy_103.src
                     if (przeszkody[i].wymiary.IntersectsWith(new Rectangle(pozycja_kamery.X, pozycja_kamery.Y, 240, 320)))
                     {
                         przeszkody[i].Rysuj(g, pozycja_kamery, transparentPink);
+                    }
+                }
+            }
+            //Rysowanie przeciwnikow, którzy znajdują się na mapie.
+            if (przeciwnicy_na_mapie != null)
+            {
+                for (int i = 0; i < przeciwnicy_na_mapie.Count; ++i)
+                {
+                    if(przeciwnicy_na_mapie[i].wymiary.IntersectsWith( new Rectangle(pozycja_kamery.X, pozycja_kamery.Y, 240, 320) ))
+                    {
+                        przeciwnicy_na_mapie[i].Rysuj(g,pozycja_kamery, transparentPink);
                     }
                 }
             }
