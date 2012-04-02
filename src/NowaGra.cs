@@ -100,8 +100,8 @@ namespace Rudy_103.src
             transparentPink = new System.Drawing.Imaging.ImageAttributes();
             transparentPink.SetColorKey(Color.Pink, Color.Pink);
 
-            pozycja_kamery.X = minX;
-            pozycja_kamery.Y = minY;
+            pozycja_kamery.X = 400;
+            pozycja_kamery.Y = 680;
             
             kamera = new Rectangle(pozycja_kamery.X, pozycja_kamery.Y, maxX, maxY);
 

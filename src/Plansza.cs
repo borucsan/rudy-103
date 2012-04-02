@@ -74,6 +74,33 @@ namespace Rudy_103.src
                    
                  }
             }
+            //Dodawanie bazy na mape
+            przeszkody.Add(fabryka.ProdukujPrzeszkode("nowa baza"));
+            przeszkody.Last().UstawPozycje(500, 925);
+            przeszkody.Add(fabryka.ProdukujPrzeszkode("cegielka"));
+            przeszkody.Last().UstawPozycje(475, 900);
+            przeszkody.Add(fabryka.ProdukujPrzeszkode("cegielka"));
+            przeszkody.Last().UstawPozycje(500, 900);
+            przeszkody.Add(fabryka.ProdukujPrzeszkode("cegielka"));
+            przeszkody.Last().UstawPozycje(525, 900);
+            przeszkody.Add(fabryka.ProdukujPrzeszkode("cegielka"));
+            przeszkody.Last().UstawPozycje(550, 900);
+            przeszkody.Add(fabryka.ProdukujPrzeszkode("cegielka"));
+            przeszkody.Last().UstawPozycje(550, 925);
+            przeszkody.Add(fabryka.ProdukujPrzeszkode("cegielka"));
+            przeszkody.Last().UstawPozycje(550, 950);
+            przeszkody.Add(fabryka.ProdukujPrzeszkode("cegielka"));
+            przeszkody.Last().UstawPozycje(550, 975);
+            przeszkody.Add(fabryka.ProdukujPrzeszkode("cegielka"));
+            przeszkody.Last().UstawPozycje(525, 975);
+            przeszkody.Add(fabryka.ProdukujPrzeszkode("cegielka"));
+            przeszkody.Last().UstawPozycje(500, 975);
+            przeszkody.Add(fabryka.ProdukujPrzeszkode("cegielka"));
+            przeszkody.Last().UstawPozycje(475, 975);
+            przeszkody.Add(fabryka.ProdukujPrzeszkode("cegielka"));
+            przeszkody.Last().UstawPozycje(475, 950);
+            przeszkody.Add(fabryka.ProdukujPrzeszkode("cegielka"));
+            przeszkody.Last().UstawPozycje(475, 925);
             
         }
         private void LosujPrzeszkody(Fabryka fabryka)
