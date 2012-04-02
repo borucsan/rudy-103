@@ -32,6 +32,7 @@ namespace Rudy_103.src
             wzorce_przeszkod = new Dictionary<string,Przeszkoda>();
             wzorce_przeciwnikow = new Dictionary<string,Przeciwnik>();
             wzorzec_pocisku = new Pocisk(0, 0, 10, 10, 5, 10, Czolg.Kierunek.GORA);
+            
             wzorzec_pocisku.WczytajObrazy(
                 new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.pocisk2_up.png")),
                 new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.pocisk2_right.png")),
