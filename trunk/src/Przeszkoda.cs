@@ -33,13 +33,10 @@ namespace Rudy_103.src
             klon.WczytajObrazy(this.obrazy);
             return klon;
         }
-        public int Uszkodz(int sila)
+        public override bool Uszkodz(int sila)
         {
-            return energia = energia - sila;
-        }
-        public void UstawPozycje(int X, int Y)
-        {
-            Wymiary.X = X; Wymiary.Y = Y;
+            this.energia = this.energia - sila;
+            return this.energia <= 0;
         }
     }
 }

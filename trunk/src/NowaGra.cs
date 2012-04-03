@@ -267,8 +267,8 @@ namespace Rudy_103.src
             player.RuchPocisku(plansza);
             plansza.RuszPrzeciwnikow(fabryka, player);
             s_poziom = "Poziom: "+plansza.poziom;
-            s_przeciwnicy = "Przeciwnicy: " + (plansza.przeciwnicy.Count/*+plansza.przeciwnicy_na_mapie.Count*/);
-            s_punkty = "Punkty: " + player.Punkty;
+            s_przeciwnicy = "Przeciwnicy: " + (plansza.przeciwnicy.Count + plansza.przeciwnicy_na_mapie.Count);
+            s_punkty = "Punkty: " + player.punkty;
             
             Invalidate(new Rectangle(minX, minY, maxX, maxY));
         }
@@ -294,12 +294,12 @@ namespace Rudy_103.src
         //Testowane za pomocą spacji
         private void zmniejsz_energie()
         {
-            player.AktualnaWytrzymalosc -= 1;
-            if (player.AktualnaWytrzymalosc <= 0)
+            player.aktualna_wytrzymalosc -= 1;
+            if (player.aktualna_wytrzymalosc <= 0)
             {
-                player.AktualnaWytrzymalosc = player.Wytrzymalosc;
-                player.Energia -= 1;
-                if (player.Energia <= 0) player.Energia = 0;
+                player.aktualna_wytrzymalosc = player.Wytrzymalosc;
+                player.energia -= 1;
+                if (player.energia <= 0) player.energia = 0;
             }
         }
 
@@ -391,8 +391,8 @@ namespace Rudy_103.src
             if (panelEnergii)
             {
                 #region RysowanieBaterii
-                int procent_wytrzymalosci = (player.AktualnaWytrzymalosc * 100) / player.Wytrzymalosc;
-                if (player.Energia == 3)
+                int procent_wytrzymalosci = (player.aktualna_wytrzymalosc * 100) / player.Wytrzymalosc;
+                if (player.energia == 3)
                 {
                     Rectangle prostokat3 = new Rectangle(minX + 20, minY + 34, 18, 36);
                     g.DrawImage(i_bateria[0], prostokat3, 0, 0, i_bateria[0].Width, i_bateria[0].Height, GraphicsUnit.Pixel, transparentPink);
@@ -428,7 +428,7 @@ namespace Rudy_103.src
                         g.DrawImage(i_bateria[6], prostokat3, 0, 0, i_bateria[0].Width, i_bateria[0].Height, GraphicsUnit.Pixel, transparentPink);
                     }
                 }
-                if (player.Energia == 2)
+                if (player.energia == 2)
                 {
                     Rectangle prostokat3 = new Rectangle(minX + 20, minY + 20, 18, 36);
                     g.DrawImage(i_bateria[0], prostokat3, 0, 0, i_bateria[0].Width, i_bateria[0].Height, GraphicsUnit.Pixel, transparentPink);
@@ -463,7 +463,7 @@ namespace Rudy_103.src
                         g.DrawImage(i_bateria[6], prostokat3, 0, 0, i_bateria[0].Width, i_bateria[0].Height, GraphicsUnit.Pixel, transparentPink);
                     }
                 }
-                if (player.Energia == 1)
+                if (player.energia == 1)
                 {
                     Rectangle prostokat3 = new Rectangle(minX + 20, minY + 20, 18, 36);
                     if (procent_wytrzymalosci <= 100 && procent_wytrzymalosci > 85)
