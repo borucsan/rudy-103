@@ -135,7 +135,7 @@ namespace Rudy_103.src
             for (int i = 0; i < przeciwnicy_na_mapie.Count; i++)
             {
                 przeciwnicy_na_mapie[i].Ruch_Przeciwnika(this, fabryka, gracz);
-                przeciwnicy_na_mapie[i].RuchPocisku(this);
+                przeciwnicy_na_mapie[i].RuchPocisku(this, gracz);
             }
         }
         public void RysujElementy(Graphics g, Point pozycja_kamery, System.Drawing.Imaging.ImageAttributes transparentPink)

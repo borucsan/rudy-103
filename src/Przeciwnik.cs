@@ -104,11 +104,56 @@ namespace Rudy_103.src
             CzyStrzelac = random.Next(0, 3);
             if (CzyStrzelac == 2) { }//Strzelaj(fabryczka);
         }
+        public void RuchPocisku(Plansza plansza, Gracz gracz)
+        {
+            if (pocisk != null)
+            {
+                switch (pocisk.kierunek)
+                {
+                    case Czolg.Kierunek.GORA:
+                        if (pocisk.wymiary.Y > 0)
+                        {
+                            pocisk.ZmienPozycje(0, -pocisk.szybkosc);
+                            if (pocisk.Zderzenie(plansza, gracz)) pocisk = null;
+                        }
+                        else pocisk = null;
+                        break;
+                    case Czolg.Kierunek.PRAWO:
+                        if (pocisk.wymiary.X < 1000)
+                        {
+                            pocisk.ZmienPozycje(pocisk.szybkosc, 0);
+                            if (pocisk.Zderzenie(plansza, gracz)) pocisk = null;
+                        }
+                        else pocisk = null;
+                        break;
+                    case Czolg.Kierunek.DOL:
+                        if (pocisk.wymiary.Y < 1000)
+                        {
+                            pocisk.ZmienPozycje(0, pocisk.szybkosc);
+                            if (pocisk.Zderzenie(plansza, gracz)) pocisk = null;
+                        }
+                        else pocisk = null;
+                        break;
+                    case Czolg.Kierunek.LEWO:
+                        if (pocisk.wymiary.X > 0)
+                        {
+                            pocisk.ZmienPozycje(-pocisk.szybkosc, 0);
+                            if (pocisk.Zderzenie(plansza, gracz)) pocisk = null;
+                        }
+                        else pocisk = null;
+                        break;
+                }
+            }
+        }
         public bool Zderzenie(Plansza plansza, Gracz gracz)
         {
             if (gracz.wymiary.IntersectsWith(Wymiary)) return true;
-            
             return base.Zderzenie(plansza);
+        }
+        public override bool Uszkodz(int sila)
+        {
+            this.wytrzymalosc = this.wytrzymalosc - sila;
+            return this.wytrzymalosc <= 0;
         }
     }
 }

@@ -65,6 +65,10 @@ namespace Rudy_103.src
             Wymiary.X = poz.X;
             Wymiary.Y = poz.Y;
         }
+        public virtual bool Uszkodz(int sila)
+        {
+            return false;
+        }
         /// <summary>
         /// Abstrakcyjna metoda do rysowania. Parametry do ustalenia.
         /// </summary>

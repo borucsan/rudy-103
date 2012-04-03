@@ -13,7 +13,6 @@ namespace Rudy_103.src
     abstract class Czolg : Obiekty
     {
         protected int wytrzymalosc;
-        protected int aktualna_wytrzymalosc;
         protected int szybkosc;
         public int Wytrzymalosc
         {
@@ -24,17 +23,6 @@ namespace Rudy_103.src
             set
             {
                 wytrzymalosc = value;
-            }
-        }
-        public int AktualnaWytrzymalosc
-        {
-            get
-            {
-                return aktualna_wytrzymalosc;
-            }
-            set
-            {
-                aktualna_wytrzymalosc = value;
             }
         }
         public int Szybkosc
@@ -51,11 +39,21 @@ namespace Rudy_103.src
         protected int sila;
         protected Kierunek kierunek;
         protected Pocisk pocisk;
+        public Pocisk Pocisk
+        {
+            get
+            {
+                return pocisk;
+            }
+            set
+            {
+                pocisk = value;
+            }
+        }
         public Czolg(int X, int Y, int Szer, int Wys, int wytrzymalosc, int szybkosc, int sila)
             : base(X, Y, Szer, Wys)
         {
             this.wytrzymalosc = wytrzymalosc;
-            this.aktualna_wytrzymalosc = wytrzymalosc;
             this.szybkosc = szybkosc;
             this.sila = sila;
             this.kierunek = Kierunek.GORA;
@@ -126,7 +124,7 @@ namespace Rudy_103.src
             if (pocisk == null)
             {
                 pocisk = fabryka.ProdukujPocisk();
-                pocisk.UstawPocisk(Wymiary.X + Wymiary.Width/2, Wymiary.Y + Wymiary.Height/2, kierunek);
+                pocisk.UstawPocisk(Wymiary.X + Wymiary.Width/2, Wymiary.Y + Wymiary.Height/2, this.sila, kierunek);
             }
         }
         public void RuchPocisku(Plansza plansza)
@@ -139,7 +137,7 @@ namespace Rudy_103.src
                         if (pocisk.wymiary.Y > 0)
                         {
                             pocisk.ZmienPozycje(0, -pocisk.szybkosc);
-                            Trafienie(plansza);
+                            if(pocisk.Zderzenie(plansza)) pocisk = null;
                         }
                         else pocisk = null;
                         break;
@@ -147,7 +145,7 @@ namespace Rudy_103.src
                         if (pocisk.wymiary.X < 1000)
                         {
                             pocisk.ZmienPozycje(pocisk.szybkosc, 0);
-                            Trafienie(plansza);
+                            if (pocisk.Zderzenie(plansza)) pocisk = null;
                         }
                         else pocisk = null;
                         break;
@@ -155,7 +153,7 @@ namespace Rudy_103.src
                         if (pocisk.wymiary.Y < 1000)
                         {
                             pocisk.ZmienPozycje(0, pocisk.szybkosc);
-                            Trafienie(plansza);
+                            if (pocisk.Zderzenie(plansza)) pocisk = null;
                         }
                         else pocisk = null;
                         break;
@@ -163,7 +161,7 @@ namespace Rudy_103.src
                         if (pocisk.wymiary.X > 0)
                         {
                             pocisk.ZmienPozycje(-pocisk.szybkosc, 0);
-                            Trafienie(plansza);
+                            if (pocisk.Zderzenie(plansza)) pocisk = null;
                         }
                         else pocisk = null;
                         break;
@@ -210,34 +208,14 @@ namespace Rudy_103.src
             }
             return false;
         }
-        public virtual void Trafienie(Plansza plansza)
+        /*
+        public bool Zderzenie2(Plansza plansza)
         {
+            
             Rectangle pmk = StworzProstokatMozliwychKolizji(plansza);
-            /* for (int i = 0; i < plansza.przeciwnicy_na_mapie.Capacity; ++i)
-            {
-                if (plansza.przeciwnicy_na_mapie[i].Wymiary.IntersectsWith(pmk))
-                {
-                    if(plansza.przeciwnicy_na_mapie[i].Wymiary.IntersectsWith(Wymiary)) return true;
-                }
-            }*/
-            for (int i = 0; i < plansza.przeszkody.Count(); ++i)
-            {
-                if ((plansza.przeszkody[i]).wymiary.IntersectsWith(pmk))
-                {
-                    if (plansza.przeszkody[i].transparent) continue;
-                    if (plansza.przeszkody[i].wymiary.IntersectsWith(pocisk.wymiary))
-                    {
-                        if (plansza.przeszkody[i].Uszkodz(sila) <= 0)
-                        {
-                            plansza.przeszkody.RemoveAt(i);
-                        }
-                        pocisk = null;
-                        return;
-                        
-                    }
-                }
-            }
-        }
+            List<Przeszkoda> dosprawdzenia = (from i in plansza.przeszkody where i.wymiary.IntersectsWith(pmk) select i).ToList<Przeszkoda>;
+            return false;
+        }*/
         public enum Kierunek : int { GORA = 0, PRAWO, DOL, LEWO }
         public override void Rysuj(Graphics g, Point pozycja_kamery, System.Drawing.Imaging.ImageAttributes transparentPink)
         {
