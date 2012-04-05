@@ -14,6 +14,7 @@ namespace Rudy_103.src
     {
         protected int wytrzymalosc;
         protected int szybkosc;
+        protected int sila;
         public int Wytrzymalosc
         {
             get
@@ -36,7 +37,18 @@ namespace Rudy_103.src
                 szybkosc = value;
             }
         }
-        protected int sila;
+        public int Sila
+        {
+            get
+            {
+                return sila;
+            }
+            set
+            {
+                sila = value;
+            }
+        }
+
         protected Kierunek kierunek;
         protected Pocisk pocisk;
         public Pocisk Pocisk
@@ -217,11 +229,11 @@ namespace Rudy_103.src
             return false;
         }*/
         public enum Kierunek : int { GORA = 0, PRAWO, DOL, LEWO }
-        public override void Rysuj(Graphics g, Point pozycja_kamery, System.Drawing.Imaging.ImageAttributes transparentPink)
+        public override void Rysuj(Graphics g, System.Drawing.Imaging.ImageAttributes transparentPink)
         {
-            g.DrawImage(obrazy[(int)kierunek], new Rectangle(Wymiary.X - pozycja_kamery.X, Wymiary.Y - pozycja_kamery.Y, Wymiary.Width, Wymiary.Height), 0, 0,
+            g.DrawImage(obrazy[(int)kierunek], new Rectangle(Wymiary.X - Kamera.Prostokat_Kamery.X, Wymiary.Y - Kamera.Prostokat_Kamery.Y, Wymiary.Width, Wymiary.Height), 0, 0,
                         obrazy[(int)kierunek].Width, obrazy[(int)kierunek].Width, GraphicsUnit.Pixel, transparentPink);
-            if (pocisk != null) pocisk.Rysuj(g, pozycja_kamery, transparentPink);
+            if (pocisk != null) pocisk.Rysuj(g, transparentPink);
         }
           
     }

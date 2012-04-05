@@ -72,6 +72,6 @@ namespace Rudy_103.src
         /// <summary>
         /// Abstrakcyjna metoda do rysowania. Parametry do ustalenia.
         /// </summary>
-        abstract public void Rysuj(Graphics g, Point pozycja_kamery, System.Drawing.Imaging.ImageAttributes transparentPink);
+        abstract public void Rysuj(Graphics g, System.Drawing.Imaging.ImageAttributes transparentPink);
     }
 }

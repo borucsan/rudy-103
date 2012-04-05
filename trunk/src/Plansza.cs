@@ -16,6 +16,8 @@ namespace Rudy_103.src
         public uint poziom { get; set; }
         public int Wysokosc { get; set; }
         public int Szerokosc { get; set; }
+        public int zdobyte_punkty { get; set; }
+        public bool ukonczony_poziom { get; set; }
 
         public const int MAX_PRZECIWNIKOW_MAPA = 5;
 
@@ -23,7 +25,7 @@ namespace Rudy_103.src
         {
             Wysokosc = Y;
             Szerokosc = X;
-            poziom = 1;
+            poziom = 0;
             przeszkody = new List<Przeszkoda>();
             przeciwnicy = new Stack<Przeciwnik>();
             przeciwnicy_na_mapie = new List<Przeciwnik>();
@@ -36,7 +38,12 @@ namespace Rudy_103.src
         {
             
             Random random = new Random();
-            int ilosc_przeciwnikow = 5;
+            
+            poziom += 1; 
+
+            int ilosc_przeciwnikow = 1;
+            zdobyte_punkty = 0;             //ustawiamy punkty zdobyte w tym poziomie na 0
+            ukonczony_poziom = false;       //poziom nie jest ukończony
             Przeciwnik przeciwnik;
             
             
@@ -138,15 +145,15 @@ namespace Rudy_103.src
                 przeciwnicy_na_mapie[i].RuchPocisku(this, gracz);
             }
         }
-        public void RysujElementy(Graphics g, Point pozycja_kamery, System.Drawing.Imaging.ImageAttributes transparentPink)
+        public void RysujElementy(Graphics g, System.Drawing.Imaging.ImageAttributes transparentPink)
         {
             if (przeszkody != null)
             {
                 for (int i = 0; i < przeszkody.Count; ++i)
                 {
-                    if (przeszkody[i].wymiary.IntersectsWith(new Rectangle(pozycja_kamery.X, pozycja_kamery.Y, 240, 320)))
+                    if (przeszkody[i].wymiary.IntersectsWith(Kamera.Prostokat_Kamery))
                     {
-                        przeszkody[i].Rysuj(g, pozycja_kamery, transparentPink);
+                        przeszkody[i].Rysuj(g, transparentPink);
                     }
                 }
             }
@@ -155,9 +162,9 @@ namespace Rudy_103.src
             {
                 for (int i = 0; i < przeciwnicy_na_mapie.Count; ++i)
                 {
-                    if(przeciwnicy_na_mapie[i].wymiary.IntersectsWith( new Rectangle(pozycja_kamery.X, pozycja_kamery.Y, 240, 320) ))
+                    if (przeciwnicy_na_mapie[i].wymiary.IntersectsWith(Kamera.Prostokat_Kamery))
                     {
-                        przeciwnicy_na_mapie[i].Rysuj(g,pozycja_kamery, transparentPink);
+                        przeciwnicy_na_mapie[i].Rysuj(g, transparentPink);
                     }
                 }
             }

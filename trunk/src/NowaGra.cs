@@ -22,23 +22,30 @@ namespace Rudy_103.src
         private bool panelMapy;         //większa mapa
         private bool narysowanaMapa;    //zmienna sprawdzajaca stan narysowanej mapy
         private bool przyciskOpcji;
-        private bool panelOpcji;     
-        
+        private bool panelOpcji;
+        private bool panelUlepszen;     //zmienna służąca do włączania/wyłączania panelu ulepszeń
+
         //Prostokaty okreslajace przyciski
         Rectangle przyciskMapyProst;
         Rectangle przyciskOpcjiProst;
 
         Rectangle przyciskZamknijMapeProst;
-        
+
         Rectangle przyciskZamknijOpcjeProst;
         Rectangle przyciskWylaczRadar;
         Rectangle przyciskWylaczEnergie;
         Rectangle przyciskWylaczInformacje;
         Rectangle przyciskWyjscia;
 
+        Rectangle przyciskZamknijUkonczonyPoziom;
+
+
         private int czas_sekundy;
         private int czas_minuty;
 
+        /// <summary>
+        /// Wartość określająca czy gra wczytała już wszystkie pliki
+        /// </summary>
         public bool graWczytana = false;
 
         private String s_czas;  //String do wyświetlania czasu
@@ -46,11 +53,12 @@ namespace Rudy_103.src
         private String s_przeciwnicy; //String do wyświetlania liczby przeciwników
         private String s_punkty;    //String do wyświetlania liczby punktów
         private int licznik_informacji; //Licznik potrzebny do timera informacji (czas_informacji)
-        
+
 
         private Gracz player;
         private Fabryka fabryka;
         private Plansza plansza;
+        private Warsztat warsztat;
 
         //Wartości określające minimalne i maksymalne wartości pola wyświetlającego grafike 
         private int minX;
@@ -58,26 +66,27 @@ namespace Rudy_103.src
         private int minY;
         private int maxY;
 
-        private Image [] i_bateria;
-        private Image [] i_ogien;
+        private Image[] i_bateria;
+        private Image[] i_ogien;
         private Image i_menu;
         private Image i_rect;
-        
+
+        //Obrazy do obsługi Mapy
         private Image pusta_mapa;
         private Image przeszkoda_mapa;
         private Image gracz_mapa;
         private Image tlo_mapa;
 
-        private Image przyciskImage;
+        private Image przyciskImageZamknij;
 
         private int numer_efektu;
 
         //Zmienne dotyczące rysowania
         private System.Drawing.Imaging.ImageAttributes transparentPink;
-        
-        Rectangle kamera;
-        Point pozycja_kamery; //Lewy górny róg  kamery
-        
+
+        //Rectangle kamera;
+        //Point pozycja_kamery; //Lewy górny róg  kamery
+
         Image tlo;
         /// <summary>
         /// Konstruktor klasy nowej gry.
@@ -100,10 +109,8 @@ namespace Rudy_103.src
             transparentPink = new System.Drawing.Imaging.ImageAttributes();
             transparentPink.SetColorKey(Color.Pink, Color.Pink);
 
-            pozycja_kamery.X = 400;
-            pozycja_kamery.Y = 680;
-            
-            kamera = new Rectangle(pozycja_kamery.X, pozycja_kamery.Y, maxX, maxY);
+            Kamera.Prostokat_Kamery.X = 400;
+            Kamera.Prostokat_Kamery.Y = 680;
 
             i_bateria = new Image[7];
             i_ogien = new Image[5];
@@ -132,32 +139,37 @@ namespace Rudy_103.src
             gracz_mapa = new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Mapa.gracz.png"));
             tlo_mapa = new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Mapa.tlo_mapa.png"));
 
-            przyciskImage = new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.przycisk.png"));
-            
+            przyciskImageZamknij = new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.przycisk.png"));
+
+
             numer_efektu = 0;
             licznik_informacji = 1;
 
             fabryka = new Fabryka(execAssem, true);
             plansza = new Plansza(1000, 1000);
             plansza.GenerujDebugMapa(fabryka);
-            
+
             player = Fabryka.ProdukujDomyslnegoGracza(execAssem);
+            warsztat = new Warsztat(execAssem);
+            warsztat.UstawDomyslneWartosci();
+            warsztat.UstawStatystyki(player);
 
             //Ustawiamy początkowy GUI 
             panelEnergii = true;
             panelRadaru = true;
             panelInformacji = true;
-            
+
             przyciskMapy = true;
             panelMapy = false;
 
             przyciskOpcji = true;
             panelOpcji = false;
-            
+
             this.timer1.Enabled = true;
             this.czas_rozgrywki.Enabled = true;
             this.czas_efektow.Enabled = true;
             this.czas_informacji.Enabled = true;
+            this.czas_odswiezania.Enabled = true;
 
             graWczytana = true;
         }
@@ -174,79 +186,71 @@ namespace Rudy_103.src
 
         private void zmienPozycjeGracza()
         {
+            #region Reakcja Na Wciśnięty Klawisz
             if (wcisniety_klawisz != null)
             {
                 switch (wcisniety_klawisz.KeyCode)
                 {
                     case Keys.Up:
                         {
-                            if ((player.wymiary.Y + player.wymiary.Height / 2) > (pozycja_kamery.Y + maxY / 2))
+                            if ((player.wymiary.Y + player.wymiary.Height / 2) > (Kamera.Prostokat_Kamery.Y + maxY / 2))
                             {
                                 player.Ruch(Czolg.Kierunek.GORA, plansza);
                             }
                             else
                             {
-                                pozycja_kamery.Y -= player.Szybkosc;
-                                if (pozycja_kamery.Y <= minY) pozycja_kamery.Y = minY;//zmien pozycje kamery
+                                Kamera.Prostokat_Kamery.Y -= player.Szybkosc;
+                                if (Kamera.Prostokat_Kamery.Y <= minY) Kamera.Prostokat_Kamery.Y = minY;//zmien pozycje kamery
                                 player.Ruch(Czolg.Kierunek.GORA, plansza);
                             }
-                            
-                            /*if (pozycja_y >= szybkosc) pozycja_y -= szybkosc;
-                            else pozycja_y = 0;*/
-                           
+
+
                         } break;
                     case Keys.Down:
                         {
-                            if ((player.wymiary.Y + player.wymiary.Height / 2) < (pozycja_kamery.Y + maxY / 2))
+                            if ((player.wymiary.Y + player.wymiary.Height / 2) < (Kamera.Prostokat_Kamery.Y + maxY / 2))
                             {
                                 player.Ruch(Czolg.Kierunek.DOL, plansza);
                             }
                             else
                             {
-                                pozycja_kamery.Y += player.Szybkosc;
-                                if (pozycja_kamery.Y + maxY >= plansza.Wysokosc)
-                                    pozycja_kamery.Y = plansza.Wysokosc - maxY;
+                                Kamera.Prostokat_Kamery.Y += player.Szybkosc;
+                                if (Kamera.Prostokat_Kamery.Y + maxY >= plansza.Wysokosc)
+                                    Kamera.Prostokat_Kamery.Y = plansza.Wysokosc - maxY;
                                 player.Ruch(Czolg.Kierunek.DOL, plansza);
                             }
-                            
-                            //kierunek = "down";
-                            
-                            /*
-                            if (pozycja_y <= rozmiar_mapy.Y - (szybkosc + czolg[0].Width)) pozycja_y += szybkosc;
-                            else pozycja_y = rozmiar_mapy.Y - czolg[0].Width;*/
+
                         } break;
                     case Keys.Left:
                         {
-                            if ((player.wymiary.X + player.wymiary.Width / 2) > (pozycja_kamery.X + maxX / 2))
+                            if ((player.wymiary.X + player.wymiary.Width / 2) > (Kamera.Prostokat_Kamery.X + maxX / 2))
                             {
                                 player.Ruch(Czolg.Kierunek.LEWO, plansza);
                             }
                             else
                             {
-                                pozycja_kamery.X -= player.Szybkosc;
-                                if (pozycja_kamery.X <= minX) pozycja_kamery.X = minX;
+                                Kamera.Prostokat_Kamery.X -= player.Szybkosc;
+                                if (Kamera.Prostokat_Kamery.X <= minX) Kamera.Prostokat_Kamery.X = minX;
 
                                 player.Ruch(Czolg.Kierunek.LEWO, plansza);
                             }
-                            
-                            /*if (pozycja_x >= szybkosc) pozycja_x -= szybkosc;
-                            else pozycja_x = 0;*/
-                        }break;
+
+                        } break;
                     case Keys.Right:
                         {
-                            if ((player.wymiary.X + player.wymiary.Height / 2) < (pozycja_kamery.X + maxX / 2))
+                            if ((player.wymiary.X + player.wymiary.Height / 2) < (Kamera.Prostokat_Kamery.X + maxX / 2))
                             {
                                 player.Ruch(Czolg.Kierunek.PRAWO, plansza);
                             }
                             else
                             {
-                                pozycja_kamery.X += player.Szybkosc;
-                                if (pozycja_kamery.X + maxX >= plansza.Szerokosc)
-                                    pozycja_kamery.X = plansza.Szerokosc - maxX;
+                                Kamera.Prostokat_Kamery.X += player.Szybkosc;
+                                if (Kamera.Prostokat_Kamery.X + maxX >= plansza.Szerokosc)
+                                    Kamera.Prostokat_Kamery.X = plansza.Szerokosc - maxX;
 
                                 player.Ruch(Czolg.Kierunek.PRAWO, plansza);
                             }
-                            
+
                         } break;
                     case Keys.Enter:
                         {
@@ -254,40 +258,23 @@ namespace Rudy_103.src
                         } break;
                     case Keys.Space:
                         {
-                            zmniejsz_energie();
+                            panelUlepszen = !panelUlepszen;
+                            //zmniejsz_energie();
+                        } break;
+                    case Keys.C:
+                        {
+                            player.punkty += 2000;
+                            player.pieniadze += 2000;
+                        } break;
+                    case Keys.X:
+                        {
+                            player.Uszkodz(20);
                         } break;
                 }
-                kamera = new Rectangle(pozycja_kamery.X, pozycja_kamery.Y, maxX, maxY);
-                
-            }
-        }
-        private void timer1_Tick(object sender, EventArgs e)
-        {
-            zmienPozycjeGracza();
-            player.RuchPocisku(plansza);
-            plansza.RuszPrzeciwnikow(fabryka, player);
-            s_poziom = "Poziom: "+plansza.poziom;
-            s_przeciwnicy = "Przeciwnicy: " + (plansza.przeciwnicy.Count + plansza.przeciwnicy_na_mapie.Count);
-            s_punkty = "Punkty: " + player.punkty;
-            
-            Invalidate(new Rectangle(minX, minY, maxX, maxY));
-        }
+                //kamera = new Rectangle(pozycja_kamery.X, pozycja_kamery.Y, maxX, maxY);
 
-        private void czas_rozgrywki_Tick(object sender, EventArgs e)
-        {
-            czas_sekundy += 1;
-            if (czas_sekundy == 5)
-            {
-                plansza.Respawn();
             }
-
-            if (czas_sekundy == 60)
-            {
-                czas_sekundy = 0;
-                czas_minuty += 1;
-            }
-            s_czas = string.Format("{0:00}:{1:00}", czas_minuty, czas_sekundy); //czas_minuty.ToString() + ":" + czas_sekundy.ToString();
-            
+            #endregion Reakcja Na Wciśnięty Klawisz
         }
 
         //Metoda do testowania dzialania bateri energii
@@ -302,7 +289,9 @@ namespace Rudy_103.src
                 if (player.energia <= 0) player.energia = 0;
             }
         }
-
+        /// <summary>
+        /// Nadpisujemy OnPaintBackground() żeby nie przerysowywane było tło, zapobiega to miganiu obrazu
+        /// </summary>
         protected override void OnPaintBackground(PaintEventArgs e)
         {
             //base.OnPaintBackground(e);
@@ -321,33 +310,29 @@ namespace Rudy_103.src
             {
                 //g.Clear(Color.White);
                 g.DrawImage(tlo, 0, 0);
-                player.Rysuj(g, pozycja_kamery, transparentPink);
-                
-                plansza.RysujElementy(g, pozycja_kamery, transparentPink);
+                player.Rysuj(g, transparentPink);
+
+                plansza.RysujElementy(g, transparentPink);
                 DodajOgien(g, new Point(200, 200), transparentPink, numer_efektu);
                 RysujInterfejs(g, transparentPink);
                 g.Dispose();
-            }                
+            }
             e.Graphics.DrawImage(bitmapBuffor, 0, 0);
-            
+
         }
 
         private void DodajOgien(Graphics g, Point pozycja_uderzenia, System.Drawing.Imaging.ImageAttributes transparentPink, int numer)
         {
-            
-            g.DrawImage(i_ogien[numer], new Rectangle(pozycja_uderzenia.X-50 - pozycja_kamery.X, pozycja_uderzenia.Y - pozycja_kamery.Y, 25, 25), 0, 0,
+
+            g.DrawImage(i_ogien[numer], new Rectangle(pozycja_uderzenia.X - 50 - Kamera.Prostokat_Kamery.X, pozycja_uderzenia.Y - Kamera.Prostokat_Kamery.Y, 25, 25), 0, 0,
                         i_ogien[numer].Width, i_ogien[numer].Height, GraphicsUnit.Pixel, transparentPink);
-            g.DrawImage(i_ogien[numer], new Rectangle(pozycja_uderzenia.X - pozycja_kamery.X, pozycja_uderzenia.Y-50 - pozycja_kamery.Y, 25, 25), 0, 0,
+            g.DrawImage(i_ogien[numer], new Rectangle(pozycja_uderzenia.X - Kamera.Prostokat_Kamery.X, pozycja_uderzenia.Y - 50 - Kamera.Prostokat_Kamery.Y, 25, 25), 0, 0,
                         i_ogien[numer].Width, i_ogien[numer].Height, GraphicsUnit.Pixel, transparentPink);
-            g.DrawImage(i_ogien[numer], new Rectangle(pozycja_uderzenia.X - 25 - pozycja_kamery.X, pozycja_uderzenia.Y+25 - pozycja_kamery.Y, 25, 25), 0, 0,
+            g.DrawImage(i_ogien[numer], new Rectangle(pozycja_uderzenia.X - 25 - Kamera.Prostokat_Kamery.X, pozycja_uderzenia.Y + 25 - Kamera.Prostokat_Kamery.Y, 25, 25), 0, 0,
                         i_ogien[numer].Width, i_ogien[numer].Height, GraphicsUnit.Pixel, transparentPink);
         }
 
-        private void czas_efektow_Tick(object sender, EventArgs e)
-        {
-            numer_efektu += 1;
-            if (numer_efektu > 4) numer_efektu = 0;
-        }
+
 
         private Bitmap bufforMapa = null;
         private void RysujInterfejs(Graphics g, System.Drawing.Imaging.ImageAttributes transparentPink)
@@ -368,12 +353,12 @@ namespace Rudy_103.src
                 {
                     for (int i = 0; i < plansza.przeciwnicy_na_mapie.Count; i++)
                     {
-                        g.FillEllipse(new SolidBrush(Color.Yellow), new Rectangle(prostokat.X + ((int)plansza.przeciwnicy_na_mapie[i].wymiary.X / 20), 
+                        g.FillEllipse(new SolidBrush(Color.Yellow), new Rectangle(prostokat.X + ((int)plansza.przeciwnicy_na_mapie[i].wymiary.X / 20),
                             prostokat.Y + ((int)plansza.przeciwnicy_na_mapie[i].wymiary.Y / 20), 2, 2));
                     }
                 }
-                
-                g.DrawRectangle(new Pen(Color.Red), prostokat.X + (int)pozycja_kamery.X / 20, prostokat.Y + (int)pozycja_kamery.Y / 20, 12, 13);
+
+                g.DrawRectangle(new Pen(Color.Red), prostokat.X + (int)Kamera.Prostokat_Kamery.X / 20, prostokat.Y + (int)Kamera.Prostokat_Kamery.Y / 20, 12, 13);
                 #endregion RysowanieMiniMapy
             }
             if (panelInformacji)
@@ -504,8 +489,8 @@ namespace Rudy_103.src
                 przyciskMapyProst = new Rectangle(180, maxY - 30, 60, 30);
                 Rectangle prostokatPrzycisk2 = new Rectangle(180, maxY - 25, 60, 15);
 
-                g.DrawImage(przyciskImage, przyciskMapyProst, 0, 0, przyciskImage.Width,
-                    przyciskImage.Height, GraphicsUnit.Pixel, transparentPink);
+                g.DrawImage(przyciskImageZamknij, przyciskMapyProst, 0, 0, przyciskImageZamknij.Width,
+                    przyciskImageZamknij.Height, GraphicsUnit.Pixel, transparentPink);
 
                 g.DrawString("MAPA", new Font("Arial", 10, FontStyle.Regular), new SolidBrush(Color.Yellow), prostokatPrzycisk2, drawFormat);
 
@@ -521,42 +506,42 @@ namespace Rudy_103.src
                     {
                         graph.DrawImage(tlo_mapa, 0, 0);
 
-                        graph.DrawRectangle(new Pen(Color.Blue), new Rectangle(19, 20, 201, 40));
-                        graph.FillRectangle(new SolidBrush(Color.Black), new Rectangle(20, 21, 200, 39));
-                        graph.DrawString("MAPA", new Font("Arial", 18, FontStyle.Bold), new SolidBrush(Color.White), 
-                            new Rectangle(19, 25, 201, 35), drawFormat);
-                        graph.DrawRectangle(new Pen(Color.Blue), new Rectangle(19, 79, 201, 201));
+                        //graph.DrawRectangle(new Pen(Color.Blue), new Rectangle(19, 20, 201, 30));
+                        //graph.FillRectangle(new SolidBrush(Color.Black), new Rectangle(20, 21, 200, 29));
+                        graph.DrawString("Mapa", new Font("Arial", 14, FontStyle.Regular), new SolidBrush(Color.Yellow),
+                            new Rectangle(19, 5, 201, 25), drawFormat);
+                        graph.DrawRectangle(new Pen(Color.Blue), new Rectangle(19, 39, 201, 201));
 
-                        graph.DrawImage(pusta_mapa, new Rectangle(20, 80, 200, 200), 0, 0, pusta_mapa.Width, pusta_mapa.Height, 
+                        graph.DrawImage(pusta_mapa, new Rectangle(20, 40, 200, 200), 0, 0, pusta_mapa.Width, pusta_mapa.Height,
                             GraphicsUnit.Pixel, transparentPink);
                         //graph.FillRectangle(new SolidBrush(Color.Transparent), new Rectangle(0, 0, 200, 200));
                         for (int i = 0; i < plansza.przeszkody.Count; i++)
                         {
                             graph.DrawImage(przeszkoda_mapa, plansza.przeszkody[i].wymiary.X / 5 + 20,
-                                plansza.przeszkody[i].wymiary.Y / 5 + 80);
+                                plansza.przeszkody[i].wymiary.Y / 5 + 40);
                             /*graph.DrawRectangle(new Pen(Color.Red, 1), new Rectangle(plansza.przeszkody[i].wymiary.X / 5,
                                 plansza.przeszkody[i].wymiary.Y / 5, plansza.przeszkody[i].wymiary.Width / 5,
                                 plansza.przeszkody[i].wymiary.Height / 5));
                             */
                         }
-                        graph.DrawImage(gracz_mapa, player.wymiary.X / 5 + 20, player.wymiary.Y / 5 + 80);
+                        graph.DrawImage(gracz_mapa, player.wymiary.X / 5 + 20, player.wymiary.Y / 5 + 40);
                         graph.Dispose();
                     }
-                    
+
                     g.DrawImage(bufforMapa, 0, 0);
                     narysowanaMapa = true;
-                    
+
                 }
                 else
                 {
-                   g.DrawImage(bufforMapa, 0, 0);
+                    g.DrawImage(bufforMapa, 0, 0);
                 }
                 #endregion RysowanieMapy
 
                 #region RysowaniePrzyciskuZamknieciaMapy
                 przyciskZamknijMapeProst = new Rectangle(20, 285, 200, 30);
-                g.DrawImage(przyciskImage, przyciskZamknijMapeProst, 0, 0, przyciskImage.Width,
-                    przyciskImage.Height, GraphicsUnit.Pixel, transparentPink);
+                g.DrawImage(przyciskImageZamknij, przyciskZamknijMapeProst, 0, 0, przyciskImageZamknij.Width,
+                    przyciskImageZamknij.Height, GraphicsUnit.Pixel, transparentPink);
                 g.DrawString("Zamknij Mapę", new Font("Arial", 12, FontStyle.Regular), new SolidBrush(Color.Yellow), new Rectangle(20, 290, 200, 25), drawFormat);
                 #endregion RysowaniePrzyciskuZamknieciaMapy
             }
@@ -568,8 +553,8 @@ namespace Rudy_103.src
                 przyciskOpcjiProst = new Rectangle(0, maxY - 30, 60, 30);
                 Rectangle prostokatPrzycisk2 = new Rectangle(0, maxY - 25, 60, 15);
 
-                g.DrawImage(przyciskImage, przyciskOpcjiProst, 0, 0, przyciskImage.Width,
-                    przyciskImage.Height, GraphicsUnit.Pixel, transparentPink);
+                g.DrawImage(przyciskImageZamknij, przyciskOpcjiProst, 0, 0, przyciskImageZamknij.Width,
+                    przyciskImageZamknij.Height, GraphicsUnit.Pixel, transparentPink);
 
                 g.DrawString("OPCJE", new Font("Arial", 10, FontStyle.Regular), new SolidBrush(Color.Yellow), prostokatPrzycisk2, drawFormat);
 
@@ -580,74 +565,184 @@ namespace Rudy_103.src
                 #region RysowaniePaneluOpcji
                 g.DrawImage(tlo_mapa, 0, 0);
 
-                g.DrawRectangle(new Pen(Color.Blue), new Rectangle(19, 20, 201, 40));
-                g.FillRectangle(new SolidBrush(Color.Black), new Rectangle(20, 21, 200, 39));
-                g.DrawString("OPCJE", new Font("Arial", 18, FontStyle.Bold), new SolidBrush(Color.White),
-                    new Rectangle(19, 25, 201, 35), drawFormat);
+                //g.DrawRectangle(new Pen(Color.Blue), new Rectangle(19, 20, 201, 30));
+                //g.FillRectangle(new SolidBrush(Color.Black), new Rectangle(20, 21, 200, 29));
+                g.DrawString("Opcje", new Font("Arial", 14, FontStyle.Regular), new SolidBrush(Color.Yellow),
+                    new Rectangle(19, 5, 201, 25), drawFormat);
                 #endregion RysowaniePaneluOpcji
 
                 #region Rysowanie Przycisku Radaru
                 przyciskWylaczRadar = new Rectangle(20, 70, 200, 30);
-                g.DrawImage(przyciskImage, przyciskWylaczRadar, 0, 0, przyciskImage.Width,
-                    przyciskImage.Height, GraphicsUnit.Pixel, transparentPink);
-                if(panelRadaru) g.DrawString("Wyłącz Radar", new Font("Arial", 12, FontStyle.Regular), new SolidBrush(Color.Green),
-                    new Rectangle(20, 75, 200, 25), drawFormat);
+                g.DrawImage(przyciskImageZamknij, przyciskWylaczRadar, 0, 0, przyciskImageZamknij.Width,
+                    przyciskImageZamknij.Height, GraphicsUnit.Pixel, transparentPink);
+                if (panelRadaru) g.DrawString("Wyłącz Radar", new Font("Arial", 12, FontStyle.Regular), new SolidBrush(Color.Green),
+                     new Rectangle(20, 75, 200, 25), drawFormat);
                 else g.DrawString("Włącz Radar", new Font("Arial", 12, FontStyle.Regular), new SolidBrush(Color.Red),
                     new Rectangle(20, 75, 200, 25), drawFormat);
                 #endregion Rysowanie Przycisku Radaru
 
                 #region Rysowanie Przycisku Energii
                 przyciskWylaczEnergie = new Rectangle(20, 110, 200, 30);
-                g.DrawImage(przyciskImage, przyciskWylaczEnergie, 0, 0, przyciskImage.Width,
-                    przyciskImage.Height, GraphicsUnit.Pixel, transparentPink);
-                if(panelEnergii) g.DrawString("Wyłącz Energie", new Font("Arial", 12, FontStyle.Regular), new SolidBrush(Color.Green),
-                    new Rectangle(20, 115, 200, 25), drawFormat);
+                g.DrawImage(przyciskImageZamknij, przyciskWylaczEnergie, 0, 0, przyciskImageZamknij.Width,
+                    przyciskImageZamknij.Height, GraphicsUnit.Pixel, transparentPink);
+                if (panelEnergii) g.DrawString("Wyłącz Energie", new Font("Arial", 12, FontStyle.Regular), new SolidBrush(Color.Green),
+                     new Rectangle(20, 115, 200, 25), drawFormat);
                 else g.DrawString("Włącz Energie", new Font("Arial", 12, FontStyle.Regular), new SolidBrush(Color.Red),
                     new Rectangle(20, 115, 200, 25), drawFormat);
                 #endregion Rysowanie Przycisku Energii
 
                 #region Rysowanie Przycisku Informacji
                 przyciskWylaczInformacje = new Rectangle(20, 150, 200, 30);
-                g.DrawImage(przyciskImage, przyciskWylaczInformacje, 0, 0, przyciskImage.Width,
-                    przyciskImage.Height, GraphicsUnit.Pixel, transparentPink);
-                if(panelInformacji) g.DrawString("Wyłącz Informacje", new Font("Arial", 12, FontStyle.Regular), new SolidBrush(Color.Green),
-                    new Rectangle(20, 155, 200, 25), drawFormat);
+                g.DrawImage(przyciskImageZamknij, przyciskWylaczInformacje, 0, 0, przyciskImageZamknij.Width,
+                    przyciskImageZamknij.Height, GraphicsUnit.Pixel, transparentPink);
+                if (panelInformacji) g.DrawString("Wyłącz Informacje", new Font("Arial", 12, FontStyle.Regular), new SolidBrush(Color.Green),
+                     new Rectangle(20, 155, 200, 25), drawFormat);
                 else g.DrawString("Włącz Informacje", new Font("Arial", 12, FontStyle.Regular), new SolidBrush(Color.Red),
                     new Rectangle(20, 155, 200, 25), drawFormat);
                 #endregion Rysowanie Przycisku Informacji
 
                 #region Rysowanie Przycisku Wyjscia
                 przyciskWyjscia = new Rectangle(20, 190, 200, 30);
-                g.DrawImage(przyciskImage, przyciskWyjscia, 0, 0, przyciskImage.Width,
-                    przyciskImage.Height, GraphicsUnit.Pixel, transparentPink);
+                g.DrawImage(przyciskImageZamknij, przyciskWyjscia, 0, 0, przyciskImageZamknij.Width,
+                    przyciskImageZamknij.Height, GraphicsUnit.Pixel, transparentPink);
                 g.DrawString("Zakończ Grę", new Font("Arial", 12, FontStyle.Regular), new SolidBrush(Color.Yellow),
                     new Rectangle(20, 195, 200, 25), drawFormat);
                 #endregion Rysowanie Przycisku Wyjscia
 
-                #region RysowaniePrzyciskuZamknieciaOpcji
+                #region Rysowanie Przycisku Zamkniecia Opcji
                 przyciskZamknijOpcjeProst = new Rectangle(20, 285, 200, 30);
-                g.DrawImage(przyciskImage, przyciskZamknijOpcjeProst, 0, 0, przyciskImage.Width,
-                    przyciskImage.Height, GraphicsUnit.Pixel, transparentPink);
-                g.DrawString("Zamknij Opcje", new Font("Arial", 12, FontStyle.Regular), new SolidBrush(Color.Yellow), 
+                g.DrawImage(przyciskImageZamknij, przyciskZamknijOpcjeProst, 0, 0, przyciskImageZamknij.Width,
+                    przyciskImageZamknij.Height, GraphicsUnit.Pixel, transparentPink);
+                g.DrawString("Zamknij Opcje", new Font("Arial", 12, FontStyle.Regular), new SolidBrush(Color.Yellow),
                     new Rectangle(20, 290, 200, 25), drawFormat);
-                #endregion RysowaniePrzyciskuZamknieciaOpcji
+                #endregion Rysowanie Przycisku Zamkniecia Opcji
             }
-            
+            if (panelUlepszen)
+            {
+                #region Rysowanie Panelu Ulepszeń
+                g.DrawImage(tlo_mapa, 0, 0);
+
+                g.DrawString("Warsztat", new Font("Arial", 14, FontStyle.Regular), new SolidBrush(Color.Yellow),
+                    new Rectangle(19, 5, 201, 25), drawFormat);
+                g.DrawString("Ilość pieniędzy: " + player.pieniadze, new Font("Arial", 10, FontStyle.Regular), new SolidBrush(Color.Green),
+                    new Rectangle(19, 30, 201, 20), drawFormat);
+
+                warsztat.Rysuj(g, transparentPink);
+
+                #endregion Rysowanie Panelu Ulepszeń
+
+
+            }
+            if (player.zginales)
+            {
+                g.FillRectangle(new SolidBrush(Color.White), new Rectangle(5, 120, 230, 30));
+                g.DrawRectangle(new Pen(Color.Black), new Rectangle(5, 120, 230, 30));
+                g.DrawString("Zostałeś Zniszczony!", new Font("Arial", 14, FontStyle.Regular), new SolidBrush(Color.Black),
+                    new Rectangle(5, 122, 230, 26), drawFormat);
+            }
+
+            if (plansza.ukonczony_poziom)
+            {
+                g.DrawImage(tlo_mapa, 0, 0);
+
+                g.DrawString(s_poziom + " Ukończony", new Font("Arial", 14, FontStyle.Regular), new SolidBrush(Color.Yellow),
+                    new Rectangle(19, 5, 201, 25), drawFormat);
+
+                g.DrawString(s_czas, new Font("Arial", 12, FontStyle.Regular), new SolidBrush(Color.Yellow),
+                    new Rectangle(19, 35, 201, 25), drawFormat);
+
+                g.DrawString(s_punkty, new Font("Arial", 12, FontStyle.Regular), new SolidBrush(Color.Yellow),
+                    new Rectangle(19, 65, 201, 25), drawFormat);
+
+                przyciskZamknijUkonczonyPoziom = new Rectangle(20, 285, 200, 30);
+                g.DrawImage(przyciskImageZamknij, przyciskZamknijUkonczonyPoziom, 0, 0, przyciskImageZamknij.Width,
+                    przyciskImageZamknij.Height, GraphicsUnit.Pixel, transparentPink);
+                g.DrawString("Przejdź Dalej", new Font("Arial", 12, FontStyle.Regular), new SolidBrush(Color.Yellow),
+                    new Rectangle(20, 290, 200, 25), drawFormat);
+            }
+
         }
 
+        #region Timery
+        private void czas_efektow_Tick(object sender, EventArgs e)
+        {
+
+            numer_efektu += 1;
+            if (numer_efektu > 4) numer_efektu = 0;
+        }
         private void czas_informacji_Tick(object sender, EventArgs e)
         {
-            
             licznik_informacji += 1;
-            if (licznik_informacji > 4) licznik_informacji = 1;  
+            if (licznik_informacji > 4) licznik_informacji = 1;
+
+            //Jeżeli gracz zginął to po 3 sekundach wyłączy informację, że zginął
+            if (player.zginales == true)
+            {
+                player.zginales = false;
+            }
         }
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            zmienPozycjeGracza();
+            player.RuchPocisku(plansza);
+            plansza.RuszPrzeciwnikow(fabryka, player);
+            if (plansza.przeciwnicy_na_mapie.Count == 0 && plansza.przeciwnicy.Count > 0)
+            {
+                plansza.Respawn();
+            }
+            if (czas_sekundy % 20 == 0)
+            {
+                plansza.Respawn();
+            }
+
+            if (player.energia <= 0)
+            {
+                //Wykonanie kończenia gry i zliczenia punktów
+            }
+            if ((plansza.przeciwnicy.Count + plansza.przeciwnicy_na_mapie.Count) == 0)
+            {
+                plansza.ukonczony_poziom = true;
+                ZliczPunkty();
+                WstrzymajGre();
+
+                //Wykonaj kończenie poziomu: zliczenie punktów; ulepszenia; nowy poziom;
+            }
+        }
+
+        private void czas_rozgrywki_Tick(object sender, EventArgs e)
+        {
+            czas_sekundy += 1;
+            if (czas_sekundy == 5)
+            {
+
+            }
+
+            if (czas_sekundy == 60)
+            {
+                czas_sekundy = 0;
+                czas_minuty += 1;
+            }
+            s_czas = string.Format("{0:00}:{1:00}", czas_minuty, czas_sekundy); //czas_minuty.ToString() + ":" + czas_sekundy.ToString();
+
+        }
+        private void czas_odswiezania_Tick(object sender, EventArgs e)
+        {
+            s_poziom = "Poziom: " + plansza.poziom;
+            s_przeciwnicy = "Przeciwnicy: " + (plansza.przeciwnicy.Count + plansza.przeciwnicy_na_mapie.Count);
+            s_punkty = "Punkty: " + (player.punkty + plansza.zdobyte_punkty);
+
+
+            Invalidate(new Rectangle(minX, minY, maxX, maxY));
+        }
+
+        #endregion Timery
 
         private void NowaGra_Click(object sender, EventArgs e)
         {
             //Kontrola graficznego interfejsu użytkownika
 
             Rectangle mysz = new Rectangle(MousePosition.X, MousePosition.Y, 1, 1);
-            
+
             #region Mapa
             if (przyciskMapy)
             {
@@ -659,6 +754,8 @@ namespace Rudy_103.src
                     przyciskOpcji = false;
                     //przyciskZamknijMape = true;  //włączmy przycisk zamknięcia mapy
                     przyciskMapyProst = new Rectangle();   //zerujemy wymiary po nacisnieciu
+
+                    WstrzymajGre();
                 }
             }
             if (panelMapy)
@@ -670,10 +767,14 @@ namespace Rudy_103.src
                     przyciskOpcji = true;
                     //przyciskZamknijMape = false;
                     przyciskZamknijMapeProst = new Rectangle(); //zerujemy wymiary po nacisnieciu
+
+                    WznowGre();
+
                 }
             }
+
             #endregion Mapa
-            
+
             #region Opcje
             if (przyciskOpcji)
             {
@@ -684,6 +785,8 @@ namespace Rudy_103.src
                     przyciskOpcji = false;
                     //przyciskZamknijOpcje = true;  //włączmy przycisk zamknięcia mapy
                     przyciskOpcjiProst = new Rectangle();   //zerujemy wymiary po nacisnieciu
+
+                    WstrzymajGre();
                 }
             }
             if (panelOpcji)
@@ -704,22 +807,96 @@ namespace Rudy_103.src
                 {
                     //Tutaj powinny być obsłużone jeszcze metody wyjścia z gry
                     //np. Zliczenie punktów
-                    this.Close();
+                    Owner.Show();   //Włącza Menu Główne
+                    this.Close();   //Zamyka okno Nowa Gra
                 }
                 if (mysz.IntersectsWith(przyciskZamknijOpcjeProst))
                 {
                     panelOpcji = false;
-                    przyciskMapy = true;  
+                    przyciskMapy = true;
                     przyciskOpcji = true;
- 
+
                     przyciskZamknijOpcjeProst = new Rectangle();   //zerujemy wymiary po nacisnieciu
                     przyciskWylaczRadar = new Rectangle();
                     przyciskWylaczEnergie = new Rectangle();
                     przyciskWylaczInformacje = new Rectangle();
                     przyciskWyjscia = new Rectangle();
+
+                    WznowGre();
                 }
             }
             #endregion Opcje
+
+            #region Ulepszenia
+            if (panelUlepszen)
+            {
+                if (mysz.IntersectsWith(warsztat.przyciskZamknijUlepszenia))
+                {
+                    panelUlepszen = false;
+                    warsztat.UstawStatystyki(player);
+                    warsztat.przyciskZamknijUlepszenia = new Rectangle();
+                    czas_minuty = 0;
+                    czas_sekundy = 0;
+                    plansza.GenerujDebugMapa(fabryka);
+                    player.UstawPozycje(420, 925);
+                    Kamera.Prostokat_Kamery.X = 400;
+                    Kamera.Prostokat_Kamery.Y = 680;
+                    WznowGre();
+                }
+                if (mysz.IntersectsWith(warsztat.przyciskUlepszSzybkosc))
+                {
+                    warsztat.ZwiekszPoziomSzybkosci(player);
+                    warsztat.przyciskUlepszSzybkosc = new Rectangle();
+                }
+                if (mysz.IntersectsWith(warsztat.przyciskUlepszPancerz))
+                {
+                    warsztat.ZwiekszPoziomPancerza(player);
+                    warsztat.przyciskUlepszPancerz = new Rectangle();
+                }
+                if (mysz.IntersectsWith(warsztat.przyciskUlepszAtak))
+                {
+                    warsztat.ZwiekszPoziomAtaku(player);
+                    warsztat.przyciskUlepszAtak = new Rectangle();
+                }
+                if (mysz.IntersectsWith(warsztat.przyciskUlepszMur))
+                {
+                    warsztat.ZwiekszPoziomMuru(player);
+                    warsztat.przyciskUlepszMur = new Rectangle();
+                }
+            }
+            #endregion Ulepszenia
+
+            #region Ukończony Poziom
+            if (plansza.ukonczony_poziom)
+            {
+                if (mysz.IntersectsWith(przyciskZamknijUkonczonyPoziom))
+                {
+                    plansza.ukonczony_poziom = false;
+                    panelUlepszen = true;
+                    przyciskZamknijUkonczonyPoziom = new Rectangle();
+                }
+            }
+            #endregion Ukończony Poziom
+        }
+
+        private void WstrzymajGre()
+        {
+            this.timer1.Enabled = false;
+            this.czas_rozgrywki.Enabled = false;
+
+        }
+        private void WznowGre()
+        {
+            this.timer1.Enabled = true;
+            this.czas_rozgrywki.Enabled = true;
+
+        }
+
+        private void ZliczPunkty()
+        {
+            int mnoznik_punktowy = 1;
+            player.punkty += plansza.zdobyte_punkty * mnoznik_punktowy;
+            player.pieniadze += plansza.zdobyte_punkty * mnoznik_punktowy;
         }
 
     }
