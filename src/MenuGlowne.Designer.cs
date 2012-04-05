@@ -64,9 +64,9 @@
             // 
             // WyjdzButton
             // 
-            this.WyjdzButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.WyjdzButton.BackColor = System.Drawing.Color.White;
             this.WyjdzButton.Font = new System.Drawing.Font("Tahoma", 11F, System.Drawing.FontStyle.Bold);
-            this.WyjdzButton.ForeColor = System.Drawing.Color.Silver;
+            this.WyjdzButton.ForeColor = System.Drawing.Color.Black;
             this.WyjdzButton.Location = new System.Drawing.Point(2, 179);
             this.WyjdzButton.Name = "WyjdzButton";
             this.WyjdzButton.Size = new System.Drawing.Size(233, 55);
@@ -76,9 +76,9 @@
             // 
             // Top10Button
             // 
-            this.Top10Button.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.Top10Button.BackColor = System.Drawing.Color.White;
             this.Top10Button.Font = new System.Drawing.Font("Tahoma", 11F, System.Drawing.FontStyle.Bold);
-            this.Top10Button.ForeColor = System.Drawing.Color.Yellow;
+            this.Top10Button.ForeColor = System.Drawing.Color.Black;
             this.Top10Button.Location = new System.Drawing.Point(121, 117);
             this.Top10Button.Name = "Top10Button";
             this.Top10Button.Size = new System.Drawing.Size(114, 56);
@@ -88,9 +88,9 @@
             // 
             // NowaGraButton
             // 
-            this.NowaGraButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.NowaGraButton.BackColor = System.Drawing.Color.White;
             this.NowaGraButton.Font = new System.Drawing.Font("Tahoma", 11F, System.Drawing.FontStyle.Bold);
-            this.NowaGraButton.ForeColor = System.Drawing.Color.Yellow;
+            this.NowaGraButton.ForeColor = System.Drawing.Color.Black;
             this.NowaGraButton.Location = new System.Drawing.Point(3, 117);
             this.NowaGraButton.Name = "NowaGraButton";
             this.NowaGraButton.Size = new System.Drawing.Size(111, 56);

@@ -26,9 +26,9 @@ namespace Rudy_103.src
             this.sila = sila;
             this.szybkosc = szybkosc;
         }
-        public override void Rysuj(Graphics g, Point pozycja_kamery, System.Drawing.Imaging.ImageAttributes transparentPink) 
+        public override void Rysuj(Graphics g, System.Drawing.Imaging.ImageAttributes transparentPink) 
         {
-            g.DrawImage(obrazy[(int)kierunek], new Rectangle(Wymiary.X - pozycja_kamery.X, Wymiary.Y - pozycja_kamery.Y, Wymiary.Width, Wymiary.Height), 0, 0,
+            g.DrawImage(obrazy[(int)kierunek], new Rectangle(Wymiary.X - Kamera.Prostokat_Kamery.X, Wymiary.Y - Kamera.Prostokat_Kamery.Y, Wymiary.Width, Wymiary.Height), 0, 0,
                         obrazy[(int)kierunek].Width, obrazy[(int)kierunek].Width, GraphicsUnit.Pixel, transparentPink);
         }
         public void UstawPocisk(int X, int Y, int sila, Czolg.Kierunek kierunek)
@@ -77,7 +77,9 @@ namespace Rudy_103.src
                     {
                         if (plansza.przeciwnicy_na_mapie[i].Uszkodz(sila))
                         {
+                            plansza.zdobyte_punkty += plansza.przeciwnicy_na_mapie[i].punkty;
                             plansza.przeciwnicy_na_mapie.RemoveAt(i);
+                            
                         }
                         return true;
                     }

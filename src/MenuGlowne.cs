@@ -12,14 +12,16 @@ namespace Rudy_103.src
 {
     public partial class MainWindow : Form
     {
-        /// <summary>
-        /// Konstruktor klasy głównego okna.
-        /// </summary>
+        
         private bool wczytywaniePlikow;
         private int stan;
         private NowaGra nowa;
         private int czas;
         private Image [] wczytywanieImage;
+
+        /// <summary>
+        /// Konstruktor klasy głównego okna.
+        /// </summary>
         public MainWindow()
         {
             InitializeComponent();
@@ -43,7 +45,6 @@ namespace Rudy_103.src
             wczytywanieImage[3] = new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Wczytywanie.load_4.png"));
             
             czas1.Enabled = false;
-            
         }
 
         private void NowaGraButton_Click(object sender, EventArgs e)
@@ -63,7 +64,10 @@ namespace Rudy_103.src
         private void Top10Button_Click(object sender, EventArgs e)
         {
             Top10 C_Top10 = new Top10();
+            C_Top10.Owner = this;
+            
             C_Top10.Show();
+            this.Hide();
         }
 
         private void WyjdzButton_Click(object sender, EventArgs e)
@@ -86,7 +90,9 @@ namespace Rudy_103.src
             System.Diagnostics.Process.Start("http://www.google.pl/", "");
         }
 
-
+        /// <summary>
+        /// Nadpisujemy OnPaintBackground() żeby nie przerysowywane było tło, zapobiega to miganiu obrazu
+        /// </summary>
         protected override void OnPaintBackground(PaintEventArgs e)
         {
             //base.OnPaintBackground(e);
@@ -138,13 +144,15 @@ namespace Rudy_103.src
         }
         private void czas1_Tick(object sender, EventArgs e)
         {
+            
+            czas += 1;
+            if (czas == 2) { nowa = new NowaGra(); }
             stan += 1;
             if (stan >= 4) stan = 0;
             Invalidate();
-            czas += 1;
-            if (czas == 10) { nowa = new NowaGra(); }
             if (nowa != null)
             {
+                
                 if (nowa.graWczytana)
                 {
                     NowaGraButton.Visible = true;
@@ -156,7 +164,10 @@ namespace Rudy_103.src
                     wczytywaniePlikow = false;
                     czas1.Enabled = false;
                     czas = 0;
+                    nowa.Owner = this;
+                    
                     nowa.Show();
+                    this.Hide();
                 }
             }
         }

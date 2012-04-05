@@ -9,12 +9,15 @@ namespace Rudy_103.src
     class Gracz : Czolg
     {
         public int punkty { get; set; }
+        public int pieniadze { get; set; }
         public int energia { get; set; }
         public int aktualna_wytrzymalosc { get; set; }
+        public bool zginales { get; set; }
         public Gracz(int X, int Y, int Szer, int Wys, int wytrzymalosc, int szybkosc, int sila, int energia)
             : base(X, Y, Szer, Wys, wytrzymalosc, szybkosc, sila)
         {
             this.punkty = 0;
+            this.pieniadze = 0;
             this.energia = energia;
             this.aktualna_wytrzymalosc = wytrzymalosc;
         }
@@ -26,6 +29,15 @@ namespace Rudy_103.src
         public new void Uszkodz(int sila)
         {
             this.aktualna_wytrzymalosc = this.aktualna_wytrzymalosc - sila;
+            if (this.aktualna_wytrzymalosc <= 0)
+            {
+                this.zginales = true;
+                this.aktualna_wytrzymalosc = this.wytrzymalosc;
+                this.energia -= 1;
+                this.UstawPozycje(420, 925);
+                Kamera.Prostokat_Kamery.X = 400;
+                Kamera.Prostokat_Kamery.Y = 680;
+            }
         }
         //public override void Rysuj(PaintEventArgs e) { }
     }

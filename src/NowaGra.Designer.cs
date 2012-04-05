@@ -32,11 +32,12 @@
             this.czas_rozgrywki = new System.Windows.Forms.Timer();
             this.czas_efektow = new System.Windows.Forms.Timer();
             this.czas_informacji = new System.Windows.Forms.Timer();
+            this.czas_odswiezania = new System.Windows.Forms.Timer();
             this.SuspendLayout();
             // 
             // timer1
             // 
-            this.timer1.Interval = 50;
+            this.timer1.Interval = 30;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
             // czas_rozgrywki
@@ -52,6 +53,11 @@
             // 
             this.czas_informacji.Interval = 3000;
             this.czas_informacji.Tick += new System.EventHandler(this.czas_informacji_Tick);
+            // 
+            // czas_odswiezania
+            // 
+            this.czas_odswiezania.Interval = 30;
+            this.czas_odswiezania.Tick += new System.EventHandler(this.czas_odswiezania_Tick);
             // 
             // NowaGra
             // 
@@ -80,5 +86,6 @@
         private System.Windows.Forms.Timer czas_rozgrywki;
         private System.Windows.Forms.Timer czas_efektow;
         private System.Windows.Forms.Timer czas_informacji;
+        private System.Windows.Forms.Timer czas_odswiezania;
     }
 }

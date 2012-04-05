@@ -61,6 +61,7 @@
     <Compile Include="src\Czolg.cs" />
     <Compile Include="src\Fabryka.cs" />
     <Compile Include="src\Gracz.cs" />
+    <Compile Include="src\Kamera.cs" />
     <Compile Include="src\MenuGlowne.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -108,6 +109,7 @@
     <Compile Include="src\Top10.Designer.cs">
       <DependentUpon>Top10.cs</DependentUpon>
     </Compile>
+    <Compile Include="src\Warsztat.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources\rudy_logo.png" />
@@ -230,6 +232,17 @@
   <ItemGroup>
     <EmbeddedResource Include="Resources\Baza\baza_nowa.png" />
     <EmbeddedResource Include="Resources\Baza\baza_zniszczona.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Warsztat\ulepsz_atak.png" />
+    <EmbeddedResource Include="Resources\Warsztat\ulepsz_mur.png" />
+    <EmbeddedResource Include="Resources\Warsztat\ulepsz_pancerz.png" />
+    <EmbeddedResource Include="Resources\Warsztat\ulepsz_szybkosc.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Warsztat\pasek_ulepszenia.png" />
+    <EmbeddedResource Include="Resources\Warsztat\poziom_ulepszenia.png" />
+    <EmbeddedResource Include="Resources\Warsztat\ulepsz.png" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CompactFramework.CSharp.targets" />
   <ProjectExtensions>
