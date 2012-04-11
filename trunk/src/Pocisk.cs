@@ -25,6 +25,7 @@ namespace Rudy_103.src
             this.kierunek = kierunek;
             this.sila = sila;
             this.szybkosc = szybkosc;
+            this.obrazy = obrazy;
         }
         public override void Rysuj(Graphics g, System.Drawing.Imaging.ImageAttributes transparentPink) 
         {
@@ -93,6 +94,7 @@ namespace Rudy_103.src
                     }
                 }
             }
+             /*
             for (int i = 0; i < plansza.przeszkody.Count(); ++i)
             {
                 if ((plansza.przeszkody[i]).wymiary.IntersectsWith(pmk))
@@ -108,8 +110,8 @@ namespace Rudy_103.src
 
                     }
                 }
-            }
-            return false;
+            }*/
+            return plansza.region.CzyKoliduje(this);
         }
         public bool Zderzenie(Plansza plansza, Gracz gracz)
         {
@@ -142,6 +144,7 @@ namespace Rudy_103.src
                     }
                 }
             }
+            /*
             for (int i = 0; i < plansza.przeszkody.Count(); ++i)
             {
                 if ((plansza.przeszkody[i]).wymiary.IntersectsWith(pmk))
@@ -157,8 +160,9 @@ namespace Rudy_103.src
 
                     }
                 }
-            }
-            return false;
+            }*/
+            return plansza.region.CzyKoliduje(this);
+            
         }
         #region ICloneable Members
 

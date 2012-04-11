@@ -154,7 +154,7 @@ namespace Rudy_103.src
         public bool Zderzenie(Plansza plansza, Gracz gracz)
         {
             if (gracz.wymiary.IntersectsWith(Wymiary)) return true;
-            return base.Zderzenie(plansza);
+            return base.Zderzenie2(plansza);
         }
         public override bool Uszkodz(int sila)
         {

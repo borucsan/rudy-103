@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Drawing;
 using System.Windows.Forms;
+using System.Diagnostics;
 
 namespace Rudy_103.src
 {
@@ -82,6 +83,8 @@ namespace Rudy_103.src
         /// <param name="plansza">Referencja obiektu mapy</param>
         public virtual void Ruch(Kierunek kierunek, Plansza plansza)
         {
+            //Stopwatch timer = new Stopwatch();
+            //timer.Start();
             this.kierunek = kierunek;
             switch (kierunek)
             {
@@ -89,7 +92,7 @@ namespace Rudy_103.src
                     if (Wymiary.Y >= szybkosc)
                     {
                         Wymiary.Y -= szybkosc;
-                        if (Zderzenie(plansza))
+                        if (Zderzenie2(plansza))
                         {
                             Wymiary.Y = Wymiary.Y + szybkosc;
                         }
@@ -100,7 +103,7 @@ namespace Rudy_103.src
                     if (Wymiary.X <= plansza.Szerokosc - (szybkosc + Wymiary.Width))
                     {
                         Wymiary.X += szybkosc;
-                        if(Zderzenie(plansza))
+                        if(Zderzenie2(plansza))
                         {
                             Wymiary.X = Wymiary.X - szybkosc;
                         }
@@ -111,7 +114,7 @@ namespace Rudy_103.src
                     if (Wymiary.Y <= plansza.Wysokosc - (szybkosc + Wymiary.Height))
                     {
                         Wymiary.Y += szybkosc;
-                        if (Zderzenie(plansza))
+                        if (Zderzenie2(plansza))
                         {
                             Wymiary.Y = Wymiary.Y - szybkosc;
                         }
@@ -119,10 +122,10 @@ namespace Rudy_103.src
                     //else Wymiary.Y = plansza.Wysokosc - Wymiary.Height;
                     break;
                 case Kierunek.LEWO:
-                    if (Wymiary.X >= szybkosc && !Zderzenie(plansza))
+                    if (Wymiary.X >= szybkosc && !Zderzenie2(plansza))
                     {
                         Wymiary.X -= szybkosc;
-                        if (Zderzenie(plansza))
+                        if (Zderzenie2(plansza))
                         {
                             Wymiary.X = Wymiary.X + szybkosc;
                         }
@@ -130,6 +133,9 @@ namespace Rudy_103.src
                     //else Wymiary.X = 0;
                     break;
             }
+            /*
+            timer.Stop();
+            MessageBox.Show("czas" + timer.ElapsedMilliseconds);*/
         }
         public void Strzelaj(Fabryka fabryka)
         {
@@ -200,7 +206,7 @@ namespace Rudy_103.src
             }
             return ProstokatMozliwychKolizji;
         }
-        public virtual bool Zderzenie(Plansza plansza)
+        /*public virtual bool Zderzenie(Plansza plansza)
         {
             Rectangle pmk = StworzProstokatMozliwychKolizji(plansza);
            for (int i = 0; i < plansza.przeciwnicy_na_mapie.Count; ++i)
@@ -219,15 +225,13 @@ namespace Rudy_103.src
                 }
             }
             return false;
-        }
-        /*
+        }*/
         public bool Zderzenie2(Plansza plansza)
         {
+            if(this.wymiary.IntersectsWith(plansza.baza.wymiary)) return true;
             
-            Rectangle pmk = StworzProstokatMozliwychKolizji(plansza);
-            List<Przeszkoda> dosprawdzenia = (from i in plansza.przeszkody where i.wymiary.IntersectsWith(pmk) select i).ToList<Przeszkoda>;
-            return false;
-        }*/
+            return plansza.region.CzyKoliduje(this);
+        }
         public enum Kierunek : int { GORA = 0, PRAWO, DOL, LEWO }
         public override void Rysuj(Graphics g, System.Drawing.Imaging.ImageAttributes transparentPink)
         {

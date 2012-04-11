@@ -39,6 +39,7 @@ namespace Rudy_103.src
                 Kamera.Prostokat_Kamery.Y = 680;
             }
         }
+        public static readonly Rectangle PunktRespGracza = new Rectangle(425, 925, 50, 50);
         //public override void Rysuj(PaintEventArgs e) { }
     }
 }
