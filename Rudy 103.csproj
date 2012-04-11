@@ -59,6 +59,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="src\Czolg.cs" />
+    <Compile Include="src\Drzewo.cs" />
+    <Compile Include="src\Drzewo.Przeszkody.cs" />
+    <Compile Include="src\ElementDrzewa.cs" />
     <Compile Include="src\Fabryka.cs" />
     <Compile Include="src\Gracz.cs" />
     <Compile Include="src\Kamera.cs" />

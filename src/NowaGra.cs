@@ -515,15 +515,16 @@ namespace Rudy_103.src
                         graph.DrawImage(pusta_mapa, new Rectangle(20, 40, 200, 200), 0, 0, pusta_mapa.Width, pusta_mapa.Height,
                             GraphicsUnit.Pixel, transparentPink);
                         //graph.FillRectangle(new SolidBrush(Color.Transparent), new Rectangle(0, 0, 200, 200));
-                        for (int i = 0; i < plansza.przeszkody.Count; i++)
+                        /*for (int i = 0; i < plansza.przeszkody.Count; i++)
                         {
                             graph.DrawImage(przeszkoda_mapa, plansza.przeszkody[i].wymiary.X / 5 + 20,
                                 plansza.przeszkody[i].wymiary.Y / 5 + 40);
                             /*graph.DrawRectangle(new Pen(Color.Red, 1), new Rectangle(plansza.przeszkody[i].wymiary.X / 5,
                                 plansza.przeszkody[i].wymiary.Y / 5, plansza.przeszkody[i].wymiary.Width / 5,
                                 plansza.przeszkody[i].wymiary.Height / 5));
-                            */
-                        }
+                            
+                        }*/
+                        plansza.region.RysujMape(graph, przeszkoda_mapa);
                         graph.DrawImage(gracz_mapa, player.wymiary.X / 5 + 20, player.wymiary.Y / 5 + 40);
                         graph.Dispose();
                     }

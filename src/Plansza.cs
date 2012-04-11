@@ -11,9 +11,10 @@ namespace Rudy_103.src
     {
         public Stack<Przeciwnik> przeciwnicy { get; set; }
         public List<Przeciwnik> przeciwnicy_na_mapie { get; set; }
-        public List<Przeszkoda> przeszkody { get; set; }
         public Rectangle[] PunktResp { get; set; }
-        public uint poziom { get; set; }
+        public Przeszkoda baza { get; set; }
+        public DrzewoPrzeszkody region { get; set; }
+        public int poziom { get; set; }
         public int Wysokosc { get; set; }
         public int Szerokosc { get; set; }
         public int zdobyte_punkty { get; set; }
@@ -26,13 +27,12 @@ namespace Rudy_103.src
             Wysokosc = Y;
             Szerokosc = X;
             poziom = 0;
-            przeszkody = new List<Przeszkoda>();
             przeciwnicy = new Stack<Przeciwnik>();
             przeciwnicy_na_mapie = new List<Przeciwnik>();
             PunktResp = new Rectangle[3];
-            PunktResp[0] = new Rectangle(0, 0, 40, 40);
-            PunktResp[1] = new Rectangle(X / 2, 0, 40, 40);
-            PunktResp[2] = new Rectangle(X - 40, Y - 40, 40, 40);
+            PunktResp[0] = new Rectangle(0, 0, 50, 50);
+            PunktResp[1] = new Rectangle(X / 2, 0, 50, 50);
+            PunktResp[2] = new Rectangle(X - 50, Y - 50, 50, 50);
         }
         public void GenerujDebugMapa(Fabryka fabryka)
         {
@@ -57,33 +57,90 @@ namespace Rudy_103.src
                 przeciwnik.wymiary = new Rectangle(100, 100, 40, 40);
                 przeciwnicy.Push(przeciwnik);
             }
+            this.LosujPrzeszkody(fabryka);
+        }
+        private void LosujPrzeszkody(Fabryka fabryka)
+        {
+            Random r = new Random();
+            int liczba = 0, max = r.Next(700, 1200), wylosowana;
             
+            List<Przeszkoda> przeszkody = new List<Przeszkoda>(max + 12);
+            List<Point> pozycje = new List<Point>();
+            Rectangle recbazy = new Rectangle(475, 900, 100, 100);
             for (int szerokosc = 0; szerokosc < this.Szerokosc; szerokosc += 25)
             {
                 for (int wysokosc = 0; wysokosc < this.Wysokosc; wysokosc += 25)
                 {
-                    switch (random.Next(0, 4))
-                    {
-                        case 1:
-                            {
-                                przeszkody.Add(fabryka.ProdukujPrzeszkode("cegielka2"));
-                                przeszkody.Last().UstawPozycje(szerokosc, wysokosc);
-                            } break;
-                        case 2:
-                            {
-                                
-                            } break;
-                        case 3:
-                            {
-                                
-                            } break;
-                    }
-                   
-                 }
+                    Point p = new Point(szerokosc, wysokosc);
+                    if (recbazy.Contains(p) || Gracz.PunktRespGracza.Contains(p) || PunktResp[0].Contains(p) || PunktResp[1].Contains(p) || PunktResp[2].Contains(p)) continue;
+                    pozycje.Add(p);
+                }
             }
-            //Dodawanie bazy na mape
-            przeszkody.Add(fabryka.ProdukujPrzeszkode("nowa baza"));
-            przeszkody.Last().UstawPozycje(500, 925);
+            
+            baza = fabryka.ProdukujPrzeszkode("nowa baza");
+            baza.UstawPozycje(500,925);
+            liczba = r.Next(10, 108);
+            for (int i = 0; i < liczba; ++i)
+            {
+                przeszkody.Add(fabryka.ProdukujPrzeszkode("drzewo"));
+                wylosowana = r.Next(pozycje.Count);
+                przeszkody.Last().UstawPozycje(pozycje[wylosowana]);
+                pozycje.RemoveAt(wylosowana);
+            }
+            max = max - liczba;
+            if(poziom >= 4)
+            {
+                liczba = r.Next(10, (poziom - 3) * 12);
+                for (int i = 0; i < liczba; ++i)
+                {
+                    przeszkody.Add(fabryka.ProdukujPrzeszkode("mur"));
+                    wylosowana = r.Next(pozycje.Count);
+                    przeszkody.Last().UstawPozycje(pozycje[wylosowana]);
+                    pozycje.RemoveAt(wylosowana);
+                }
+                max = max - liczba;
+            }
+            if (poziom >= 3)
+            {
+                liczba = r.Next(10, (poziom - 2) * 12);
+                for (int i = 0; i < liczba; ++i)
+                {
+                    przeszkody.Add(fabryka.ProdukujPrzeszkode("cegielka4"));
+                    wylosowana = r.Next(pozycje.Count);
+                    przeszkody.Last().UstawPozycje(pozycje[wylosowana]);
+                    pozycje.RemoveAt(wylosowana);
+                }
+                max = max - liczba;
+            }
+            if (poziom >= 2)
+            {
+                liczba = r.Next(10, (poziom - 1) * 12);
+                for (int i = 0; i < liczba; ++i)
+                {
+                    przeszkody.Add(fabryka.ProdukujPrzeszkode("cegielka3"));
+                    wylosowana = r.Next(pozycje.Count);
+                    przeszkody.Last().UstawPozycje(pozycje[wylosowana]);
+                    pozycje.RemoveAt(wylosowana);
+                }
+                max = max - liczba;
+            }
+            liczba = r.Next(10, poziom * 12);
+            for (int i = 0; i < liczba; ++i)
+            {
+                przeszkody.Add(fabryka.ProdukujPrzeszkode("cegielka2"));
+                wylosowana = r.Next(pozycje.Count);
+                przeszkody.Last().UstawPozycje(pozycje[wylosowana]);
+                pozycje.RemoveAt(wylosowana);
+            }
+            max = max - liczba;
+            liczba = r.Next(10, max);
+            for (int i = 0; i < liczba; ++i)
+            {
+                przeszkody.Add(fabryka.ProdukujPrzeszkode("cegielka"));
+                wylosowana = r.Next(pozycje.Count);
+                przeszkody.Last().UstawPozycje(pozycje[wylosowana]);
+                pozycje.RemoveAt(wylosowana);
+            }
             przeszkody.Add(fabryka.ProdukujPrzeszkode("cegielka"));
             przeszkody.Last().UstawPozycje(475, 900);
             przeszkody.Add(fabryka.ProdukujPrzeszkode("cegielka"));
@@ -108,24 +165,7 @@ namespace Rudy_103.src
             przeszkody.Last().UstawPozycje(475, 950);
             przeszkody.Add(fabryka.ProdukujPrzeszkode("cegielka"));
             przeszkody.Last().UstawPozycje(475, 925);
-            
-        }
-        private void LosujPrzeszkody(Fabryka fabryka)
-        {
-            /*
-            int liczba = 0, max = 1200;
-            Random r = new Random();
-            liczba = r.Next(10, 108);
-            for (int i = 0; i < liczba; ++i)
-            {
-                przeszkody.Add(fabryka.ProdukujPrzeszkode("drzewo"));
-            }
-            max = max - liczba;
-            if(poziom >= 4)
-            {
-                liczba = r.Next(10, poziom - 3);
-            }*/
-
+            region = new DrzewoPrzeszkody(przeszkody, new Rectangle(0, 0, Szerokosc, Wysokosc), 6, true);
         }
         public void Respawn()
         {
@@ -147,16 +187,11 @@ namespace Rudy_103.src
         }
         public void RysujElementy(Graphics g, System.Drawing.Imaging.ImageAttributes transparentPink)
         {
-            if (przeszkody != null)
+            if(baza.wymiary.IntersectsWith(Kamera.Prostokat_Kamery))
             {
-                for (int i = 0; i < przeszkody.Count; ++i)
-                {
-                    if (przeszkody[i].wymiary.IntersectsWith(Kamera.Prostokat_Kamery))
-                    {
-                        przeszkody[i].Rysuj(g, transparentPink);
-                    }
-                }
+                baza.Rysuj(g, transparentPink);
             }
+            region.RysujElementy(Kamera.Prostokat_Kamery, g, transparentPink);
             //Rysowanie przeciwnikow, którzy znajdują się na mapie.
             if (przeciwnicy_na_mapie != null)
             {
@@ -170,6 +205,10 @@ namespace Rudy_103.src
             }
             
         }
+        private void MozliwePozycje()
+        {
+            
 
+        }
     }
 }
