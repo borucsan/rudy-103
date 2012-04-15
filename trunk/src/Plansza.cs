@@ -11,6 +11,8 @@ namespace Rudy_103.src
     {
         public Stack<Przeciwnik> przeciwnicy { get; set; }
         public List<Przeciwnik> przeciwnicy_na_mapie { get; set; }
+        public List<Efekty> efekty_na_mapie { get; set; }
+
         public Rectangle[] PunktResp { get; set; }
         public Przeszkoda baza { get; set; }
         public DrzewoPrzeszkody region { get; set; }
@@ -29,6 +31,8 @@ namespace Rudy_103.src
             poziom = 0;
             przeciwnicy = new Stack<Przeciwnik>();
             przeciwnicy_na_mapie = new List<Przeciwnik>();
+            efekty_na_mapie = new List<Efekty>();
+
             PunktResp = new Rectangle[3];
             PunktResp[0] = new Rectangle(0, 0, 50, 50);
             PunktResp[1] = new Rectangle(X / 2, 0, 50, 50);
@@ -199,12 +203,56 @@ namespace Rudy_103.src
                 {
                     if (przeciwnicy_na_mapie[i].wymiary.IntersectsWith(Kamera.Prostokat_Kamery))
                     {
+                        
                         przeciwnicy_na_mapie[i].Rysuj(g, transparentPink);
                     }
                 }
             }
-            
         }
+        //Metoda rysująca efekty na mapie
+        public void RysujEfekty(Graphics g, System.Drawing.Imaging.ImageAttributes transparentPink)
+        {
+            //Rysowanie efektów, które znajdują się na mapie.
+            if (efekty_na_mapie != null)
+            {
+                for (int i = 0; i < efekty_na_mapie.Count; ++i)
+                {
+
+                    if (efekty_na_mapie[i].wymiary.IntersectsWith(Kamera.Prostokat_Kamery))
+                    {
+
+                        efekty_na_mapie[i].Rysuj(g, transparentPink);
+                         
+                    }
+                }
+            }
+        }
+        //Metoda sprawdzająca czy efekty wykonały już określoną ilość pętli, jeżeli tak to są usuwane
+        public void SprawdzEfekty()
+        {
+            if (efekty_na_mapie != null)
+            {
+                for (int i = 0; i < efekty_na_mapie.Count; ++i)
+                {
+                    if (efekty_na_mapie[i].wykonane_animacje >= efekty_na_mapie[i].ilosc_wykonan_animacji)
+                    {
+                        efekty_na_mapie.RemoveAt(i);
+                    }
+                }
+            }
+        }
+        //Metoda zmieniająca stan efektów
+        public void ZmienStanEfektow()
+        {
+            if (efekty_na_mapie != null)
+            {
+                for (int i = 0; i < efekty_na_mapie.Count; ++i)
+                {
+                    efekty_na_mapie[i].ZmienStan();
+                }
+            }
+        }
+
         private void MozliwePozycje()
         {
             

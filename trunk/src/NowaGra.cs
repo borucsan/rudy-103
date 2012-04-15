@@ -97,8 +97,10 @@ namespace Rudy_103.src
 
             minX = 0;
             minY = 0;
-            maxX = 240;
-            maxY = 320;
+            //Kamera.Szerokosc_Ekranu = this.Width;
+            //Kamera.Wysokosc_Ekranu = this.Height;
+            maxX = Kamera.Szerokosc_Ekranu;
+            maxY = Kamera.Wysokosc_Ekranu;
 
             czas_minuty = 0;
             czas_sekundy = 0;
@@ -108,6 +110,7 @@ namespace Rudy_103.src
             //Ustawianie koloru przeźroczystości
             transparentPink = new System.Drawing.Imaging.ImageAttributes();
             transparentPink.SetColorKey(Color.Pink, Color.Pink);
+            
 
             Kamera.Prostokat_Kamery.X = 400;
             Kamera.Prostokat_Kamery.Y = 680;
@@ -191,7 +194,8 @@ namespace Rudy_103.src
             {
                 switch (wcisniety_klawisz.KeyCode)
                 {
-                    case Keys.Up:
+                    
+                    case System.Windows.Forms.Keys.Up:
                         {
                             if ((player.wymiary.Y + player.wymiary.Height / 2) > (Kamera.Prostokat_Kamery.Y + maxY / 2))
                             {
@@ -206,7 +210,7 @@ namespace Rudy_103.src
 
 
                         } break;
-                    case Keys.Down:
+                    case System.Windows.Forms.Keys.Down:
                         {
                             if ((player.wymiary.Y + player.wymiary.Height / 2) < (Kamera.Prostokat_Kamery.Y + maxY / 2))
                             {
@@ -221,7 +225,7 @@ namespace Rudy_103.src
                             }
 
                         } break;
-                    case Keys.Left:
+                    case System.Windows.Forms.Keys.Left:
                         {
                             if ((player.wymiary.X + player.wymiary.Width / 2) > (Kamera.Prostokat_Kamery.X + maxX / 2))
                             {
@@ -236,7 +240,7 @@ namespace Rudy_103.src
                             }
 
                         } break;
-                    case Keys.Right:
+                    case System.Windows.Forms.Keys.Right:
                         {
                             if ((player.wymiary.X + player.wymiary.Height / 2) < (Kamera.Prostokat_Kamery.X + maxX / 2))
                             {
@@ -252,13 +256,13 @@ namespace Rudy_103.src
                             }
 
                         } break;
-                    case Keys.Enter:
+                    case System.Windows.Forms.Keys.Enter:
                         {
                             player.Strzelaj(fabryka);
                         } break;
                     case Keys.Space:
                         {
-                            panelUlepszen = !panelUlepszen;
+                            //panelUlepszen = !panelUlepszen;
                             //zmniejsz_energie();
                         } break;
                     case Keys.C:
@@ -313,6 +317,7 @@ namespace Rudy_103.src
                 player.Rysuj(g, transparentPink);
 
                 plansza.RysujElementy(g, transparentPink);
+                plansza.RysujEfekty(g, transparentPink);
                 DodajOgien(g, new Point(200, 200), transparentPink, numer_efektu);
                 RysujInterfejs(g, transparentPink);
                 g.Dispose();
@@ -667,7 +672,9 @@ namespace Rudy_103.src
         #region Timery
         private void czas_efektow_Tick(object sender, EventArgs e)
         {
-
+            //Metody zmieniają stan(state) efektów i sprawdzają czy została wykonana podana ilość animacji, jeżeli tak, to usuwają ten efekt.
+            plansza.ZmienStanEfektow();
+            plansza.SprawdzEfekty();
             numer_efektu += 1;
             if (numer_efektu > 4) numer_efektu = 0;
         }
@@ -685,7 +692,7 @@ namespace Rudy_103.src
         private void timer1_Tick(object sender, EventArgs e)
         {
             zmienPozycjeGracza();
-            player.RuchPocisku(plansza);
+            player.RuchPocisku(plansza, fabryka);
             plansza.RuszPrzeciwnikow(fabryka, player);
             if (plansza.przeciwnicy_na_mapie.Count == 0 && plansza.przeciwnicy.Count > 0)
             {
@@ -713,11 +720,7 @@ namespace Rudy_103.src
         private void czas_rozgrywki_Tick(object sender, EventArgs e)
         {
             czas_sekundy += 1;
-            if (czas_sekundy == 5)
-            {
-
-            }
-
+            
             if (czas_sekundy == 60)
             {
                 czas_sekundy = 0;
@@ -732,8 +735,12 @@ namespace Rudy_103.src
             s_przeciwnicy = "Przeciwnicy: " + (plansza.przeciwnicy.Count + plansza.przeciwnicy_na_mapie.Count);
             s_punkty = "Punkty: " + (player.punkty + plansza.zdobyte_punkty);
 
-
-            Invalidate(new Rectangle(minX, minY, maxX, maxY));
+            //Kamera.Szerokosc_Ekranu = this.ClientSize.Width;
+            //Kamera.Wysokosc_Ekranu = this.ClientSize.Height;
+            //Kamera.Prostokat_Kamery.Width = 320;
+            //Kamera.Prostokat_Kamery.Height = 320;
+            //Invalidate(new Rectangle(0, 0, Kamera.Szerokosc_Ekranu, Kamera.Wysokosc_Ekranu));
+            Invalidate();
         }
 
         #endregion Timery
