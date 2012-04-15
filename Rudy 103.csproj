@@ -61,6 +61,7 @@
     <Compile Include="src\Czolg.cs" />
     <Compile Include="src\Drzewo.cs" />
     <Compile Include="src\Drzewo.Przeszkody.cs" />
+    <Compile Include="src\Efekty.cs" />
     <Compile Include="src\ElementDrzewa.cs" />
     <Compile Include="src\Fabryka.cs" />
     <Compile Include="src\Gracz.cs" />
@@ -246,6 +247,16 @@
     <EmbeddedResource Include="Resources\Warsztat\pasek_ulepszenia.png" />
     <EmbeddedResource Include="Resources\Warsztat\poziom_ulepszenia.png" />
     <EmbeddedResource Include="Resources\Warsztat\ulepsz.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Efekty\Eksplozja\wybuch_1.png" />
+    <EmbeddedResource Include="Resources\Efekty\Eksplozja\wybuch_2.png" />
+    <EmbeddedResource Include="Resources\Efekty\Eksplozja\wybuch_3.png" />
+    <EmbeddedResource Include="Resources\Efekty\Eksplozja\wybuch_4.png" />
+    <EmbeddedResource Include="Resources\Efekty\Eksplozja\wybuch_5.png" />
+    <EmbeddedResource Include="Resources\Efekty\Eksplozja\wybuch_6.png" />
+    <EmbeddedResource Include="Resources\Efekty\Eksplozja\wybuch_7.png" />
+    <EmbeddedResource Include="Resources\Efekty\Eksplozja\wybuch_8.png" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CompactFramework.CSharp.targets" />
   <ProjectExtensions>

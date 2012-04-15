@@ -43,6 +43,7 @@
             // 
             // linkLabel1
             // 
+            this.linkLabel1.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.linkLabel1.Font = new System.Drawing.Font("Tahoma", 8F, System.Drawing.FontStyle.Underline);
             this.linkLabel1.Location = new System.Drawing.Point(2, 273);
             this.linkLabel1.Name = "linkLabel1";
@@ -54,6 +55,7 @@
             // 
             // label1
             // 
+            this.label1.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.label1.Font = new System.Drawing.Font("Tahoma", 8F, System.Drawing.FontStyle.Regular);
             this.label1.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
             this.label1.Location = new System.Drawing.Point(2, 253);
@@ -64,43 +66,48 @@
             // 
             // WyjdzButton
             // 
+            this.WyjdzButton.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.WyjdzButton.BackColor = System.Drawing.Color.White;
             this.WyjdzButton.Font = new System.Drawing.Font("Tahoma", 11F, System.Drawing.FontStyle.Bold);
             this.WyjdzButton.ForeColor = System.Drawing.Color.Black;
-            this.WyjdzButton.Location = new System.Drawing.Point(2, 179);
+            this.WyjdzButton.Location = new System.Drawing.Point(27, 202);
             this.WyjdzButton.Name = "WyjdzButton";
-            this.WyjdzButton.Size = new System.Drawing.Size(233, 55);
+            this.WyjdzButton.Size = new System.Drawing.Size(184, 34);
             this.WyjdzButton.TabIndex = 10;
             this.WyjdzButton.Text = "WYJDŹ";
             this.WyjdzButton.Click += new System.EventHandler(this.WyjdzButton_Click);
             // 
             // Top10Button
             // 
+            this.Top10Button.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.Top10Button.BackColor = System.Drawing.Color.White;
             this.Top10Button.Font = new System.Drawing.Font("Tahoma", 11F, System.Drawing.FontStyle.Bold);
             this.Top10Button.ForeColor = System.Drawing.Color.Black;
-            this.Top10Button.Location = new System.Drawing.Point(121, 117);
+            this.Top10Button.Location = new System.Drawing.Point(27, 163);
             this.Top10Button.Name = "Top10Button";
-            this.Top10Button.Size = new System.Drawing.Size(114, 56);
+            this.Top10Button.Size = new System.Drawing.Size(184, 34);
             this.Top10Button.TabIndex = 9;
             this.Top10Button.Text = "TOP 10";
             this.Top10Button.Click += new System.EventHandler(this.Top10Button_Click);
             // 
             // NowaGraButton
             // 
-            this.NowaGraButton.BackColor = System.Drawing.Color.White;
+            this.NowaGraButton.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.NowaGraButton.BackColor = System.Drawing.Color.Transparent;
             this.NowaGraButton.Font = new System.Drawing.Font("Tahoma", 11F, System.Drawing.FontStyle.Bold);
             this.NowaGraButton.ForeColor = System.Drawing.Color.Black;
-            this.NowaGraButton.Location = new System.Drawing.Point(3, 117);
+            this.NowaGraButton.Location = new System.Drawing.Point(27, 123);
             this.NowaGraButton.Name = "NowaGraButton";
-            this.NowaGraButton.Size = new System.Drawing.Size(111, 56);
+            this.NowaGraButton.Size = new System.Drawing.Size(184, 34);
             this.NowaGraButton.TabIndex = 8;
             this.NowaGraButton.Text = "NOWA GRA";
             this.NowaGraButton.Click += new System.EventHandler(this.NowaGraButton_Click);
             // 
             // pictureBox1
             // 
-            this.pictureBox1.BackColor = System.Drawing.Color.Silver;
+            this.pictureBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.pictureBox1.BackColor = System.Drawing.Color.Transparent;
             this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
             this.pictureBox1.Location = new System.Drawing.Point(2, 12);
             this.pictureBox1.Name = "pictureBox1";

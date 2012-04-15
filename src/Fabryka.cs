@@ -12,6 +12,7 @@ namespace Rudy_103.src
     {
         public Dictionary<String, Przeciwnik> wzorce_przeciwnikow;
         private Dictionary<String, Przeszkoda> wzorce_przeszkod;
+        public Dictionary<String, Efekty> wzorce_efektow;
         private Pocisk wzorzec_pocisku;
         public Pocisk WzorzecPocisku
         {
@@ -31,6 +32,7 @@ namespace Rudy_103.src
         {
             wzorce_przeszkod = new Dictionary<string,Przeszkoda>();
             wzorce_przeciwnikow = new Dictionary<string,Przeciwnik>();
+            wzorce_efektow = new Dictionary<string, Efekty>();
             wzorzec_pocisku = new Pocisk(0, 0, 10, 10, 5, 10, Czolg.Kierunek.GORA);
             
             wzorzec_pocisku.WczytajObrazy(
@@ -50,6 +52,15 @@ namespace Rudy_103.src
         public void DodajWzorzecPrzeciwnika(String nazwa, Przeciwnik przeciwnik)
         {
             wzorce_przeciwnikow.Add(nazwa, przeciwnik);
+        }
+        /// <summary>
+        /// Metoda dodająca wzorce efektów
+        /// </summary>
+        /// <param name="nazwa">Nazwa Wzorca</param>
+        /// <param name="efekt">Obiekt Wzorca</param>
+        public void DodajWzorzecEfektu(String nazwa, Efekty efekt)
+        {
+            wzorce_efektow.Add(nazwa, efekt);
         }
         /// <summary>
         /// Metoda dodająca wzorce przeszkód
@@ -79,6 +90,16 @@ namespace Rudy_103.src
         {
             if (!wzorce_przeciwnikow.ContainsKey(nazwa_wzorca)) return null;
             return (Przeciwnik)wzorce_przeciwnikow[nazwa_wzorca].Clone();
+        }
+        /// <summary>
+        /// Metoda tworząca nową instancje efektu
+        /// </summary>
+        /// <param name="nazwa_wzorca">Nazwa wzorca</param>
+        /// <returns>Zwraca nową instancje efektu</returns>
+        public Efekty ProdukujEfekt(String nazwa_wzorca)
+        {
+            if (!wzorce_efektow.ContainsKey(nazwa_wzorca)) return null;
+            return (Efekty)wzorce_efektow[nazwa_wzorca].Clone();
         }
         public Pocisk ProdukujPocisk()
         {
@@ -110,6 +131,7 @@ namespace Rudy_103.src
         /// <param name="execAssem"></param>
         public void TworzDomyslneWzorce(System.Reflection.Assembly execAssem)
         {
+            //Wzorce przeszkód
             DodajWzorzecPrzeszkody("cegielka", new Przeszkoda(0, 0, 25, 25, 20, false, new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.cegielka.png"))));
             DodajWzorzecPrzeszkody("cegielka2", new Przeszkoda(0, 0, 25, 25, 40, false, new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.cegielka2.png"))));
             DodajWzorzecPrzeszkody("cegielka3", new Przeszkoda(0, 0, 25, 25, 60, false, new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.cegielka3.png"))));
@@ -119,9 +141,8 @@ namespace Rudy_103.src
             DodajWzorzecPrzeszkody("nowa baza", new Przeszkoda(0, 0, 50, 50, 10, false, new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Baza.baza_nowa.png"))));
             DodajWzorzecPrzeszkody("zniszczona baza", new Przeszkoda(0, 0, 50, 50, 10, false, new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Baza.baza_zniszczona.png"))));
             
+            //Wzorce przeciwników
             Przeciwnik enemy = new Przeciwnik(0, 0, 40, 40, 20, 6, 20, 100);
-            
-            
             enemy.WczytajObrazy(
                 new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Przeciwnicy.enemy_tank_1_up.png")),
                 new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Przeciwnicy.enemy_tank_1_right.png")),
@@ -129,7 +150,33 @@ namespace Rudy_103.src
                 new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Przeciwnicy.enemy_tank_1_left.png"))
                 );
 
-            DodajWzorzecPrzeciwnika("przeciwnik_poziom_1", enemy); 
+            DodajWzorzecPrzeciwnika("przeciwnik_poziom_1", enemy);
+ 
+            //Wzorce efektów
+            Efekty e_ogien = new Efekty(0, 0, 25, 25, 4, 6);
+            e_ogien.WczytajObrazy(
+                new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Efekty.flame_1.png")),
+                new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Efekty.flame_2.png")),
+                new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Efekty.flame_3.png")),
+                new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Efekty.flame_4.png")),
+                new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Efekty.flame_5.png"))
+                );
+            DodajWzorzecEfektu("Ogień", e_ogien);
+
+            Efekty e_eksplozja = new Efekty(0, 0, 50, 50, 7, 1);
+            e_eksplozja.WczytajObrazy(
+                new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Efekty.Eksplozja.wybuch_1.png")),
+                new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Efekty.Eksplozja.wybuch_2.png")),
+                new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Efekty.Eksplozja.wybuch_3.png")),
+                new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Efekty.Eksplozja.wybuch_4.png")),
+                new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Efekty.Eksplozja.wybuch_5.png")),
+                new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Efekty.Eksplozja.wybuch_6.png")),
+                new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Efekty.Eksplozja.wybuch_7.png")),
+                new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Efekty.Eksplozja.wybuch_8.png"))
+                );
+            DodajWzorzecEfektu("Eksplozja", e_eksplozja);
+
+            
         }
     }
 }
