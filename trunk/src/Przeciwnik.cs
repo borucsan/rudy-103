@@ -42,11 +42,7 @@ namespace Rudy_103.src
                     if (Wymiary.Y >= szybkosc)
                     {
                         Wymiary.Y -= szybkosc;
-                        if (Zderzenie(mapa, gracz))
-                        {
-                            Wymiary.Y = Wymiary.Y + szybkosc;
-                            WykrytoPrzeszkode = true;
-                        }
+                        WykrytoPrzeszkode = Zderzenie2(mapa, gracz);
                     }
                     else WykrytoPrzeszkode = true;
                     break;
@@ -54,11 +50,7 @@ namespace Rudy_103.src
                     if (Wymiary.X <= mapa.Szerokosc - (szybkosc + Wymiary.Width))
                     {
                         Wymiary.X += szybkosc;
-                        if (Zderzenie(mapa, gracz))
-                        {
-                            Wymiary.X = Wymiary.X - szybkosc;
-                            WykrytoPrzeszkode = true;
-                        }
+                        WykrytoPrzeszkode = Zderzenie2(mapa, gracz);
                     }
                     else WykrytoPrzeszkode = true;
                     break;
@@ -66,23 +58,15 @@ namespace Rudy_103.src
                     if (Wymiary.Y <= mapa.Wysokosc - (szybkosc + Wymiary.Height))
                     {
                         Wymiary.Y += szybkosc;
-                        if (Zderzenie(mapa, gracz))
-                        {
-                            Wymiary.Y = Wymiary.Y - szybkosc;
-                            WykrytoPrzeszkode = true;
-                        }
+                        WykrytoPrzeszkode = Zderzenie2(mapa, gracz);
                     }
                     else WykrytoPrzeszkode = true;
                     break;
                 case Kierunek.LEWO:
-                    if (Wymiary.X >= szybkosc) //&& !Zderzenie(mapa))
+                    if (Wymiary.X >= szybkosc)
                     {
                         Wymiary.X -= szybkosc;
-                        if (Zderzenie(mapa, gracz))
-                        {
-                            Wymiary.X = Wymiary.X + szybkosc;
-                            WykrytoPrzeszkode = true;
-                        }
+                        WykrytoPrzeszkode = Zderzenie2(mapa, gracz);
                     }
                     else WykrytoPrzeszkode = true;
                     break;
@@ -102,7 +86,6 @@ namespace Rudy_103.src
                 WykrytoPrzeszkode = false;
                 LosujKierunek = false;
             }
-
             int CzyStrzelac;
             random = new Random();
             CzyStrzelac = random.Next(0, 3);
@@ -110,7 +93,7 @@ namespace Rudy_103.src
         
             
         }
-        public void RuchPocisku(Plansza plansza, Gracz gracz)
+        public void RuchPocisku(Plansza plansza, Gracz gracz, Fabryka fabryka)
         {
             if (pocisk != null)
             {
@@ -120,7 +103,12 @@ namespace Rudy_103.src
                         if (pocisk.wymiary.Y > 0)
                         {
                             pocisk.ZmienPozycje(0, -pocisk.szybkosc);
-                            if (pocisk.Zderzenie(plansza, gracz)) pocisk = null;
+                            if (pocisk.Zderzenie(plansza, gracz))
+                            {
+                                DodajPociskOgien(plansza, fabryka, pocisk.wymiary.X + pocisk.wymiary.Width / 2 - 25,
+                                    pocisk.wymiary.Y + pocisk.wymiary.Height / 2 - 25);
+                                pocisk = null;
+                            }
                         }
                         else pocisk = null;
                         break;
@@ -128,7 +116,12 @@ namespace Rudy_103.src
                         if (pocisk.wymiary.X < 1000)
                         {
                             pocisk.ZmienPozycje(pocisk.szybkosc, 0);
-                            if (pocisk.Zderzenie(plansza, gracz)) pocisk = null;
+                            if (pocisk.Zderzenie(plansza, gracz))
+                            {
+                                DodajPociskOgien(plansza, fabryka, pocisk.wymiary.X + pocisk.wymiary.Width / 2 - 25,
+                                    pocisk.wymiary.Y + pocisk.wymiary.Height / 2 - 25);
+                                pocisk = null;
+                            }
                         }
                         else pocisk = null;
                         break;
@@ -136,7 +129,12 @@ namespace Rudy_103.src
                         if (pocisk.wymiary.Y < 1000)
                         {
                             pocisk.ZmienPozycje(0, pocisk.szybkosc);
-                            if (pocisk.Zderzenie(plansza, gracz)) pocisk = null;
+                            if (pocisk.Zderzenie(plansza, gracz))
+                            {
+                                DodajPociskOgien(plansza, fabryka, pocisk.wymiary.X + pocisk.wymiary.Width / 2 - 25,
+                                    pocisk.wymiary.Y + pocisk.wymiary.Height / 2 - 25);
+                                pocisk = null;
+                            }
                         }
                         else pocisk = null;
                         break;
@@ -144,17 +142,40 @@ namespace Rudy_103.src
                         if (pocisk.wymiary.X > 0)
                         {
                             pocisk.ZmienPozycje(-pocisk.szybkosc, 0);
-                            if (pocisk.Zderzenie(plansza, gracz)) pocisk = null;
+                            if (pocisk.Zderzenie(plansza, gracz))
+                            {
+                                DodajPociskOgien(plansza, fabryka, pocisk.wymiary.X + pocisk.wymiary.Width / 2 - 25,
+                                    pocisk.wymiary.Y + pocisk.wymiary.Height / 2 - 25);
+                                pocisk = null;
+                            }
                         }
                         else pocisk = null;
                         break;
                 }
             }
         }
-        public bool Zderzenie(Plansza plansza, Gracz gracz)
+        public bool Zderzenie2(Plansza plansza, Gracz gracz)
         {
-            if (gracz.wymiary.IntersectsWith(Wymiary)) return true;
-            return base.Zderzenie2(plansza);
+            if (gracz.wymiary.IntersectsWith(Wymiary))
+            {
+                ObliczPozycje(gracz.wymiary);
+                return true;
+            }
+            if (this.wymiary.IntersectsWith(plansza.baza.wymiary))
+            {
+                ObliczPozycje(plansza.baza.wymiary);
+                return true;
+            }
+            for (int i = 0; i < plansza.przeciwnicy_na_mapie.Count; ++i)
+            {
+                if (plansza.przeciwnicy_na_mapie[i] == this) continue;
+                if (plansza.przeciwnicy_na_mapie[i].wymiary.IntersectsWith(wymiary))
+                {
+                    ObliczPozycje(plansza.przeciwnicy_na_mapie[i].wymiary);
+                    return true;
+                }
+            }
+            return plansza.region.CzyKoliduje(this);
         }
         public override bool Uszkodz(int sila)
         {

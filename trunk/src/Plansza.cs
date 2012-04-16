@@ -9,12 +9,12 @@ namespace Rudy_103.src
 {
     class Plansza
     {
-        public Stack<Przeciwnik> przeciwnicy { get; set; }
+        public Queue<Przeciwnik> przeciwnicy { get; set; }
         public List<Przeciwnik> przeciwnicy_na_mapie { get; set; }
         public List<Efekty> efekty_na_mapie { get; set; }
 
         public Rectangle[] PunktResp { get; set; }
-        public Przeszkoda baza { get; set; }
+        public Baza baza { get; set; }
         public DrzewoPrzeszkody region { get; set; }
         public int poziom { get; set; }
         public int Wysokosc { get; set; }
@@ -29,46 +29,38 @@ namespace Rudy_103.src
             Wysokosc = Y;
             Szerokosc = X;
             poziom = 0;
-            przeciwnicy = new Stack<Przeciwnik>();
+            przeciwnicy = new Queue<Przeciwnik>();
             przeciwnicy_na_mapie = new List<Przeciwnik>();
             efekty_na_mapie = new List<Efekty>();
 
             PunktResp = new Rectangle[3];
             PunktResp[0] = new Rectangle(0, 0, 50, 50);
             PunktResp[1] = new Rectangle(X / 2, 0, 50, 50);
-            PunktResp[2] = new Rectangle(X - 50, Y - 50, 50, 50);
+            PunktResp[2] = new Rectangle(X - 50, 0, 50, 50);
         }
         public void GenerujDebugMapa(Fabryka fabryka)
         {
-            
             Random random = new Random();
-            
             poziom += 1; 
-
-            int ilosc_przeciwnikow = 1;
             zdobyte_punkty = 0;             //ustawiamy punkty zdobyte w tym poziomie na 0
             ukonczony_poziom = false;       //poziom nie jest ukończony
-            Przeciwnik przeciwnik;
-            
-            
-            for (int i = 0; i < ilosc_przeciwnikow; i++)
-            {
-                przeciwnik = fabryka.ProdukujPrzeciwnika("przeciwnik_poziom_1");
-                przeciwnik.wymiary = new Rectangle(900, 100, 40, 40);
-                przeciwnicy.Push(przeciwnik);
-
-                przeciwnik = fabryka.ProdukujPrzeciwnika("przeciwnik_poziom_1");
-                przeciwnik.wymiary = new Rectangle(100, 100, 40, 40);
-                przeciwnicy.Push(przeciwnik);
-            }
+            this.LosujPrzeciwnikow(fabryka);
             this.LosujPrzeszkody(fabryka);
+        }
+        private void LosujPrzeciwnikow(Fabryka fabryka)
+        {
+            Random r = new Random();
+            int max;
+            max = r.Next(poziom * 10, poziom * 10 + 5);
+            for (int i = 0; i < max; i++)
+            {
+                przeciwnicy.Enqueue(fabryka.ProdukujPrzeciwnika("przeciwnik_poziom_1"));
+            }
         }
         private void LosujPrzeszkody(Fabryka fabryka)
         {
-            Random r = new Random();
-            int liczba = 0, max = r.Next(700, 1200), wylosowana;
+            int liczba = 0, max, wylosowana;
             
-            List<Przeszkoda> przeszkody = new List<Przeszkoda>(max + 12);
             List<Point> pozycje = new List<Point>();
             Rectangle recbazy = new Rectangle(475, 900, 100, 100);
             for (int szerokosc = 0; szerokosc < this.Szerokosc; szerokosc += 25)
@@ -80,25 +72,36 @@ namespace Rudy_103.src
                     pozycje.Add(p);
                 }
             }
-            
-            baza = fabryka.ProdukujPrzeszkode("nowa baza");
+
+            baza = fabryka.wzorzec_bazy;
             baza.UstawPozycje(500,925);
-            liczba = r.Next(10, 108);
+            if (poziom < 4)
+            {
+                max = Narzedzia.rand.Next(250, poziom * 300);
+                liczba = Narzedzia.rand.Next(10, 20);
+            }
+            else
+            {
+                max = Narzedzia.rand.Next(700, 1200);
+                liczba = Narzedzia.rand.Next(10, 108);
+            }
+            List<Przeszkoda> przeszkody = new List<Przeszkoda>(max + 12);
+            
             for (int i = 0; i < liczba; ++i)
             {
                 przeszkody.Add(fabryka.ProdukujPrzeszkode("drzewo"));
-                wylosowana = r.Next(pozycje.Count);
+                wylosowana = Narzedzia.rand.Next(pozycje.Count);
                 przeszkody.Last().UstawPozycje(pozycje[wylosowana]);
                 pozycje.RemoveAt(wylosowana);
             }
             max = max - liczba;
             if(poziom >= 4)
             {
-                liczba = r.Next(10, (poziom - 3) * 12);
+                liczba = Narzedzia.rand.Next(10, (poziom - 3) * 12);
                 for (int i = 0; i < liczba; ++i)
                 {
                     przeszkody.Add(fabryka.ProdukujPrzeszkode("mur"));
-                    wylosowana = r.Next(pozycje.Count);
+                    wylosowana = Narzedzia.rand.Next(pozycje.Count);
                     przeszkody.Last().UstawPozycje(pozycje[wylosowana]);
                     pozycje.RemoveAt(wylosowana);
                 }
@@ -106,11 +109,11 @@ namespace Rudy_103.src
             }
             if (poziom >= 3)
             {
-                liczba = r.Next(10, (poziom - 2) * 12);
+                liczba = Narzedzia.rand.Next(10, (poziom - 2) * 12);
                 for (int i = 0; i < liczba; ++i)
                 {
                     przeszkody.Add(fabryka.ProdukujPrzeszkode("cegielka4"));
-                    wylosowana = r.Next(pozycje.Count);
+                    wylosowana = Narzedzia.rand.Next(pozycje.Count);
                     przeszkody.Last().UstawPozycje(pozycje[wylosowana]);
                     pozycje.RemoveAt(wylosowana);
                 }
@@ -118,30 +121,30 @@ namespace Rudy_103.src
             }
             if (poziom >= 2)
             {
-                liczba = r.Next(10, (poziom - 1) * 12);
+                liczba = Narzedzia.rand.Next(10, (poziom - 1) * 12);
                 for (int i = 0; i < liczba; ++i)
                 {
                     przeszkody.Add(fabryka.ProdukujPrzeszkode("cegielka3"));
-                    wylosowana = r.Next(pozycje.Count);
+                    wylosowana = Narzedzia.rand.Next(pozycje.Count);
                     przeszkody.Last().UstawPozycje(pozycje[wylosowana]);
                     pozycje.RemoveAt(wylosowana);
                 }
                 max = max - liczba;
             }
-            liczba = r.Next(10, poziom * 12);
+            liczba = Narzedzia.rand.Next(10, poziom * 12);
             for (int i = 0; i < liczba; ++i)
             {
                 przeszkody.Add(fabryka.ProdukujPrzeszkode("cegielka2"));
-                wylosowana = r.Next(pozycje.Count);
+                wylosowana = Narzedzia.rand.Next(pozycje.Count);
                 przeszkody.Last().UstawPozycje(pozycje[wylosowana]);
                 pozycje.RemoveAt(wylosowana);
             }
             max = max - liczba;
-            liczba = r.Next(10, max);
+            liczba = Narzedzia.rand.Next(10, max);
             for (int i = 0; i < liczba; ++i)
             {
                 przeszkody.Add(fabryka.ProdukujPrzeszkode("cegielka"));
-                wylosowana = r.Next(pozycje.Count);
+                wylosowana = Narzedzia.rand.Next(pozycje.Count);
                 przeszkody.Last().UstawPozycje(pozycje[wylosowana]);
                 pozycje.RemoveAt(wylosowana);
             }
@@ -171,23 +174,58 @@ namespace Rudy_103.src
             przeszkody.Last().UstawPozycje(475, 925);
             region = new DrzewoPrzeszkody(przeszkody, new Rectangle(0, 0, Szerokosc, Wysokosc), 6, true);
         }
-        public void Respawn()
+        public void Respawn(Gracz gracz)
         {
             if (przeciwnicy_na_mapie.Count < MAX_PRZECIWNIKOW_MAPA && przeciwnicy.Count > 0)
             {
-                Random random = new Random();
-                Przeciwnik przec = przeciwnicy.Pop();
-                przec.UstawPozycje(PunktResp[random.Next(0, 2)].Location);
+                List<Rectangle> temp_resp = new List<Rectangle>(PunktResp);
+                int liczba;
+                while (true)
+                {
+                    if (temp_resp.Count == 0) return;
+                    bool wolne = true;
+                    liczba = Narzedzia.rand.Next(0, temp_resp.Count);
+                    if (temp_resp[liczba].IntersectsWith(gracz.wymiary))
+                    {
+                        temp_resp.RemoveAt(liczba);
+                        continue;
+                    }
+                    for (int i = 0; i < przeciwnicy_na_mapie.Count; ++i)
+                    {
+                        if(temp_resp[liczba].IntersectsWith(przeciwnicy_na_mapie[i].wymiary))
+                        {
+                            temp_resp.RemoveAt(liczba);
+                            wolne = false;
+                            break;
+                        }
+                    }
+                    if (wolne) break;
+                }
+                Przeciwnik przec = przeciwnicy.Dequeue();
+                przec.UstawPozycje(PunktResp[liczba].Location);
                 przeciwnicy_na_mapie.Add(przec);
             }
         }
         public void RuszPrzeciwnikow(Fabryka fabryka, Gracz gracz)
         {
-            for (int i = 0; i < przeciwnicy_na_mapie.Count; i++)
+            for (int i = 0; i < przeciwnicy_na_mapie.Count; ++i)
             {
                 przeciwnicy_na_mapie[i].Ruch_Przeciwnika(this, fabryka, gracz);
-                przeciwnicy_na_mapie[i].RuchPocisku(this, gracz);
+                przeciwnicy_na_mapie[i].RuchPocisku(this, gracz, fabryka);
             }
+            /*
+            for (int i = 0; i < przeciwnicy_na_mapie.Count; ++i)
+            {
+                for (int j = i + 1; j < przeciwnicy_na_mapie.Count; ++j)
+                {
+                    if (przeciwnicy_na_mapie[i].wymiary.IntersectsWith(przeciwnicy_na_mapie[j].wymiary))
+                    {
+                        przeciwnicy_na_mapie[i].ObliczPozycje(przeciwnicy_na_mapie[j].wymiary);
+                        przeciwnicy_na_mapie[j].ObliczPozycje(przeciwnicy_na_mapie[i].wymiary);
+                        break;
+                    }
+                }
+            }*/
         }
         public void RysujElementy(Graphics g, System.Drawing.Imaging.ImageAttributes transparentPink)
         {
@@ -205,6 +243,13 @@ namespace Rudy_103.src
                     {
                         
                         przeciwnicy_na_mapie[i].Rysuj(g, transparentPink);
+                    }
+                    if (przeciwnicy_na_mapie[i].Pocisk != null)
+                    {
+                        if (przeciwnicy_na_mapie[i].Pocisk.wymiary.IntersectsWith(Kamera.Prostokat_Kamery))
+                        {
+                            przeciwnicy_na_mapie[i].Pocisk.Rysuj(g, transparentPink);
+                        }
                     }
                 }
             }
@@ -251,12 +296,6 @@ namespace Rudy_103.src
                     efekty_na_mapie[i].ZmienStan();
                 }
             }
-        }
-
-        private void MozliwePozycje()
-        {
-            
-
         }
     }
 }

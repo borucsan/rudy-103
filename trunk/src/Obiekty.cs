@@ -12,6 +12,7 @@ namespace Rudy_103.src
     /// </summary>
     abstract class Obiekty
     {
+        public Point poprzednia_pozycja { get; protected set; }
         protected Rectangle Wymiary;
         protected Image[] obrazy;
         public Rectangle wymiary
@@ -64,6 +65,14 @@ namespace Rudy_103.src
         {
             Wymiary.X = poz.X;
             Wymiary.Y = poz.Y;
+        }
+        public void UstawPozycjeX(int X)
+        {
+            Wymiary.X = X;
+        }
+        public void UstawPozycjeY(int Y)
+        {
+            Wymiary.Y = Y;
         }
         public virtual bool Uszkodz(int sila)
         {
