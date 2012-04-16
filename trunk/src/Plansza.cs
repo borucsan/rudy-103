@@ -21,6 +21,8 @@ namespace Rudy_103.src
         public int Szerokosc { get; set; }
         public int zdobyte_punkty { get; set; }
         public bool ukonczony_poziom { get; set; }
+        protected Image[] Podloze;
+        protected int aktualne_podloze;
 
         public const int MAX_PRZECIWNIKOW_MAPA = 5;
 
@@ -37,6 +39,7 @@ namespace Rudy_103.src
             PunktResp[0] = new Rectangle(0, 0, 50, 50);
             PunktResp[1] = new Rectangle(X / 2, 0, 50, 50);
             PunktResp[2] = new Rectangle(X - 50, 0, 50, 50);
+            aktualne_podloze = 0;
         }
         public void GenerujDebugMapa(Fabryka fabryka)
         {
@@ -143,7 +146,7 @@ namespace Rudy_103.src
             liczba = Narzedzia.rand.Next(10, max);
             for (int i = 0; i < liczba; ++i)
             {
-                przeszkody.Add(fabryka.ProdukujPrzeszkode("cegielka"));
+                przeszkody.Add(fabryka.ProdukujPrzeszkode("Skrzynka"));
                 wylosowana = Narzedzia.rand.Next(pozycje.Count);
                 przeszkody.Last().UstawPozycje(pozycje[wylosowana]);
                 pozycje.RemoveAt(wylosowana);
@@ -229,11 +232,12 @@ namespace Rudy_103.src
         }
         public void RysujElementy(Graphics g, System.Drawing.Imaging.ImageAttributes transparentPink)
         {
-            if(baza.wymiary.IntersectsWith(Kamera.Prostokat_Kamery))
+            
+            region.RysujElementy(Kamera.Prostokat_Kamery, g, transparentPink);
+            if (baza.wymiary.IntersectsWith(Kamera.Prostokat_Kamery))
             {
                 baza.Rysuj(g, transparentPink);
             }
-            region.RysujElementy(Kamera.Prostokat_Kamery, g, transparentPink);
             //Rysowanie przeciwnikow, którzy znajdują się na mapie.
             if (przeciwnicy_na_mapie != null)
             {
@@ -297,5 +301,16 @@ namespace Rudy_103.src
                 }
             }
         }
+
+        public void WczytajGrafikePodloza(params Image[] podloza)
+        {
+            this.Podloze = podloza;
+        }
+        public void ZmienPodloze()
+        {
+            aktualne_podloze += 1;
+            if (aktualne_podloze >= Podloze.Count()) aktualne_podloze = 0;
+        }
+        public Image AktualnePodloze() { return this.Podloze[aktualne_podloze]; }
     }
 }

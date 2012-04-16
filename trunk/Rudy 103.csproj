@@ -81,6 +81,7 @@
       <DependentUpon>NowaGra.cs</DependentUpon>
     </Compile>
     <Compile Include="src\Obiekty.cs" />
+    <Compile Include="src\Opcje.cs" />
     <Compile Include="src\Plansza.cs" />
     <Compile Include="src\Pocisk.cs" />
     <Compile Include="src\Program.cs" />
@@ -168,7 +169,7 @@
     <EmbeddedResource Include="Resources\ziemia_tlo.png" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Resources\cegielka.png" />
+    <EmbeddedResource Include="Resources\Przeszkody\cegielka.png" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources\tank3_down.png" />
@@ -177,10 +178,10 @@
     <EmbeddedResource Include="Resources\tank3_up.png" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Resources\cegielka2.png" />
-    <EmbeddedResource Include="Resources\cegielka3.png" />
-    <EmbeddedResource Include="Resources\cegielka4.png" />
-    <EmbeddedResource Include="Resources\drzewo.png" />
+    <EmbeddedResource Include="Resources\Przeszkody\cegielka2.png" />
+    <EmbeddedResource Include="Resources\Przeszkody\cegielka3.png" />
+    <EmbeddedResource Include="Resources\Przeszkody\cegielka4.png" />
+    <EmbeddedResource Include="Resources\Przeszkody\drzewo.png" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources\pocisk2.png" />
@@ -192,11 +193,11 @@
     <EmbeddedResource Include="Resources\pocisk2_up.png" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Resources\Efekty\flame_1.png" />
-    <EmbeddedResource Include="Resources\Efekty\flame_2.png" />
-    <EmbeddedResource Include="Resources\Efekty\flame_3.png" />
-    <EmbeddedResource Include="Resources\Efekty\flame_4.png" />
-    <EmbeddedResource Include="Resources\Efekty\flame_5.png" />
+    <EmbeddedResource Include="Resources\Efekty\Ogień\flame_1.png" />
+    <EmbeddedResource Include="Resources\Efekty\Ogień\flame_2.png" />
+    <EmbeddedResource Include="Resources\Efekty\Ogień\flame_3.png" />
+    <EmbeddedResource Include="Resources\Efekty\Ogień\flame_4.png" />
+    <EmbeddedResource Include="Resources\Efekty\Ogień\flame_5.png" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources\Przeciwnicy\enemy_tank_1_down.png" />
@@ -222,7 +223,7 @@
     <EmbeddedResource Include="Resources\Wczytywanie\load_4.png" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Resources\mur.png" />
+    <EmbeddedResource Include="Resources\Przeszkody\mur.png" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources\Mapa\gracz.png" />
@@ -256,9 +257,24 @@
     <EmbeddedResource Include="Resources\Efekty\Eksplozja\wybuch_3.png" />
     <EmbeddedResource Include="Resources\Efekty\Eksplozja\wybuch_4.png" />
     <EmbeddedResource Include="Resources\Efekty\Eksplozja\wybuch_5.png" />
-    <EmbeddedResource Include="Resources\Efekty\Eksplozja\wybuch_6.png" />
-    <EmbeddedResource Include="Resources\Efekty\Eksplozja\wybuch_7.png" />
-    <EmbeddedResource Include="Resources\Efekty\Eksplozja\wybuch_8.png" />
+    <EmbeddedResource Include="Resources\Przeszkody\skrzynka.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Resources\Efekty\Ślad\slad_down.png" />
+    <Content Include="Resources\Efekty\Ślad\slad_left.png" />
+    <Content Include="Resources\Efekty\Ślad\slad_right.png" />
+    <Content Include="Resources\Efekty\Ślad\slad_up.png" />
+    <EmbeddedResource Include="Resources\Radar.png" />
+    <EmbeddedResource Include="Resources\Ziemia\tlo_1.png" />
+    <EmbeddedResource Include="Resources\Ziemia\tlo_10.png" />
+    <EmbeddedResource Include="Resources\Ziemia\tlo_2.png" />
+    <EmbeddedResource Include="Resources\Ziemia\tlo_3.png" />
+    <EmbeddedResource Include="Resources\Ziemia\tlo_4.png" />
+    <EmbeddedResource Include="Resources\Ziemia\tlo_5.png" />
+    <EmbeddedResource Include="Resources\Ziemia\tlo_6.png" />
+    <EmbeddedResource Include="Resources\Ziemia\tlo_7.png" />
+    <EmbeddedResource Include="Resources\Ziemia\tlo_8.png" />
+    <EmbeddedResource Include="Resources\Ziemia\tlo_9.png" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CompactFramework.CSharp.targets" />
   <ProjectExtensions>
