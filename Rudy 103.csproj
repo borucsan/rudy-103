@@ -58,6 +58,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="src\Baza.cs" />
     <Compile Include="src\Czolg.cs" />
     <Compile Include="src\Drzewo.cs" />
     <Compile Include="src\Drzewo.Przeszkody.cs" />
@@ -72,6 +73,7 @@
     <Compile Include="src\MenuGlowne.Designer.cs">
       <DependentUpon>MenuGlowne.cs</DependentUpon>
     </Compile>
+    <Compile Include="src\Narzedzia.cs" />
     <Compile Include="src\NowaGra.cs">
       <SubType>Form</SubType>
     </Compile>

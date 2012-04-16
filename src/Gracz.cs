@@ -34,12 +34,11 @@ namespace Rudy_103.src
                 this.zginales = true;
                 this.aktualna_wytrzymalosc = this.wytrzymalosc;
                 this.energia -= 1;
-                this.UstawPozycje(420, 925);
+                this.UstawPozycje(PunktRespGracza.X + 5, PunktRespGracza.Y + 5);
                 Kamera.Prostokat_Kamery.X = 400;
                 Kamera.Prostokat_Kamery.Y = 680;
             }
         }
         public static readonly Rectangle PunktRespGracza = new Rectangle(425, 925, 50, 50);
-        //public override void Rysuj(PaintEventArgs e) { }
     }
 }

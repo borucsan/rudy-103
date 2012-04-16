@@ -207,8 +207,6 @@ namespace Rudy_103.src
                                 if (Kamera.Prostokat_Kamery.Y <= minY) Kamera.Prostokat_Kamery.Y = minY;//zmien pozycje kamery
                                 player.Ruch(Czolg.Kierunek.GORA, plansza);
                             }
-
-
                         } break;
                     case System.Windows.Forms.Keys.Down:
                         {
@@ -223,7 +221,6 @@ namespace Rudy_103.src
                                     Kamera.Prostokat_Kamery.Y = plansza.Wysokosc - maxY;
                                 player.Ruch(Czolg.Kierunek.DOL, plansza);
                             }
-
                         } break;
                     case System.Windows.Forms.Keys.Left:
                         {
@@ -238,7 +235,6 @@ namespace Rudy_103.src
 
                                 player.Ruch(Czolg.Kierunek.LEWO, plansza);
                             }
-
                         } break;
                     case System.Windows.Forms.Keys.Right:
                         {
@@ -254,7 +250,6 @@ namespace Rudy_103.src
 
                                 player.Ruch(Czolg.Kierunek.PRAWO, plansza);
                             }
-
                         } break;
                     case System.Windows.Forms.Keys.Enter:
                         {
@@ -696,11 +691,11 @@ namespace Rudy_103.src
             plansza.RuszPrzeciwnikow(fabryka, player);
             if (plansza.przeciwnicy_na_mapie.Count == 0 && plansza.przeciwnicy.Count > 0)
             {
-                plansza.Respawn();
+                plansza.Respawn(player);
             }
             if (czas_sekundy % 20 == 0)
             {
-                plansza.Respawn();
+                plansza.Respawn(player);
             }
 
             if (player.energia <= 0)
@@ -891,15 +886,12 @@ namespace Rudy_103.src
         {
             this.timer1.Enabled = false;
             this.czas_rozgrywki.Enabled = false;
-
         }
         private void WznowGre()
         {
             this.timer1.Enabled = true;
             this.czas_rozgrywki.Enabled = true;
-
         }
-
         private void ZliczPunkty()
         {
             int mnoznik_punktowy = 1;

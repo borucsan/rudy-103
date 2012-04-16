@@ -12,6 +12,7 @@ namespace Rudy_103.src
         public Czolg.Kierunek kierunek { get; set; }
         public int sila { get; set; }
         public int szybkosc { get; set; }
+        public Czolg wlasciciel { get; set; }
         public Pocisk(int X, int Y, int Szer, int Wys, int sila, int szybkosc, Czolg.Kierunek kierunek)
             : base(X, Y, Szer, Wys)
         {
@@ -32,7 +33,7 @@ namespace Rudy_103.src
             g.DrawImage(obrazy[(int)kierunek], new Rectangle(Wymiary.X - Kamera.Prostokat_Kamery.X, Wymiary.Y - Kamera.Prostokat_Kamery.Y, Wymiary.Width, Wymiary.Height), 0, 0,
                         obrazy[(int)kierunek].Width, obrazy[(int)kierunek].Width, GraphicsUnit.Pixel, transparentPink);
         }
-        public void UstawPocisk(int X, int Y, int sila, Czolg.Kierunek kierunek)
+        public void UstawPocisk(int X, int Y, int sila, Czolg.Kierunek kierunek, Czolg wlasciciel)
         {
             Wymiary.X = X;
             Wymiary.Y = Y;
@@ -46,46 +47,23 @@ namespace Rudy_103.src
                 Wymiary.Y -= 5;
             }
             this.sila = sila;
-        }
-        public Rectangle StworzProstokatMozliwychKolizji(Plansza plansza)
-        {
-            Rectangle ProstokatMozliwychKolizji = new Rectangle();
-            switch (kierunek)
-            {
-                case Czolg.Kierunek.GORA:
-                    ProstokatMozliwychKolizji = new Rectangle(Wymiary.X, 0, Wymiary.Width, Wymiary.Y);
-                    break;
-                case Czolg.Kierunek.PRAWO:
-                    ProstokatMozliwychKolizji = new Rectangle(Wymiary.X + Wymiary.Width, Wymiary.Y, plansza.Szerokosc - (Wymiary.X + Wymiary.Width), Wymiary.Height);
-                    break;
-                case Czolg.Kierunek.DOL:
-                    ProstokatMozliwychKolizji = new Rectangle(Wymiary.X, Wymiary.Y + Wymiary.Height, Wymiary.Width, plansza.Wysokosc - (Wymiary.Y + Wymiary.Height));
-                    break;
-                case Czolg.Kierunek.LEWO:
-                    ProstokatMozliwychKolizji = new Rectangle(0, Wymiary.Y, Wymiary.X, Wymiary.Height);
-                    break;
-            }
-            return ProstokatMozliwychKolizji;
+            this.wlasciciel = wlasciciel;
         }
         public bool Zderzenie(Plansza plansza)
         {
-            Rectangle pmk = StworzProstokatMozliwychKolizji(plansza);
             for (int i = 0; i < plansza.przeciwnicy_na_mapie.Count; ++i)
             {
-                if (plansza.przeciwnicy_na_mapie[i].wymiary.IntersectsWith(pmk))
+                if (plansza.przeciwnicy_na_mapie[i].wymiary.IntersectsWith(Wymiary))
                 {
-                    if (plansza.przeciwnicy_na_mapie[i].wymiary.IntersectsWith(Wymiary))
+                    if (plansza.przeciwnicy_na_mapie[i].Uszkodz(sila))
                     {
-                        if (plansza.przeciwnicy_na_mapie[i].Uszkodz(sila))
-                        {
-                            plansza.zdobyte_punkty += plansza.przeciwnicy_na_mapie[i].punkty;
-                            plansza.przeciwnicy_na_mapie.RemoveAt(i);
-                            
-                        }
-                        return true;
+                        plansza.zdobyte_punkty += plansza.przeciwnicy_na_mapie[i].punkty;
+                        plansza.przeciwnicy_na_mapie.RemoveAt(i);
+
                     }
+                    return true;
                 }
-                if (plansza.przeciwnicy_na_mapie[i].Pocisk !=null && plansza.przeciwnicy_na_mapie[i].Pocisk.wymiary.IntersectsWith(pmk))
+                if (plansza.przeciwnicy_na_mapie[i].Pocisk !=null)
                 {
                     if (plansza.przeciwnicy_na_mapie[i].Pocisk.wymiary.IntersectsWith(Wymiary))
                     {
@@ -94,23 +72,11 @@ namespace Rudy_103.src
                     }
                 }
             }
-             /*
-            for (int i = 0; i < plansza.przeszkody.Count(); ++i)
+            if (this.wymiary.IntersectsWith(plansza.baza.wymiary))
             {
-                if ((plansza.przeszkody[i]).wymiary.IntersectsWith(pmk))
-                {
-                    if (plansza.przeszkody[i].transparent) continue;
-                    if (plansza.przeszkody[i].wymiary.IntersectsWith(Wymiary))
-                    {
-                        if (plansza.przeszkody[i].Uszkodz(sila))
-                        {
-                            plansza.przeszkody.RemoveAt(i);
-                        }
-                        return true;
-
-                    }
-                }
-            }*/
+                plansza.baza.Uszkodz(this.sila);
+                return true;
+            }
             return plansza.region.CzyKoliduje(this);
         }
         public bool Zderzenie(Plansza plansza, Gracz gracz)
@@ -125,17 +91,15 @@ namespace Rudy_103.src
                 gracz.Pocisk = null;
                 return true;
             }
-            Rectangle pmk = StworzProstokatMozliwychKolizji(plansza);
+            
             for (int i = 0; i < plansza.przeciwnicy_na_mapie.Count; ++i)
             {
-                if (plansza.przeciwnicy_na_mapie[i].wymiary.IntersectsWith(pmk))
-                {
+                if (plansza.przeciwnicy_na_mapie[i] == this.wlasciciel) continue;
                     if (plansza.przeciwnicy_na_mapie[i].wymiary.IntersectsWith(Wymiary))
                     {
                         return true;
                     }
-                }
-                if (plansza.przeciwnicy_na_mapie[i].Pocisk != null && plansza.przeciwnicy_na_mapie[i].Pocisk.wymiary.IntersectsWith(pmk))
+                if (plansza.przeciwnicy_na_mapie[i].Pocisk != null)
                 {
                     if (plansza.przeciwnicy_na_mapie[i].Pocisk.wymiary.IntersectsWith(Wymiary))
                     {
@@ -144,23 +108,11 @@ namespace Rudy_103.src
                     }
                 }
             }
-            /*
-            for (int i = 0; i < plansza.przeszkody.Count(); ++i)
+            if (this.wymiary.IntersectsWith(plansza.baza.wymiary))
             {
-                if ((plansza.przeszkody[i]).wymiary.IntersectsWith(pmk))
-                {
-                    if (plansza.przeszkody[i].transparent) continue;
-                    if (plansza.przeszkody[i].wymiary.IntersectsWith(Wymiary))
-                    {
-                        if (plansza.przeszkody[i].Uszkodz(sila))
-                        {
-                            plansza.przeszkody.RemoveAt(i);
-                        }
-                        return true;
-
-                    }
-                }
-            }*/
+                plansza.baza.Uszkodz(this.sila);
+                return true;
+            }
             return plansza.region.CzyKoliduje(this);
             
         }

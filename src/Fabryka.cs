@@ -13,6 +13,7 @@ namespace Rudy_103.src
         public Dictionary<String, Przeciwnik> wzorce_przeciwnikow;
         private Dictionary<String, Przeszkoda> wzorce_przeszkod;
         public Dictionary<String, Efekty> wzorce_efektow;
+        public Baza wzorzec_bazy { get; set; }
         private Pocisk wzorzec_pocisku;
         public Pocisk WzorzecPocisku
         {
@@ -41,6 +42,8 @@ namespace Rudy_103.src
                 new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.pocisk2_down.png")),
                 new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.pocisk2_left.png"))
                 );
+            wzorzec_bazy = new Baza(0, 0, 50, 50, 10, false, new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Baza.baza_nowa.png")),
+                new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Baza.baza_zniszczona.png")));
             if (TworzDomyslneWzorce) this.TworzDomyslneWzorce(execAssem);
 
         }
@@ -111,7 +114,7 @@ namespace Rudy_103.src
         /// <returns>Zwraca instancję gracza</returns>
         public static Gracz ProdukujDomyslnegoGracza(System.Reflection.Assembly execAssem)
         {
-            Gracz player = new Gracz(420, 925, 40, 40, 100, 5, 10, 3);
+            Gracz player = new Gracz(425, 930, 40, 40, 100, 5, 10, 3);
             
             player.WczytajObrazy(
                 new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.tank3_up.png")),
@@ -138,8 +141,7 @@ namespace Rudy_103.src
             DodajWzorzecPrzeszkody("cegielka4", new Przeszkoda(0, 0, 25, 25, 80, false, new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.cegielka4.png"))));
             DodajWzorzecPrzeszkody("mur", new Przeszkoda(0, 0, 25, 25, 20, false, new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.mur.png"))));
             DodajWzorzecPrzeszkody("drzewo", new Przeszkoda(0, 0, 25, 25, 0, true, new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.drzewo.png"))));
-            DodajWzorzecPrzeszkody("nowa baza", new Przeszkoda(0, 0, 50, 50, 10, false, new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Baza.baza_nowa.png"))));
-            DodajWzorzecPrzeszkody("zniszczona baza", new Przeszkoda(0, 0, 50, 50, 10, false, new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Baza.baza_zniszczona.png"))));
+            //DodajWzorzecPrzeszkody("zniszczona baza", new Przeszkoda(0, 0, 50, 50, 10, false, new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Baza.baza_zniszczona.png"))));
             
             //Wzorce przeciwników
             Przeciwnik enemy = new Przeciwnik(0, 0, 40, 40, 20, 6, 20, 100);
