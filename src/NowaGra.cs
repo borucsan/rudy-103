@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+
 using System.Text;
 using System.Windows.Forms;
 
@@ -35,6 +36,7 @@ namespace Rudy_103.src
         Rectangle przyciskWylaczRadar;
         Rectangle przyciskWylaczEnergie;
         Rectangle przyciskWylaczInformacje;
+        Rectangle przyciskWylaczCieniowanie;
         Rectangle przyciskWyjscia;
 
         Rectangle przyciskZamknijUkonczonyPoziom;
@@ -67,9 +69,9 @@ namespace Rudy_103.src
         private int maxY;
 
         private Image[] i_bateria;
-        private Image[] i_ogien;
         private Image i_menu;
         private Image i_rect;
+        private Image radar;
 
         //Obrazy do obsługi Mapy
         private Image pusta_mapa;
@@ -116,7 +118,6 @@ namespace Rudy_103.src
             Kamera.Prostokat_Kamery.Y = 680;
 
             i_bateria = new Image[7];
-            i_ogien = new Image[5];
 
             tlo = new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.tlo.png"));
 
@@ -129,13 +130,8 @@ namespace Rudy_103.src
             i_bateria[6] = new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.bateria_10.png"));
 
             i_rect = new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.transp_rect2.png"));
+            radar = new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Radar.png"));
             i_menu = new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.menu.png"));
-
-            i_ogien[0] = new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Efekty.flame_1.png"));
-            i_ogien[1] = new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Efekty.flame_2.png"));
-            i_ogien[2] = new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Efekty.flame_3.png"));
-            i_ogien[3] = new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Efekty.flame_4.png"));
-            i_ogien[4] = new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Efekty.flame_5.png"));
 
             pusta_mapa = new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Mapa.pusta_mapa.png"));
             przeszkoda_mapa = new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Mapa.przeszkoda.png"));
@@ -150,6 +146,18 @@ namespace Rudy_103.src
 
             fabryka = new Fabryka(execAssem, true);
             plansza = new Plansza(1000, 1000);
+            plansza.WczytajGrafikePodloza(
+                new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Ziemia.tlo_1.png")),
+                new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Ziemia.tlo_2.png")),
+                new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Ziemia.tlo_3.png")),
+                new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Ziemia.tlo_4.png")),
+                new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Ziemia.tlo_5.png")),
+                new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Ziemia.tlo_6.png")),
+                new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Ziemia.tlo_7.png")),
+                new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Ziemia.tlo_8.png")),
+                new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Ziemia.tlo_9.png")),
+                new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Ziemia.tlo_10.png"))
+                );
             plansza.GenerujDebugMapa(fabryka);
 
             player = Fabryka.ProdukujDomyslnegoGracza(execAssem);
@@ -200,12 +208,14 @@ namespace Rudy_103.src
                             if ((player.wymiary.Y + player.wymiary.Height / 2) > (Kamera.Prostokat_Kamery.Y + maxY / 2))
                             {
                                 player.Ruch(Czolg.Kierunek.GORA, plansza);
+                                
                             }
                             else
                             {
                                 Kamera.Prostokat_Kamery.Y -= player.Szybkosc;
                                 if (Kamera.Prostokat_Kamery.Y <= minY) Kamera.Prostokat_Kamery.Y = minY;//zmien pozycje kamery
                                 player.Ruch(Czolg.Kierunek.GORA, plansza);
+                                
                             }
                         } break;
                     case System.Windows.Forms.Keys.Down:
@@ -257,8 +267,7 @@ namespace Rudy_103.src
                         } break;
                     case Keys.Space:
                         {
-                            //panelUlepszen = !panelUlepszen;
-                            //zmniejsz_energie();
+                            plansza.ZmienPodloze();
                         } break;
                     case Keys.C:
                         {
@@ -308,31 +317,17 @@ namespace Rudy_103.src
             using (Graphics g = Graphics.FromImage(bitmapBuffor))
             {
                 //g.Clear(Color.White);
-                g.DrawImage(tlo, 0, 0);
+                g.DrawImage(plansza.AktualnePodloze(), 0, 0);
                 player.Rysuj(g, transparentPink);
 
                 plansza.RysujElementy(g, transparentPink);
                 plansza.RysujEfekty(g, transparentPink);
-                DodajOgien(g, new Point(200, 200), transparentPink, numer_efektu);
                 RysujInterfejs(g, transparentPink);
                 g.Dispose();
             }
             e.Graphics.DrawImage(bitmapBuffor, 0, 0);
 
         }
-
-        private void DodajOgien(Graphics g, Point pozycja_uderzenia, System.Drawing.Imaging.ImageAttributes transparentPink, int numer)
-        {
-
-            g.DrawImage(i_ogien[numer], new Rectangle(pozycja_uderzenia.X - 50 - Kamera.Prostokat_Kamery.X, pozycja_uderzenia.Y - Kamera.Prostokat_Kamery.Y, 25, 25), 0, 0,
-                        i_ogien[numer].Width, i_ogien[numer].Height, GraphicsUnit.Pixel, transparentPink);
-            g.DrawImage(i_ogien[numer], new Rectangle(pozycja_uderzenia.X - Kamera.Prostokat_Kamery.X, pozycja_uderzenia.Y - 50 - Kamera.Prostokat_Kamery.Y, 25, 25), 0, 0,
-                        i_ogien[numer].Width, i_ogien[numer].Height, GraphicsUnit.Pixel, transparentPink);
-            g.DrawImage(i_ogien[numer], new Rectangle(pozycja_uderzenia.X - 25 - Kamera.Prostokat_Kamery.X, pozycja_uderzenia.Y + 25 - Kamera.Prostokat_Kamery.Y, 25, 25), 0, 0,
-                        i_ogien[numer].Width, i_ogien[numer].Height, GraphicsUnit.Pixel, transparentPink);
-        }
-
-
 
         private Bitmap bufforMapa = null;
         private void RysujInterfejs(Graphics g, System.Drawing.Imaging.ImageAttributes transparentPink)
@@ -343,11 +338,12 @@ namespace Rudy_103.src
             {
                 #region RysowanieMiniMapy
                 Rectangle prostokat = new Rectangle(170, 20, 50, 50);
+                //Rectangle radar_rect = new Rectangle(145, 0, 100, 100);
                 Rectangle prostokat2 = new Rectangle(169, 19, 51, 51);
 
                 g.DrawRectangle(new Pen(Color.Blue), prostokat2);
                 g.DrawImage(i_rect, prostokat, 0, 0, i_rect.Width, i_rect.Height, GraphicsUnit.Pixel, transparentPink);
-
+                //g.DrawImage(radar, radar_rect, 0, 0, radar.Width, radar.Height, GraphicsUnit.Pixel, transparentPink);
                 g.FillEllipse(new SolidBrush(Color.White), new Rectangle(prostokat.X + ((int)player.wymiary.X / 20), prostokat.Y + ((int)player.wymiary.Y / 20), 2, 2));
                 if (plansza.przeciwnicy_na_mapie != null)
                 {
@@ -602,12 +598,22 @@ namespace Rudy_103.src
                     new Rectangle(20, 155, 200, 25), drawFormat);
                 #endregion Rysowanie Przycisku Informacji
 
+                #region Rysowanie Przycisku Cieniowania
+                przyciskWylaczCieniowanie = new Rectangle(20, 190, 200, 30);
+                g.DrawImage(przyciskImageZamknij, przyciskWylaczCieniowanie, 0, 0, przyciskImageZamknij.Width,
+                    przyciskImageZamknij.Height, GraphicsUnit.Pixel, transparentPink);
+                if (Opcje.wlacz_cieniowanie) g.DrawString("Wyłącz Cieniowanie", new Font("Arial", 12, FontStyle.Regular), new SolidBrush(Color.Green),
+                     new Rectangle(20, 195, 200, 25), drawFormat);
+                else g.DrawString("Włącz Cieniowanie", new Font("Arial", 12, FontStyle.Regular), new SolidBrush(Color.Red),
+                    new Rectangle(20, 195, 200, 25), drawFormat);
+                #endregion Rysowanie Przycisku Cieniowania
+
                 #region Rysowanie Przycisku Wyjscia
-                przyciskWyjscia = new Rectangle(20, 190, 200, 30);
+                przyciskWyjscia = new Rectangle(20, 230, 200, 30);
                 g.DrawImage(przyciskImageZamknij, przyciskWyjscia, 0, 0, przyciskImageZamknij.Width,
                     przyciskImageZamknij.Height, GraphicsUnit.Pixel, transparentPink);
                 g.DrawString("Zakończ Grę", new Font("Arial", 12, FontStyle.Regular), new SolidBrush(Color.Yellow),
-                    new Rectangle(20, 195, 200, 25), drawFormat);
+                    new Rectangle(20, 235, 200, 25), drawFormat);
                 #endregion Rysowanie Przycisku Wyjscia
 
                 #region Rysowanie Przycisku Zamkniecia Opcji
@@ -806,6 +812,10 @@ namespace Rudy_103.src
                 {
                     panelInformacji = !panelInformacji;
                 }
+                if (mysz.IntersectsWith(przyciskWylaczCieniowanie))
+                {
+                    Opcje.wlacz_cieniowanie = !Opcje.wlacz_cieniowanie;
+                }
                 if (mysz.IntersectsWith(przyciskWyjscia))
                 {
                     //Tutaj powinny być obsłużone jeszcze metody wyjścia z gry
@@ -824,6 +834,7 @@ namespace Rudy_103.src
                     przyciskWylaczEnergie = new Rectangle();
                     przyciskWylaczInformacje = new Rectangle();
                     przyciskWyjscia = new Rectangle();
+                    przyciskWylaczCieniowanie = new Rectangle();
 
                     WznowGre();
                 }

@@ -134,11 +134,11 @@ namespace Rudy_103.src
             
             Random random = new Random();
             
-            plansza.efekty_na_mapie.Add(fabryka.ProdukujEfekt("Ogień"));
-            plansza.efekty_na_mapie.Last().UstawPozycje(new Point(X + random.Next(0, 20), Y + random.Next(0, 20)));
+            //plansza.efekty_na_mapie.Add(fabryka.ProdukujEfekt("Ogień"));
+            //plansza.efekty_na_mapie.Last().UstawPozycje(new Point(X + random.Next(0, 20), Y + random.Next(0, 20)));
 
-            plansza.efekty_na_mapie.Add(fabryka.ProdukujEfekt("Ogień"));
-            plansza.efekty_na_mapie.Last().UstawPozycje(new Point(X - random.Next(0, 20), Y + random.Next(0, 20)));
+            //plansza.efekty_na_mapie.Add(fabryka.ProdukujEfekt("Ogień"));
+            //1plansza.efekty_na_mapie.Last().UstawPozycje(new Point(X - random.Next(0, 20), Y + random.Next(0, 20)));
 
             //plansza.efekty_na_mapie.Add(fabryka.ProdukujEfekt("Ogień"));
             //plansza.efekty_na_mapie.Last().UstawPozycje(new Point(X - random.Next(0, 20), Y - random.Next(0, 20)));
@@ -247,8 +247,10 @@ namespace Rudy_103.src
         public enum Kierunek : int { GORA = 0, PRAWO, DOL, LEWO }
         public override void Rysuj(Graphics g, System.Drawing.Imaging.ImageAttributes transparentPink)
         {
+
             g.DrawImage(obrazy[(int)kierunek], new Rectangle(Wymiary.X - Kamera.Prostokat_Kamery.X, Wymiary.Y - Kamera.Prostokat_Kamery.Y, Wymiary.Width, Wymiary.Height), 0, 0,
                         obrazy[(int)kierunek].Width, obrazy[(int)kierunek].Width, GraphicsUnit.Pixel, transparentPink);
+            
             if (pocisk != null) pocisk.Rysuj(g, transparentPink);
         }
           

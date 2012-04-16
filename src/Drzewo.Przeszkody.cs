@@ -145,15 +145,31 @@ namespace Rudy_103.src
                     if (rec.IntersectsWith(iterator.prawo.Wymiary))
                     {
                         RysujEle(iterator.prawo, rec, g, transparentPink);
+                        
                     }
                 }
             }
             else
             {
+                //Rysowanie cieni
+                if (Opcje.wlacz_cieniowanie == true)
+                {
+                    for (int i = 0; i < iterator.lista.Count; ++i)
+                    {
+                        if (rec.IntersectsWith(iterator.lista[i].wymiary))
+                        {
+                            iterator.lista[i].RysujCienie(g, transparentPink);
+                        }
+                    }
+                }
+
+                //Rysowanie przeszkód
                 for (int i = 0; i < iterator.lista.Count; ++i)
                 {
-                    if (rec.IntersectsWith(iterator.lista[i].wymiary)) iterator.lista[i].Rysuj(g, transparentPink);
-
+                    if (rec.IntersectsWith(iterator.lista[i].wymiary))
+                    {
+                        iterator.lista[i].Rysuj(g, transparentPink);
+                    }
                 }
             }
         }
