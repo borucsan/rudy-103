@@ -267,6 +267,7 @@ namespace Rudy_103.src
                         } break;
                     case Keys.Space:
                         {
+                            
                             plansza.ZmienPodloze();
                         } break;
                     case Keys.C:
@@ -277,6 +278,10 @@ namespace Rudy_103.src
                     case Keys.X:
                         {
                             player.Uszkodz(20);
+                        } break;
+                    case Keys.Z:
+                        {
+                            panelUlepszen = !panelUlepszen;
                         } break;
                 }
                 //kamera = new Rectangle(pozycja_kamery.X, pozycja_kamery.Y, maxX, maxY);
@@ -658,7 +663,7 @@ namespace Rudy_103.src
                 g.DrawString(s_czas, new Font("Arial", 12, FontStyle.Regular), new SolidBrush(Color.Yellow),
                     new Rectangle(19, 35, 201, 25), drawFormat);
 
-                g.DrawString(s_punkty, new Font("Arial", 12, FontStyle.Regular), new SolidBrush(Color.Yellow),
+                g.DrawString("Punkty: "+player.punkty, new Font("Arial", 12, FontStyle.Regular), new SolidBrush(Color.Yellow),
                     new Rectangle(19, 65, 201, 25), drawFormat);
 
                 przyciskZamknijUkonczonyPoziom = new Rectangle(20, 285, 200, 30);
