@@ -22,6 +22,11 @@ namespace Rudy_103.src
         /// <summary>
         /// Prostokąt określający wymiary widoku gracza
         /// </summary>
-        public static Rectangle Prostokat_Kamery = new Rectangle(0, 0, Szerokosc_Ekranu, Wysokosc_Ekranu); 
+        public static Rectangle Prostokat_Kamery = new Rectangle(0, 0, Szerokosc_Ekranu, Wysokosc_Ekranu);
+        public static void Odswiez_Kamere()
+        {
+            Kamera.Prostokat_Kamery = new Rectangle(Kamera.Prostokat_Kamery.X, Kamera.Prostokat_Kamery.Y, Szerokosc_Ekranu, Wysokosc_Ekranu);
+        }
+        public static String Orientacja_Ekranu = "Portrait";
     }
 }

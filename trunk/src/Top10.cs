@@ -26,6 +26,7 @@ namespace Rudy_103.src
         /// </summary>
         private void WrocButton_Click(object sender, EventArgs e)
         {
+            Owner.Show();
             this.Close();
         }
     }

@@ -47,6 +47,8 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.WindowsCE.Forms" />
+    <Reference Include="Microsoft.WindowsMobile, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" />
+    <Reference Include="Microsoft.WindowsMobile.Status, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" />
     <Reference Include="mscorlib" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -260,10 +262,23 @@
     <EmbeddedResource Include="Resources\Przeszkody\skrzynka.png" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Resources\Budynki\budynekA1.png" />
+    <EmbeddedResource Include="Resources\Budynki\budynekB1.png" />
+    <EmbeddedResource Include="Resources\Budynki\budynekC1.png" />
     <Content Include="Resources\Efekty\Ślad\slad_down.png" />
     <Content Include="Resources\Efekty\Ślad\slad_left.png" />
     <Content Include="Resources\Efekty\Ślad\slad_right.png" />
     <Content Include="Resources\Efekty\Ślad\slad_up.png" />
+    <EmbeddedResource Include="Resources\Przyciski\button_down.png" />
+    <EmbeddedResource Include="Resources\Przyciski\button_down_on.png" />
+    <EmbeddedResource Include="Resources\Przyciski\button_enter.png" />
+    <EmbeddedResource Include="Resources\Przyciski\button_enter_on.png" />
+    <EmbeddedResource Include="Resources\Przyciski\button_left.png" />
+    <EmbeddedResource Include="Resources\Przyciski\button_left_on.png" />
+    <EmbeddedResource Include="Resources\Przyciski\button_right.png" />
+    <EmbeddedResource Include="Resources\Przyciski\button_right_on.png" />
+    <EmbeddedResource Include="Resources\Przyciski\button_up.png" />
+    <EmbeddedResource Include="Resources\Przyciski\button_up_on.png" />
     <EmbeddedResource Include="Resources\Radar.png" />
     <EmbeddedResource Include="Resources\Ziemia\tlo_1.png" />
     <EmbeddedResource Include="Resources\Ziemia\tlo_10.png" />
