@@ -72,8 +72,10 @@
             this.Name = "NowaGra";
             this.Text = "Rudy 103 - Nowa Gra";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
+            this.MouseUp += new System.Windows.Forms.MouseEventHandler(this.NowaGra_MouseUp);
             this.Paint += new System.Windows.Forms.PaintEventHandler(this.NowaGra_Paint);
             this.Click += new System.EventHandler(this.NowaGra_Click);
+            this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.NowaGra_MouseDown);
             this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.NowaGra_KeyUp);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.NowaGra_KeyDown);
             this.ResumeLayout(false);

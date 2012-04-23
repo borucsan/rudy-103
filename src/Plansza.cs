@@ -151,6 +151,7 @@ namespace Rudy_103.src
                 przeszkody.Last().UstawPozycje(pozycje[wylosowana]);
                 pozycje.RemoveAt(wylosowana);
             }
+            
             przeszkody.Add(fabryka.ProdukujPrzeszkode("cegielka"));
             przeszkody.Last().UstawPozycje(475, 900);
             przeszkody.Add(fabryka.ProdukujPrzeszkode("cegielka"));
@@ -175,6 +176,8 @@ namespace Rudy_103.src
             przeszkody.Last().UstawPozycje(475, 950);
             przeszkody.Add(fabryka.ProdukujPrzeszkode("cegielka"));
             przeszkody.Last().UstawPozycje(475, 925);
+
+
             region = new DrzewoPrzeszkody(przeszkody, new Rectangle(0, 0, Szerokosc, Wysokosc), 6, true);
         }
         public void Respawn(Gracz gracz)

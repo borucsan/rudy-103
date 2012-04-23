@@ -6,6 +6,8 @@ using System.Data;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
+using Microsoft.WindowsMobile;
+using Microsoft.WindowsMobile.Status;
 //using Rudy_103.src;
 
 namespace Rudy_103.src
@@ -18,7 +20,6 @@ namespace Rudy_103.src
         private NowaGra nowa;
         private int czas;
         private Image [] wczytywanieImage;
-
         /// <summary>
         /// Konstruktor klasy głównego okna.
         /// </summary>
@@ -44,7 +45,12 @@ namespace Rudy_103.src
             wczytywanieImage[2] = new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Wczytywanie.load_3.png"));
             wczytywanieImage[3] = new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Wczytywanie.load_4.png"));
             
+            Kamera.Szerokosc_Ekranu = Screen.PrimaryScreen.Bounds.Width;
+            Kamera.Wysokosc_Ekranu = Screen.PrimaryScreen.Bounds.Height;
+
             czas1.Enabled = false;
+
+            OdswiezEkran();
         }
 
         private void NowaGraButton_Click(object sender, EventArgs e)
@@ -58,7 +64,6 @@ namespace Rudy_103.src
             linkLabel1.Visible = false;
             wczytywaniePlikow = true;
             czas1.Enabled = true;
-            Invalidate();
         }
 
         private void Top10Button_Click(object sender, EventArgs e)
@@ -87,7 +92,7 @@ namespace Rudy_103.src
 
         private void linkLabel1_Click(object sender, EventArgs e)
         {
-            System.Diagnostics.Process.Start("http://www.google.pl/", "");
+            System.Diagnostics.Process.Start("https://code.google.com/p/rudy-103/", "");
         }
 
         /// <summary>
@@ -104,13 +109,13 @@ namespace Rudy_103.src
             //Tworzymy nowy buffor jezeli potrzebny.
             if (buforBitmapy == null)
             {
-                buforBitmapy = new Bitmap(this.ClientSize.Width, this.ClientSize.Height);
+                buforBitmapy = new Bitmap(Kamera.Szerokosc_Ekranu, Kamera.Wysokosc_Ekranu);
             }
 
             //Tutaj ladujemy cala grafike
             using (Graphics g = Graphics.FromImage(buforBitmapy))
             {
-                g.FillRectangle(new SolidBrush(Color.White), new Rectangle(0, 0, 240, 320));
+                g.FillRectangle(new SolidBrush(Color.White), new Rectangle(0, 0, Kamera.Szerokosc_Ekranu, Kamera.Wysokosc_Ekranu));
                 if (wczytywaniePlikow)
                 {
                     wczytywanieNowejGry(g);
@@ -123,23 +128,24 @@ namespace Rudy_103.src
         {
 
             //g.Graphics.DrawRectangle(new Pen(Color.Blue), new Rectangle(0, 0, 240, 320));
-            g.FillRectangle(new SolidBrush(Color.Black), new Rectangle(0, 0, 240, 320));
-            g.DrawString("Trwa Wczytywanie", new Font("Arial", 19, FontStyle.Regular), new SolidBrush(Color.White), new RectangleF(10, 100, 230, 50));
+            g.Clear(Color.Black);
+            //g.FillRectangle(new SolidBrush(Color.Black), new Rectangle(0, 0, 240, 320));
+            g.DrawString("Trwa Wczytywanie", new Font("Arial", 15, FontStyle.Regular), new SolidBrush(Color.White), new RectangleF(Kamera.Szerokosc_Ekranu/2 - 80, Kamera.Wysokosc_Ekranu/2 - 80, 200, 30));
             if (stan == 0)
             {
-                g.DrawImage(wczytywanieImage[0], new Rectangle(95, 150, 50, 50), new Rectangle(0, 0, wczytywanieImage[0].Width, wczytywanieImage[0].Height), GraphicsUnit.Pixel);
+                g.DrawImage(wczytywanieImage[0], new Rectangle(Kamera.Szerokosc_Ekranu/2 - 25, Kamera.Wysokosc_Ekranu/2 - 25, 50, 50), new Rectangle(0, 0, wczytywanieImage[0].Width, wczytywanieImage[0].Height), GraphicsUnit.Pixel);
             }
             if (stan == 1)
             {
-                g.DrawImage(wczytywanieImage[1], new Rectangle(95, 150, 50, 50), new Rectangle(0, 0, wczytywanieImage[1].Width, wczytywanieImage[1].Height), GraphicsUnit.Pixel);
+                g.DrawImage(wczytywanieImage[1], new Rectangle(Kamera.Szerokosc_Ekranu / 2 - 25, Kamera.Wysokosc_Ekranu / 2 - 25, 50, 50), new Rectangle(0, 0, wczytywanieImage[1].Width, wczytywanieImage[1].Height), GraphicsUnit.Pixel);
             }
             if (stan == 2)
             {
-                g.DrawImage(wczytywanieImage[2], new Rectangle(95, 150, 50, 50), new Rectangle(0, 0, wczytywanieImage[1].Width, wczytywanieImage[1].Height), GraphicsUnit.Pixel);
+                g.DrawImage(wczytywanieImage[2], new Rectangle(Kamera.Szerokosc_Ekranu / 2 - 25, Kamera.Wysokosc_Ekranu / 2 - 25, 50, 50), new Rectangle(0, 0, wczytywanieImage[1].Width, wczytywanieImage[1].Height), GraphicsUnit.Pixel);
             }
             if (stan == 3)
             {
-                g.DrawImage(wczytywanieImage[3], new Rectangle(95, 150, 50, 50), new Rectangle(0, 0, wczytywanieImage[1].Width, wczytywanieImage[1].Height), GraphicsUnit.Pixel);
+                g.DrawImage(wczytywanieImage[3], new Rectangle(Kamera.Szerokosc_Ekranu / 2 - 25, Kamera.Wysokosc_Ekranu / 2 - 25, 50, 50), new Rectangle(0, 0, wczytywanieImage[1].Width, wczytywanieImage[1].Height), GraphicsUnit.Pixel);
             }
         }
         private void czas1_Tick(object sender, EventArgs e)
@@ -149,7 +155,7 @@ namespace Rudy_103.src
             if (czas == 2) { nowa = new NowaGra(); }
             stan += 1;
             if (stan >= 4) stan = 0;
-            Invalidate();
+            OdswiezEkran();
             if (nowa != null)
             {
                 
@@ -171,6 +177,36 @@ namespace Rudy_103.src
                 }
             }
         }
+        private void OdswiezEkran()
+        {
+            //Landscape
+            if (SystemState.DisplayRotation == 0)
+            {
+                if (Kamera.Orientacja_Ekranu.Equals("Landscape") == false)
+                {
+                    Kamera.Szerokosc_Ekranu = Screen.PrimaryScreen.Bounds.Width;
+                    Kamera.Wysokosc_Ekranu = Screen.PrimaryScreen.Bounds.Height;
+                    this.buforBitmapy = null;
+                    Kamera.Orientacja_Ekranu = "Landscape";
+                }
+                //Kamera.Szerokosc_Ekranu = Screen.PrimaryScreen.Bounds.Width;
+                //Kamera.Wysokosc_Ekranu = Screen.PrimaryScreen.Bounds.Height;
+            }
+            //Portrait
+            if (SystemState.DisplayRotation == 90 || SystemState.DisplayRotation == -90)
+            {
+                if (Kamera.Orientacja_Ekranu.Equals("Portrait") == false)
+                {
+                    Kamera.Szerokosc_Ekranu = Screen.PrimaryScreen.Bounds.Width;
+                    Kamera.Wysokosc_Ekranu = Screen.PrimaryScreen.Bounds.Height;
+                    this.buforBitmapy = null;
+                    Kamera.Orientacja_Ekranu = "Portrait";
+                }
+            }
+
+            Invalidate();
+        }
+        
 
     }
 }
