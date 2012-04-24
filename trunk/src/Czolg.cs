@@ -84,40 +84,44 @@ namespace Rudy_103.src
         public virtual void Ruch(Kierunek kierunek, Plansza plansza)
         {
             this.kierunek = kierunek;
-            poprzednia_pozycja = wymiary.Location;
+            poprzednia_pozycja = Wymiary.Location;
             switch (kierunek)
             {
                 case Kierunek.GORA:
                     if (Wymiary.Y >= szybkosc)
                     {
-                        Wymiary.Y -= szybkosc;
+                        //Wymiary.Y -= szybkosc;
+                        ZmienPozycje(0, -szybkosc);
                         Zderzenie2(plansza);
                     }
-                    else Wymiary.Y = 0;
+                    else UstawPozycjeY(0);
                     break;
                 case Kierunek.PRAWO:
                     if (Wymiary.X <= plansza.Szerokosc - (szybkosc + Wymiary.Width))
                     {
-                        Wymiary.X += szybkosc;
+                        //Wymiary.X += szybkosc;
+                        ZmienPozycje(szybkosc, 0);
                         Zderzenie2(plansza);
                     }
-                    else Wymiary.X = plansza.Szerokosc - Wymiary.Width;
+                    else UstawPozycjeX(plansza.Szerokosc - Wymiary.Width);
                     break;
                 case Kierunek.DOL:
                     if (Wymiary.Y <= plansza.Wysokosc - (szybkosc + Wymiary.Height))
                     {
-                        Wymiary.Y += szybkosc;
+                        //Wymiary.Y += szybkosc;
+                        ZmienPozycje(0, szybkosc);
                         Zderzenie2(plansza);
                     }
-                    else Wymiary.Y = plansza.Wysokosc - Wymiary.Height;
+                    else UstawPozycjeY(plansza.Wysokosc - Wymiary.Height);
                     break;
                 case Kierunek.LEWO:
                     if (Wymiary.X >= szybkosc)
                     {
-                        Wymiary.X -= szybkosc;
+                        //Wymiary.X -= szybkosc;
+                        ZmienPozycje(-szybkosc, 0);
                         Zderzenie2(plansza);
                     }
-                    else Wymiary.X = 0;
+                    else UstawPozycjeX(0);
                     break;
             }
         }
@@ -153,52 +157,52 @@ namespace Rudy_103.src
                 switch (pocisk.kierunek)
                 {
                     case Czolg.Kierunek.GORA:
-                        if (pocisk.wymiary.Y > 0)
+                        if (pocisk.Wymiary.Y > 0)
                         {
                             pocisk.ZmienPozycje(0, -pocisk.szybkosc);
                             if (pocisk.Zderzenie(plansza))
                             {
-                                DodajPociskOgien(plansza, fabryka, pocisk.wymiary.X + pocisk.wymiary.Width/2 - 25, 
-                                    pocisk.wymiary.Y + pocisk.wymiary.Height/2 - 25);
+                                DodajPociskOgien(plansza, fabryka, pocisk.Wymiary.X + pocisk.Wymiary.Width/2 - 25, 
+                                    pocisk.Wymiary.Y + pocisk.Wymiary.Height/2 - 25);
                                 pocisk = null;
                             }
                         }
                         else pocisk = null;
                         break;
                     case Czolg.Kierunek.PRAWO:
-                        if (pocisk.wymiary.X < 1000)
+                        if (pocisk.Wymiary.X < 1000)
                         {
                             pocisk.ZmienPozycje(pocisk.szybkosc, 0);
                             if (pocisk.Zderzenie(plansza))
                             {
-                                DodajPociskOgien(plansza, fabryka, pocisk.wymiary.X + pocisk.wymiary.Width / 2 - 25,
-                                    pocisk.wymiary.Y + pocisk.wymiary.Height / 2 - 25);
+                                DodajPociskOgien(plansza, fabryka, pocisk.Wymiary.X + pocisk.Wymiary.Width / 2 - 25,
+                                    pocisk.Wymiary.Y + pocisk.Wymiary.Height / 2 - 25);
                                 pocisk = null;
                             }
                         }
                         else pocisk = null;
                         break;
                     case Czolg.Kierunek.DOL:
-                        if (pocisk.wymiary.Y < 1000)
+                        if (pocisk.Wymiary.Y < 1000)
                         {
                             pocisk.ZmienPozycje(0, pocisk.szybkosc);
                             if (pocisk.Zderzenie(plansza))
                             {
-                                DodajPociskOgien(plansza, fabryka, pocisk.wymiary.X + pocisk.wymiary.Width / 2 - 25,
-                                    pocisk.wymiary.Y + pocisk.wymiary.Height / 2 - 25);
+                                DodajPociskOgien(plansza, fabryka, pocisk.Wymiary.X + pocisk.Wymiary.Width / 2 - 25,
+                                    pocisk.Wymiary.Y + pocisk.Wymiary.Height / 2 - 25);
                                 pocisk = null;
                             }
                         }
                         else pocisk = null;
                         break;
                     case Czolg.Kierunek.LEWO:
-                        if (pocisk.wymiary.X > 0)
+                        if (pocisk.Wymiary.X > 0)
                         {
                             pocisk.ZmienPozycje(-pocisk.szybkosc, 0);
                             if (pocisk.Zderzenie(plansza))
                             {
-                                DodajPociskOgien(plansza, fabryka, pocisk.wymiary.X + pocisk.wymiary.Width / 2 - 25,
-                                    pocisk.wymiary.Y + pocisk.wymiary.Height / 2 - 25);
+                                DodajPociskOgien(plansza, fabryka, pocisk.Wymiary.X + pocisk.Wymiary.Width / 2 - 25,
+                                    pocisk.Wymiary.Y + pocisk.Wymiary.Height / 2 - 25);
                                 pocisk = null;
                             }
                         }
@@ -213,16 +217,16 @@ namespace Rudy_103.src
         /// <param name="plansza">Obiekt planszy</param>
         public void Zderzenie2(Plansza plansza)
         {
-            if (this.wymiary.IntersectsWith(plansza.baza.wymiary))
+            if (this.Wymiary.IntersectsWith(plansza.baza.Wymiary))
             {
-                ObliczPozycje(plansza.baza.wymiary);
+                ObliczPozycje(plansza.baza.Wymiary);
             }
             plansza.region.CzyKoliduje(this);
             for (int i = 0; i < plansza.przeciwnicy_na_mapie.Count; ++i)
             {
-                if (plansza.przeciwnicy_na_mapie[i].wymiary.IntersectsWith(wymiary))
+                if (plansza.przeciwnicy_na_mapie[i].Wymiary.IntersectsWith(Wymiary))
                 {
-                    ObliczPozycje(plansza.przeciwnicy_na_mapie[i].wymiary);
+                    ObliczPozycje(plansza.przeciwnicy_na_mapie[i].Wymiary);
                 }
             }
         }
@@ -234,14 +238,35 @@ namespace Rudy_103.src
                     UstawPozycjeY(rec.Bottom);
                 break;
                 case Kierunek.PRAWO:
-                    UstawPozycjeX(rec.X - wymiary.Width);
+                    UstawPozycjeX(rec.X - Wymiary.Width);
                 break;
                 case Kierunek.DOL:
-                    UstawPozycjeY(rec.Y - wymiary.Height);
+                    UstawPozycjeY(rec.Y - Wymiary.Height);
                 break;
                 case Kierunek.LEWO:
                 UstawPozycjeX(rec.Right);
                 break;
+            }
+        }
+        public void ObliczPozycje2(Rectangle rec)
+        {
+            int X = wymiary.X - rec.X;
+            int Y = wymiary.Y - rec.Y;
+            if (Y >= 0 && Math.Abs(X) <= rec.Width)
+            {
+                UstawPozycjeY(rec.Bottom);
+            }
+            if (X <= 0 && Math.Abs(Y) <= rec.Height)
+            {
+                UstawPozycjeX(rec.X - Wymiary.Width);
+            }
+            if (Y <= 0 && Math.Abs(X) <= rec.Width)
+            {
+                UstawPozycjeY(rec.Y - Wymiary.Height);
+            }
+            if (X >= 0 && Math.Abs(Y) <= rec.Height)
+            {
+                UstawPozycjeX(rec.Right);
             }
         }
         public enum Kierunek : int { GORA = 0, PRAWO, DOL, LEWO }

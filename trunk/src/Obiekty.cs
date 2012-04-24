@@ -10,22 +10,11 @@ namespace Rudy_103.src
     /// <summary>
     /// Klasa bazowa dla wszystkich obiektów na planszy(np. przeszkody, czołgi...)
     /// </summary>
-    abstract class Obiekty
+    abstract class Obiekty : IPodzielny
     {
         public Point poprzednia_pozycja { get; protected set; }
-        protected Rectangle Wymiary;
+        protected Rectangle wymiary;
         protected Image[] obrazy;
-        public Rectangle wymiary
-        {
-            get
-            {
-                return Wymiary;
-            }
-            set
-            {
-                Wymiary = value;
-            }
-        }
       
         /// <summary>
         /// Konstruktor bazowy dla obiektów
@@ -36,11 +25,11 @@ namespace Rudy_103.src
         /// <param name="Wys">Prawdopodobnie tymczasowy parametr wysokości obiektu</param>
         public Obiekty(int X, int Y, int Szer, int Wys)
         {
-            Wymiary = new Rectangle(X, Y, Szer, Wys);
+            wymiary = new Rectangle(X, Y, Szer, Wys);
         }
         public Obiekty(int X, int Y, int Szer, int Wys, params Image[] obrazy)
         {
-            Wymiary = new Rectangle(X, Y, Szer, Wys);
+            wymiary = new Rectangle(X, Y, Szer, Wys);
             this.obrazy = obrazy;
         }
         /// <summary>
@@ -53,26 +42,30 @@ namespace Rudy_103.src
         }
         public void ZmienPozycje(int zmiana_X, int zmiana_Y)
         {
-            Wymiary.X = Wymiary.X + zmiana_X;
-            Wymiary.Y = Wymiary.Y + zmiana_Y;
+            wymiary.X = wymiary.X + zmiana_X;
+            wymiary.Y = wymiary.Y + zmiana_Y;
         }
         public void UstawPozycje(int X, int Y)
         {
-            Wymiary.X = X;
-            Wymiary.Y = Y;
+            wymiary.X = X;
+            wymiary.Y = Y;
         }
         public void UstawPozycje(Point poz)
         {
-            Wymiary.X = poz.X;
-            Wymiary.Y = poz.Y;
+            wymiary.X = poz.X;
+            wymiary.Y = poz.Y;
         }
         public void UstawPozycjeX(int X)
         {
-            Wymiary.X = X;
+            wymiary.X = X;
         }
         public void UstawPozycjeY(int Y)
         {
-            Wymiary.Y = Y;
+            wymiary.Y = Y;
+        }
+        public void UstawNowyRect(Rectangle rec)
+        {
+            wymiary = rec;
         }
         public virtual bool Uszkodz(int sila)
         {
@@ -82,5 +75,14 @@ namespace Rudy_103.src
         /// Abstrakcyjna metoda do rysowania. Parametry do ustalenia.
         /// </summary>
         abstract public void Rysuj(Graphics g, System.Drawing.Imaging.ImageAttributes transparentPink);
+
+        #region IPodzielny Members
+
+        public Rectangle Wymiary
+        {
+            get { return wymiary; }
+        }
+
+        #endregion
     }
 }

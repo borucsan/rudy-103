@@ -221,7 +221,7 @@ namespace Rudy_103.src
 
             if (Opcje.Gora)
             {
-                if ((player.wymiary.Y + player.wymiary.Height / 2) > (Kamera.Prostokat_Kamery.Y + Kamera.Wysokosc_Ekranu / 2))
+                if ((player.Wymiary.Y + player.Wymiary.Height / 2) > (Kamera.Prostokat_Kamery.Y + Kamera.Wysokosc_Ekranu / 2))
                 {
                     player.Ruch(Czolg.Kierunek.GORA, plansza);
 
@@ -236,7 +236,7 @@ namespace Rudy_103.src
             }
             if (Opcje.Prawo)
             {
-                if ((player.wymiary.X + player.wymiary.Height / 2) < (Kamera.Prostokat_Kamery.X + Kamera.Szerokosc_Ekranu / 2))
+                if ((player.Wymiary.X + player.Wymiary.Height / 2) < (Kamera.Prostokat_Kamery.X + Kamera.Szerokosc_Ekranu / 2))
                 {
                     player.Ruch(Czolg.Kierunek.PRAWO, plansza);
                 }
@@ -251,7 +251,7 @@ namespace Rudy_103.src
             }
             if (Opcje.Dol)
             {
-                if ((player.wymiary.Y + player.wymiary.Height / 2) < (Kamera.Prostokat_Kamery.Y + Kamera.Wysokosc_Ekranu / 2))
+                if ((player.Wymiary.Y + player.Wymiary.Height / 2) < (Kamera.Prostokat_Kamery.Y + Kamera.Wysokosc_Ekranu / 2))
                 {
                     player.Ruch(Czolg.Kierunek.DOL, plansza);
                 }
@@ -265,7 +265,7 @@ namespace Rudy_103.src
             }
             if (Opcje.Lewo)
             {
-                if ((player.wymiary.X + player.wymiary.Width / 2) > (Kamera.Prostokat_Kamery.X + Kamera.Szerokosc_Ekranu / 2))
+                if ((player.Wymiary.X + player.Wymiary.Width / 2) > (Kamera.Prostokat_Kamery.X + Kamera.Szerokosc_Ekranu / 2))
                 {
                     player.Ruch(Czolg.Kierunek.LEWO, plansza);
                 }
@@ -436,13 +436,13 @@ namespace Rudy_103.src
                 g.DrawRectangle(new Pen(Color.Blue), prostokatObwoduRadaru);
                 g.DrawImage(i_rect, prostokatRadaru, 0, 0, i_rect.Width, i_rect.Height, GraphicsUnit.Pixel, transparentPink);
                 //g.DrawImage(radar, radar_rect, 0, 0, radar.Width, radar.Height, GraphicsUnit.Pixel, transparentPink);
-                g.FillEllipse(new SolidBrush(Color.White), new Rectangle(prostokatRadaru.X + ((int)player.wymiary.X / 20), prostokatRadaru.Y + ((int)player.wymiary.Y / 20), 2, 2));
+                g.FillEllipse(new SolidBrush(Color.White), new Rectangle(prostokatRadaru.X + ((int)player.Wymiary.X / 20), prostokatRadaru.Y + ((int)player.Wymiary.Y / 20), 2, 2));
                 if (plansza.przeciwnicy_na_mapie != null)
                 {
                     for (int i = 0; i < plansza.przeciwnicy_na_mapie.Count; i++)
                     {
-                        g.FillEllipse(new SolidBrush(Color.Yellow), new Rectangle(prostokatRadaru.X + ((int)plansza.przeciwnicy_na_mapie[i].wymiary.X / 20),
-                            prostokatRadaru.Y + ((int)plansza.przeciwnicy_na_mapie[i].wymiary.Y / 20), 2, 2));
+                        g.FillEllipse(new SolidBrush(Color.Yellow), new Rectangle(prostokatRadaru.X + ((int)plansza.przeciwnicy_na_mapie[i].Wymiary.X / 20),
+                            prostokatRadaru.Y + ((int)plansza.przeciwnicy_na_mapie[i].Wymiary.Y / 20), 2, 2));
                     }
                 }
 
@@ -620,7 +620,7 @@ namespace Rudy_103.src
                             
                         }*/
                         plansza.region.RysujMape(graph, przeszkoda_mapa);
-                        graph.DrawImage(gracz_mapa, player.wymiary.X / 5 + 20, player.wymiary.Y / 5 + 40);
+                        graph.DrawImage(gracz_mapa, player.Wymiary.X / 5 + Kamera.Szerokosc_Ekranu / 2 - 100, player.Wymiary.Y / 5 + 30);
                         graph.Dispose();
                     }
 

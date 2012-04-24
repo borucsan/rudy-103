@@ -178,7 +178,7 @@ namespace Rudy_103.src
             przeszkody.Last().UstawPozycje(475, 925);
 
 
-            region = new DrzewoPrzeszkody(przeszkody, new Rectangle(0, 0, Szerokosc, Wysokosc), 6, true);
+            region = new DrzewoPrzeszkody(przeszkody, new Rectangle(0, 0, Szerokosc, Wysokosc), true);
         }
         public void Respawn(Gracz gracz)
         {
@@ -191,14 +191,14 @@ namespace Rudy_103.src
                     if (temp_resp.Count == 0) return;
                     bool wolne = true;
                     liczba = Narzedzia.rand.Next(0, temp_resp.Count);
-                    if (temp_resp[liczba].IntersectsWith(gracz.wymiary))
+                    if (temp_resp[liczba].IntersectsWith(gracz.Wymiary))
                     {
                         temp_resp.RemoveAt(liczba);
                         continue;
                     }
                     for (int i = 0; i < przeciwnicy_na_mapie.Count; ++i)
                     {
-                        if(temp_resp[liczba].IntersectsWith(przeciwnicy_na_mapie[i].wymiary))
+                        if(temp_resp[liczba].IntersectsWith(przeciwnicy_na_mapie[i].Wymiary))
                         {
                             temp_resp.RemoveAt(liczba);
                             wolne = false;
@@ -237,7 +237,7 @@ namespace Rudy_103.src
         {
             
             region.RysujElementy(Kamera.Prostokat_Kamery, g, transparentPink);
-            if (baza.wymiary.IntersectsWith(Kamera.Prostokat_Kamery))
+            if (baza.Wymiary.IntersectsWith(Kamera.Prostokat_Kamery))
             {
                 baza.Rysuj(g, transparentPink);
             }
@@ -246,14 +246,14 @@ namespace Rudy_103.src
             {
                 for (int i = 0; i < przeciwnicy_na_mapie.Count; ++i)
                 {
-                    if (przeciwnicy_na_mapie[i].wymiary.IntersectsWith(Kamera.Prostokat_Kamery))
+                    if (przeciwnicy_na_mapie[i].Wymiary.IntersectsWith(Kamera.Prostokat_Kamery))
                     {
                         
                         przeciwnicy_na_mapie[i].Rysuj(g, transparentPink);
                     }
                     if (przeciwnicy_na_mapie[i].Pocisk != null)
                     {
-                        if (przeciwnicy_na_mapie[i].Pocisk.wymiary.IntersectsWith(Kamera.Prostokat_Kamery))
+                        if (przeciwnicy_na_mapie[i].Pocisk.Wymiary.IntersectsWith(Kamera.Prostokat_Kamery))
                         {
                             przeciwnicy_na_mapie[i].Pocisk.Rysuj(g, transparentPink);
                         }
@@ -270,7 +270,7 @@ namespace Rudy_103.src
                 for (int i = 0; i < efekty_na_mapie.Count; ++i)
                 {
 
-                    if (efekty_na_mapie[i].wymiary.IntersectsWith(Kamera.Prostokat_Kamery))
+                    if (efekty_na_mapie[i].Wymiary.IntersectsWith(Kamera.Prostokat_Kamery))
                     {
 
                         efekty_na_mapie[i].Rysuj(g, transparentPink);

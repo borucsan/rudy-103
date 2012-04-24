@@ -63,11 +63,21 @@
     <Compile Include="src\Baza.cs" />
     <Compile Include="src\Czolg.cs" />
     <Compile Include="src\Drzewo.cs" />
-    <Compile Include="src\Drzewo.Przeszkody.cs" />
+    <Compile Include="src\Drzewo.Przeszkody.cs">
+      <DependentUpon>Drzewo.cs</DependentUpon>
+    </Compile>
     <Compile Include="src\Efekty.cs" />
-    <Compile Include="src\ElementDrzewa.cs" />
+    <Compile Include="src\ElementObiektu.cs">
+      <DependentUpon>Drzewo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="src\ElementDrzewa.cs">
+      <DependentUpon>Drzewo.cs</DependentUpon>
+    </Compile>
     <Compile Include="src\Fabryka.cs" />
     <Compile Include="src\Gracz.cs" />
+    <Compile Include="src\IPodzielny.cs">
+      <DependentUpon>Drzewo.cs</DependentUpon>
+    </Compile>
     <Compile Include="src\Kamera.cs" />
     <Compile Include="src\MenuGlowne.cs">
       <SubType>Form</SubType>
