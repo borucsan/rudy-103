@@ -10,131 +10,161 @@ namespace Rudy_103.src
     /// Generyczna klasa drzewa BSP.
     /// </summary>
     /// <typeparam name="T">Wstępnie przyjmuje tylko typ "Obiekty"</typeparam>
-    class Drzewo<T> where T : Obiekty
+    class Drzewo<T> where T : IPodzielny
     {
         /// <summary>
         /// Korzeń drzewa.
         /// </summary>
-        public ElementDrzewa<T> root {get; set;}
-        /// <summary>
-        /// Maksymalna głebokość drzewa. Określa jak dokładne mają być porównania regionów.
-        /// </summary>
-        public int glebokosc { get; set; }
+        public ElementDrzewa<T> root {get; private set;}
         /// <summary>
         /// Konstruktor drzewa BSP
         /// </summary>
         /// <param name="lista_obiektow">Lista wszystkich obiektów podlegających podziałowi</param>
         /// <param name="wymiar">Prostokąt obiektu podlegającego partycjowaniu</param>
-        /// <param name="glebokosc">Określa ile ma być węzłów w drzewie.</param>
         /// <param name="kompresja">Parametr umożliwiający tworzenie drzewa zkompresowanego(Zawierającego tylko listy w liściach.</param>
-        public Drzewo(List<T> lista_obiektow, Rectangle wymiar, int glebokosc, bool kompresja)
+        public Drzewo(List<T> lista_obiektow, Rectangle wymiar, bool kompresja)
         {
-            this.glebokosc = glebokosc;
+            List<ElementObiektu<T>> elem = new List<ElementObiektu<T>>();
+            for (int i = 0; i < lista_obiektow.Count; ++i)
+            {
+                elem.Add(new ElementObiektu<T>(lista_obiektow[i]));
+            }
             if (kompresja)
             {
                 root = new ElementDrzewa<T>(null, wymiar, 0);
-                TworzDrzewo(root, lista_obiektow, true, 0);
+                TworzDrzewo(root, elem);
             }
             else
             {
-                root = new ElementDrzewa<T>(lista_obiektow, wymiar, 0);
-                TworzDrzewo(root, true, 0);
+                root = new ElementDrzewa<T>(elem, wymiar, 0);
+                TworzDrzewo(root);
             }
         }
         /// <summary>
         /// Metoda wewnętrzna tworząca "zwykłe" drzewo. 
         /// </summary>
         /// <param name="iterator">Domyślnie korzeń</param>
-        /// <param name="dzielXY">Parametr okraślający jak dzielić obszar</param>
-        /// <param name="iteracja">Liczba wykonań metody</param>
-        private void TworzDrzewo(ElementDrzewa<T> iterator, bool dzielXY, int iteracja)
+        private void TworzDrzewo(ElementDrzewa<T> iterator)
         {
-            if (iteracja < glebokosc)
-            {
-                iteracja++;
                 Rectangle k1, k2;
-                List<T> lista1 = new List<T>();
-                List<T> lista2 = new List<T>();
-                if (dzielXY)
-                {
-                    k1 = new Rectangle(iterator.Wymiary.X, iterator.Wymiary.Y, iterator.Wymiary.Width / 2, iterator.Wymiary.Height);
-                    k2 = new Rectangle(iterator.Wymiary.X + iterator.Wymiary.Width / 2, iterator.Wymiary.Y, iterator.Wymiary.Width / 2, iterator.Wymiary.Height);
-                }
-                else
-                {
-                    k1 = new Rectangle(iterator.Wymiary.X, iterator.Wymiary.Y, iterator.Wymiary.Width, iterator.Wymiary.Height / 2);
-                    k2 = new Rectangle(iterator.Wymiary.X, iterator.Wymiary.Y + iterator.Wymiary.Height / 2, iterator.Wymiary.Width, iterator.Wymiary.Height / 2);
-                }
+                List<ElementObiektu<T>> lista1 = new List<ElementObiektu<T>>();
+                List<ElementObiektu<T>> lista2 = new List<ElementObiektu<T>>();
+                Narzedzia.PodzialProstokata pp = Narzedzia.DzielProsokat(iterator.Wymiary, out k1, out k2);
                 for (int i = 0; i < iterator.lista.Count; ++i)
                 {
-                    if (k1.Contains(iterator.lista[i].wymiary))
+                    if (k1.Contains(iterator.lista[i].Wymiary))
                     {
                         lista1.Add(iterator.lista[i]);
                     }
-                    if (k2.Contains(iterator.lista[i].wymiary))
+                    if (k2.Contains(iterator.lista[i].Wymiary))
                     {
-                        lista2.Add(iterator.lista[i]);
+                        lista2.Add((iterator.lista[i]));
+                    }
+                    if (k1.IntersectsWith(iterator.lista[i].Wymiary) && k2.IntersectsWith(iterator.lista[i].Wymiary))
+                    {
+                        Rectangle cz1, cz2;
+                        if (pp == Narzedzia.PodzialProstokata.X)
+                        {
+                            int podzial = iterator.lista[i].Wymiary.Right - k1.Right;
+                            Narzedzia.DzielProsokat(iterator.lista[i].Wymiary, out cz1, out cz2, Narzedzia.PodzialProstokata.X, podzial);
+                        }
+                        else
+                        {
+                            int podzial = iterator.lista[i].Wymiary.Bottom - k1.Bottom;
+                            Narzedzia.DzielProsokat(iterator.lista[i].Wymiary, out cz1, out cz2, Narzedzia.PodzialProstokata.Y, podzial);
+                        }
+                        ElementObiektu<T> el1, el2;
+                        
+                        el1 = new ElementObiektu<T>(iterator.lista[i].obiekt, cz1, true);
+                        el2 = new ElementObiektu<T>(iterator.lista[i].obiekt, cz2, false);
+                        lista1.Add(el1);
+                        lista2.Add(el2);
                     }
                 }
-                if (lista1.Count != 0)
+                if ((k1.Width == 125 && k1.Height == 125))
                 {
-                    iterator.lewo = new ElementDrzewa<T>(lista1, k1, iteracja);
-                    TworzDrzewo(iterator.lewo, !dzielXY, iteracja);
+                    if (lista1.Count != 0)
+                    {
+                        iterator.lewo = new ElementDrzewa<T>(lista1, k1);
+                    }
+                    if (lista2.Count != 0)
+                    {
+                        iterator.prawo = new ElementDrzewa<T>(lista2, k2);
+                    }
                 }
-                if(lista2.Count != 0)
+                else
                 {
-                    iterator.prawo = new ElementDrzewa<T>(lista2, k2, iteracja);
-                    TworzDrzewo(iterator.prawo, !dzielXY, iteracja);
+                    if (lista1.Count != 0)
+                    {
+                        iterator.lewo = new ElementDrzewa<T>(lista1, k1);
+                        TworzDrzewo(iterator.lewo);
+                    }
+                    if (lista2.Count != 0)
+                    {
+                        iterator.prawo = new ElementDrzewa<T>(lista2, k2);
+                        TworzDrzewo(iterator.prawo);
+                    }
                 }
             }
-        }
+        
         /// <summary>
         /// Metoda wewnętrzna tworząca "zkompresowane" drzewo. 
         /// </summary>
         /// <param name="iterator">Domyślnie korzeń</param>
         /// <param name="lista_obiektow">Lista obiektów podlegająca podziałowi w bierzącej iteracji</param>
-        /// <param name="dzielXY">Parametr okraślający jak dzielić obszar</param>
-        /// <param name="iteracja">Liczba wykonań metody</param>
-        private void TworzDrzewo(ElementDrzewa<T> iterator, List<T> lista_obiektow, bool dzielXY, int iteracja)
+        private void TworzDrzewo(ElementDrzewa<T> iterator, List<ElementObiektu<T>> lista_obiektow)
         {
-            if (iteracja < glebokosc)
-            {
-                iteracja++;
                 Rectangle k1, k2;
-                List<T> lista1 = new List<T>();
-                List<T> lista2 = new List<T>();
-                if (dzielXY)
-                {
-                    k1 = new Rectangle(iterator.Wymiary.X, iterator.Wymiary.Y, iterator.Wymiary.Width / 2, iterator.Wymiary.Height);
-                    k2 = new Rectangle(iterator.Wymiary.X + iterator.Wymiary.Width / 2, iterator.Wymiary.Y, iterator.Wymiary.Width / 2, iterator.Wymiary.Height);
-                }
-                else
-                {
-                    k1 = new Rectangle(iterator.Wymiary.X, iterator.Wymiary.Y, iterator.Wymiary.Width, iterator.Wymiary.Height / 2);
-                    k2 = new Rectangle(iterator.Wymiary.X, iterator.Wymiary.Y + iterator.Wymiary.Height / 2, iterator.Wymiary.Width, iterator.Wymiary.Height / 2);
-                }
+                List<ElementObiektu<T>> lista1 = new List<ElementObiektu<T>>();
+                List<ElementObiektu<T>> lista2 = new List<ElementObiektu<T>>();
+                Narzedzia.PodzialProstokata pp = Narzedzia.DzielProsokat(iterator.Wymiary, out k1, out k2);
                 for (int i = 0; i < lista_obiektow.Count; ++i)
                 {
-                    if (k1.Contains(lista_obiektow[i].wymiary))
+                    if (k1.Contains(lista_obiektow[i].Wymiary))
                     {
                         lista1.Add(lista_obiektow[i]);
                     }
-                    if (k2.Contains(lista_obiektow[i].wymiary))
+                    if (k2.Contains(lista_obiektow[i].Wymiary))
                     {
                         lista2.Add(lista_obiektow[i]);
                     }
+                    if (k1.IntersectsWith(lista_obiektow[i].Wymiary) && k2.IntersectsWith(lista_obiektow[i].Wymiary))
+                    {
+                        Rectangle cz1, cz2;
+                        if (pp == Narzedzia.PodzialProstokata.X)
+                        {
+                            int podzial = lista_obiektow[i].Wymiary.Width - (lista_obiektow[i].Wymiary.Right - k1.Right);
+                            Narzedzia.DzielProsokat(lista_obiektow[i].Wymiary, out cz1, out cz2, Narzedzia.PodzialProstokata.X, podzial);
+                        }
+                        else
+                        {
+                            int podzial = lista_obiektow[i].Wymiary.Height - (lista_obiektow[i].Wymiary.Bottom - k1.Bottom);
+                            Narzedzia.DzielProsokat(lista_obiektow[i].Wymiary, out cz1, out cz2, Narzedzia.PodzialProstokata.Y, podzial);
+                        }
+                        ElementObiektu<T> el1, el2;
+                        if (lista_obiektow[i].rysuj)
+                        {
+                            el1 = new ElementObiektu<T>(lista_obiektow[i].obiekt, cz1, true);
+                            el2 = new ElementObiektu<T>(lista_obiektow[i].obiekt, cz2, el1, false);
+                        }
+                        else
+                        {
+                            el1 = new ElementObiektu<T>(lista_obiektow[i].obiekt, cz1, lista_obiektow[i].element, false);
+                            el2 = new ElementObiektu<T>(lista_obiektow[i].obiekt, cz2, lista_obiektow[i].element, false);
+                        }
+                        lista1.Add(el1);
+                        lista2.Add(el2);
+                    }
                 }
-                if (iteracja == glebokosc)
+                if ((k1.Width < 50 && k1.Height < 50))
                 {
                     if (lista1.Count != 0)
                     {
                         iterator.lewo = new ElementDrzewa<T>(lista1, k1);
-                        TworzDrzewo(iterator.lewo, lista1, !dzielXY, iteracja);
                     }
                     if (lista2.Count != 0)
                     {
                         iterator.prawo = new ElementDrzewa<T>(lista2, k2);
-                        TworzDrzewo(iterator.prawo, lista2, !dzielXY, iteracja);
                     }
                 }
                 else
@@ -142,15 +172,14 @@ namespace Rudy_103.src
                     if (lista1.Count != 0)
                     {
                         iterator.lewo = new ElementDrzewa<T>(null, k1);
-                        TworzDrzewo(iterator.lewo, lista1, !dzielXY, iteracja);
+                        TworzDrzewo(iterator.lewo, lista1);
                     }
                     if (lista2.Count != 0)
                     {
                         iterator.prawo = new ElementDrzewa<T>(null, k2);
-                        TworzDrzewo(iterator.prawo, lista2, !dzielXY, iteracja);
+                        TworzDrzewo(iterator.prawo, lista2);
                     }
                 }
             }
         }
-    }
 }

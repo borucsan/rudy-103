@@ -35,16 +35,16 @@ namespace Rudy_103.src
         }
         public void UstawPocisk(int X, int Y, int sila, Czolg.Kierunek kierunek, Czolg wlasciciel)
         {
-            Wymiary.X = X;
-            Wymiary.Y = Y;
+            wymiary.X = X;
+            wymiary.Y = Y;
             this.kierunek = kierunek;
             if (kierunek == Czolg.Kierunek.GORA || kierunek == Czolg.Kierunek.DOL)
             {
-                Wymiary.X -= 5;
+                wymiary.X -= 5;
             }
             if (kierunek == Czolg.Kierunek.LEWO || kierunek == Czolg.Kierunek.PRAWO)
             {
-                Wymiary.Y -= 5;
+                wymiary.Y -= 5;
             }
             this.sila = sila;
             this.wlasciciel = wlasciciel;
@@ -53,7 +53,7 @@ namespace Rudy_103.src
         {
             for (int i = 0; i < plansza.przeciwnicy_na_mapie.Count; ++i)
             {
-                if (plansza.przeciwnicy_na_mapie[i].wymiary.IntersectsWith(Wymiary))
+                if (plansza.przeciwnicy_na_mapie[i].Wymiary.IntersectsWith(Wymiary))
                 {
                     if (plansza.przeciwnicy_na_mapie[i].Uszkodz(sila))
                     {
@@ -65,14 +65,14 @@ namespace Rudy_103.src
                 }
                 if (plansza.przeciwnicy_na_mapie[i].Pocisk !=null)
                 {
-                    if (plansza.przeciwnicy_na_mapie[i].Pocisk.wymiary.IntersectsWith(Wymiary))
+                    if (plansza.przeciwnicy_na_mapie[i].Pocisk.Wymiary.IntersectsWith(Wymiary))
                     {
                         plansza.przeciwnicy_na_mapie[i].Pocisk = null;
                         return true;
                     }
                 }
             }
-            if (this.wymiary.IntersectsWith(plansza.baza.wymiary))
+            if (this.Wymiary.IntersectsWith(plansza.baza.Wymiary))
             {
                 plansza.baza.Uszkodz(this.sila);
                 return true;
@@ -81,12 +81,12 @@ namespace Rudy_103.src
         }
         public bool Zderzenie(Plansza plansza, Gracz gracz)
         {
-            if (gracz.wymiary.IntersectsWith(Wymiary))
+            if (gracz.Wymiary.IntersectsWith(Wymiary))
             {
                 gracz.Uszkodz(sila);
                 return true;
             }
-            if(gracz.Pocisk != null && gracz.Pocisk.wymiary.IntersectsWith(Wymiary))
+            if(gracz.Pocisk != null && gracz.Pocisk.Wymiary.IntersectsWith(Wymiary))
             {
                 gracz.Pocisk = null;
                 return true;
@@ -95,20 +95,20 @@ namespace Rudy_103.src
             for (int i = 0; i < plansza.przeciwnicy_na_mapie.Count; ++i)
             {
                 if (plansza.przeciwnicy_na_mapie[i] == this.wlasciciel) continue;
-                    if (plansza.przeciwnicy_na_mapie[i].wymiary.IntersectsWith(Wymiary))
+                    if (plansza.przeciwnicy_na_mapie[i].Wymiary.IntersectsWith(Wymiary))
                     {
                         return true;
                     }
                 if (plansza.przeciwnicy_na_mapie[i].Pocisk != null)
                 {
-                    if (plansza.przeciwnicy_na_mapie[i].Pocisk.wymiary.IntersectsWith(Wymiary))
+                    if (plansza.przeciwnicy_na_mapie[i].Pocisk.Wymiary.IntersectsWith(Wymiary))
                     {
                         plansza.przeciwnicy_na_mapie[i].Pocisk = null;
                         return true;
                     }
                 }
             }
-            if (this.wymiary.IntersectsWith(plansza.baza.wymiary))
+            if (this.Wymiary.IntersectsWith(plansza.baza.Wymiary))
             {
                 plansza.baza.Uszkodz(this.sila);
                 return true;
@@ -120,7 +120,7 @@ namespace Rudy_103.src
 
         public object Clone()
         {
-            Pocisk klon = new Pocisk(0, 0, this.wymiary.Width, this.wymiary.Height, this.sila, this.szybkosc, Czolg.Kierunek.GORA);
+            Pocisk klon = new Pocisk(0, 0, this.Wymiary.Width, this.Wymiary.Height, this.sila, this.szybkosc, Czolg.Kierunek.GORA);
             klon.WczytajObrazy(this.obrazy);
             return klon;
         }
