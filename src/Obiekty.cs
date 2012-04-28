@@ -40,6 +40,13 @@ namespace Rudy_103.src
         {
             obrazy = obraz;
         }
+        /// <summary>
+        /// Metoda zwraca Obrazy, wykorzystywane przy wyświetlaniu informacji o przeciwniku
+        /// </summary>
+        public Image ZwrocObrazy()
+        {
+            return this.obrazy[0];
+        }
         public void ZmienPozycje(int zmiana_X, int zmiana_Y)
         {
             wymiary.X = wymiary.X + zmiana_X;

@@ -37,10 +37,11 @@ namespace Rudy_103.src
             wzorzec_pocisku = new Pocisk(0, 0, 10, 10, 5, 10, Czolg.Kierunek.GORA);
             
             wzorzec_pocisku.WczytajObrazy(
-                new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.pocisk2_up.png")),
-                new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.pocisk2_right.png")),
-                new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.pocisk2_down.png")),
-                new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.pocisk2_left.png"))
+                new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Pociski.Domyslny.pocisk2_up.png")),
+                new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Pociski.Domyslny.pocisk2_right.png")),
+                new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Pociski.Domyslny.pocisk2_down.png")),
+                new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Pociski.Domyslny.pocisk2_left.png"))
+                
                 );
             wzorzec_bazy = new Baza(0, 0, 50, 50, 10, false, new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Baza.baza_nowa.png")),
                 new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Baza.baza_zniszczona.png")));
@@ -117,14 +118,10 @@ namespace Rudy_103.src
             Gracz player = new Gracz(425, 930, 40, 40, 100, 5, 10, 3);
             
             player.WczytajObrazy(
-                new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.tank3_up.png")),
-                //new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.czolg_up_2.png")),
-                new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.tank3_right.png")),
-                //new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.czolg_right_2.png")),
-                new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.tank3_down.png")),
-                //new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.czolg_down_2.png")),
-                new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.tank3_left.png"))
-                //new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.czolg_left_2.png"))
+                new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Gracz.Domyslny.tank_default_up.png")),
+                new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Gracz.Domyslny.tank_default_right.png")),
+                new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Gracz.Domyslny.tank_default_down.png")),
+                new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Gracz.Domyslny.tank_default_left.png"))
                 );
             return player;
         }
@@ -149,24 +146,98 @@ namespace Rudy_103.src
             //DodajWzorzecPrzeszkody("zniszczona baza", new Przeszkoda(0, 0, 50, 50, 10, false, new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Baza.baza_zniszczona.png"))));
             
             //Wzorce przeciwników
-            Przeciwnik enemy = new Przeciwnik(0, 0, 40, 40, 20, 6, 10, 100);
-            enemy.WczytajObrazy(
-                new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Przeciwnicy.enemy_tank_1_up.png")),
-                new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Przeciwnicy.enemy_tank_1_right.png")),
-                new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Przeciwnicy.enemy_tank_1_down.png")),
-                new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Przeciwnicy.enemy_tank_1_left.png"))
+            Przeciwnik [] enemy = new Przeciwnik[10];
+            enemy[0] = new Przeciwnik(0, 0, 40, 40, 20, 6, 5, 100);
+            enemy[1] = new Przeciwnik(0, 0, 40, 40, 30, 6, 8, 200);
+            enemy[2] = new Przeciwnik(0, 0, 40, 40, 30, 7, 15, 300);
+            enemy[3] = new Przeciwnik(0, 0, 40, 40, 40, 7, 35, 400);
+            enemy[4] = new Przeciwnik(0, 0, 40, 40, 40, 8, 55, 500);
+            enemy[5] = new Przeciwnik(0, 0, 40, 40, 50, 8, 70, 600);
+            enemy[6] = new Przeciwnik(0, 0, 40, 40, 50, 9, 80, 700);
+            enemy[7] = new Przeciwnik(0, 0, 40, 40, 70, 11, 70, 800);
+            enemy[8] = new Przeciwnik(0, 0, 40, 40, 90, 13, 90, 900);
+            enemy[9] = new Przeciwnik(0, 0, 40, 40, 110, 15, 110, 1000);
+
+            enemy[0].WczytajObrazy(
+                new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Przeciwnicy.Poziom_1.enemy_tank_1_up.png")),
+                new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Przeciwnicy.Poziom_1.enemy_tank_1_right.png")),
+                new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Przeciwnicy.Poziom_1.enemy_tank_1_down.png")),
+                new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Przeciwnicy.Poziom_1.enemy_tank_1_left.png"))
+                );
+            enemy[1].WczytajObrazy(
+                new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Przeciwnicy.Poziom_2.enemy_tank_2_up.png")),
+                new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Przeciwnicy.Poziom_2.enemy_tank_2_right.png")),
+                new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Przeciwnicy.Poziom_2.enemy_tank_2_down.png")),
+                new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Przeciwnicy.Poziom_2.enemy_tank_2_left.png"))
+                );
+            enemy[2].WczytajObrazy(
+                new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Przeciwnicy.Poziom_3.enemy_tank_3_up.png")),
+                new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Przeciwnicy.Poziom_3.enemy_tank_3_right.png")),
+                new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Przeciwnicy.Poziom_3.enemy_tank_3_down.png")),
+                new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Przeciwnicy.Poziom_3.enemy_tank_3_left.png"))
+                );
+            enemy[3].WczytajObrazy(
+                new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Przeciwnicy.Poziom_4.enemy_tank_4_up.png")),
+                new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Przeciwnicy.Poziom_4.enemy_tank_4_right.png")),
+                new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Przeciwnicy.Poziom_4.enemy_tank_4_down.png")),
+                new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Przeciwnicy.Poziom_4.enemy_tank_4_left.png"))
+                );
+            enemy[4].WczytajObrazy(
+                new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Przeciwnicy.Poziom_5.enemy_tank_5_up.png")),
+                new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Przeciwnicy.Poziom_5.enemy_tank_5_right.png")),
+                new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Przeciwnicy.Poziom_5.enemy_tank_5_down.png")),
+                new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Przeciwnicy.Poziom_5.enemy_tank_5_left.png"))
+                );
+            enemy[5].WczytajObrazy(
+                new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Przeciwnicy.Poziom_6.enemy_tank_6_up.png")),
+                new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Przeciwnicy.Poziom_6.enemy_tank_6_right.png")),
+                new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Przeciwnicy.Poziom_6.enemy_tank_6_down.png")),
+                new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Przeciwnicy.Poziom_6.enemy_tank_6_left.png"))
+                );
+            enemy[6].WczytajObrazy(
+                new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Przeciwnicy.Poziom_7.enemy_tank_7_up.png")),
+                new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Przeciwnicy.Poziom_7.enemy_tank_7_right.png")),
+                new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Przeciwnicy.Poziom_7.enemy_tank_7_down.png")),
+                new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Przeciwnicy.Poziom_7.enemy_tank_7_left.png"))
+                );
+            enemy[7].WczytajObrazy(
+                new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Przeciwnicy.Poziom_8.enemy_tank_8_up.png")),
+                new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Przeciwnicy.Poziom_8.enemy_tank_8_right.png")),
+                new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Przeciwnicy.Poziom_8.enemy_tank_8_down.png")),
+                new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Przeciwnicy.Poziom_8.enemy_tank_8_left.png"))
+                );
+            enemy[8].WczytajObrazy(
+                new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Przeciwnicy.Poziom_9.enemy_tank_9_up.png")),
+                new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Przeciwnicy.Poziom_9.enemy_tank_9_right.png")),
+                new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Przeciwnicy.Poziom_9.enemy_tank_9_down.png")),
+                new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Przeciwnicy.Poziom_9.enemy_tank_9_left.png"))
+                );
+            enemy[9].WczytajObrazy(
+                new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Przeciwnicy.Poziom_10.enemy_tank_10_up.png")),
+                new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Przeciwnicy.Poziom_10.enemy_tank_10_right.png")),
+                new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Przeciwnicy.Poziom_10.enemy_tank_10_down.png")),
+                new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Przeciwnicy.Poziom_10.enemy_tank_10_left.png"))
                 );
 
-            DodajWzorzecPrzeciwnika("przeciwnik_poziom_1", enemy);
- 
+            DodajWzorzecPrzeciwnika("Przeciwnik: Poziom 1", enemy[0]);
+            DodajWzorzecPrzeciwnika("Przeciwnik: Poziom 2", enemy[1]);
+            DodajWzorzecPrzeciwnika("Przeciwnik: Poziom 3", enemy[2]);
+            DodajWzorzecPrzeciwnika("Przeciwnik: Poziom 4", enemy[3]);
+            DodajWzorzecPrzeciwnika("Przeciwnik: Poziom 5", enemy[4]);
+            DodajWzorzecPrzeciwnika("Przeciwnik: Poziom 6", enemy[5]);
+            DodajWzorzecPrzeciwnika("Przeciwnik: Poziom 7", enemy[6]);
+            DodajWzorzecPrzeciwnika("Przeciwnik: Poziom 8", enemy[7]);
+            DodajWzorzecPrzeciwnika("Przeciwnik: Poziom 9", enemy[8]);
+            DodajWzorzecPrzeciwnika("Przeciwnik: Poziom 10", enemy[9]);
+
             //Wzorce efektów
             Efekty e_ogien = new Efekty(0, 0, 25, 25, 4, 6);
             e_ogien.WczytajObrazy(
-                new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Efekty.Ogień.flame_1.png")),
-                new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Efekty.Ogień.flame_2.png")),
-                new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Efekty.Ogień.flame_3.png")),
-                new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Efekty.Ogień.flame_4.png")),
-                new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Efekty.Ogień.flame_5.png"))
+                new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Efekty.Ogien.flame_1.png")),
+                new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Efekty.Ogien.flame_2.png")),
+                new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Efekty.Ogien.flame_3.png")),
+                new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Efekty.Ogien.flame_4.png")),
+                new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Efekty.Ogien.flame_5.png"))
                 );
             DodajWzorzecEfektu("Ogień", e_ogien);
 

@@ -32,8 +32,9 @@ namespace Rudy_103.src
         {
             g.DrawImage(obrazy[(int)kierunek], new Rectangle(Wymiary.X - Kamera.Prostokat_Kamery.X, Wymiary.Y - Kamera.Prostokat_Kamery.Y, Wymiary.Width, Wymiary.Height), 0, 0,
                         obrazy[(int)kierunek].Width, obrazy[(int)kierunek].Width, GraphicsUnit.Pixel, transparentPink);
+            
         }
-        public void UstawPocisk(int X, int Y, int sila, Czolg.Kierunek kierunek, Czolg wlasciciel)
+        public void UstawPocisk(int X, int Y, int sila, int szybkosc, Czolg.Kierunek kierunek, Czolg wlasciciel)
         {
             wymiary.X = X;
             wymiary.Y = Y;
@@ -47,6 +48,7 @@ namespace Rudy_103.src
                 wymiary.Y -= 5;
             }
             this.sila = sila;
+            this.szybkosc = szybkosc;
             this.wlasciciel = wlasciciel;
         }
         public bool Zderzenie(Plansza plansza)
@@ -55,6 +57,10 @@ namespace Rudy_103.src
             {
                 if (plansza.przeciwnicy_na_mapie[i].Wymiary.IntersectsWith(Wymiary))
                 {
+                    //Opcje.Nazwa_Przeciwnika = "Przeciwnik";
+                    //Opcje.Obraz_Przeciwnika = plansza.przeciwnicy_na_mapie[i].ZwrocObrazy();
+                    //Opcje.wlacz_informacje = true;
+
                     if (plansza.przeciwnicy_na_mapie[i].Uszkodz(sila))
                     {
                         plansza.zdobyte_punkty += plansza.przeciwnicy_na_mapie[i].punkty;

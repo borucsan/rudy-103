@@ -14,6 +14,7 @@ namespace Rudy_103.src
     abstract class Czolg : Obiekty
     {
         protected int wytrzymalosc;
+        protected int wytrzymalosc_bazowa;
         protected int szybkosc;
         protected int sila;
         public int Wytrzymalosc
@@ -27,6 +28,7 @@ namespace Rudy_103.src
                 wytrzymalosc = value;
             }
         }
+        
         public int Szybkosc
         {
             get
@@ -66,6 +68,7 @@ namespace Rudy_103.src
         public Czolg(int X, int Y, int Szer, int Wys, int wytrzymalosc, int szybkosc, int sila)
             : base(X, Y, Szer, Wys)
         {
+            this.wytrzymalosc_bazowa = wytrzymalosc;
             this.wytrzymalosc = wytrzymalosc;
             this.szybkosc = szybkosc;
             this.sila = sila;
@@ -130,7 +133,10 @@ namespace Rudy_103.src
             if (pocisk == null)
             {
                 pocisk = fabryka.ProdukujPocisk();
-                pocisk.UstawPocisk(Wymiary.X + Wymiary.Width/2, Wymiary.Y + Wymiary.Height/2, this.sila, kierunek, this);
+                //int szerokosc = pocisk.Wymiary.Width;
+                //int wysokosc = pocisk.Wymiary.Height;
+
+                pocisk.UstawPocisk(Wymiary.X + Wymiary.Width/2, Wymiary.Y + Wymiary.Height/2, this.sila, this.szybkosc+5, kierunek, this);
             }
         }
         protected void DodajPociskOgien(Plansza plansza, Fabryka fabryka, int X, int Y)
@@ -154,6 +160,7 @@ namespace Rudy_103.src
         {
             if (pocisk != null)
             {
+                
                 switch (pocisk.kierunek)
                 {
                     case Czolg.Kierunek.GORA:
@@ -275,7 +282,13 @@ namespace Rudy_103.src
 
             g.DrawImage(obrazy[(int)kierunek], new Rectangle(Wymiary.X - Kamera.Prostokat_Kamery.X, Wymiary.Y - Kamera.Prostokat_Kamery.Y, Wymiary.Width, Wymiary.Height), 0, 0,
                         obrazy[(int)kierunek].Width, obrazy[(int)kierunek].Width, GraphicsUnit.Pixel, transparentPink);
-            
+            g.DrawRectangle(new Pen(Color.Black), new Rectangle(Wymiary.X - Kamera.Prostokat_Kamery.X, Wymiary.Y + Wymiary.Height + 2 - Kamera.Prostokat_Kamery.Y,
+                Wymiary.Width, 5));
+            /*
+            int procenty_wytrzymalosci = (100 * this.wytrzymalosc) / this.wytrzymalosc_bazowa;
+            g.FillRectangle(new SolidBrush(Color.Red), new Rectangle(Wymiary.X + 1 - Kamera.Prostokat_Kamery.X, Wymiary.Y + Wymiary.Height + 3 - Kamera.Prostokat_Kamery.Y,
+                (Wymiary.Width * procenty_wytrzymalosci) / 100, 4));
+             */
             if (pocisk != null) pocisk.Rysuj(g, transparentPink);
         }
           
