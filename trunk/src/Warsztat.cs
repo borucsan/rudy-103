@@ -36,7 +36,7 @@ namespace Rudy_103.src
             poziom_ataku = 1;
             poziom_muru = 1;
         
-            przyciskImageZamknij = new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.przycisk.png"));
+            przyciskImageZamknij = new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Interfejs.przycisk.png"));
             pasek_ulepszenia = new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Warsztat.pasek_ulepszenia.png"));
             poziom_ulepszenia = new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Warsztat.poziom_ulepszenia.png"));
             przyciskImageSzybkosc = new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Warsztat.ulepsz_szybkosc.png"));

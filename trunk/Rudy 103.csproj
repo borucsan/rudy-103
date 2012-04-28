@@ -131,63 +131,25 @@
     <Compile Include="src\Warsztat.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Resources\rudy_logo.png" />
+    <EmbeddedResource Include="Resources\Interfejs\bateria_10.png" />
+    <EmbeddedResource Include="Resources\Interfejs\bateria_100.png" />
+    <EmbeddedResource Include="Resources\Interfejs\bateria_25.png" />
+    <EmbeddedResource Include="Resources\Interfejs\bateria_40.png" />
+    <EmbeddedResource Include="Resources\Interfejs\bateria_55.png" />
+    <EmbeddedResource Include="Resources\Interfejs\bateria_70.png" />
+    <EmbeddedResource Include="Resources\Interfejs\bateria_85.png" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Resources\czolg_down_1.png" />
-    <EmbeddedResource Include="Resources\czolg_down_2.png" />
-    <EmbeddedResource Include="Resources\czolg_left_1.png" />
-    <EmbeddedResource Include="Resources\czolg_left_2.png" />
-    <EmbeddedResource Include="Resources\czolg_right_1.png" />
-    <EmbeddedResource Include="Resources\czolg_right_2.png" />
-    <EmbeddedResource Include="Resources\czolg_up_1.png" />
-    <EmbeddedResource Include="Resources\czolg_up_2.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Resources\pocisk.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Resources\pocisk_down.png" />
-    <EmbeddedResource Include="Resources\pocisk_left.png" />
-    <EmbeddedResource Include="Resources\pocisk_right.png" />
-    <EmbeddedResource Include="Resources\pocisk_up.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Resources\tank_down.png" />
-    <EmbeddedResource Include="Resources\tank_up.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Resources\bateria_10.png" />
-    <EmbeddedResource Include="Resources\bateria_100.png" />
-    <EmbeddedResource Include="Resources\bateria_25.png" />
-    <EmbeddedResource Include="Resources\bateria_40.png" />
-    <EmbeddedResource Include="Resources\bateria_55.png" />
-    <EmbeddedResource Include="Resources\bateria_70.png" />
-    <EmbeddedResource Include="Resources\bateria_85.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Resources\tlo.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Resources\tank2_1_down.png" />
-    <EmbeddedResource Include="Resources\tank2_1_left.png" />
-    <EmbeddedResource Include="Resources\tank2_1_right.png" />
-    <EmbeddedResource Include="Resources\tank2_1_up.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Resources\ziemia.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Resources\ziemia_tlo.png" />
+    <EmbeddedResource Include="Resources\Interfejs\tlo.png" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources\Przeszkody\cegielka.png" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Resources\tank3_down.png" />
-    <EmbeddedResource Include="Resources\tank3_left.png" />
-    <EmbeddedResource Include="Resources\tank3_right.png" />
-    <EmbeddedResource Include="Resources\tank3_up.png" />
+    <EmbeddedResource Include="Resources\Gracz\Domyslny\tank_default_down.png" />
+    <EmbeddedResource Include="Resources\Gracz\Domyslny\tank_default_left.png" />
+    <EmbeddedResource Include="Resources\Gracz\Domyslny\tank_default_right.png" />
+    <EmbeddedResource Include="Resources\Gracz\Domyslny\tank_default_up.png" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources\Przeszkody\cegielka2.png" />
@@ -196,35 +158,32 @@
     <EmbeddedResource Include="Resources\Przeszkody\drzewo.png" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Resources\pocisk2.png" />
+    <EmbeddedResource Include="Resources\Pociski\Domyslny\pocisk2_down.png" />
+    <EmbeddedResource Include="Resources\Pociski\Domyslny\pocisk2_left.png" />
+    <EmbeddedResource Include="Resources\Pociski\Domyslny\pocisk2_right.png" />
+    <EmbeddedResource Include="Resources\Pociski\Domyslny\pocisk2_up.png" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Resources\pocisk2_down.png" />
-    <EmbeddedResource Include="Resources\pocisk2_left.png" />
-    <EmbeddedResource Include="Resources\pocisk2_right.png" />
-    <EmbeddedResource Include="Resources\pocisk2_up.png" />
+    <EmbeddedResource Include="Resources\Efekty\Ogien\flame_1.png" />
+    <EmbeddedResource Include="Resources\Efekty\Ogien\flame_2.png" />
+    <EmbeddedResource Include="Resources\Efekty\Ogien\flame_3.png" />
+    <EmbeddedResource Include="Resources\Efekty\Ogien\flame_4.png" />
+    <EmbeddedResource Include="Resources\Efekty\Ogien\flame_5.png" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Resources\Efekty\Ogień\flame_1.png" />
-    <EmbeddedResource Include="Resources\Efekty\Ogień\flame_2.png" />
-    <EmbeddedResource Include="Resources\Efekty\Ogień\flame_3.png" />
-    <EmbeddedResource Include="Resources\Efekty\Ogień\flame_4.png" />
-    <EmbeddedResource Include="Resources\Efekty\Ogień\flame_5.png" />
+    <EmbeddedResource Include="Resources\Przeciwnicy\Poziom_1\enemy_tank_1_down.png" />
+    <EmbeddedResource Include="Resources\Przeciwnicy\Poziom_1\enemy_tank_1_left.png" />
+    <EmbeddedResource Include="Resources\Przeciwnicy\Poziom_1\enemy_tank_1_right.png" />
+    <EmbeddedResource Include="Resources\Przeciwnicy\Poziom_1\enemy_tank_1_up.png" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Resources\Przeciwnicy\enemy_tank_1_down.png" />
-    <EmbeddedResource Include="Resources\Przeciwnicy\enemy_tank_1_left.png" />
-    <EmbeddedResource Include="Resources\Przeciwnicy\enemy_tank_1_right.png" />
-    <EmbeddedResource Include="Resources\Przeciwnicy\enemy_tank_1_up.png" />
+    <EmbeddedResource Include="Resources\Interfejs\transp_rect.png" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Resources\transp_rect.png" />
+    <EmbeddedResource Include="Resources\Interfejs\transp_rect2.png" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Resources\transp_rect2.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Resources\menu.png" />
+    <EmbeddedResource Include="Resources\Interfejs\menu.png" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources\Wczytywanie\load_1.png" />
@@ -246,7 +205,7 @@
     <EmbeddedResource Include="Resources\Mapa\tlo_mapa.png" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Resources\przycisk.png" />
+    <EmbeddedResource Include="Resources\Interfejs\przycisk.png" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources\Baza\baza_nowa.png" />
@@ -275,10 +234,54 @@
     <EmbeddedResource Include="Resources\Budynki\budynekA1.png" />
     <EmbeddedResource Include="Resources\Budynki\budynekB1.png" />
     <EmbeddedResource Include="Resources\Budynki\budynekC1.png" />
-    <Content Include="Resources\Efekty\Ślad\slad_down.png" />
-    <Content Include="Resources\Efekty\Ślad\slad_left.png" />
-    <Content Include="Resources\Efekty\Ślad\slad_right.png" />
-    <Content Include="Resources\Efekty\Ślad\slad_up.png" />
+    <Content Include="Resources\Efekty\Slad\slad_down.png" />
+    <Content Include="Resources\Efekty\Slad\slad_left.png" />
+    <Content Include="Resources\Efekty\Slad\slad_right.png" />
+    <Content Include="Resources\Efekty\Slad\slad_up.png" />
+    <Content Include="Resources\Gracz\Polska\enemy_tank_poland_down.png" />
+    <Content Include="Resources\Gracz\Polska\enemy_tank_poland_left.png" />
+    <Content Include="Resources\Gracz\Polska\enemy_tank_poland_right.png" />
+    <Content Include="Resources\Gracz\Polska\enemy_tank_poland_up.png" />
+    <EmbeddedResource Include="Resources\Przeciwnicy\Poziom_10\enemy_tank_10_down.png" />
+    <EmbeddedResource Include="Resources\Przeciwnicy\Poziom_10\enemy_tank_10_left.png" />
+    <EmbeddedResource Include="Resources\Przeciwnicy\Poziom_10\enemy_tank_10_right.png" />
+    <EmbeddedResource Include="Resources\Przeciwnicy\Poziom_10\enemy_tank_10_up.png" />
+    <EmbeddedResource Include="Resources\Przeciwnicy\Poziom_9\enemy_tank_9_down.png" />
+    <EmbeddedResource Include="Resources\Przeciwnicy\Poziom_9\enemy_tank_9_left.png" />
+    <EmbeddedResource Include="Resources\Przeciwnicy\Poziom_9\enemy_tank_9_right.png" />
+    <EmbeddedResource Include="Resources\Przeciwnicy\Poziom_9\enemy_tank_9_up.png" />
+    <EmbeddedResource Include="Resources\Przeciwnicy\Poziom_8\enemy_tank_8_down.png" />
+    <EmbeddedResource Include="Resources\Przeciwnicy\Poziom_8\enemy_tank_8_left.png" />
+    <EmbeddedResource Include="Resources\Przeciwnicy\Poziom_8\enemy_tank_8_right.png" />
+    <EmbeddedResource Include="Resources\Przeciwnicy\Poziom_8\enemy_tank_8_up.png" />
+    <EmbeddedResource Include="Resources\Przeciwnicy\Poziom_7\enemy_tank_7_down.png" />
+    <EmbeddedResource Include="Resources\Przeciwnicy\Poziom_7\enemy_tank_7_left.png" />
+    <EmbeddedResource Include="Resources\Przeciwnicy\Poziom_7\enemy_tank_7_right.png" />
+    <EmbeddedResource Include="Resources\Przeciwnicy\Poziom_7\enemy_tank_7_up.png" />
+    <EmbeddedResource Include="Resources\Przeciwnicy\Poziom_6\enemy_tank_6_down.png" />
+    <EmbeddedResource Include="Resources\Przeciwnicy\Poziom_6\enemy_tank_6_left.png" />
+    <EmbeddedResource Include="Resources\Przeciwnicy\Poziom_6\enemy_tank_6_right.png" />
+    <EmbeddedResource Include="Resources\Przeciwnicy\Poziom_6\enemy_tank_6_up.png" />
+    <EmbeddedResource Include="Resources\Przeciwnicy\Poziom_5\enemy_tank_5_down.png" />
+    <EmbeddedResource Include="Resources\Przeciwnicy\Poziom_5\enemy_tank_5_left.png" />
+    <EmbeddedResource Include="Resources\Przeciwnicy\Poziom_5\enemy_tank_5_right.png" />
+    <EmbeddedResource Include="Resources\Przeciwnicy\Poziom_5\enemy_tank_5_up.png" />
+    <EmbeddedResource Include="Resources\Przeciwnicy\Poziom_4\enemy_tank_4_down.png" />
+    <EmbeddedResource Include="Resources\Przeciwnicy\Poziom_4\enemy_tank_4_left.png" />
+    <EmbeddedResource Include="Resources\Przeciwnicy\Poziom_4\enemy_tank_4_right.png" />
+    <EmbeddedResource Include="Resources\Przeciwnicy\Poziom_4\enemy_tank_4_up.png" />
+    <EmbeddedResource Include="Resources\Przeciwnicy\Poziom_3\enemy_tank_3_down.png" />
+    <EmbeddedResource Include="Resources\Przeciwnicy\Poziom_3\enemy_tank_3_left.png" />
+    <EmbeddedResource Include="Resources\Przeciwnicy\Poziom_3\enemy_tank_3_right.png" />
+    <EmbeddedResource Include="Resources\Przeciwnicy\Poziom_3\enemy_tank_3_up.png" />
+    <EmbeddedResource Include="Resources\Przeciwnicy\Poziom_2\enemy_tank_2_down.png" />
+    <EmbeddedResource Include="Resources\Przeciwnicy\Poziom_2\enemy_tank_2_left.png" />
+    <EmbeddedResource Include="Resources\Przeciwnicy\Poziom_2\enemy_tank_2_right.png" />
+    <EmbeddedResource Include="Resources\Przeciwnicy\Poziom_2\enemy_tank_2_up.png" />
+    <EmbeddedResource Include="Resources\Pociski\Rakieta\missile_east.png" />
+    <EmbeddedResource Include="Resources\Pociski\Rakieta\missile_north.png" />
+    <EmbeddedResource Include="Resources\Pociski\Rakieta\missile_south.png" />
+    <EmbeddedResource Include="Resources\Pociski\Rakieta\missile_west.png" />
     <EmbeddedResource Include="Resources\Przyciski\button_down.png" />
     <EmbeddedResource Include="Resources\Przyciski\button_down_on.png" />
     <EmbeddedResource Include="Resources\Przyciski\button_enter.png" />
@@ -289,7 +292,7 @@
     <EmbeddedResource Include="Resources\Przyciski\button_right_on.png" />
     <EmbeddedResource Include="Resources\Przyciski\button_up.png" />
     <EmbeddedResource Include="Resources\Przyciski\button_up_on.png" />
-    <EmbeddedResource Include="Resources\Radar.png" />
+    <EmbeddedResource Include="Resources\Interfejs\Radar.png" />
     <EmbeddedResource Include="Resources\Ziemia\tlo_1.png" />
     <EmbeddedResource Include="Resources\Ziemia\tlo_10.png" />
     <EmbeddedResource Include="Resources\Ziemia\tlo_2.png" />

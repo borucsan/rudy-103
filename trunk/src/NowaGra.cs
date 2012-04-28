@@ -94,7 +94,7 @@ namespace Rudy_103.src
         //Rectangle kamera;
         //Point pozycja_kamery; //Lewy górny róg  kamery
 
-        Image tlo;
+        
         /// <summary>
         /// Konstruktor klasy nowej gry.
         /// </summary>
@@ -117,26 +117,26 @@ namespace Rudy_103.src
 
             i_bateria = new Image[7];
 
-            tlo = new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.tlo.png"));
+            //tlo = new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.tlo.png"));
 
-            i_bateria[0] = new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.bateria_100.png"));
-            i_bateria[1] = new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.bateria_85.png"));
-            i_bateria[2] = new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.bateria_70.png"));
-            i_bateria[3] = new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.bateria_55.png"));
-            i_bateria[4] = new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.bateria_40.png"));
-            i_bateria[5] = new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.bateria_25.png"));
-            i_bateria[6] = new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.bateria_10.png"));
+            i_bateria[0] = new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Interfejs.bateria_100.png"));
+            i_bateria[1] = new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Interfejs.bateria_85.png"));
+            i_bateria[2] = new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Interfejs.bateria_70.png"));
+            i_bateria[3] = new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Interfejs.bateria_55.png"));
+            i_bateria[4] = new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Interfejs.bateria_40.png"));
+            i_bateria[5] = new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Interfejs.bateria_25.png"));
+            i_bateria[6] = new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Interfejs.bateria_10.png"));
 
-            i_rect = new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.transp_rect2.png"));
-            radar = new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Radar.png"));
-            i_menu = new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.menu.png"));
+            i_rect = new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Interfejs.transp_rect2.png"));
+            radar = new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Interfejs.Radar.png"));
+            i_menu = new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Interfejs.menu.png"));
 
             pusta_mapa = new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Mapa.pusta_mapa.png"));
             przeszkoda_mapa = new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Mapa.przeszkoda.png"));
             gracz_mapa = new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Mapa.gracz.png"));
             tlo_mapa = new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Mapa.tlo_mapa.png"));
 
-            przyciskImageZamknij = new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.przycisk.png"));
+            przyciskImageZamknij = new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Interfejs.przycisk.png"));
 
             buttonUp = new Image[2];
             buttonRight = new Image[2];
@@ -161,14 +161,14 @@ namespace Rudy_103.src
             fabryka = new Fabryka(execAssem, true);
             plansza = new Plansza(1000, 1000);
             plansza.WczytajGrafikePodloza(
-                new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Ziemia.tlo_1.png")),
-                new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Ziemia.tlo_2.png")),
-                new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Ziemia.tlo_3.png")),
-                new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Ziemia.tlo_4.png")),
-                new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Ziemia.tlo_5.png")),
-                new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Ziemia.tlo_6.png")),
-                new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Ziemia.tlo_7.png")),
-                new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Ziemia.tlo_8.png")),
+                //new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Ziemia.tlo_1.png")),
+                //new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Ziemia.tlo_2.png")),
+                //new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Ziemia.tlo_3.png")),
+                //new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Ziemia.tlo_4.png")),
+                //new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Ziemia.tlo_5.png")),
+                //new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Ziemia.tlo_6.png")),
+                //new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Ziemia.tlo_7.png")),
+                //new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Ziemia.tlo_8.png")),
                 new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Ziemia.tlo_9.png")),
                 new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Ziemia.tlo_10.png"))
                 );
@@ -426,6 +426,17 @@ namespace Rudy_103.src
 
 
             }
+            if (Opcje.wlacz_informacje)
+            {
+                g.DrawRectangle(new Pen(Color.Black), new Rectangle(0, 40, 100, 100));
+                if (Opcje.Obraz_Przeciwnika != null)
+                {
+                    g.DrawImage(Opcje.Obraz_Przeciwnika, new Rectangle(1, 41, 40, 40), 0, 0, Opcje.Obraz_Przeciwnika.Width, Opcje.Obraz_Przeciwnika.Height,
+                        GraphicsUnit.Pixel, transparentPink);
+                    g.DrawString(Opcje.Nazwa_Przeciwnika, new Font("Arial", 10, FontStyle.Regular), new SolidBrush(Color.Red), new RectangleF(1, 85, 99, 15), drawFormat);
+                }
+            }
+
             if (panelRadaru)
             {
                 #region RysowanieMiniMapy

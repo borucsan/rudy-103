@@ -11,6 +11,10 @@ namespace Rudy_103.src
     /// </summary>
     static class Opcje
     {
+        public static bool wlacz_informacje = false;
+        public static String Nazwa_Przeciwnika = "";
+        public static Image Obraz_Przeciwnika = null;
+
         public static bool wlacz_cieniowanie = true;
         public static bool wlaczonePrzyciskiEkranowe = true;
         public static bool Gora = false;
@@ -24,7 +28,14 @@ namespace Rudy_103.src
         public static Rectangle przyciskDol;
         public static Rectangle przyciskLewo;
         public static Rectangle przyciskEnter;
-        
+
+        public static void WylaczInformacje()
+        {
+            Opcje.wlacz_informacje = false;
+            Opcje.Nazwa_Przeciwnika = "";
+            Opcje.Obraz_Przeciwnika = null;
+        }
+
         public static void UstawDomyslneWartosci()
         {
             Opcje.wlacz_cieniowanie = true;
