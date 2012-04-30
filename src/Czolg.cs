@@ -28,6 +28,17 @@ namespace Rudy_103.src
                 wytrzymalosc = value;
             }
         }
+        public int Wytrzymalosc_Bazowa
+        {
+            get
+            {
+                return this.wytrzymalosc_bazowa;
+            }
+            set
+            {
+                wytrzymalosc_bazowa = value;
+            }
+        }
         
         public int Szybkosc
         {
@@ -284,11 +295,11 @@ namespace Rudy_103.src
                         obrazy[(int)kierunek].Width, obrazy[(int)kierunek].Width, GraphicsUnit.Pixel, transparentPink);
             g.DrawRectangle(new Pen(Color.Black), new Rectangle(Wymiary.X - Kamera.Prostokat_Kamery.X, Wymiary.Y + Wymiary.Height + 2 - Kamera.Prostokat_Kamery.Y,
                 Wymiary.Width, 5));
-            /*
-            int procenty_wytrzymalosci = (100 * this.wytrzymalosc) / this.wytrzymalosc_bazowa;
+            
+            int procenty_wytrzymalosci = (100 * this.Wytrzymalosc) / this.Wytrzymalosc_Bazowa;
             g.FillRectangle(new SolidBrush(Color.Red), new Rectangle(Wymiary.X + 1 - Kamera.Prostokat_Kamery.X, Wymiary.Y + Wymiary.Height + 3 - Kamera.Prostokat_Kamery.Y,
                 (Wymiary.Width * procenty_wytrzymalosci) / 100, 4));
-             */
+            
             if (pocisk != null) pocisk.Rysuj(g, transparentPink);
         }
           
