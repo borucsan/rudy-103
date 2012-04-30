@@ -85,6 +85,10 @@ namespace Rudy_103.src
         private Image[] buttonLeft;
         private Image[] buttonEnter;
 
+        private Image ImageAtak;
+        private Image ImageSzybkosc;
+        private Image ImagePancerz;
+
         private int numer_efektu;
 
         private int ilosc_opcji;
@@ -154,6 +158,10 @@ namespace Rudy_103.src
             buttonLeft[1] = new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Przyciski.button_left_on.png"));
             buttonEnter[0] = new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Przyciski.button_enter.png"));
             buttonEnter[1] = new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Przyciski.button_enter_on.png"));
+
+            ImageSzybkosc = new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Warsztat.ulepsz_szybkosc.png"));
+            ImagePancerz = new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Warsztat.ulepsz_pancerz.png"));
+            ImageAtak = new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Warsztat.ulepsz_atak.png"));
 
             numer_efektu = 0;
             licznik_informacji = 1;
@@ -342,10 +350,10 @@ namespace Rudy_103.src
         //Testowane za pomocą spacji
         private void zmniejsz_energie()
         {
-            player.aktualna_wytrzymalosc -= 1;
-            if (player.aktualna_wytrzymalosc <= 0)
+            player.Wytrzymalosc -= 1;
+            if (player.Wytrzymalosc <= 0)
             {
-                player.aktualna_wytrzymalosc = player.Wytrzymalosc;
+                player.Wytrzymalosc = player.Wytrzymalosc_Bazowa;
                 player.energia -= 1;
                 if (player.energia <= 0) player.energia = 0;
             }
@@ -428,12 +436,29 @@ namespace Rudy_103.src
             }
             if (Opcje.wlacz_informacje)
             {
-                g.DrawRectangle(new Pen(Color.Black), new Rectangle(0, 40, 100, 100));
+                g.DrawRectangle(new Pen(Color.Black), new Rectangle(0, 40, 50, 110));
                 if (Opcje.Obraz_Przeciwnika != null)
                 {
-                    g.DrawImage(Opcje.Obraz_Przeciwnika, new Rectangle(1, 41, 40, 40), 0, 0, Opcje.Obraz_Przeciwnika.Width, Opcje.Obraz_Przeciwnika.Height,
+                    g.DrawImage(Opcje.Obraz_Przeciwnika, new Rectangle(5, 41, 40, 40), 0, 0, Opcje.Obraz_Przeciwnika.Width, Opcje.Obraz_Przeciwnika.Height,
                         GraphicsUnit.Pixel, transparentPink);
-                    g.DrawString(Opcje.Nazwa_Przeciwnika, new Font("Arial", 10, FontStyle.Regular), new SolidBrush(Color.Red), new RectangleF(1, 85, 99, 15), drawFormat);
+                    
+                    g.DrawRectangle(new Pen(Color.Black), new Rectangle(4, 81, 42, 5));
+                    g.FillRectangle(new SolidBrush(Color.Red), new Rectangle(5, 82, (40*Opcje.przeciwnik_wytrzymalosc)/100, 4));
+
+                    g.DrawImage(ImageAtak, new Rectangle(1, 90, 15, 15), 0, 0, ImageAtak.Width, ImageAtak.Height,
+                        GraphicsUnit.Pixel, transparentPink);
+                    g.DrawString("" + Opcje.poziom_sila + "lvl", new Font("Arial", 8, FontStyle.Regular), new SolidBrush(Color.Red),
+                        new RectangleF(10, 90, 40, 15), drawFormat);
+                    g.DrawImage(ImagePancerz, new Rectangle(1, 105, 15, 15), 0, 0, ImageAtak.Width, ImageAtak.Height,
+                        GraphicsUnit.Pixel, transparentPink);
+                    g.DrawString("" + Opcje.poziom_wytrzymalosc + "lvl", new Font("Arial", 8, FontStyle.Regular), new SolidBrush(Color.Red),
+                        new RectangleF(10, 105, 40, 15), drawFormat);
+                    g.DrawImage(ImageSzybkosc, new Rectangle(1, 120, 15, 15), 0, 0, ImageAtak.Width, ImageAtak.Height,
+                        GraphicsUnit.Pixel, transparentPink);
+                    g.DrawString("" + Opcje.poziom_szybkosc + "lvl", new Font("Arial", 8, FontStyle.Regular), new SolidBrush(Color.Red),
+                        new RectangleF(10, 120, 40, 15), drawFormat);
+                    g.DrawString("" + Opcje.przeciwnik_punkty + "pkt", new Font("Arial", 8, FontStyle.Regular), new SolidBrush(Color.Red),
+                        new RectangleF(1, 135, 50, 15), drawFormat);
                 }
             }
 
@@ -475,7 +500,7 @@ namespace Rudy_103.src
             if (panelEnergii)
             {
                 #region RysowanieBaterii
-                int procent_wytrzymalosci = (player.aktualna_wytrzymalosc * 100) / player.Wytrzymalosc;
+                int procent_wytrzymalosci = (player.Wytrzymalosc * 100) / player.Wytrzymalosc_Bazowa;
                 if (player.energia == 3)
                 {
                     Rectangle prostokat3 = new Rectangle(0, 0, 18, 36);
@@ -948,6 +973,33 @@ namespace Rudy_103.src
             //Kontrola graficznego interfejsu użytkownika
 
             Rectangle mysz = new Rectangle(MousePosition.X, MousePosition.Y, 1, 1);
+            #region Informacje o Przeciwniku
+            if (przyciskMapy && przyciskOpcji) //Sprawdza czy jesteśmy w głównym interfejsie
+            {
+                if (mysz.IntersectsWith(new Rectangle(player.Wymiary.X - Kamera.Prostokat_Kamery.X, player.Wymiary.Y - Kamera.Prostokat_Kamery.Y, 
+                    player.Wymiary.Width, player.Wymiary.Height)))
+                {
+                    Opcje.WylaczInformacje();
+                    
+                }
+                for (int i = 0; i < plansza.przeciwnicy_na_mapie.Count; i++)
+                {
+                    if (mysz.IntersectsWith(new Rectangle(plansza.przeciwnicy_na_mapie[i].Wymiary.X - Kamera.Prostokat_Kamery.X,
+                        plansza.przeciwnicy_na_mapie[i].Wymiary.Y - Kamera.Prostokat_Kamery.Y, plansza.przeciwnicy_na_mapie[i].Wymiary.Width,
+                        plansza.przeciwnicy_na_mapie[i].Wymiary.Height)))
+                    {
+                        Opcje.Nazwa_Przeciwnika = "Przeciwnik";
+                        Opcje.Obraz_Przeciwnika = plansza.przeciwnicy_na_mapie[i].ZwrocObrazy();
+                        Opcje.wlacz_informacje = true;
+                        Opcje.poziom_wytrzymalosc = (plansza.przeciwnicy_na_mapie[i].Wytrzymalosc_Bazowa - 10) / 10;
+                        Opcje.poziom_sila = (plansza.przeciwnicy_na_mapie[i].Sila - 10) / 10;
+                        Opcje.poziom_szybkosc = (plansza.przeciwnicy_na_mapie[i].Szybkosc - 5);
+                        Opcje.przeciwnik_wytrzymalosc = (plansza.przeciwnicy_na_mapie[i].Wytrzymalosc * 100) / plansza.przeciwnicy_na_mapie[i].Wytrzymalosc_Bazowa;
+                        Opcje.przeciwnik_punkty = plansza.przeciwnicy_na_mapie[i].punkty;
+                    }
+                }
+            }
+            #endregion Informacje o Przeciwniku
 
             #region Mapa
             if (przyciskMapy)

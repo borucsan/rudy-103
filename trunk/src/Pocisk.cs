@@ -57,16 +57,15 @@ namespace Rudy_103.src
             {
                 if (plansza.przeciwnicy_na_mapie[i].Wymiary.IntersectsWith(Wymiary))
                 {
-                    //Opcje.Nazwa_Przeciwnika = "Przeciwnik";
-                    //Opcje.Obraz_Przeciwnika = plansza.przeciwnicy_na_mapie[i].ZwrocObrazy();
-                    //Opcje.wlacz_informacje = true;
-
+                    
                     if (plansza.przeciwnicy_na_mapie[i].Uszkodz(sila))
                     {
+                        Opcje.WylaczInformacje();
                         plansza.zdobyte_punkty += plansza.przeciwnicy_na_mapie[i].punkty;
                         plansza.przeciwnicy_na_mapie.RemoveAt(i);
 
                     }
+                    
                     return true;
                 }
                 if (plansza.przeciwnicy_na_mapie[i].Pocisk !=null)

@@ -57,7 +57,7 @@ namespace Rudy_103.src
             max = r.Next(poziom * 10, poziom * 10 + 5);
             for (int i = 0; i < max; i++)
             {
-                przeciwnicy.Enqueue(fabryka.ProdukujPrzeciwnika("Przeciwnik: Poziom 10"));
+                przeciwnicy.Enqueue(fabryka.ProdukujPrzeciwnika("Przeciwnik: Poziom 5"));
             }
         }
         private void LosujPrzeszkody(Fabryka fabryka)

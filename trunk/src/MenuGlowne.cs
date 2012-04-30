@@ -27,10 +27,15 @@ namespace Rudy_103.src
         {
             InitializeComponent();
             wczytywaniePlikow = false;
-            NowaGraButton.Visible = true;
-            Top10Button.Visible = true;
-            WyjdzButton.Visible = true;
-            pictureBox1.Visible = true;
+            panel1.Visible = true;
+            panel2.Visible = true;
+            panel3.Visible = true;
+
+            //KontynuujButton.Visible = true;
+            //NowaGraButton.Visible = true;
+            //Top10Button.Visible = true;
+            //WyjdzButton.Visible = true;
+            
             label1.Visible = true;
             linkLabel1.Visible = true;
 
@@ -56,12 +61,17 @@ namespace Rudy_103.src
         private void NowaGraButton_Click(object sender, EventArgs e)
         {
             nowa = null;
-            NowaGraButton.Visible = false;
-            Top10Button.Visible = false;
-            WyjdzButton.Visible = false;
-            pictureBox1.Visible = false;
-            label1.Visible = false;
-            linkLabel1.Visible = false;
+            panel1.Visible = false;
+            panel2.Visible = false;
+            panel3.Visible = false;
+
+            //KontynuujButton.Visible = false;
+            //NowaGraButton.Visible = false;
+            //Top10Button.Visible = false;
+            //WyjdzButton.Visible = false;
+            
+            //label1.Visible = false;
+            //linkLabel1.Visible = false;
             wczytywaniePlikow = true;
             czas1.Enabled = true;
         }
@@ -115,6 +125,7 @@ namespace Rudy_103.src
             //Tutaj ladujemy cala grafike
             using (Graphics g = Graphics.FromImage(buforBitmapy))
             {
+                g.Clear(Color.Black);
                 g.FillRectangle(new SolidBrush(Color.White), new Rectangle(0, 0, Kamera.Szerokosc_Ekranu, Kamera.Wysokosc_Ekranu));
                 if (wczytywaniePlikow)
                 {
@@ -161,12 +172,17 @@ namespace Rudy_103.src
                 
                 if (nowa.graWczytana)
                 {
-                    NowaGraButton.Visible = true;
-                    Top10Button.Visible = true;
-                    WyjdzButton.Visible = true;
-                    pictureBox1.Visible = true;
-                    label1.Visible = true;
-                    linkLabel1.Visible = true;
+                    panel1.Visible = true;
+                    panel2.Visible = true;
+                    panel3.Visible = true;
+
+                    //KontynuujButton.Visible = true;
+                    //NowaGraButton.Visible = true;
+                    //Top10Button.Visible = true;
+                    //WyjdzButton.Visible = true;
+                    
+                    //label1.Visible = true;
+                    //linkLabel1.Visible = true;
                     wczytywaniePlikow = false;
                     czas1.Enabled = false;
                     czas = 0;

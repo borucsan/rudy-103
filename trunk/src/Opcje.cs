@@ -14,6 +14,11 @@ namespace Rudy_103.src
         public static bool wlacz_informacje = false;
         public static String Nazwa_Przeciwnika = "";
         public static Image Obraz_Przeciwnika = null;
+        public static int przeciwnik_wytrzymalosc = 100; //W %
+        public static int poziom_wytrzymalosc = 1;
+        public static int poziom_sila = 1;
+        public static int poziom_szybkosc = 1;
+        public static int przeciwnik_punkty = 0;
 
         public static bool wlacz_cieniowanie = true;
         public static bool wlaczonePrzyciskiEkranowe = true;
@@ -34,6 +39,12 @@ namespace Rudy_103.src
             Opcje.wlacz_informacje = false;
             Opcje.Nazwa_Przeciwnika = "";
             Opcje.Obraz_Przeciwnika = null;
+            Opcje.przeciwnik_wytrzymalosc = 100;
+            Opcje.poziom_sila = 1;
+            Opcje.poziom_szybkosc = 1;
+            Opcje.poziom_wytrzymalosc = 1;
+            Opcje.przeciwnik_punkty = 0;
+            
         }
 
         public static void UstawDomyslneWartosci()

@@ -124,8 +124,8 @@ namespace Rudy_103.src
         public void UstawStatystyki(Gracz gracz)
         {
             gracz.Szybkosc = 5 + poziom_szybkosci;
-            gracz.Wytrzymalosc = 10 + poziom_pancerza * 10;
-            gracz.aktualna_wytrzymalosc = gracz.Wytrzymalosc;
+            gracz.Wytrzymalosc_Bazowa = 10 + poziom_pancerza * 10;
+            gracz.Wytrzymalosc = gracz.Wytrzymalosc_Bazowa;
             gracz.Sila = 10 + poziom_ataku * 10;
         }
 
