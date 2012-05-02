@@ -31,6 +31,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainWindow));
             this.linkLabel1 = new System.Windows.Forms.LinkLabel();
             this.label1 = new System.Windows.Forms.Label();
             this.WyjdzButton = new System.Windows.Forms.Button();
@@ -40,9 +41,9 @@
             this.KontynuujButton = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.panel3 = new System.Windows.Forms.Panel();
-            this.label3 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel3.SuspendLayout();
@@ -148,6 +149,16 @@
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(216, 44);
             // 
+            // label3
+            // 
+            this.label3.Font = new System.Drawing.Font("Vivaldi", 16F, System.Drawing.FontStyle.Italic);
+            this.label3.ForeColor = System.Drawing.Color.Red;
+            this.label3.Location = new System.Drawing.Point(4, 4);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(209, 29);
+            this.label3.Text = "Section 5 Studios";
+            this.label3.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            // 
             // label2
             // 
             this.label2.BackColor = System.Drawing.Color.Black;
@@ -167,16 +178,6 @@
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(216, 64);
             // 
-            // label3
-            // 
-            this.label3.Font = new System.Drawing.Font("Vivaldi", 16F, System.Drawing.FontStyle.Italic);
-            this.label3.ForeColor = System.Drawing.Color.Red;
-            this.label3.Location = new System.Drawing.Point(4, 4);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(209, 29);
-            this.label3.Text = "Section 5 Studios";
-            this.label3.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
@@ -188,6 +189,7 @@
             this.Controls.Add(this.panel3);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Location = new System.Drawing.Point(0, 0);
             this.MinimizeBox = false;
             this.Name = "MainWindow";

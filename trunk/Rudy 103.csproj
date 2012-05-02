@@ -242,6 +242,13 @@
     <Content Include="Resources\Gracz\Polska\enemy_tank_poland_left.png" />
     <Content Include="Resources\Gracz\Polska\enemy_tank_poland_right.png" />
     <Content Include="Resources\Gracz\Polska\enemy_tank_poland_up.png" />
+    <EmbeddedResource Include="Resources\Podloze\Droga_EW.png" />
+    <EmbeddedResource Include="Resources\Podloze\Droga_NS.png" />
+    <EmbeddedResource Include="Resources\Podloze\Grass.png" />
+    <EmbeddedResource Include="Resources\Podloze\Ground.png" />
+    <EmbeddedResource Include="Resources\Podloze\Sand.png" />
+    <EmbeddedResource Include="Resources\Podloze\Water.png" />
+    <EmbeddedResource Include="Resources\ikona.ico" />
     <EmbeddedResource Include="Resources\Przeciwnicy\Poziom_10\enemy_tank_10_down.png" />
     <EmbeddedResource Include="Resources\Przeciwnicy\Poziom_10\enemy_tank_10_left.png" />
     <EmbeddedResource Include="Resources\Przeciwnicy\Poziom_10\enemy_tank_10_right.png" />

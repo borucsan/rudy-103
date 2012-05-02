@@ -146,7 +146,7 @@ namespace Rudy_103.src
             liczba = Narzedzia.rand.Next(10, max);
             for (int i = 0; i < liczba; ++i)
             {
-                przeszkody.Add(fabryka.ProdukujPrzeszkode("Skrzynka"));
+                przeszkody.Add(fabryka.ProdukujPrzeszkode("drzewo"));
                 wylosowana = Narzedzia.rand.Next(pozycje.Count);
                 przeszkody.Last().UstawPozycje(pozycje[wylosowana]);
                 pozycje.RemoveAt(wylosowana);
@@ -236,7 +236,7 @@ namespace Rudy_103.src
         public void RysujElementy(Graphics g, System.Drawing.Imaging.ImageAttributes transparentPink)
         {
             
-            region.RysujElementy(Kamera.Prostokat_Kamery, g, transparentPink);
+            
             if (baza.Wymiary.IntersectsWith(Kamera.Prostokat_Kamery))
             {
                 baza.Rysuj(g, transparentPink);
@@ -260,6 +260,7 @@ namespace Rudy_103.src
                     }
                 }
             }
+            region.RysujElementy(Kamera.Prostokat_Kamery, g, transparentPink);
         }
         //Metoda rysująca efekty na mapie
         public void RysujEfekty(Graphics g, System.Drawing.Imaging.ImageAttributes transparentPink)
