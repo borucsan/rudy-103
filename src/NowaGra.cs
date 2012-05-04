@@ -887,7 +887,25 @@ namespace Rudy_103.src
                 g.DrawString("Przejdź Dalej", new Font("Arial", 12, FontStyle.Regular), new SolidBrush(Color.Yellow),
                     new Rectangle(20, 290, 200, 25), drawFormat);
             }
-            
+            if (player.energia <= 0)
+            {
+                g.DrawImage(tlo_mapa, 0, 0);
+
+                g.DrawString(s_poziom + " Nie został ukończony", new Font("Arial", 14, FontStyle.Regular), new SolidBrush(Color.Yellow),
+                    new Rectangle(19, 5, 201, 25), drawFormat);
+
+                g.DrawString(s_czas, new Font("Arial", 12, FontStyle.Regular), new SolidBrush(Color.Yellow),
+                    new Rectangle(19, 35, 201, 25), drawFormat);
+
+                g.DrawString("Punkty: " + player.punkty, new Font("Arial", 12, FontStyle.Regular), new SolidBrush(Color.Yellow),
+                    new Rectangle(19, 65, 201, 25), drawFormat);
+
+                przyciskZamknijUkonczonyPoziom = new Rectangle(20, 285, 200, 30);
+                g.DrawImage(przyciskImageZamknij, przyciskZamknijUkonczonyPoziom, 0, 0, przyciskImageZamknij.Width,
+                    przyciskImageZamknij.Height, GraphicsUnit.Pixel, transparentPink);
+                g.DrawString("Przejdź Dalej", new Font("Arial", 12, FontStyle.Regular), new SolidBrush(Color.Yellow),
+                    new Rectangle(20, 290, 200, 25), drawFormat);
+            }
 
         }
 

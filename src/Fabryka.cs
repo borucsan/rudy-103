@@ -135,6 +135,8 @@ namespace Rudy_103.src
             DodajWzorzecPrzeszkody("Budynek A", new Przeszkoda(0, 0, 50, 50, 40, false, new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Budynki.budynekA1.png"))));
             DodajWzorzecPrzeszkody("Budynek B", new Przeszkoda(0, 0, 50, 50, 40, false, new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Budynki.budynekB1.png"))));
             DodajWzorzecPrzeszkody("Budynek C", new Przeszkoda(0, 0, 50, 50, 40, false, new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Budynki.budynekC1.png"))));
+            DodajWzorzecPrzeszkody("Garaz", new Przeszkoda(0, 0, 50, 50, 30, false, new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Budynki.garage.png"))));
+            DodajWzorzecPrzeszkody("Chata", new Przeszkoda(0, 0, 70, 70, 30, false, new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Budynki.chata.png"))));
 
             //Wzorce podloza
             DodajWzorzecPrzeszkody("Droga A1", new Przeszkoda(0, 0, 50, 50, 0, true, new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Podloze.Droga_NS.png"))));

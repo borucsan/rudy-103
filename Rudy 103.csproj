@@ -234,6 +234,8 @@
     <EmbeddedResource Include="Resources\Budynki\budynekA1.png" />
     <EmbeddedResource Include="Resources\Budynki\budynekB1.png" />
     <EmbeddedResource Include="Resources\Budynki\budynekC1.png" />
+    <EmbeddedResource Include="Resources\Budynki\chata.png" />
+    <EmbeddedResource Include="Resources\Budynki\garage.png" />
     <Content Include="Resources\Efekty\Slad\slad_down.png" />
     <Content Include="Resources\Efekty\Slad\slad_left.png" />
     <Content Include="Resources\Efekty\Slad\slad_right.png" />
