@@ -19,7 +19,7 @@ namespace Rudy_103.src
         private int stan;
         private NowaGra nowa;
         private int czas;
-        private Image [] wczytywanieImage;
+        private Animacja Wczytywanie;
         /// <summary>
         /// Konstruktor klasy głównego okna.
         /// </summary>
@@ -42,13 +42,19 @@ namespace Rudy_103.src
             czas = 0;
             stan = 0;
 
-            wczytywanieImage = new Image[4];
+            //wczytywanieImage = new Image[4];
 
             System.Reflection.Assembly execAssem = System.Reflection.Assembly.GetExecutingAssembly();
-            wczytywanieImage[0] = new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Wczytywanie.load_1.png"));
-            wczytywanieImage[1] = new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Wczytywanie.load_2.png"));
-            wczytywanieImage[2] = new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Wczytywanie.load_3.png"));
-            wczytywanieImage[3] = new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Wczytywanie.load_4.png"));
+            Narzedzia.transparentPink = new System.Drawing.Imaging.ImageAttributes();
+            Narzedzia.transparentPink.SetColorKey(Color.Pink, Color.Pink);
+
+            //wczytywanieImage[0] = new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Wczytywanie.load_1.png"));
+            //wczytywanieImage[1] = new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Wczytywanie.load_2.png"));
+            //wczytywanieImage[2] = new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Wczytywanie.load_3.png"));
+            //wczytywanieImage[3] = new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Wczytywanie.load_4.png"));
+            
+            //Wczytywanie Grafiki
+            Grafika.WczytajGrafike(execAssem);
             
             Kamera.Szerokosc_Ekranu = Screen.PrimaryScreen.Bounds.Width;
             Kamera.Wysokosc_Ekranu = Screen.PrimaryScreen.Bounds.Height;
@@ -65,15 +71,11 @@ namespace Rudy_103.src
             panel2.Visible = false;
             panel3.Visible = false;
 
-            //KontynuujButton.Visible = false;
-            //NowaGraButton.Visible = false;
-            //Top10Button.Visible = false;
-            //WyjdzButton.Visible = false;
-            
-            //label1.Visible = false;
-            //linkLabel1.Visible = false;
             wczytywaniePlikow = true;
             czas1.Enabled = true;
+
+            Wczytywanie = new Animacja(Kamera.Szerokosc_Ekranu / 2 - 25, Kamera.Wysokosc_Ekranu / 2 - 25, 50, 50, 4, 1, Grafika.wczytywanieImage);
+
         }
 
         private void Top10Button_Click(object sender, EventArgs e)
@@ -142,26 +144,30 @@ namespace Rudy_103.src
             g.Clear(Color.Black);
             //g.FillRectangle(new SolidBrush(Color.Black), new Rectangle(0, 0, 240, 320));
             g.DrawString("Trwa Wczytywanie", new Font("Arial", 15, FontStyle.Regular), new SolidBrush(Color.White), new RectangleF(Kamera.Szerokosc_Ekranu/2 - 80, Kamera.Wysokosc_Ekranu/2 - 80, 200, 30));
+            
+            Wczytywanie.Rysuj(g, Narzedzia.transparentPink);
+            /*
             if (stan == 0)
             {
-                g.DrawImage(wczytywanieImage[0], new Rectangle(Kamera.Szerokosc_Ekranu/2 - 25, Kamera.Wysokosc_Ekranu/2 - 25, 50, 50), new Rectangle(0, 0, wczytywanieImage[0].Width, wczytywanieImage[0].Height), GraphicsUnit.Pixel);
+                g.DrawImage(Grafika.wczytywanieImage[0], new Rectangle(Kamera.Szerokosc_Ekranu/2 - 25, Kamera.Wysokosc_Ekranu/2 - 25, 50, 50), new Rectangle(0, 0, wczytywanieImage[0].Width, wczytywanieImage[0].Height), GraphicsUnit.Pixel);
             }
             if (stan == 1)
             {
-                g.DrawImage(wczytywanieImage[1], new Rectangle(Kamera.Szerokosc_Ekranu / 2 - 25, Kamera.Wysokosc_Ekranu / 2 - 25, 50, 50), new Rectangle(0, 0, wczytywanieImage[1].Width, wczytywanieImage[1].Height), GraphicsUnit.Pixel);
+                g.DrawImage(Grafika.wczytywanieImage[1], new Rectangle(Kamera.Szerokosc_Ekranu / 2 - 25, Kamera.Wysokosc_Ekranu / 2 - 25, 50, 50), new Rectangle(0, 0, wczytywanieImage[1].Width, wczytywanieImage[1].Height), GraphicsUnit.Pixel);
             }
             if (stan == 2)
             {
-                g.DrawImage(wczytywanieImage[2], new Rectangle(Kamera.Szerokosc_Ekranu / 2 - 25, Kamera.Wysokosc_Ekranu / 2 - 25, 50, 50), new Rectangle(0, 0, wczytywanieImage[1].Width, wczytywanieImage[1].Height), GraphicsUnit.Pixel);
+                g.DrawImage(Grafika.wczytywanieImage[2], new Rectangle(Kamera.Szerokosc_Ekranu / 2 - 25, Kamera.Wysokosc_Ekranu / 2 - 25, 50, 50), new Rectangle(0, 0, wczytywanieImage[1].Width, wczytywanieImage[1].Height), GraphicsUnit.Pixel);
             }
             if (stan == 3)
             {
-                g.DrawImage(wczytywanieImage[3], new Rectangle(Kamera.Szerokosc_Ekranu / 2 - 25, Kamera.Wysokosc_Ekranu / 2 - 25, 50, 50), new Rectangle(0, 0, wczytywanieImage[1].Width, wczytywanieImage[1].Height), GraphicsUnit.Pixel);
+                g.DrawImage(Grafika.wczytywanieImage[3], new Rectangle(Kamera.Szerokosc_Ekranu / 2 - 25, Kamera.Wysokosc_Ekranu / 2 - 25, 50, 50), new Rectangle(0, 0, wczytywanieImage[1].Width, wczytywanieImage[1].Height), GraphicsUnit.Pixel);
             }
+            */
         }
         private void czas1_Tick(object sender, EventArgs e)
         {
-            
+            Wczytywanie.ZmienStan();
             czas += 1;
             if (czas == 2) { nowa = new NowaGra(); }
             stan += 1;

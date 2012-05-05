@@ -85,5 +85,7 @@ namespace Rudy_103.src
         }
         
         public enum PodzialProstokata : int {X, Y};
+
+        public static System.Drawing.Imaging.ImageAttributes transparentPink;
     }
 }

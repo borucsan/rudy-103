@@ -12,7 +12,7 @@ namespace Rudy_103.src
     {
         public Dictionary<String, Przeciwnik> wzorce_przeciwnikow;
         private Dictionary<String, Przeszkoda> wzorce_przeszkod;
-        public Dictionary<String, Efekty> wzorce_efektow;
+        public Dictionary<String, Animacja> wzorce_efektow;
         public Baza wzorzec_bazy { get; set; }
         private Pocisk wzorzec_pocisku;
         public Pocisk WzorzecPocisku
@@ -33,18 +33,11 @@ namespace Rudy_103.src
         {
             wzorce_przeszkod = new Dictionary<string,Przeszkoda>();
             wzorce_przeciwnikow = new Dictionary<string,Przeciwnik>();
-            wzorce_efektow = new Dictionary<string, Efekty>();
+            wzorce_efektow = new Dictionary<string, Animacja>();
             wzorzec_pocisku = new Pocisk(0, 0, 10, 10, 5, 10, Czolg.Kierunek.GORA);
             
-            wzorzec_pocisku.WczytajObrazy(
-                new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Pociski.Domyslny.pocisk2_up.png")),
-                new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Pociski.Domyslny.pocisk2_right.png")),
-                new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Pociski.Domyslny.pocisk2_down.png")),
-                new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Pociski.Domyslny.pocisk2_left.png"))
-                
-                );
-            wzorzec_bazy = new Baza(0, 0, 50, 50, 10, false, new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Baza.baza_nowa.png")),
-                new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Baza.baza_zniszczona.png")));
+            wzorzec_pocisku.WczytajObrazy(Grafika.domyslny_pocisk);
+            wzorzec_bazy = new Baza(0, 0, 50, 50, 10, false, Grafika.baza);
             if (TworzDomyslneWzorce) this.TworzDomyslneWzorce(execAssem);
 
         }
@@ -62,7 +55,7 @@ namespace Rudy_103.src
         /// </summary>
         /// <param name="nazwa">Nazwa Wzorca</param>
         /// <param name="efekt">Obiekt Wzorca</param>
-        public void DodajWzorzecEfektu(String nazwa, Efekty efekt)
+        public void DodajWzorzecEfektu(String nazwa, Animacja efekt)
         {
             wzorce_efektow.Add(nazwa, efekt);
         }
@@ -100,10 +93,10 @@ namespace Rudy_103.src
         /// </summary>
         /// <param name="nazwa_wzorca">Nazwa wzorca</param>
         /// <returns>Zwraca nową instancje efektu</returns>
-        public Efekty ProdukujEfekt(String nazwa_wzorca)
+        public Animacja ProdukujEfekt(String nazwa_wzorca)
         {
             if (!wzorce_efektow.ContainsKey(nazwa_wzorca)) return null;
-            return (Efekty)wzorce_efektow[nazwa_wzorca].Clone();
+            return (Animacja)wzorce_efektow[nazwa_wzorca].Clone();
         }
         public Pocisk ProdukujPocisk()
         {
@@ -117,12 +110,7 @@ namespace Rudy_103.src
         {
             Gracz player = new Gracz(425, 930, 40, 40, 100, 5, 10, 3);
             
-            player.WczytajObrazy(
-                new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Gracz.Domyslny.tank_default_up.png")),
-                new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Gracz.Domyslny.tank_default_right.png")),
-                new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Gracz.Domyslny.tank_default_down.png")),
-                new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Gracz.Domyslny.tank_default_left.png"))
-                );
+            player.WczytajObrazy(Grafika.domyslny_gracz);
             return player;
         }
         /// <summary>
@@ -132,31 +120,29 @@ namespace Rudy_103.src
         public void TworzDomyslneWzorce(System.Reflection.Assembly execAssem)
         {
             //Wzorce przeszkód budynków
-            DodajWzorzecPrzeszkody("Budynek A", new Przeszkoda(0, 0, 50, 50, 40, false, new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Budynki.budynekA1.png"))));
-            DodajWzorzecPrzeszkody("Budynek B", new Przeszkoda(0, 0, 50, 50, 40, false, new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Budynki.budynekB1.png"))));
-            DodajWzorzecPrzeszkody("Budynek C", new Przeszkoda(0, 0, 50, 50, 40, false, new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Budynki.budynekC1.png"))));
-            DodajWzorzecPrzeszkody("Garaz", new Przeszkoda(0, 0, 50, 50, 30, false, new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Budynki.garage.png"))));
-            DodajWzorzecPrzeszkody("Chata", new Przeszkoda(0, 0, 70, 70, 30, false, new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Budynki.chata.png"))));
+            DodajWzorzecPrzeszkody("Budynek A", new Przeszkoda(0, 0, 50, 50, 40, false, Grafika.budynekA));
+            DodajWzorzecPrzeszkody("Budynek B", new Przeszkoda(0, 0, 50, 50, 40, false, Grafika.budynekB));
+            DodajWzorzecPrzeszkody("Budynek C", new Przeszkoda(0, 0, 50, 50, 40, false, Grafika.budynekC));
+            DodajWzorzecPrzeszkody("Garaz", new Przeszkoda(0, 0, 50, 50, 30, false, Grafika.garaz));
+            DodajWzorzecPrzeszkody("Chata", new Przeszkoda(0, 0, 70, 70, 30, false, Grafika.chata));
 
             //Wzorce podloza
-            DodajWzorzecPrzeszkody("Droga A1", new Przeszkoda(0, 0, 50, 50, 0, true, new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Podloze.Droga_NS.png"))));
-            DodajWzorzecPrzeszkody("Droga A2", new Przeszkoda(0, 0, 50, 50, 0, true, new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Podloze.Droga_EW.png"))));
-            DodajWzorzecPrzeszkody("Trawa", new Przeszkoda(0, 0, 25, 25, 0, true, new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Podloze.Grass.png"))));
-            DodajWzorzecPrzeszkody("Ziemia", new Przeszkoda(0, 0, 25, 25, 0, true, new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Podloze.Ground.png"))));
-            DodajWzorzecPrzeszkody("Piasek", new Przeszkoda(0, 0, 25, 25, 0, true, new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Podloze.Sand.png"))));
-            DodajWzorzecPrzeszkody("Woda", new Przeszkoda(0, 0, 25, 25, 0, true, new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Podloze.Water.png"))));
+            DodajWzorzecPrzeszkody("Droga A1", new Przeszkoda(0, 0, 50, 50, 0, true, Grafika.DrogaA1));
+            DodajWzorzecPrzeszkody("Droga A2", new Przeszkoda(0, 0, 50, 50, 0, true, Grafika.DrogaA2));
+            DodajWzorzecPrzeszkody("Trawa", new Przeszkoda(0, 0, 25, 25, 0, true, Grafika.Trawa));
+            DodajWzorzecPrzeszkody("Ziemia", new Przeszkoda(0, 0, 25, 25, 0, true, Grafika.Ziemia));
+            DodajWzorzecPrzeszkody("Piasek", new Przeszkoda(0, 0, 25, 25, 0, true, Grafika.Piasek));
+            DodajWzorzecPrzeszkody("Woda", new Przeszkoda(0, 0, 25, 25, 0, true, Grafika.Woda));
             
 
             //Wzorce przeszkód
-            DodajWzorzecPrzeszkody("Skrzynka", new Przeszkoda(0, 0, 25, 25, 20, false, new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Przeszkody.skrzynka.png"))));
-            DodajWzorzecPrzeszkody("cegielka", new Przeszkoda(0, 0, 25, 25, 30, false, new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Przeszkody.cegielka.png"))));
-            DodajWzorzecPrzeszkody("cegielka2", new Przeszkoda(0, 0, 25, 25, 40, false, new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Przeszkody.cegielka2.png"))));
-            DodajWzorzecPrzeszkody("cegielka3", new Przeszkoda(0, 0, 25, 25, 60, false, new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Przeszkody.cegielka3.png"))));
-            DodajWzorzecPrzeszkody("cegielka4", new Przeszkoda(0, 0, 25, 25, 80, false, new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Przeszkody.cegielka4.png"))));
-            DodajWzorzecPrzeszkody("mur", new Przeszkoda(0, 0, 25, 25, 20, false, new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Przeszkody.mur.png"))));
-            DodajWzorzecPrzeszkody("drzewo", new Przeszkoda(0, 0, 25, 25, 0, true, new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Przeszkody.drzewo.png"))));
-            
-            //DodajWzorzecPrzeszkody("zniszczona baza", new Przeszkoda(0, 0, 50, 50, 10, false, new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Baza.baza_zniszczona.png"))));
+            DodajWzorzecPrzeszkody("Skrzynka", new Przeszkoda(0, 0, 25, 25, 20, false, Grafika.skrzynia));
+            DodajWzorzecPrzeszkody("cegielka", new Przeszkoda(0, 0, 25, 25, 30, false, Grafika.murA));
+            DodajWzorzecPrzeszkody("cegielka2", new Przeszkoda(0, 0, 25, 25, 40, false, Grafika.murB));
+            DodajWzorzecPrzeszkody("cegielka3", new Przeszkoda(0, 0, 25, 25, 60, false, Grafika.murC));
+            DodajWzorzecPrzeszkody("cegielka4", new Przeszkoda(0, 0, 25, 25, 80, false, Grafika.murD));
+            DodajWzorzecPrzeszkody("mur", new Przeszkoda(0, 0, 25, 25, 20, false, Grafika.murE));
+            DodajWzorzecPrzeszkody("drzewo", new Przeszkoda(0, 0, 25, 25, 0, true, Grafika.drzewo));
             
             //Wzorce przeciwników
             Przeciwnik [] enemy = new Przeciwnik[10];
@@ -171,66 +157,16 @@ namespace Rudy_103.src
             enemy[8] = new Przeciwnik(0, 0, 40, 40, 90, 13, 90, 900);
             enemy[9] = new Przeciwnik(0, 0, 40, 40, 110, 15, 110, 1000);
 
-            enemy[0].WczytajObrazy(
-                new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Przeciwnicy.Poziom_1.enemy_tank_1_up.png")),
-                new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Przeciwnicy.Poziom_1.enemy_tank_1_right.png")),
-                new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Przeciwnicy.Poziom_1.enemy_tank_1_down.png")),
-                new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Przeciwnicy.Poziom_1.enemy_tank_1_left.png"))
-                );
-            enemy[1].WczytajObrazy(
-                new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Przeciwnicy.Poziom_2.enemy_tank_2_up.png")),
-                new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Przeciwnicy.Poziom_2.enemy_tank_2_right.png")),
-                new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Przeciwnicy.Poziom_2.enemy_tank_2_down.png")),
-                new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Przeciwnicy.Poziom_2.enemy_tank_2_left.png"))
-                );
-            enemy[2].WczytajObrazy(
-                new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Przeciwnicy.Poziom_3.enemy_tank_3_up.png")),
-                new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Przeciwnicy.Poziom_3.enemy_tank_3_right.png")),
-                new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Przeciwnicy.Poziom_3.enemy_tank_3_down.png")),
-                new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Przeciwnicy.Poziom_3.enemy_tank_3_left.png"))
-                );
-            enemy[3].WczytajObrazy(
-                new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Przeciwnicy.Poziom_4.enemy_tank_4_up.png")),
-                new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Przeciwnicy.Poziom_4.enemy_tank_4_right.png")),
-                new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Przeciwnicy.Poziom_4.enemy_tank_4_down.png")),
-                new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Przeciwnicy.Poziom_4.enemy_tank_4_left.png"))
-                );
-            enemy[4].WczytajObrazy(
-                new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Przeciwnicy.Poziom_5.enemy_tank_5_up.png")),
-                new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Przeciwnicy.Poziom_5.enemy_tank_5_right.png")),
-                new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Przeciwnicy.Poziom_5.enemy_tank_5_down.png")),
-                new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Przeciwnicy.Poziom_5.enemy_tank_5_left.png"))
-                );
-            enemy[5].WczytajObrazy(
-                new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Przeciwnicy.Poziom_6.enemy_tank_6_up.png")),
-                new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Przeciwnicy.Poziom_6.enemy_tank_6_right.png")),
-                new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Przeciwnicy.Poziom_6.enemy_tank_6_down.png")),
-                new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Przeciwnicy.Poziom_6.enemy_tank_6_left.png"))
-                );
-            enemy[6].WczytajObrazy(
-                new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Przeciwnicy.Poziom_7.enemy_tank_7_up.png")),
-                new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Przeciwnicy.Poziom_7.enemy_tank_7_right.png")),
-                new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Przeciwnicy.Poziom_7.enemy_tank_7_down.png")),
-                new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Przeciwnicy.Poziom_7.enemy_tank_7_left.png"))
-                );
-            enemy[7].WczytajObrazy(
-                new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Przeciwnicy.Poziom_8.enemy_tank_8_up.png")),
-                new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Przeciwnicy.Poziom_8.enemy_tank_8_right.png")),
-                new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Przeciwnicy.Poziom_8.enemy_tank_8_down.png")),
-                new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Przeciwnicy.Poziom_8.enemy_tank_8_left.png"))
-                );
-            enemy[8].WczytajObrazy(
-                new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Przeciwnicy.Poziom_9.enemy_tank_9_up.png")),
-                new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Przeciwnicy.Poziom_9.enemy_tank_9_right.png")),
-                new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Przeciwnicy.Poziom_9.enemy_tank_9_down.png")),
-                new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Przeciwnicy.Poziom_9.enemy_tank_9_left.png"))
-                );
-            enemy[9].WczytajObrazy(
-                new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Przeciwnicy.Poziom_10.enemy_tank_10_up.png")),
-                new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Przeciwnicy.Poziom_10.enemy_tank_10_right.png")),
-                new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Przeciwnicy.Poziom_10.enemy_tank_10_down.png")),
-                new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Przeciwnicy.Poziom_10.enemy_tank_10_left.png"))
-                );
+            enemy[0].WczytajObrazy(Grafika.przeciwnik_1);
+            enemy[1].WczytajObrazy(Grafika.przeciwnik_2);
+            enemy[2].WczytajObrazy(Grafika.przeciwnik_3);
+            enemy[3].WczytajObrazy(Grafika.przeciwnik_4);
+            enemy[4].WczytajObrazy(Grafika.przeciwnik_5);
+            enemy[5].WczytajObrazy(Grafika.przeciwnik_6);
+            enemy[6].WczytajObrazy(Grafika.przeciwnik_7);
+            enemy[7].WczytajObrazy(Grafika.przeciwnik_8);
+            enemy[8].WczytajObrazy(Grafika.przeciwnik_9);
+            enemy[9].WczytajObrazy(Grafika.przeciwnik_10);
 
             DodajWzorzecPrzeciwnika("Przeciwnik: Poziom 1", enemy[0]);
             DodajWzorzecPrzeciwnika("Przeciwnik: Poziom 2", enemy[1]);
@@ -244,25 +180,13 @@ namespace Rudy_103.src
             DodajWzorzecPrzeciwnika("Przeciwnik: Poziom 10", enemy[9]);
 
             //Wzorce efektów
-            Efekty e_ogien = new Efekty(0, 0, 25, 25, 4, 6);
-            e_ogien.WczytajObrazy(
-                new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Efekty.Ogien.flame_1.png")),
-                new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Efekty.Ogien.flame_2.png")),
-                new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Efekty.Ogien.flame_3.png")),
-                new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Efekty.Ogien.flame_4.png")),
-                new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Efekty.Ogien.flame_5.png"))
-                );
-            DodajWzorzecEfektu("Ogień", e_ogien);
+            Animacja animacja_ogien = new Animacja(0, 0, 25, 25, 4, 6);
+            animacja_ogien.WczytajObrazy(Grafika.ogien);
+            DodajWzorzecEfektu("Ogień", animacja_ogien);
 
-            Efekty e_eksplozja = new Efekty(0, 0, 50, 50, 4, 1);
-            e_eksplozja.WczytajObrazy(
-                new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Efekty.Eksplozja.wybuch_1.png")),
-                new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Efekty.Eksplozja.wybuch_2.png")),
-                new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Efekty.Eksplozja.wybuch_3.png")),
-                new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Efekty.Eksplozja.wybuch_4.png")),
-                new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Efekty.Eksplozja.wybuch_5.png"))
-                );
-            DodajWzorzecEfektu("Eksplozja", e_eksplozja);
+            Animacja animacja_eksplozja = new Animacja(0, 0, 50, 50, 4, 1);
+            animacja_eksplozja.WczytajObrazy(Grafika.eksplozja);
+            DodajWzorzecEfektu("Eksplozja", animacja_eksplozja);
 
             
         }

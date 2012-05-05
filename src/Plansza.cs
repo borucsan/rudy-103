@@ -11,7 +11,7 @@ namespace Rudy_103.src
     {
         public Queue<Przeciwnik> przeciwnicy { get; set; }
         public List<Przeciwnik> przeciwnicy_na_mapie { get; set; }
-        public List<Efekty> efekty_na_mapie { get; set; }
+        public List<Animacja> efekty_na_mapie { get; set; }
 
         public Rectangle[] PunktResp { get; set; }
         public Baza baza { get; set; }
@@ -33,7 +33,7 @@ namespace Rudy_103.src
             poziom = 0;
             przeciwnicy = new Queue<Przeciwnik>();
             przeciwnicy_na_mapie = new List<Przeciwnik>();
-            efekty_na_mapie = new List<Efekty>();
+            efekty_na_mapie = new List<Animacja>();
 
             PunktResp = new Rectangle[3];
             PunktResp[0] = new Rectangle(0, 0, 50, 50);
@@ -146,7 +146,7 @@ namespace Rudy_103.src
             liczba = Narzedzia.rand.Next(10, max);
             for (int i = 0; i < liczba; ++i)
             {
-                przeszkody.Add(fabryka.ProdukujPrzeszkode("drzewo"));
+                przeszkody.Add(fabryka.ProdukujPrzeszkode("cegielka"));
                 wylosowana = Narzedzia.rand.Next(pozycje.Count);
                 przeszkody.Last().UstawPozycje(pozycje[wylosowana]);
                 pozycje.RemoveAt(wylosowana);
