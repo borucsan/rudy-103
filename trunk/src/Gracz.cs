@@ -32,6 +32,7 @@ namespace Rudy_103.src
             this.Wytrzymalosc = this.Wytrzymalosc - sila;
             if (this.Wytrzymalosc <= 0)
             {
+                Multimedia.audio_zginales.Play();
                 this.zginales = true;
                 this.Wytrzymalosc = this.Wytrzymalosc_Bazowa;
                 this.energia -= 1;

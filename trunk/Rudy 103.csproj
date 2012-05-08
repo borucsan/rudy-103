@@ -67,6 +67,7 @@
       <DependentUpon>Drzewo.cs</DependentUpon>
     </Compile>
     <Compile Include="src\Animacja.cs" />
+    <Compile Include="src\Dzwiek.cs" />
     <Compile Include="src\ElementObiektu.cs">
       <DependentUpon>Drzewo.cs</DependentUpon>
     </Compile>
@@ -75,7 +76,7 @@
     </Compile>
     <Compile Include="src\Fabryka.cs" />
     <Compile Include="src\Gracz.cs" />
-    <Compile Include="src\Grafika.cs" />
+    <Compile Include="src\Multimedia.cs" />
     <Compile Include="src\IPodzielny.cs">
       <DependentUpon>Drzewo.cs</DependentUpon>
     </Compile>
@@ -244,6 +245,10 @@
     <EmbeddedResource Include="Resources\Budynki\budynekC1.png" />
     <EmbeddedResource Include="Resources\Budynki\chata.png" />
     <EmbeddedResource Include="Resources\Budynki\garage.png" />
+    <EmbeddedResource Include="Resources\Dzwieki\wybuch.wav" />
+    <EmbeddedResource Include="Resources\Dzwieki\wystrzal.wav" />
+    <EmbeddedResource Include="Resources\Dzwieki\end.wav" />
+    <EmbeddedResource Include="Resources\Dzwieki\killed.wav" />
     <Content Include="Resources\Efekty\Slad\slad_down.png" />
     <Content Include="Resources\Efekty\Slad\slad_left.png" />
     <Content Include="Resources\Efekty\Slad\slad_right.png" />

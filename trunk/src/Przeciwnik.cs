@@ -121,7 +121,7 @@ namespace Rudy_103.src
                             pocisk.ZmienPozycje(0, -pocisk.szybkosc);
                             if (pocisk.Zderzenie(plansza, gracz))
                             {
-                                DodajPociskOgien(plansza, fabryka, pocisk.Wymiary.X + pocisk.Wymiary.Width / 2 - 25,
+                                Wybuch(plansza, fabryka, pocisk.Wymiary.X + pocisk.Wymiary.Width / 2 - 25,
                                     pocisk.Wymiary.Y + pocisk.Wymiary.Height / 2 - 25);
                                 pocisk = null;
                             }
@@ -134,7 +134,7 @@ namespace Rudy_103.src
                             pocisk.ZmienPozycje(pocisk.szybkosc, 0);
                             if (pocisk.Zderzenie(plansza, gracz))
                             {
-                                DodajPociskOgien(plansza, fabryka, pocisk.Wymiary.X + pocisk.Wymiary.Width / 2 - 25,
+                                Wybuch(plansza, fabryka, pocisk.Wymiary.X + pocisk.Wymiary.Width / 2 - 25,
                                     pocisk.Wymiary.Y + pocisk.Wymiary.Height / 2 - 25);
                                 pocisk = null;
                             }
@@ -147,7 +147,7 @@ namespace Rudy_103.src
                             pocisk.ZmienPozycje(0, pocisk.szybkosc);
                             if (pocisk.Zderzenie(plansza, gracz))
                             {
-                                DodajPociskOgien(plansza, fabryka, pocisk.Wymiary.X + pocisk.Wymiary.Width / 2 - 25,
+                                Wybuch(plansza, fabryka, pocisk.Wymiary.X + pocisk.Wymiary.Width / 2 - 25,
                                     pocisk.Wymiary.Y + pocisk.Wymiary.Height / 2 - 25);
                                 pocisk = null;
                             }
@@ -160,7 +160,7 @@ namespace Rudy_103.src
                             pocisk.ZmienPozycje(-pocisk.szybkosc, 0);
                             if (pocisk.Zderzenie(plansza, gracz))
                             {
-                                DodajPociskOgien(plansza, fabryka, pocisk.Wymiary.X + pocisk.Wymiary.Width / 2 - 25,
+                                Wybuch(plansza, fabryka, pocisk.Wymiary.X + pocisk.Wymiary.Width / 2 - 25,
                                     pocisk.Wymiary.Y + pocisk.Wymiary.Height / 2 - 25);
                                 pocisk = null;
                             }
