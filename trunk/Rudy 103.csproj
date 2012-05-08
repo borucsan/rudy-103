@@ -80,6 +80,12 @@
       <DependentUpon>Drzewo.cs</DependentUpon>
     </Compile>
     <Compile Include="src\Kamera.cs" />
+    <Compile Include="src\KoniecGry.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="src\KoniecGry.Designer.cs">
+      <DependentUpon>KoniecGry.cs</DependentUpon>
+    </Compile>
     <Compile Include="src\MenuGlowne.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -130,6 +136,7 @@
       <DependentUpon>Top10.cs</DependentUpon>
     </Compile>
     <Compile Include="src\Warsztat.cs" />
+    <Compile Include="src\Wyniki.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources\Interfejs\bateria_10.png" />
@@ -313,6 +320,9 @@
     <EmbeddedResource Include="Resources\Ziemia\tlo_7.png" />
     <EmbeddedResource Include="Resources\Ziemia\tlo_8.png" />
     <EmbeddedResource Include="Resources\Ziemia\tlo_9.png" />
+    <EmbeddedResource Include="src\KoniecGry.resx">
+      <DependentUpon>KoniecGry.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CompactFramework.CSharp.targets" />
   <ProjectExtensions>

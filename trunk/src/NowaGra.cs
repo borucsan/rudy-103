@@ -43,9 +43,7 @@ namespace Rudy_103.src
         Rectangle przyciskWyjscia;
 
         Rectangle przyciskZamknijUkonczonyPoziom;
-        Rectangle przyciskZamknijKoniecGry;
-
-
+       
         private int czas_sekundy;
         private int czas_minuty;
 
@@ -83,8 +81,7 @@ namespace Rudy_103.src
             //Dostajemy się do resource wkompilowaniego w aplikacje
             System.Reflection.Assembly execAssem = System.Reflection.Assembly.GetExecutingAssembly();
            
-            Kamera.Prostokat_Kamery.X = 400;
-            Kamera.Prostokat_Kamery.Y = 680;
+            
 
             numer_efektu = 0;
             licznik_informacji = 1;
@@ -98,6 +95,9 @@ namespace Rudy_103.src
             warsztat = new Warsztat(execAssem);
             warsztat.UstawDomyslneWartosci();
             warsztat.UstawStatystyki(player);
+
+            Kamera.Prostokat_Kamery.X = plansza.Szerokosc /2 - Kamera.Prostokat_Kamery.Width /2;
+            Kamera.Prostokat_Kamery.Y = plansza.Wysokosc - Kamera.Prostokat_Kamery.Height;
 
             //Ustawiamy początkowy GUI 
             panelEnergii = true;
@@ -790,6 +790,7 @@ namespace Rudy_103.src
                 g.DrawString("Przejdź Dalej", new Font("Arial", 12, FontStyle.Regular), new SolidBrush(Color.Yellow),
                     new Rectangle(20, 290, 200, 25), drawFormat);
             }
+            /*
             if (player.energia <= 0)
             {
                 g.DrawImage(Grafika.tlo_mapa, 0, 0);
@@ -809,7 +810,7 @@ namespace Rudy_103.src
                 g.DrawString("Wyjdź", new Font("Arial", 12, FontStyle.Regular), new SolidBrush(Color.Yellow),
                     new Rectangle(20, 290, 200, 25), drawFormat);
             }
-
+            */
         }
 
         #region Timery
@@ -849,7 +850,7 @@ namespace Rudy_103.src
 
             if (player.energia <= 0)
             {
-                WstrzymajGre();
+                GameOver();
                 //Wykonanie kończenia gry i zliczenia punktów
             }
             if ((plansza.przeciwnicy.Count + plansza.przeciwnicy_na_mapie.Count) == 0)
@@ -985,10 +986,7 @@ namespace Rudy_103.src
                 }
                 if (mysz.IntersectsWith(przyciskWyjscia))
                 {
-                    //Tutaj powinny być obsłużone jeszcze metody wyjścia z gry
-                    //np. Zliczenie punktów
-                    Owner.Show();   //Włącza Menu Główne
-                    this.Close();   //Zamyka okno Nowa Gra
+                    GameOver();
                 }
                 if (mysz.IntersectsWith(przyciskZamknijOpcjeProst))
                 {
@@ -1058,19 +1056,7 @@ namespace Rudy_103.src
                 }
             }
             #endregion Ukończony Poziom
-
-            #region Koniec Gry
-            if (player.energia <= 0)
-            {
-                
-                if (mysz.IntersectsWith(przyciskZamknijKoniecGry))
-                {
-                    Owner.Show();
-                    this.Close();
-                }
-            }
-            #endregion Koniec Gry
-
+            
         }
 
         private void WstrzymajGre()
@@ -1162,6 +1148,16 @@ namespace Rudy_103.src
             Opcje.Dol = false;
             Opcje.Lewo = false;
             Opcje.Enter = false;
+        }
+        private void GameOver()
+        {
+            ZliczPunkty();
+            WstrzymajGre();
+
+            KoniecGry koniec = new KoniecGry(player.punkty);
+            koniec.Owner = this.Owner;
+            koniec.Show();
+            this.Close();
         }
     }
 }
