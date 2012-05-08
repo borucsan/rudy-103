@@ -20,6 +20,7 @@ namespace Rudy_103.src
         private NowaGra nowa;
         private int czas;
         private Animacja Wczytywanie;
+        
         /// <summary>
         /// Konstruktor klasy głównego okna.
         /// </summary>

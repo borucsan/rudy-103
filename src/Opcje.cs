@@ -20,7 +20,7 @@ namespace Rudy_103.src
         public static int poziom_szybkosc = 1;
         public static int przeciwnik_punkty = 0;
 
-        public static bool wlacz_cieniowanie = true;
+        public static bool wlacz_cieniowanie = false;
         public static bool wlaczonePrzyciskiEkranowe = true;
         public static bool Gora = false;
         public static bool Prawo = false;
@@ -49,7 +49,7 @@ namespace Rudy_103.src
 
         public static void UstawDomyslneWartosci()
         {
-            Opcje.wlacz_cieniowanie = true;
+            Opcje.wlacz_cieniowanie = false;
             Opcje.wlaczonePrzyciskiEkranowe = true;
             Opcje.Gora = false;
             Opcje.Prawo = false;
