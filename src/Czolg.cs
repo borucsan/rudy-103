@@ -148,9 +148,13 @@ namespace Rudy_103.src
                 //int wysokosc = pocisk.Wymiary.Height;
 
                 pocisk.UstawPocisk(Wymiary.X + Wymiary.Width/2, Wymiary.Y + Wymiary.Height/2, this.sila, this.szybkosc+5, kierunek, this);
+                if (Kamera.Prostokat_Kamery.IntersectsWith(Wymiary))
+                {
+                    Multimedia.audio_wystrzal.Play();
+                }
             }
         }
-        protected void DodajPociskOgien(Plansza plansza, Fabryka fabryka, int X, int Y)
+        protected void Wybuch(Plansza plansza, Fabryka fabryka, int X, int Y)
         {
             
             Random random = new Random();
@@ -164,8 +168,14 @@ namespace Rudy_103.src
             //plansza.efekty_na_mapie.Add(fabryka.ProdukujEfekt("Ogień"));
             //plansza.efekty_na_mapie.Last().UstawPozycje(new Point(X - random.Next(0, 20), Y - random.Next(0, 20)));
 
-            plansza.efekty_na_mapie.Add(fabryka.ProdukujEfekt("Eksplozja"));
-            plansza.efekty_na_mapie.Last().UstawPozycje(new Point(X, Y));
+            if(Kamera.Prostokat_Kamery.IntersectsWith(new Rectangle(X, Y, 1, 1)))
+            {
+                plansza.efekty_na_mapie.Add(fabryka.ProdukujEfekt("Eksplozja"));
+                plansza.efekty_na_mapie.Last().UstawPozycje(new Point(X, Y));
+                Multimedia.audio_wybuch.Play();
+                
+            }
+            
         }
         public void RuchPocisku(Plansza plansza, Fabryka fabryka)
         {
@@ -180,7 +190,7 @@ namespace Rudy_103.src
                             pocisk.ZmienPozycje(0, -pocisk.szybkosc);
                             if (pocisk.Zderzenie(plansza))
                             {
-                                DodajPociskOgien(plansza, fabryka, pocisk.Wymiary.X + pocisk.Wymiary.Width/2 - 25, 
+                                Wybuch(plansza, fabryka, pocisk.Wymiary.X + pocisk.Wymiary.Width/2 - 25, 
                                     pocisk.Wymiary.Y + pocisk.Wymiary.Height/2 - 25);
                                 pocisk = null;
                             }
@@ -193,7 +203,7 @@ namespace Rudy_103.src
                             pocisk.ZmienPozycje(pocisk.szybkosc, 0);
                             if (pocisk.Zderzenie(plansza))
                             {
-                                DodajPociskOgien(plansza, fabryka, pocisk.Wymiary.X + pocisk.Wymiary.Width / 2 - 25,
+                                Wybuch(plansza, fabryka, pocisk.Wymiary.X + pocisk.Wymiary.Width / 2 - 25,
                                     pocisk.Wymiary.Y + pocisk.Wymiary.Height / 2 - 25);
                                 pocisk = null;
                             }
@@ -206,7 +216,7 @@ namespace Rudy_103.src
                             pocisk.ZmienPozycje(0, pocisk.szybkosc);
                             if (pocisk.Zderzenie(plansza))
                             {
-                                DodajPociskOgien(plansza, fabryka, pocisk.Wymiary.X + pocisk.Wymiary.Width / 2 - 25,
+                                Wybuch(plansza, fabryka, pocisk.Wymiary.X + pocisk.Wymiary.Width / 2 - 25,
                                     pocisk.Wymiary.Y + pocisk.Wymiary.Height / 2 - 25);
                                 pocisk = null;
                             }
@@ -219,7 +229,7 @@ namespace Rudy_103.src
                             pocisk.ZmienPozycje(-pocisk.szybkosc, 0);
                             if (pocisk.Zderzenie(plansza))
                             {
-                                DodajPociskOgien(plansza, fabryka, pocisk.Wymiary.X + pocisk.Wymiary.Width / 2 - 25,
+                                Wybuch(plansza, fabryka, pocisk.Wymiary.X + pocisk.Wymiary.Width / 2 - 25,
                                     pocisk.Wymiary.Y + pocisk.Wymiary.Height / 2 - 25);
                                 pocisk = null;
                             }

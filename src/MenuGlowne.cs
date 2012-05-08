@@ -55,7 +55,7 @@ namespace Rudy_103.src
             //wczytywanieImage[3] = new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Wczytywanie.load_4.png"));
             
             //Wczytywanie Grafiki
-            Grafika.WczytajGrafike(execAssem);
+            Multimedia.WczytajMultimedia(execAssem);
             
             Kamera.Szerokosc_Ekranu = Screen.PrimaryScreen.Bounds.Width;
             Kamera.Wysokosc_Ekranu = Screen.PrimaryScreen.Bounds.Height;
@@ -75,7 +75,7 @@ namespace Rudy_103.src
             wczytywaniePlikow = true;
             czas1.Enabled = true;
 
-            Wczytywanie = new Animacja(Kamera.Szerokosc_Ekranu / 2 - 25, Kamera.Wysokosc_Ekranu / 2 - 25, 50, 50, 4, 1, Grafika.wczytywanieImage);
+            Wczytywanie = new Animacja(Kamera.Szerokosc_Ekranu / 2 - 25, Kamera.Wysokosc_Ekranu / 2 - 25, 50, 50, 4, 1, Multimedia.wczytywanieImage);
 
         }
 

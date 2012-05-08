@@ -36,8 +36,8 @@ namespace Rudy_103.src
             wzorce_efektow = new Dictionary<string, Animacja>();
             wzorzec_pocisku = new Pocisk(0, 0, 10, 10, 5, 10, Czolg.Kierunek.GORA);
             
-            wzorzec_pocisku.WczytajObrazy(Grafika.domyslny_pocisk);
-            wzorzec_bazy = new Baza(0, 0, 50, 50, 10, false, Grafika.baza);
+            wzorzec_pocisku.WczytajObrazy(Multimedia.domyslny_pocisk);
+            wzorzec_bazy = new Baza(0, 0, 50, 50, 10, false, Multimedia.baza);
             if (TworzDomyslneWzorce) this.TworzDomyslneWzorce(execAssem);
 
         }
@@ -110,7 +110,7 @@ namespace Rudy_103.src
         {
             Gracz player = new Gracz(425, 930, 40, 40, 100, 5, 10, 3);
             
-            player.WczytajObrazy(Grafika.domyslny_gracz);
+            player.WczytajObrazy(Multimedia.domyslny_gracz);
             return player;
         }
         /// <summary>
@@ -120,29 +120,29 @@ namespace Rudy_103.src
         public void TworzDomyslneWzorce(System.Reflection.Assembly execAssem)
         {
             //Wzorce przeszkód budynków
-            DodajWzorzecPrzeszkody("Budynek A", new Przeszkoda(0, 0, 50, 50, 40, false, Grafika.budynekA));
-            DodajWzorzecPrzeszkody("Budynek B", new Przeszkoda(0, 0, 50, 50, 40, false, Grafika.budynekB));
-            DodajWzorzecPrzeszkody("Budynek C", new Przeszkoda(0, 0, 50, 50, 40, false, Grafika.budynekC));
-            DodajWzorzecPrzeszkody("Garaz", new Przeszkoda(0, 0, 50, 50, 30, false, Grafika.garaz));
-            DodajWzorzecPrzeszkody("Chata", new Przeszkoda(0, 0, 70, 70, 30, false, Grafika.chata));
+            DodajWzorzecPrzeszkody("Budynek A", new Przeszkoda(0, 0, 50, 50, 40, false, Multimedia.budynekA));
+            DodajWzorzecPrzeszkody("Budynek B", new Przeszkoda(0, 0, 50, 50, 40, false, Multimedia.budynekB));
+            DodajWzorzecPrzeszkody("Budynek C", new Przeszkoda(0, 0, 50, 50, 40, false, Multimedia.budynekC));
+            DodajWzorzecPrzeszkody("Garaz", new Przeszkoda(0, 0, 50, 50, 30, false, Multimedia.garaz));
+            DodajWzorzecPrzeszkody("Chata", new Przeszkoda(0, 0, 70, 70, 30, false, Multimedia.chata));
 
             //Wzorce podloza
-            DodajWzorzecPrzeszkody("Droga A1", new Przeszkoda(0, 0, 50, 50, 0, true, Grafika.DrogaA1));
-            DodajWzorzecPrzeszkody("Droga A2", new Przeszkoda(0, 0, 50, 50, 0, true, Grafika.DrogaA2));
-            DodajWzorzecPrzeszkody("Trawa", new Przeszkoda(0, 0, 25, 25, 0, true, Grafika.Trawa));
-            DodajWzorzecPrzeszkody("Ziemia", new Przeszkoda(0, 0, 25, 25, 0, true, Grafika.Ziemia));
-            DodajWzorzecPrzeszkody("Piasek", new Przeszkoda(0, 0, 25, 25, 0, true, Grafika.Piasek));
-            DodajWzorzecPrzeszkody("Woda", new Przeszkoda(0, 0, 25, 25, 0, true, Grafika.Woda));
+            DodajWzorzecPrzeszkody("Droga A1", new Przeszkoda(0, 0, 50, 50, 0, true, Multimedia.DrogaA1));
+            DodajWzorzecPrzeszkody("Droga A2", new Przeszkoda(0, 0, 50, 50, 0, true, Multimedia.DrogaA2));
+            DodajWzorzecPrzeszkody("Trawa", new Przeszkoda(0, 0, 25, 25, 0, true, Multimedia.Trawa));
+            DodajWzorzecPrzeszkody("Ziemia", new Przeszkoda(0, 0, 25, 25, 0, true, Multimedia.Ziemia));
+            DodajWzorzecPrzeszkody("Piasek", new Przeszkoda(0, 0, 25, 25, 0, true, Multimedia.Piasek));
+            DodajWzorzecPrzeszkody("Woda", new Przeszkoda(0, 0, 25, 25, 0, true, Multimedia.Woda));
             
 
             //Wzorce przeszkód
-            DodajWzorzecPrzeszkody("Skrzynka", new Przeszkoda(0, 0, 25, 25, 20, false, Grafika.skrzynia));
-            DodajWzorzecPrzeszkody("cegielka", new Przeszkoda(0, 0, 25, 25, 30, false, Grafika.murA));
-            DodajWzorzecPrzeszkody("cegielka2", new Przeszkoda(0, 0, 25, 25, 40, false, Grafika.murB));
-            DodajWzorzecPrzeszkody("cegielka3", new Przeszkoda(0, 0, 25, 25, 60, false, Grafika.murC));
-            DodajWzorzecPrzeszkody("cegielka4", new Przeszkoda(0, 0, 25, 25, 80, false, Grafika.murD));
-            DodajWzorzecPrzeszkody("mur", new Przeszkoda(0, 0, 25, 25, 20, false, Grafika.murE));
-            DodajWzorzecPrzeszkody("drzewo", new Przeszkoda(0, 0, 25, 25, 0, true, Grafika.drzewo));
+            DodajWzorzecPrzeszkody("Skrzynka", new Przeszkoda(0, 0, 25, 25, 20, false, Multimedia.skrzynia));
+            DodajWzorzecPrzeszkody("cegielka", new Przeszkoda(0, 0, 25, 25, 30, false, Multimedia.murA));
+            DodajWzorzecPrzeszkody("cegielka2", new Przeszkoda(0, 0, 25, 25, 40, false, Multimedia.murB));
+            DodajWzorzecPrzeszkody("cegielka3", new Przeszkoda(0, 0, 25, 25, 60, false, Multimedia.murC));
+            DodajWzorzecPrzeszkody("cegielka4", new Przeszkoda(0, 0, 25, 25, 80, false, Multimedia.murD));
+            DodajWzorzecPrzeszkody("mur", new Przeszkoda(0, 0, 25, 25, 20, false, Multimedia.murE));
+            DodajWzorzecPrzeszkody("drzewo", new Przeszkoda(0, 0, 25, 25, 0, true, Multimedia.drzewo));
             
             //Wzorce przeciwników
             Przeciwnik [] enemy = new Przeciwnik[10];
@@ -157,16 +157,16 @@ namespace Rudy_103.src
             enemy[8] = new Przeciwnik(0, 0, 40, 40, 90, 13, 90, 900);
             enemy[9] = new Przeciwnik(0, 0, 40, 40, 110, 15, 110, 1000);
 
-            enemy[0].WczytajObrazy(Grafika.przeciwnik_1);
-            enemy[1].WczytajObrazy(Grafika.przeciwnik_2);
-            enemy[2].WczytajObrazy(Grafika.przeciwnik_3);
-            enemy[3].WczytajObrazy(Grafika.przeciwnik_4);
-            enemy[4].WczytajObrazy(Grafika.przeciwnik_5);
-            enemy[5].WczytajObrazy(Grafika.przeciwnik_6);
-            enemy[6].WczytajObrazy(Grafika.przeciwnik_7);
-            enemy[7].WczytajObrazy(Grafika.przeciwnik_8);
-            enemy[8].WczytajObrazy(Grafika.przeciwnik_9);
-            enemy[9].WczytajObrazy(Grafika.przeciwnik_10);
+            enemy[0].WczytajObrazy(Multimedia.przeciwnik_1);
+            enemy[1].WczytajObrazy(Multimedia.przeciwnik_2);
+            enemy[2].WczytajObrazy(Multimedia.przeciwnik_3);
+            enemy[3].WczytajObrazy(Multimedia.przeciwnik_4);
+            enemy[4].WczytajObrazy(Multimedia.przeciwnik_5);
+            enemy[5].WczytajObrazy(Multimedia.przeciwnik_6);
+            enemy[6].WczytajObrazy(Multimedia.przeciwnik_7);
+            enemy[7].WczytajObrazy(Multimedia.przeciwnik_8);
+            enemy[8].WczytajObrazy(Multimedia.przeciwnik_9);
+            enemy[9].WczytajObrazy(Multimedia.przeciwnik_10);
 
             DodajWzorzecPrzeciwnika("Przeciwnik: Poziom 1", enemy[0]);
             DodajWzorzecPrzeciwnika("Przeciwnik: Poziom 2", enemy[1]);
@@ -181,11 +181,11 @@ namespace Rudy_103.src
 
             //Wzorce efektów
             Animacja animacja_ogien = new Animacja(0, 0, 25, 25, 4, 6);
-            animacja_ogien.WczytajObrazy(Grafika.ogien);
+            animacja_ogien.WczytajObrazy(Multimedia.ogien);
             DodajWzorzecEfektu("Ogień", animacja_ogien);
 
             Animacja animacja_eksplozja = new Animacja(0, 0, 50, 50, 4, 1);
-            animacja_eksplozja.WczytajObrazy(Grafika.eksplozja);
+            animacja_eksplozja.WczytajObrazy(Multimedia.eksplozja);
             DodajWzorzecEfektu("Eksplozja", animacja_eksplozja);
 
             

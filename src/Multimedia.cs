@@ -7,8 +7,9 @@ using System.Drawing;
 namespace Rudy_103.src
 {
     
-    static class Grafika
+    static class Multimedia
     {
+        #region Grafika
         public static Image [] wczytywanieImage;
         public static Image [] interfejs_bateria;
         public static Image interfejs_informacje;
@@ -76,9 +77,17 @@ namespace Rudy_103.src
         public static Image murD;
         public static Image murE;
         public static Image drzewo;
+        #endregion Grafika
 
-        public static void WczytajGrafike(System.Reflection.Assembly execAssem)
+        #region Dźwięki
+        public static Dzwiek audio_wybuch;
+        public static Dzwiek audio_wystrzal;
+        public static Dzwiek audio_zginales;
+        public static Dzwiek audio_game_over;
+        #endregion Dźwięki
+        public static void WczytajMultimedia(System.Reflection.Assembly execAssem)
         {
+            #region Wczytywanie Grafiki
             wczytywanieImage = new Image[4];
             wczytywanieImage[0] = new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Wczytywanie.load_1.png"));
             wczytywanieImage[1] = new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Wczytywanie.load_2.png"));
@@ -268,6 +277,16 @@ namespace Rudy_103.src
             murE = new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Przeszkody.mur.png"));
             drzewo = new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Przeszkody.drzewo.png"));
             #endregion Przeszkody
+
+            #endregion Wczytywanie Grafiki
+
+            #region Wczytywanie Dźwięków
+            audio_wybuch = new Dzwiek(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Dzwieki.wybuch.wav"));
+            audio_wystrzal = new Dzwiek(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Dzwieki.wystrzal.wav"));
+            audio_zginales = new Dzwiek(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Dzwieki.killed.wav"));
+            audio_game_over = new Dzwiek(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Dzwieki.end.wav"));
+            #endregion Wczytywanie Dźwięków
+
         }
     }
 
