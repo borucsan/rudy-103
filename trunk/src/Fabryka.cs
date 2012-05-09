@@ -120,9 +120,9 @@ namespace Rudy_103.src
         public void TworzDomyslneWzorce(System.Reflection.Assembly execAssem)
         {
             //Wzorce przeszkód budynków
-            DodajWzorzecPrzeszkody("Budynek A", new Przeszkoda(0, 0, 50, 50, 40, false, Multimedia.budynekA));
-            DodajWzorzecPrzeszkody("Budynek B", new Przeszkoda(0, 0, 50, 50, 40, false, Multimedia.budynekB));
-            DodajWzorzecPrzeszkody("Budynek C", new Przeszkoda(0, 0, 50, 50, 40, false, Multimedia.budynekC));
+            DodajWzorzecPrzeszkody("Budynek A", new Przeszkoda(0, 0, 100, 100, 40, false, Multimedia.budynekA));
+            DodajWzorzecPrzeszkody("Budynek B", new Przeszkoda(0, 0, 100, 100, 40, false, Multimedia.budynekB));
+            DodajWzorzecPrzeszkody("Budynek C", new Przeszkoda(0, 0, 100, 100, 40, false, Multimedia.budynekC));
             DodajWzorzecPrzeszkody("Garaz", new Przeszkoda(0, 0, 50, 50, 30, false, Multimedia.garaz));
             DodajWzorzecPrzeszkody("Chata", new Przeszkoda(0, 0, 70, 70, 30, false, Multimedia.chata));
 
