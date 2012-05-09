@@ -78,7 +78,7 @@ namespace Rudy_103.src
 
             czas_minuty = 0;
             czas_sekundy = 0;
-
+            czas_respawnow = 0;
             //Dostajemy się do resource wkompilowaniego w aplikacje
             System.Reflection.Assembly execAssem = System.Reflection.Assembly.GetExecutingAssembly();
 
@@ -851,15 +851,22 @@ namespace Rudy_103.src
         }
         private void timer1_Tick(object sender, EventArgs e)
         {
+            
             zmienPozycjeGracza();
             ReakcjaWirtualnychKlawiszy();
             plansza.RuszPrzeciwnikow(fabryka, player);
             plansza.RusziSprawdz(player, fabryka);
             player.RuchPocisku(plansza, fabryka);
-
+            if (plansza.przeciwnicy_na_mapie.Count == 0 && plansza.przeciwnicy.Count > 0)
+            {
+                plansza.Respawn(player);
+            }
+            if (czas_respawnow % 100 == 0)
+            {
+                plansza.Respawn(player);
+            }
             if (player.energia <= 0)
             {
-                
                 GameOver();
                 //Wykonanie kończenia gry i zliczenia punktów
             }
@@ -870,18 +877,11 @@ namespace Rudy_103.src
                 WstrzymajGre();
                 //Wykonaj kończenie poziomu: zliczenie punktów; ulepszenia; nowy poziom;
             }
+            czas_respawnow++;
         }
 
         private void czas_rozgrywki_Tick(object sender, EventArgs e)
         {
-            if (plansza.przeciwnicy_na_mapie.Count == 0 && plansza.przeciwnicy.Count > 0)
-            {
-                plansza.Respawn(player);
-            }
-            if (czas_sekundy % 10 == 0)
-            {
-                plansza.Respawn(player);
-            }
             czas_sekundy += 1;
             
             if (czas_sekundy == 60)
@@ -1033,6 +1033,7 @@ namespace Rudy_103.src
                     warsztat.przyciskZamknijUlepszenia = new Rectangle();
                     czas_minuty = 0;
                     czas_sekundy = 0;
+                    czas_respawnow = 0;
                     int poziom = plansza.poziom + 1;
                     try
                     {

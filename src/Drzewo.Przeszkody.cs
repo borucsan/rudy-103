@@ -11,6 +11,7 @@ namespace Rudy_103.src
     /// </summary>
     class DrzewoPrzeszkody : Drzewo<Przeszkoda>
     {
+        private List<Przeszkoda> narysowane = new List<Przeszkoda>();
         /// <summary>
         /// Konstruktor drzewa BSP dla przeszkód.
         /// </summary>
@@ -315,6 +316,7 @@ namespace Rudy_103.src
             {
                 if (rec.IntersectsWith(root.prawo.Wymiary)) RysujEle(root.prawo, rec, g, transparentPink);
             }
+            narysowane.Clear();
         }
         private void RysujEle(ElementDrzewa<Przeszkoda> iterator, Rectangle rec, Graphics g, System.Drawing.Imaging.ImageAttributes transparentPink)
         {
@@ -343,21 +345,20 @@ namespace Rudy_103.src
                     Przeszkoda pr = (iterator.lista[i].obiekt) as Przeszkoda;
                     if (rec.IntersectsWith(iterator.lista[i].Wymiary) && pr.energia > 0)
                     {
-                        if (iterator.lista[i].rysuj)
+                        bool juznarysowane = false;
+                        for(int j = 0 ; j < narysowane.Count; ++j)
                         {
-                            pr.Rysuj(g, transparentPink);
-                        }
-                        else
-                        {
-                            if (iterator.lista[i].element != null)
+                            if (pr == narysowane[j])
                             {
-                                if (!(iterator.lista[i].element.Wymiary.IntersectsWith(rec)))
-                                {
-                                    pr.Rysuj(g, transparentPink);
-                                }
+                                juznarysowane = true;
+                                break;
                             }
                         }
-
+                        if (!juznarysowane)
+                        {
+                            pr.Rysuj(g, transparentPink);
+                            narysowane.Add(pr);
+                        }
                     }
                 }
             }
