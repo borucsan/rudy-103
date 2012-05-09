@@ -37,10 +37,10 @@ namespace Rudy_103.src
                 this.Wytrzymalosc = this.Wytrzymalosc_Bazowa;
                 this.energia -= 1;
                 this.UstawPozycje(PunktRespGracza.X + 5, PunktRespGracza.Y + 5);
-                Kamera.Prostokat_Kamery.X = 400;
-                Kamera.Prostokat_Kamery.Y = 680;
+                Kamera.Prostokat_Kamery.X = PunktRespGracza.X - 25;
+                Kamera.Prostokat_Kamery.Y = PunktRespGracza.Y - 275;
             }
         }
-        public static readonly Rectangle PunktRespGracza = new Rectangle(425, 925, 50, 50);
+       public static Rectangle PunktRespGracza = new Rectangle(425, 925, 50, 50);
     }
 }

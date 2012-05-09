@@ -47,6 +47,8 @@ namespace Rudy_103.src
         private int czas_sekundy;
         private int czas_minuty;
 
+        private int czas_respawnow;
+
         /// <summary>
         /// Wartość określająca czy gra wczytała już wszystkie pliki
         /// </summary>
@@ -86,13 +88,26 @@ namespace Rudy_103.src
             licznik_informacji = 1;
 
             fabryka = new Fabryka(execAssem, true);
-            plansza = new Plansza(1000, 1000);
-            plansza.WczytajGrafikePodloza(Multimedia.tlo);
-            plansza.GenerujDebugMapa(fabryka);
-
-            player = Fabryka.ProdukujDomyslnegoGracza(execAssem);
             warsztat = new Warsztat(execAssem);
             warsztat.UstawDomyslneWartosci();
+            try
+            {
+                string path = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().GetName().CodeBase) + @"/Mapy/City.xml";
+                plansza = Plansza.WczytajMape(path, 1, fabryka, warsztat.poziom_muru);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Błąd wczytywania mapy!\n" + ex.Message, "Błąd wczytywania mapy", MessageBoxButtons.OK, MessageBoxIcon.Hand, MessageBoxDefaultButton.Button1);
+                this.Close();
+                return;
+            }
+            //plansza = new Plansza(1000, 1000);
+            plansza.WczytajGrafikePodloza(Multimedia.tlo);
+            //plansza.GenerujDebugMapa(fabryka);
+            player = Fabryka.ProdukujDomyslnegoGracza(execAssem);
+            Kamera.Prostokat_Kamery.X = player.Wymiary.X - 25;
+            Kamera.Prostokat_Kamery.Y = player.Wymiary.Y - 245;
+           
             warsztat.UstawStatystyki(player);
 
             Kamera.Prostokat_Kamery.X = plansza.Szerokosc /2 - Kamera.Prostokat_Kamery.Width /2;
@@ -116,6 +131,7 @@ namespace Rudy_103.src
             this.czas_efektow.Enabled = true;
             this.czas_informacji.Enabled = true;
             this.czas_odswiezania.Enabled = true;
+            //this.timer2.Enabled = true;
 
             graWczytana = true;
         }
@@ -297,10 +313,10 @@ namespace Rudy_103.src
                 {
                     g.DrawImage(plansza.AktualnePodloze(), 0, 0);
                 }
-                
-                player.Rysuj(g, Narzedzia.transparentPink);
 
-                plansza.RysujElementy(g, Narzedzia.transparentPink);
+
+                
+                plansza.RysujElementy(player,g, Narzedzia.transparentPink);
                 plansza.RysujEfekty(g, Narzedzia.transparentPink);
                 RysujInterfejs(g, Narzedzia.transparentPink);
                 g.Dispose();
@@ -837,17 +853,9 @@ namespace Rudy_103.src
         {
             zmienPozycjeGracza();
             ReakcjaWirtualnychKlawiszy();
-            player.RuchPocisku(plansza, fabryka);
             plansza.RuszPrzeciwnikow(fabryka, player);
-            if (plansza.przeciwnicy_na_mapie.Count == 0 && plansza.przeciwnicy.Count > 0)
-            {
-                plansza.Respawn(player);
-            }
-            if (czas_sekundy % 20 == 0)
-            {
-                
-                plansza.Respawn(player);
-            }
+            plansza.RusziSprawdz(player, fabryka);
+            player.RuchPocisku(plansza, fabryka);
 
             if (player.energia <= 0)
             {
@@ -860,13 +868,20 @@ namespace Rudy_103.src
                 plansza.ukonczony_poziom = true;
                 ZliczPunkty();
                 WstrzymajGre();
-
                 //Wykonaj kończenie poziomu: zliczenie punktów; ulepszenia; nowy poziom;
             }
         }
 
         private void czas_rozgrywki_Tick(object sender, EventArgs e)
         {
+            if (plansza.przeciwnicy_na_mapie.Count == 0 && plansza.przeciwnicy.Count > 0)
+            {
+                plansza.Respawn(player);
+            }
+            if (czas_sekundy % 10 == 0)
+            {
+                plansza.Respawn(player);
+            }
             czas_sekundy += 1;
             
             if (czas_sekundy == 60)
@@ -1018,10 +1033,22 @@ namespace Rudy_103.src
                     warsztat.przyciskZamknijUlepszenia = new Rectangle();
                     czas_minuty = 0;
                     czas_sekundy = 0;
-                    plansza.GenerujDebugMapa(fabryka);
-                    player.UstawPozycje(420, 925);
-                    Kamera.Prostokat_Kamery.X = 400;
-                    Kamera.Prostokat_Kamery.Y = 680;
+                    int poziom = plansza.poziom + 1;
+                    try
+                    {
+                        string path = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().GetName().CodeBase) + @"/Mapy/City.xml";
+                        plansza = Plansza.WczytajMape(path, poziom, fabryka, warsztat.poziom_muru);
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Błąd wczytywania mapy!\n" + ex.Message, "Błąd wczytywania mapy", MessageBoxButtons.OK, MessageBoxIcon.Hand, MessageBoxDefaultButton.Button1);
+                        this.Close();
+                        return;
+                    }
+                    plansza.WczytajGrafikePodloza(Multimedia.tlo);
+                    player.UstawPozycje(Gracz.PunktRespGracza.X + 5, Gracz.PunktRespGracza.Y + 5);
+                    Kamera.Prostokat_Kamery.X = Gracz.PunktRespGracza.X - 25;
+                    Kamera.Prostokat_Kamery.Y = Gracz.PunktRespGracza.Y - 275;
                     WznowGre();
                 }
                 if (mysz.IntersectsWith(warsztat.przyciskUlepszSzybkosc))

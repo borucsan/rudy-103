@@ -17,6 +17,18 @@ namespace Rudy_103.src
         protected int wytrzymalosc_bazowa;
         protected int szybkosc;
         protected int sila;
+        protected Rectangle rec_ruchu;
+        protected int pozostaly_ruch = 0;
+        public int Pozostaly_ruch
+        {
+            get { return pozostaly_ruch; }
+            set { pozostaly_ruch = value; }
+        }
+        public Rectangle Rec_ruchu
+        {
+            get { return rec_ruchu; }
+            set { rec_ruchu = value; }
+        }
         public int Wytrzymalosc
         {
             get
@@ -84,6 +96,7 @@ namespace Rudy_103.src
             this.szybkosc = szybkosc;
             this.sila = sila;
             this.kierunek = Kierunek.GORA;
+            this.rec_ruchu = wymiary;
         }
         public Czolg(int X, int Y, int Szer, int Wys, int wytrzymalosc, int szybkosc, int sila, params Image[] obrazy)
             : this(X, Y, Szer, Wys, wytrzymalosc, szybkosc, sila)
@@ -98,55 +111,43 @@ namespace Rudy_103.src
         public virtual void Ruch(Kierunek kierunek, Plansza plansza)
         {
             this.kierunek = kierunek;
-            poprzednia_pozycja = Wymiary.Location;
+            this.pozostaly_ruch = szybkosc;
+        }
+        public const int JEDNOSTKA_RUCHU = 1;
+        public const int PRZESKOK = 3;
+        public const int WARUNEK_PRZESKOKU = 15;
+        public void WykonajRuch(Plansza plansza)
+        {
             switch (kierunek)
             {
                 case Kierunek.GORA:
-                    if (Wymiary.Y >= szybkosc)
-                    {
-                        //Wymiary.Y -= szybkosc;
-                        ZmienPozycje(0, -szybkosc);
-                        Zderzenie2(plansza);
-                    }
-                    else UstawPozycjeY(0);
+
+                        ZmienPozycje(0, -JEDNOSTKA_RUCHU);
+                        Zderzenie3(plansza);
+                        //rec_ruchu = new Rectangle(wymiary.X, wymiary.Y - szybkosc, wymiary.Width, wymiary.Height);
                     break;
                 case Kierunek.PRAWO:
-                    if (Wymiary.X <= plansza.Szerokosc - (szybkosc + Wymiary.Width))
-                    {
-                        //Wymiary.X += szybkosc;
-                        ZmienPozycje(szybkosc, 0);
-                        Zderzenie2(plansza);
-                    }
-                    else UstawPozycjeX(plansza.Szerokosc - Wymiary.Width);
+                        //rec_ruchu = new Rectangle(wymiary.X + szybkosc, wymiary.Y, wymiary.Width, wymiary.Height);
+                        ZmienPozycje(JEDNOSTKA_RUCHU, 0);
+                        Zderzenie3(plansza);
                     break;
                 case Kierunek.DOL:
-                    if (Wymiary.Y <= plansza.Wysokosc - (szybkosc + Wymiary.Height))
-                    {
-                        //Wymiary.Y += szybkosc;
-                        ZmienPozycje(0, szybkosc);
-                        Zderzenie2(plansza);
-                    }
-                    else UstawPozycjeY(plansza.Wysokosc - Wymiary.Height);
+                        //rec_ruchu = new Rectangle(wymiary.X, wymiary.Y + szybkosc, wymiary.Width, wymiary.Height);
+                        ZmienPozycje(0, JEDNOSTKA_RUCHU);
+                        Zderzenie3(plansza);
                     break;
                 case Kierunek.LEWO:
-                    if (Wymiary.X >= szybkosc)
-                    {
-                        //Wymiary.X -= szybkosc;
-                        ZmienPozycje(-szybkosc, 0);
-                        Zderzenie2(plansza);
-                    }
-                    else UstawPozycjeX(0);
+                        ZmienPozycje(-JEDNOSTKA_RUCHU, 0);
+                        Zderzenie3(plansza);
                     break;
             }
+            pozostaly_ruch = pozostaly_ruch - JEDNOSTKA_RUCHU;
         }
         public void Strzelaj(Fabryka fabryka)
         {
             if (pocisk == null)
             {
                 pocisk = fabryka.ProdukujPocisk();
-                //int szerokosc = pocisk.Wymiary.Width;
-                //int wysokosc = pocisk.Wymiary.Height;
-
                 pocisk.UstawPocisk(Wymiary.X + Wymiary.Width/2, Wymiary.Y + Wymiary.Height/2, this.sila, this.szybkosc+5, kierunek, this);
                 if (Kamera.Prostokat_Kamery.IntersectsWith(Wymiary))
                 {
@@ -198,7 +199,7 @@ namespace Rudy_103.src
                         else pocisk = null;
                         break;
                     case Czolg.Kierunek.PRAWO:
-                        if (pocisk.Wymiary.X < 1000)
+                        if (pocisk.Wymiary.X < plansza.Szerokosc)
                         {
                             pocisk.ZmienPozycje(pocisk.szybkosc, 0);
                             if (pocisk.Zderzenie(plansza))
@@ -211,7 +212,7 @@ namespace Rudy_103.src
                         else pocisk = null;
                         break;
                     case Czolg.Kierunek.DOL:
-                        if (pocisk.Wymiary.Y < 1000)
+                        if (pocisk.Wymiary.Y < plansza.Wysokosc)
                         {
                             pocisk.ZmienPozycje(0, pocisk.szybkosc);
                             if (pocisk.Zderzenie(plansza))
@@ -239,62 +240,188 @@ namespace Rudy_103.src
                 }
             }
         }
+        public void WykonajPozostalyRuchiZatwierdz()
+        {
+            switch (kierunek)
+            {
+                case Kierunek.GORA:
+                        rec_ruchu = new Rectangle(wymiary.X, wymiary.Y - pozostaly_ruch, wymiary.Width, wymiary.Height);
+                    break;
+                case Kierunek.PRAWO:
+                        rec_ruchu = new Rectangle(wymiary.X + pozostaly_ruch, wymiary.Y, wymiary.Width, wymiary.Height);
+                    break;
+                case Kierunek.DOL:
+                        rec_ruchu = new Rectangle(wymiary.X, wymiary.Y + pozostaly_ruch, wymiary.Width, wymiary.Height);
+                    break;
+                case Kierunek.LEWO:
+                        rec_ruchu = new Rectangle(wymiary.X - pozostaly_ruch, wymiary.Y, wymiary.Width, wymiary.Height);
+                    break;
+            }
+            UstawNowyRect(rec_ruchu);
+        }
         /// <summary>
         /// Metoda zderzeń v.2
         /// </summary>
         /// <param name="plansza">Obiekt planszy</param>
-        public void Zderzenie2(Plansza plansza)
+        public virtual bool Zderzenie2(Plansza plansza)
         {
-            if (this.Wymiary.IntersectsWith(plansza.baza.Wymiary))
+            if (wymiary.Y < 0 || wymiary.Bottom > plansza.Wysokosc || wymiary.X < 0 || wymiary.Right > plansza.Szerokosc)
             {
-                ObliczPozycje(plansza.baza.Wymiary);
+                wymiary.Location = poprzednia_pozycja;
+                return true;
             }
-            plansza.region.CzyKoliduje(this);
+            if (this.wymiary.IntersectsWith(plansza.baza.Wymiary))
+            {
+                wymiary.Location = poprzednia_pozycja;
+                return true;
+            }
             for (int i = 0; i < plansza.przeciwnicy_na_mapie.Count; ++i)
             {
-                if (plansza.przeciwnicy_na_mapie[i].Wymiary.IntersectsWith(Wymiary))
+                if (this.wymiary.IntersectsWith(plansza.przeciwnicy_na_mapie[i].wymiary))
                 {
-                    ObliczPozycje(plansza.przeciwnicy_na_mapie[i].Wymiary);
+                    wymiary.Location = poprzednia_pozycja;
+                    return true;
+                }
+            }
+            return plansza.region.CzyKoliduje(this);
+        }
+        public bool Zderzenie3(Plansza plansza)
+        {
+            if (wymiary.Y < 0 || wymiary.Bottom > plansza.Wysokosc || wymiary.X < 0 || wymiary.Right > plansza.Szerokosc)
+            {
+                wymiary.Location = poprzednia_pozycja;
+                pozostaly_ruch = 0;
+                return true;
+            }
+            if (this.wymiary.IntersectsWith(plansza.baza.Wymiary))
+            {
+                wymiary.Location = poprzednia_pozycja;
+                pozostaly_ruch = 0;
+                return true;
+            }
+            for (int i = 0; i < plansza.przeciwnicy_na_mapie.Count; ++i)
+            {
+                if (this.wymiary.IntersectsWith(plansza.przeciwnicy_na_mapie[i].wymiary))
+                {
+                    wymiary.Location = poprzednia_pozycja;
+                    pozostaly_ruch = 0;
+                    return true;
+                }
+            }
+            Przeszkoda pr = plansza.region.CzyKoliduje2(this) as Przeszkoda;
+            if (pr != null)
+            {
+                wymiary.Location = poprzednia_pozycja;
+                if (pozostaly_ruch == szybkosc)
+                {
+                    ObliczPozycje3(pr);
+                    pozostaly_ruch = 0;
+                    if(Zderzenie2(plansza)) wymiary.Location = poprzednia_pozycja;
+                }
+                else
+                {
+                    wymiary.Location = poprzednia_pozycja;
+                }
+                return true;
+            }
+            return false;
+        }
+        public void ObliczPozycje2(Przeszkoda przeszkoda)
+        {
+            int X = wymiary.X - przeszkoda.Wymiary.X;
+            int Y = wymiary.Y - przeszkoda.Wymiary.Y;
+            if (wymiary.Y >= przeszkoda.Wymiary.Bottom && Math.Abs(X) <= wymiary.Width)
+            {
+                if(wymiary.IntersectsWith(przeszkoda.krawedzie[2]))
+                {
+                    UstawPozycje(przeszkoda.Wymiary.X - wymiary.Width, przeszkoda.Wymiary.Bottom - 3);
+                }
+                else if (wymiary.IntersectsWith(przeszkoda.krawedzie[3]))
+                {
+                    UstawPozycje(przeszkoda.Wymiary.Right, przeszkoda.Wymiary.Bottom - 3);
+                }
+            }
+            if (wymiary.Right <= przeszkoda.Wymiary.X && Math.Abs(Y) <= wymiary.Height)
+            {
+                if (wymiary.IntersectsWith(przeszkoda.krawedzie[0]))
+                {
+                    UstawPozycje(przeszkoda.Wymiary.X - wymiary.Width + 3, przeszkoda.Wymiary.Y - wymiary.Height);
+                }
+                else if (wymiary.IntersectsWith(przeszkoda.krawedzie[2]))
+                {
+                    UstawPozycje(przeszkoda.Wymiary.X - wymiary.Width + 3, przeszkoda.Wymiary.Bottom);
+                }
+            }
+            if (wymiary.Bottom <= przeszkoda.Wymiary.Y && Math.Abs(X) <= wymiary.Width)
+            {
+                if (wymiary.IntersectsWith(przeszkoda.krawedzie[0]))
+                {
+                    UstawPozycje(przeszkoda.Wymiary.X - wymiary.Width, przeszkoda.Wymiary.Y - wymiary.Height + 3);
+                }
+                else if (wymiary.IntersectsWith(przeszkoda.krawedzie[1]))
+                {
+                    UstawPozycje(przeszkoda.Wymiary.Right, przeszkoda.Wymiary.Y - wymiary.Height + 3);
+                }
+            }
+            if (wymiary.X >= przeszkoda.Wymiary.Right && Math.Abs(Y) <= wymiary.Height) 
+            {
+                if (wymiary.IntersectsWith(przeszkoda.krawedzie[1]))
+                {
+                    UstawPozycje(przeszkoda.Wymiary.Right - 1, przeszkoda.Wymiary.Y - wymiary.Height);
+                }
+                else if (wymiary.IntersectsWith(przeszkoda.krawedzie[3]))
+                {
+                    UstawPozycje(przeszkoda.Wymiary.Right - 1, przeszkoda.Wymiary.Bottom);
                 }
             }
         }
-        public void ObliczPozycje(Rectangle rec)
+        public void ObliczPozycje3(Przeszkoda przeszkoda)
         {
-            switch(kierunek)
+            int X = wymiary.X - przeszkoda.Wymiary.X;
+            int Y = wymiary.Y - przeszkoda.Wymiary.Y;
+            if (kierunek == Kierunek.GORA)
             {
-                case Kierunek.GORA:
-                    UstawPozycjeY(rec.Bottom);
-                break;
-                case Kierunek.PRAWO:
-                    UstawPozycjeX(rec.X - Wymiary.Width);
-                break;
-                case Kierunek.DOL:
-                    UstawPozycjeY(rec.Y - Wymiary.Height);
-                break;
-                case Kierunek.LEWO:
-                UstawPozycjeX(rec.Right);
-                break;
+                if (wymiary.Right >= przeszkoda.Wymiary.X && wymiary.Right <= przeszkoda.Wymiary.X + WARUNEK_PRZESKOKU)
+                {
+                    UstawPozycje(przeszkoda.Wymiary.X - wymiary.Width, przeszkoda.Wymiary.Bottom - PRZESKOK);
+                }
+                else if (wymiary.X >= przeszkoda.Wymiary.Right - WARUNEK_PRZESKOKU && wymiary.X <= przeszkoda.Wymiary.Right)
+                {
+                    UstawPozycje(przeszkoda.Wymiary.Right, przeszkoda.Wymiary.Bottom - PRZESKOK);
+                }
             }
-        }
-        public void ObliczPozycje2(Rectangle rec)
-        {
-            int X = wymiary.X - rec.X;
-            int Y = wymiary.Y - rec.Y;
-            if (Y >= 0 && Math.Abs(X) <= rec.Width)
+            if (kierunek == Kierunek.PRAWO)
             {
-                UstawPozycjeY(rec.Bottom);
+                if (wymiary.Bottom >= przeszkoda.Wymiary.Y && wymiary.Bottom <= przeszkoda.Wymiary.Y + WARUNEK_PRZESKOKU)
+                {
+                    UstawPozycje(przeszkoda.Wymiary.X - wymiary.Width + PRZESKOK, przeszkoda.Wymiary.Y - wymiary.Height);
+                }
+                else if (wymiary.Y >= przeszkoda.Wymiary.Bottom - WARUNEK_PRZESKOKU && wymiary.Y <= przeszkoda.Wymiary.Bottom)
+                {
+                    UstawPozycje(przeszkoda.Wymiary.X - wymiary.Width + PRZESKOK, przeszkoda.Wymiary.Bottom);
+                }
             }
-            if (X <= 0 && Math.Abs(Y) <= rec.Height)
+            if (kierunek == Kierunek.DOL)
             {
-                UstawPozycjeX(rec.X - Wymiary.Width);
+                if (wymiary.Right >= przeszkoda.Wymiary.X && wymiary.Right <= przeszkoda.Wymiary.X + WARUNEK_PRZESKOKU)
+                {
+                    UstawPozycje(przeszkoda.Wymiary.X - wymiary.Width, przeszkoda.Wymiary.Y - wymiary.Height + PRZESKOK);
+                }
+                else if (wymiary.X >= przeszkoda.Wymiary.Right - WARUNEK_PRZESKOKU && wymiary.X <= przeszkoda.Wymiary.Right)
+                {
+                    UstawPozycje(przeszkoda.Wymiary.Right, przeszkoda.Wymiary.Y - wymiary.Height + PRZESKOK);
+                }
             }
-            if (Y <= 0 && Math.Abs(X) <= rec.Width)
+            if (kierunek == Kierunek.LEWO)
             {
-                UstawPozycjeY(rec.Y - Wymiary.Height);
-            }
-            if (X >= 0 && Math.Abs(Y) <= rec.Height)
-            {
-                UstawPozycjeX(rec.Right);
+                if (wymiary.Bottom >= przeszkoda.Wymiary.Y && wymiary.Bottom <= przeszkoda.Wymiary.Y + WARUNEK_PRZESKOKU)
+                {
+                    UstawPozycje(przeszkoda.Wymiary.Right - PRZESKOK, przeszkoda.Wymiary.Y - wymiary.Height);
+                }
+                else if (wymiary.Y >= przeszkoda.Wymiary.Bottom - WARUNEK_PRZESKOKU && wymiary.Y <= przeszkoda.Wymiary.Bottom)
+                {
+                    UstawPozycje(przeszkoda.Wymiary.Right - PRZESKOK, przeszkoda.Wymiary.Bottom);
+                }
             }
         }
         public enum Kierunek : int { GORA = 0, PRAWO, DOL, LEWO }

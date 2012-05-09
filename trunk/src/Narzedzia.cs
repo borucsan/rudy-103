@@ -86,6 +86,40 @@ namespace Rudy_103.src
         
         public enum PodzialProstokata : int {X, Y};
 
+
+        public static List<T> Tasuj<T>(List<T> lista)
+        {
+            List<int> pozycje = new List<int>(lista.Count);
+            List<T> return_list = new List<T>(lista.Count);
+            for (int i = 0; i < lista.Count; ++i)
+            {
+                pozycje.Add(i);
+            }
+            while (pozycje.Count != 0)
+            {
+                int los = Narzedzia.rand.Next(0, pozycje.Count);
+                return_list.Add(lista[los]);
+                pozycje.RemoveAt(los);
+            }
+            return return_list;
+        }
+        public static T[] Tasuj<T>(T[] array)
+        {
+            List<int> pozycje = new List<int>(array.Length);
+            List<T> return_list = new List<T>(array.Length);
+            for (int i = 0; i < array.Length; ++i)
+            {
+                pozycje.Add(i);
+            }
+            while (pozycje.Count != 0)
+            {
+                int los = Narzedzia.rand.Next(0, pozycje.Count);
+                return_list.Add(array[los]);
+                pozycje.RemoveAt(los);
+            }
+            return return_list.ToArray<T>();
+        }
+
         public static System.Drawing.Imaging.ImageAttributes transparentPink;
     }
 }

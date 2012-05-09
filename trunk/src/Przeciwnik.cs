@@ -22,92 +22,74 @@ namespace Rudy_103.src
             klon.WczytajObrazy(this.obrazy);
             return klon;
         }
-        public void Ruch_Przeciwnika(Plansza mapa, Fabryka fabryczka, Gracz gracz)
+        public void Ruch()
         {
-           //Losuj kierunek
-            Random random = new Random();
-            //kierunek = Kierunek.DOL;
+            pozostaly_ruch = szybkosc;
+        }
+        public void WykonajRuchPrzeciwnika(Plansza plansza, Fabryka fabryczka, Gracz gracz)
+        {
             bool WykrytoPrzeszkode = false;
-            
-            bool LosujKierunek = false;
-            //this.Ruch(kierunek, mapa);
-
-            
-            int losuj = random.Next(0, 51);
-            if (losuj == 49) { LosujKierunek = true; }
-
             switch (kierunek)
             {
                 case Kierunek.GORA:
-                    if (Wymiary.Y >= szybkosc)
-                    {
-                        ZmienPozycje(0, -szybkosc);
-                        WykrytoPrzeszkode = Zderzenie2(mapa, gracz);
-                    }
-                    else
-                    {
-                        UstawPozycjeY(0);
-                        WykrytoPrzeszkode = true;
-                    }
+                        ZmienPozycje(0, -JEDNOSTKA_RUCHU);
+                        if (Zderzenie3(plansza, gracz))
+                        { ZmienPozycje(0, JEDNOSTKA_RUCHU); WykrytoPrzeszkode = true; }
+                        //rec_ruchu = new Rectangle(wymiary.X, wymiary.Y - szybkosc, wymiary.Width, wymiary.Height);
                     break;
                 case Kierunek.PRAWO:
-                    if (Wymiary.X <= mapa.Szerokosc - (szybkosc + Wymiary.Width))
-                    {
-                        ZmienPozycje(szybkosc, 0);
-                        WykrytoPrzeszkode = Zderzenie2(mapa, gracz);
-                    }
-                    else
-                    {
-                        UstawPozycjeX(mapa.Szerokosc - Wymiary.Width);
-                        WykrytoPrzeszkode = true;
-                    }
+                        //rec_ruchu = new Rectangle(wymiary.X + szybkosc, wymiary.Y, wymiary.Width, wymiary.Height);
+                        ZmienPozycje(JEDNOSTKA_RUCHU, 0);
+                        if (Zderzenie3(plansza, gracz)){ ZmienPozycje(-JEDNOSTKA_RUCHU, 0); WykrytoPrzeszkode = true; }
                     break;
                 case Kierunek.DOL:
-                    if (Wymiary.Y <= mapa.Wysokosc - (szybkosc + Wymiary.Height))
-                    {
-                        ZmienPozycje(0, szybkosc);
-                        WykrytoPrzeszkode = Zderzenie2(mapa, gracz);
-                    }
-                    else
-                    {
-                        WykrytoPrzeszkode = true;
-                        UstawPozycjeY(mapa.Wysokosc - Wymiary.Height);
-                    }
+                        //rec_ruchu = new Rectangle(wymiary.X, wymiary.Y + szybkosc, wymiary.Width, wymiary.Height);
+                        ZmienPozycje(0, JEDNOSTKA_RUCHU);
+                        if (Zderzenie3(plansza, gracz)) { ZmienPozycje(0, -JEDNOSTKA_RUCHU); WykrytoPrzeszkode = true; }
                     break;
                 case Kierunek.LEWO:
-                    if (Wymiary.X >= szybkosc)
-                    {
-                        ZmienPozycje(-szybkosc, 0);
-                        WykrytoPrzeszkode = Zderzenie2(mapa, gracz);
-                    }
-                    else
-                    {
-                        UstawPozycjeX(0);
-                        WykrytoPrzeszkode = true;
-                    }
+                        ZmienPozycje(-JEDNOSTKA_RUCHU, 0);
+                        if (Zderzenie3(plansza, gracz)){ ZmienPozycje(JEDNOSTKA_RUCHU, 0); WykrytoPrzeszkode = true; }
                     break;
             }
-
-            if ((WykrytoPrzeszkode == true) || (LosujKierunek == true))
+            AnalizaRuchu(WykrytoPrzeszkode, fabryczka);
+            pozostaly_ruch = pozostaly_ruch - JEDNOSTKA_RUCHU;
+        }
+        public void AnalizaRuchu(bool wykryto_przeszkode, Fabryka fabryka)
+        {
+            bool LosujKierunek = false;
+            int losuj = Narzedzia.rand.Next(0, 51);
+            if (losuj == 49) LosujKierunek = true;
+            if ((wykryto_przeszkode == true) || (LosujKierunek == true))
             {
-                Strzelaj(fabryczka);
-
-                random = new Random();
-                int losuj_kierunek = (int)random.Next(0, 5);
+                Strzelaj(fabryka);
+                int losuj_kierunek = Narzedzia.rand.Next(0, 5);
                 if (losuj_kierunek == 1) kierunek = Kierunek.GORA;
                 if (losuj_kierunek == 2) kierunek = Kierunek.PRAWO;
                 if (losuj_kierunek == 3) kierunek = Kierunek.DOL;
                 if (losuj_kierunek == 4) kierunek = Kierunek.LEWO;
-
-                WykrytoPrzeszkode = false;
-                LosujKierunek = false;
             }
             int CzyStrzelac;
-            random = new Random();
-            CzyStrzelac = random.Next(0, 3);
-            if (CzyStrzelac == 2) Strzelaj(fabryczka);
-        
-            
+            CzyStrzelac = Narzedzia.rand.Next(0, 3);
+            if (CzyStrzelac == 2) Strzelaj(fabryka);
+        }
+        public void SprawdzPozostaleKolizje(Plansza plansza, Gracz gracz)
+        {
+            if (this.Rec_ruchu.IntersectsWith(gracz.Rec_ruchu))
+            {
+                Pozostaly_ruch = 0;
+                return;
+            }
+            for (int i = 0; i < plansza.przeciwnicy_na_mapie.Count; ++i)
+            {
+                if (this.Rec_ruchu.IntersectsWith(plansza.przeciwnicy_na_mapie[i].Rec_ruchu))
+                {
+                    Pozostaly_ruch = 0;
+                    break;
+                }
+            }
+            if (Pozostaly_ruch > 0) WykonajPozostalyRuchiZatwierdz();
+            else UstawNowyRect(Rec_ruchu);
         }
         public void RuchPocisku(Plansza plansza, Gracz gracz, Fabryka fabryka)
         {
@@ -170,24 +152,31 @@ namespace Rudy_103.src
                 }
             }
         }
-        public bool Zderzenie2(Plansza plansza, Gracz gracz)
+        public override bool Zderzenie2(Plansza plansza)
         {
-            if (gracz.Wymiary.IntersectsWith(Wymiary))
-            {
-                ObliczPozycje(gracz.Wymiary);
-                return true;
-            }
             if (this.Wymiary.IntersectsWith(plansza.baza.Wymiary))
             {
-                ObliczPozycje(plansza.baza.Wymiary);
+                ObliczPozycje2(plansza.baza);
+                return true;
+            }
+            return plansza.region.CzyKoliduje(this);
+        }
+        public bool Zderzenie3(Plansza plansza, Gracz gracz)
+        {
+            if (wymiary.Y < 0 || wymiary.Bottom > plansza.Wysokosc || wymiary.X < 0 || wymiary.Right > plansza.Szerokosc) return true;
+            if (this.wymiary.IntersectsWith(plansza.baza.Wymiary))
+            {
+                return true;
+            }
+            if (this.wymiary.IntersectsWith(gracz.Wymiary))
+            {
                 return true;
             }
             for (int i = 0; i < plansza.przeciwnicy_na_mapie.Count; ++i)
             {
-                if (plansza.przeciwnicy_na_mapie[i] == this) continue;
-                if (plansza.przeciwnicy_na_mapie[i].Wymiary.IntersectsWith(Wymiary))
+                if (this == plansza.przeciwnicy_na_mapie[i]) continue;
+                if (this.wymiary.IntersectsWith(plansza.przeciwnicy_na_mapie[i].wymiary))
                 {
-                    ObliczPozycje(plansza.przeciwnicy_na_mapie[i].Wymiary);
                     return true;
                 }
             }

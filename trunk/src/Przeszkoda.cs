@@ -11,6 +11,7 @@ namespace Rudy_103.src
     {
         public int energia { get; set; }
         public bool transparent { get; set; }
+        public Rectangle[] krawedzie { get; set; }
         public Przeszkoda(int X, int Y, int Szer, int Wys, int energia, bool transparent)
             : base(X, Y, Szer, Wys)
         {

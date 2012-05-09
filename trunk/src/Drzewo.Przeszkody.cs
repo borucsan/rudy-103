@@ -19,6 +19,7 @@ namespace Rudy_103.src
         /// <param name="kompresja">Parametr umożliwiający tworzenie drzewa zkompresowanego(Zawierającego tylko listy w liściach.</param>
         public DrzewoPrzeszkody(List<Przeszkoda> lista_obiektow, Rectangle wymiar, bool kompresja) : 
             base(lista_obiektow, wymiar, kompresja) { }
+        #region Sprawdzanie kolizji
         /// <summary>
         /// Metoda sprawdzająca kolizję z podanym obiektem.
         /// </summary>
@@ -128,15 +129,182 @@ namespace Rudy_103.src
                 {
                     Przeszkoda pr = (Przeszkoda)(iterator.lista[i].obiekt);
                     if (pr.transparent) continue;
-                    if (obj.Wymiary.IntersectsWith(iterator.lista[i].Wymiary) && pr.energia > 0)
+                    if (obj.Wymiary.IntersectsWith(pr.Wymiary) && pr.energia > 0)
                     {
-                        obj.ObliczPozycje(iterator.lista[i].Wymiary);
                         return true;
                     }
                 }
             }
             return false;
         }
+        public Obiekty CzyKoliduje2(Czolg obj)
+        {
+            if (root.lewo != null)
+            {
+                if (obj.Wymiary.IntersectsWith(root.lewo.Wymiary))
+                {
+                    Obiekty ret = Koliduje2(root.lewo, obj);
+                    if (ret != null) return ret;
+                }
+            }
+            if (root.prawo != null)
+            {
+                if (obj.Wymiary.IntersectsWith(root.prawo.Wymiary))
+                {
+                    Obiekty ret = Koliduje2(root.prawo, obj);
+                    if (ret != null) return ret;
+                }
+            }
+            return null;
+        }
+        private Obiekty Koliduje2(ElementDrzewa<Przeszkoda> iterator, Czolg obj)
+        {
+            if (iterator.lewo != null || iterator.prawo != null)
+            {
+                if (iterator.lewo != null)
+                {
+                    if (obj.Wymiary.IntersectsWith(iterator.lewo.Wymiary))
+                    {
+                        Obiekty ret = Koliduje2(iterator.lewo, obj);
+                        if (ret != null) return ret;
+                    }
+                }
+                if (iterator.prawo != null)
+                {
+                    if (obj.Wymiary.IntersectsWith(iterator.prawo.Wymiary))
+                    {
+                        Obiekty ret = Koliduje2(iterator.prawo, obj);
+                        if (ret != null) return ret;
+                    }
+                }
+            }
+            else
+            {
+                for (int i = 0; i < iterator.lista.Count; ++i)
+                {
+                    Przeszkoda pr = (Przeszkoda)(iterator.lista[i].obiekt);
+                    if (pr.transparent) continue;
+                    if (obj.Wymiary.IntersectsWith(pr.Wymiary) && pr.energia > 0) return pr;
+                }
+            }
+            return null;
+        }
+        #endregion
+
+
+        #region Rysowanie podloza
+        public void RysujPodloze(Rectangle rec, Graphics g, System.Drawing.Imaging.ImageAttributes transparentPink)
+        {
+            if (root.lewo != null)
+            {
+                if (rec.IntersectsWith(root.lewo.Wymiary)) RysujPodloze(root.lewo, rec, g, transparentPink);
+            }
+            if (root.prawo != null)
+            {
+                if (rec.IntersectsWith(root.prawo.Wymiary)) RysujPodloze(root.prawo, rec, g, transparentPink);
+            }
+        }
+        private void RysujPodloze(ElementDrzewa<Przeszkoda> iterator, Rectangle rec, Graphics g, System.Drawing.Imaging.ImageAttributes transparentPink)
+        {
+            if (iterator.lewo != null || iterator.prawo != null)
+            {
+                if (iterator.lewo != null)
+                {
+                    if (rec.IntersectsWith(iterator.lewo.Wymiary))
+                    {
+                        RysujPodloze(iterator.lewo, rec, g, transparentPink);
+                    }
+                }
+                if (iterator.prawo != null)
+                {
+                    if (rec.IntersectsWith(iterator.prawo.Wymiary))
+                    {
+                        RysujPodloze(iterator.prawo, rec, g, transparentPink);
+                    }
+                }
+            }
+            else
+            {
+                //Rysowanie przeszkód
+                for (int i = 0; i < iterator.lista.Count; ++i)
+                {
+                    Przeszkoda pr = (iterator.lista[i].obiekt) as Przeszkoda;
+                    if (rec.IntersectsWith(iterator.lista[i].Wymiary))
+                    {
+                            pr.Rysuj(g, transparentPink);
+                    }
+                }
+            }
+        }
+        #endregion
+
+        #region Rysowanie cieni
+        public void RysujCienie(Rectangle rec, Graphics g, System.Drawing.Imaging.ImageAttributes transparentPink)
+        {
+            if (root.lewo != null)
+            {
+                if (rec.IntersectsWith(root.lewo.Wymiary)) RysujCienie(root.lewo, rec, g, transparentPink);
+            }
+            if (root.prawo != null)
+            {
+                if (rec.IntersectsWith(root.prawo.Wymiary)) RysujCienie(root.prawo, rec, g, transparentPink);
+            }
+        }
+        private void RysujCienie(ElementDrzewa<Przeszkoda> iterator, Rectangle rec, Graphics g, System.Drawing.Imaging.ImageAttributes transparentPink)
+        {
+            if (iterator.lewo != null || iterator.prawo != null)
+            {
+                if (iterator.lewo != null)
+                {
+                    if (rec.IntersectsWith(iterator.lewo.Wymiary))
+                    {
+                        RysujCienie(iterator.lewo, rec, g, transparentPink);
+                    }
+                }
+                if (iterator.prawo != null)
+                {
+                    if (rec.IntersectsWith(iterator.prawo.Wymiary))
+                    {
+                        RysujCienie(iterator.prawo, rec, g, transparentPink);
+                    }
+                }
+            }
+            else
+            {
+                for (int i = 0; i < iterator.lista.Count; ++i)
+                {
+                        Przeszkoda pr = (iterator.lista[i].obiekt) as Przeszkoda;
+                        if (rec.IntersectsWith(iterator.lista[i].Wymiary) && pr.energia > 0)
+                        {
+                            if (iterator.lista[i].rysuj)
+                            {
+                                pr.RysujCienie(g, transparentPink);
+                            }
+                            else
+                            {
+                                if(iterator.lista[i].element != null)
+                                {
+                                    if(!(iterator.lista[i].element.Wymiary.IntersectsWith(rec)))
+                                    {
+                                        pr.RysujCienie(g, transparentPink);
+                                    }
+                                }
+                            }
+                        }
+                }
+                    for (int i = 0; i < iterator.lista.Count; ++i)
+                    {
+                        Przeszkoda pr = (iterator.lista[i].obiekt) as Przeszkoda;
+                        if (pr.energia < 0)
+                        {
+                            iterator.lista.RemoveAt(i);
+                        }
+                    }
+            }
+        }
+#endregion
+
+        #region Rysowanie elementow
         public void RysujElementy(Rectangle rec, Graphics g, System.Drawing.Imaging.ImageAttributes transparentPink)
         {
             if (root.lewo != null)
@@ -169,64 +337,34 @@ namespace Rudy_103.src
             }
             else
             {
-
-                if (Opcje.wlacz_cieniowanie == true)
+                //Rysowanie przeszkód
+                for (int i = 0; i < iterator.lista.Count; ++i)
                 {
-                    for (int i = 0; i < iterator.lista.Count; ++i)
+                    Przeszkoda pr = (iterator.lista[i].obiekt) as Przeszkoda;
+                    if (rec.IntersectsWith(iterator.lista[i].Wymiary) && pr.energia > 0)
                     {
-                        Przeszkoda pr = (iterator.lista[i].obiekt) as Przeszkoda;
-                        if (rec.IntersectsWith(iterator.lista[i].Wymiary) && pr.energia > 0)
+                        if (iterator.lista[i].rysuj)
                         {
-                            if (iterator.lista[i].rysuj)
+                            pr.Rysuj(g, transparentPink);
+                        }
+                        else
+                        {
+                            if (iterator.lista[i].element != null)
                             {
-                                pr.RysujCienie(g, transparentPink);
-                            }
-                            else
-                            {
-                                if(iterator.lista[i].element != null)
+                                if (!(iterator.lista[i].element.Wymiary.IntersectsWith(rec)))
                                 {
-                                    if(!(iterator.lista[i].element.Wymiary.IntersectsWith(rec)))
-                                    {
-                                        pr.RysujCienie(g, transparentPink);
-                                    }
+                                    pr.Rysuj(g, transparentPink);
                                 }
                             }
                         }
+
                     }
                 }
-                    //Rysowanie przeszkód
-                    for (int i = 0; i < iterator.lista.Count; ++i)
-                    {
-                        Przeszkoda pr = (iterator.lista[i].obiekt) as Przeszkoda;
-                        if (rec.IntersectsWith(iterator.lista[i].Wymiary) && pr.energia > 0)
-                        {
-                            if (iterator.lista[i].rysuj)
-                            {
-                                pr.Rysuj(g, transparentPink);
-                            }
-                            else
-                            {
-                                if (iterator.lista[i].element != null)
-                                {
-                                    if (!(iterator.lista[i].element.Wymiary.IntersectsWith(rec)))
-                                    {
-                                        pr.Rysuj(g, transparentPink);
-                                    }
-                                }
-                            }
-                                
-                        }
-                    }
-                    for (int i = 0; i < iterator.lista.Count; ++i)
-                    {
-                        Przeszkoda pr = (iterator.lista[i].obiekt) as Przeszkoda;
-                        if (pr.energia < 0)
-                        {
-                            iterator.lista.RemoveAt(i);
-                        }
-                    }
             }
         }
+        #endregion
+
+        #region Rysowanie minimapy
         public void RysujMape(Graphics graph, Image przeszkoda_mapa)
         {
             RysujEleMapa(root.lewo, graph, przeszkoda_mapa);
@@ -255,5 +393,6 @@ namespace Rudy_103.src
                 }
             }
         }
+        #endregion
     }
 }
