@@ -49,29 +49,35 @@ namespace Rudy_103.src
         }
         public void ZmienPozycje(int zmiana_X, int zmiana_Y)
         {
+            poprzednia_pozycja = wymiary.Location;
             wymiary.X = wymiary.X + zmiana_X;
             wymiary.Y = wymiary.Y + zmiana_Y;
         }
         public void UstawPozycje(int X, int Y)
         {
+            poprzednia_pozycja = wymiary.Location;
             wymiary.X = X;
             wymiary.Y = Y;
         }
         public void UstawPozycje(Point poz)
         {
+            poprzednia_pozycja = wymiary.Location;
             wymiary.X = poz.X;
             wymiary.Y = poz.Y;
         }
         public void UstawPozycjeX(int X)
         {
+            poprzednia_pozycja = wymiary.Location;
             wymiary.X = X;
         }
         public void UstawPozycjeY(int Y)
         {
+            poprzednia_pozycja = wymiary.Location;
             wymiary.Y = Y;
         }
         public void UstawNowyRect(Rectangle rec)
         {
+            poprzednia_pozycja = wymiary.Location;
             wymiary = rec;
         }
         public virtual bool Uszkodz(int sila)

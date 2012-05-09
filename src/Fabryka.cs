@@ -108,7 +108,7 @@ namespace Rudy_103.src
         /// <returns>Zwraca instancję gracza</returns>
         public static Gracz ProdukujDomyslnegoGracza(System.Reflection.Assembly execAssem)
         {
-            Gracz player = new Gracz(425, 930, 40, 40, 100, 5, 10, 3);
+            Gracz player = new Gracz(Gracz.PunktRespGracza.X + 5, Gracz.PunktRespGracza.Y + 5, 40, 40, 100, 5, 10, 3);
             
             player.WczytajObrazy(Multimedia.domyslny_gracz);
             return player;

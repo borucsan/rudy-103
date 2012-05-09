@@ -81,6 +81,7 @@
       <DependentUpon>Drzewo.cs</DependentUpon>
     </Compile>
     <Compile Include="src\Kamera.cs" />
+    <Compile Include="src\Mapa.cs" />
     <Compile Include="src\KoniecGry.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -130,6 +131,7 @@
     </Compile>
     <Compile Include="src\Przeciwnik.cs" />
     <Compile Include="src\Przeszkoda.cs" />
+    <Compile Include="src\PrzeszkodaZapisOdczyt.cs" />
     <Compile Include="src\Top10.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -249,6 +251,15 @@
     <EmbeddedResource Include="Resources\Dzwieki\wystrzal.wav" />
     <EmbeddedResource Include="Resources\Dzwieki\end.wav" />
     <EmbeddedResource Include="Resources\Dzwieki\killed.wav" />
+    <Content Include="Mapy\City.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Mapy\Miasto.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Mapy\ModernCity.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Resources\Efekty\Slad\slad_down.png" />
     <Content Include="Resources\Efekty\Slad\slad_left.png" />
     <Content Include="Resources\Efekty\Slad\slad_right.png" />
@@ -327,6 +338,7 @@
     <EmbeddedResource Include="Resources\Ziemia\tlo_9.png" />
     <EmbeddedResource Include="src\KoniecGry.resx">
       <DependentUpon>KoniecGry.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CompactFramework.CSharp.targets" />

@@ -1,0 +1,383 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Mapa xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" szerokosc="800" wysokosc="800" nazwa="ModernCity" autor="Adam Musioł" xmlns="https://code.google.com/p/rudy-103/">
+  <lista_przeszkod>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Droga A2" warstwa="1">
+      <pozycja y="1" x="0" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Droga A2" warstwa="1">
+      <pozycja y="1" x="50" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Droga A2" warstwa="1">
+      <pozycja y="1" x="100" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Droga A2" warstwa="1">
+      <pozycja y="1" x="150" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Droga A2" warstwa="1">
+      <pozycja y="1" x="200" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Droga A2" warstwa="1">
+      <pozycja y="1" x="250" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Droga A2" warstwa="1">
+      <pozycja y="1" x="300" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Droga A2" warstwa="1">
+      <pozycja y="1" x="350" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Droga A2" warstwa="1">
+      <pozycja y="1" x="400" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Droga A2" warstwa="1">
+      <pozycja y="1" x="450" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Droga A2" warstwa="1">
+      <pozycja y="1" x="500" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Droga A2" warstwa="1">
+      <pozycja y="1" x="550" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Droga A2" warstwa="1">
+      <pozycja y="1" x="600" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Droga A2" warstwa="1">
+      <pozycja y="1" x="650" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Droga A2" warstwa="1">
+      <pozycja y="1" x="700" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Droga A2" warstwa="1">
+      <pozycja y="1" x="750" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Droga A2" warstwa="1">
+      <pozycja y="750" x="1" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Droga A2" warstwa="1">
+      <pozycja y="750" x="51" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Droga A2" warstwa="1">
+      <pozycja y="750" x="101" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Droga A2" warstwa="1">
+      <pozycja y="750" x="151" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Droga A2" warstwa="1">
+      <pozycja y="750" x="201" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Droga A2" warstwa="1">
+      <pozycja y="750" x="251" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Droga A2" warstwa="1">
+      <pozycja y="750" x="301" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Droga A2" warstwa="1">
+      <pozycja y="750" x="351" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Droga A2" warstwa="1">
+      <pozycja y="750" x="401" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Droga A2" warstwa="1">
+      <pozycja y="750" x="451" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Droga A2" warstwa="1">
+      <pozycja y="750" x="501" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Droga A2" warstwa="1">
+      <pozycja y="750" x="551" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Droga A2" warstwa="1">
+      <pozycja y="750" x="601" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Droga A2" warstwa="1">
+      <pozycja y="750" x="651" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Droga A2" warstwa="1">
+      <pozycja y="750" x="701" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Droga A2" warstwa="1">
+      <pozycja y="750" x="751" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Budynek A" warstwa="2">
+      <pozycja y="54" x="3" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Budynek A" warstwa="2">
+      <pozycja y="53" x="222" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Budynek A" warstwa="2">
+      <pozycja y="53" x="430" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Budynek A" warstwa="2">
+      <pozycja y="52" x="697" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Droga A1" warstwa="1">
+      <pozycja y="49" x="130" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Droga A1" warstwa="1">
+      <pozycja y="99" x="130" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Droga A1" warstwa="1">
+      <pozycja y="149" x="130" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Droga A2" warstwa="1">
+      <pozycja y="198" x="1" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Droga A2" warstwa="1">
+      <pozycja y="198" x="51" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Droga A2" warstwa="1">
+      <pozycja y="198" x="101" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Droga A2" warstwa="1">
+      <pozycja y="198" x="151" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Droga A2" warstwa="1">
+      <pozycja y="198" x="201" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Droga A2" warstwa="1">
+      <pozycja y="198" x="251" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Droga A2" warstwa="1">
+      <pozycja y="198" x="301" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Droga A2" warstwa="1">
+      <pozycja y="198" x="351" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Droga A2" warstwa="1">
+      <pozycja y="198" x="401" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Droga A2" warstwa="1">
+      <pozycja y="198" x="451" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Droga A2" warstwa="1">
+      <pozycja y="198" x="501" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Droga A1" warstwa="1">
+      <pozycja y="50" x="550" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Droga A1" warstwa="1">
+      <pozycja y="100" x="550" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Droga A1" warstwa="1">
+      <pozycja y="150" x="550" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Droga A1" warstwa="1">
+      <pozycja y="200" x="550" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Droga A1" warstwa="1">
+      <pozycja y="250" x="550" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Droga A1" warstwa="1">
+      <pozycja y="300" x="550" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Budynek B" warstwa="2">
+      <pozycja y="248" x="32" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Budynek B" warstwa="2">
+      <pozycja y="249" x="233" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Budynek B" warstwa="2">
+      <pozycja y="247" x="413" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Droga A1" warstwa="1">
+      <pozycja y="248" x="159" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Droga A1" warstwa="1">
+      <pozycja y="298" x="159" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Droga A1" warstwa="1">
+      <pozycja y="348" x="159" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Droga A2" warstwa="1">
+      <pozycja y="396" x="158" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Droga A2" warstwa="1">
+      <pozycja y="396" x="208" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Droga A2" warstwa="1">
+      <pozycja y="396" x="258" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Droga A2" warstwa="1">
+      <pozycja y="396" x="308" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Droga A2" warstwa="1">
+      <pozycja y="396" x="358" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Droga A2" warstwa="1">
+      <pozycja y="396" x="408" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Droga A2" warstwa="1">
+      <pozycja y="396" x="458" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Droga A2" warstwa="1">
+      <pozycja y="396" x="508" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Droga A1" warstwa="1">
+      <pozycja y="345" x="550" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Droga A1" warstwa="1">
+      <pozycja y="395" x="550" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Budynek C" warstwa="2">
+      <pozycja y="449" x="31" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Budynek C" warstwa="2">
+      <pozycja y="442" x="687" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Budynek C" warstwa="2">
+      <pozycja y="456" x="319" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Chata" warstwa="2">
+      <pozycja y="558" x="166" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Chata" warstwa="2">
+      <pozycja y="568" x="573" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Garaz" warstwa="2">
+      <pozycja y="361" x="601" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Garaz" warstwa="2">
+      <pozycja y="361" x="651" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Garaz" warstwa="2">
+      <pozycja y="363" x="701" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Droga A1" warstwa="1">
+      <pozycja y="444" x="246" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Droga A1" warstwa="1">
+      <pozycja y="494" x="246" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Droga A1" warstwa="1">
+      <pozycja y="544" x="246" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Droga A1" warstwa="1">
+      <pozycja y="594" x="246" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Droga A1" warstwa="1">
+      <pozycja y="644" x="246" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Droga A1" warstwa="1">
+      <pozycja y="694" x="246" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Droga A1" warstwa="1">
+      <pozycja y="744" x="246" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Budynek B" warstwa="2">
+      <pozycja y="619" x="422" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Budynek B" warstwa="2">
+      <pozycja y="451" x="491" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="cegielka3" warstwa="2">
+      <pozycja y="374" x="33" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="cegielka3" warstwa="2">
+      <pozycja y="376" x="99" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="cegielka3" warstwa="2">
+      <pozycja y="372" x="222" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="cegielka3" warstwa="2">
+      <pozycja y="371" x="324" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="cegielka3" warstwa="2">
+      <pozycja y="371" x="413" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="cegielka3" warstwa="2">
+      <pozycja y="371" x="508" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="cegielka3" warstwa="2">
+      <pozycja y="296" x="524" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="cegielka3" warstwa="2">
+      <pozycja y="301" x="600" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="cegielka3" warstwa="2">
+      <pozycja y="201" x="601" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="cegielka3" warstwa="2">
+      <pozycja y="251" x="600" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="cegielka3" warstwa="2">
+      <pozycja y="138" x="601" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="cegielka3" warstwa="2">
+      <pozycja y="77" x="600" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="cegielka3" warstwa="2">
+      <pozycja y="51" x="660" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="cegielka3" warstwa="2">
+      <pozycja y="171" x="501" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="cegielka3" warstwa="2">
+      <pozycja y="169" x="434" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="cegielka3" warstwa="2">
+      <pozycja y="171" x="350" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="cegielka3" warstwa="2">
+      <pozycja y="172" x="279" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="cegielka3" warstwa="2">
+      <pozycja y="173" x="201" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="cegielka3" warstwa="2">
+      <pozycja y="173" x="67" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="cegielka3" warstwa="2">
+      <pozycja y="171" x="3" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="cegielka3" warstwa="2">
+      <pozycja y="54" x="189" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="cegielka3" warstwa="2">
+      <pozycja y="106" x="187" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="cegielka3" warstwa="2">
+      <pozycja y="101" x="104" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="cegielka3" warstwa="2">
+      <pozycja y="53" x="334" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="cegielka3" warstwa="2">
+      <pozycja y="53" x="398" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="cegielka3" warstwa="2">
+      <pozycja y="453" x="455" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="cegielka3" warstwa="2">
+      <pozycja y="447" x="219" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="cegielka3" warstwa="2">
+      <pozycja y="447" x="164" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="cegielka3" warstwa="2">
+      <pozycja y="351" x="131" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="cegielka3" warstwa="2">
+      <pozycja y="285" x="133" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="cegielka3" warstwa="2">
+      <pozycja y="494" x="218" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="cegielka3" warstwa="2">
+      <pozycja y="562" x="300" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="cegielka3" warstwa="2">
+      <pozycja y="427" x="604" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="cegielka3" warstwa="2">
+      <pozycja y="637" x="210" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="cegielka3" warstwa="2">
+      <pozycja y="640" x="299" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="cegielka3" warstwa="2">
+      <pozycja y="687" x="212" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="cegielka3" warstwa="2">
+      <pozycja y="691" x="299" />
+    </PrzeszkodaZapisOdczyt>
+  </lista_przeszkod>
+</Mapa>

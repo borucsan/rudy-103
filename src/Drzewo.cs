@@ -9,7 +9,7 @@ namespace Rudy_103.src
     /// <summary>
     /// Generyczna klasa drzewa BSP.
     /// </summary>
-    /// <typeparam name="T">Wstępnie przyjmuje tylko typ "Obiekty"</typeparam>
+    /// <typeparam name="T">Przyjmuje obiekty zwracające Rectangle</typeparam>
     class Drzewo<T> where T : IPodzielny
     {
         /// <summary>
@@ -81,7 +81,7 @@ namespace Rudy_103.src
                         lista2.Add(el2);
                     }
                 }
-                if ((k1.Width == 125 && k1.Height == 125))
+                if ((k1.Width < 50 && k1.Height < 50))
                 {
                     if (lista1.Count != 0)
                     {
