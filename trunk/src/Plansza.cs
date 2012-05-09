@@ -161,10 +161,7 @@ namespace Rudy_103.src
                     }
                     for (int i = 0; i < przeciwnicy_na_mapie.Count; ++i)
                     {
-                        Rectangle temp_rect = new Rectangle(temp_resp[liczba].X-20, temp_resp[liczba].Y-20, temp_resp[liczba].Width + 40,
-                            temp_resp[liczba].Height + 40);
-                        
-                        if(temp_rect.IntersectsWith(przeciwnicy_na_mapie[i].Wymiary))
+                        if(temp_resp[liczba].IntersectsWith(przeciwnicy_na_mapie[i].Wymiary))
                         {
                             temp_resp.RemoveAt(liczba);
                             wolne = false;
