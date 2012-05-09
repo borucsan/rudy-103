@@ -33,26 +33,14 @@ namespace Rudy_103.src
             Point[] points = new Point[4];
             points[0].X = Wymiary.X - Kamera.Prostokat_Kamery.X;
             points[0].Y = Wymiary.Y + Wymiary.Height - Kamera.Prostokat_Kamery.Y;
-            points[1].X = Wymiary.X + 5 - Kamera.Prostokat_Kamery.X;
-            points[1].Y = Wymiary.Y + Wymiary.Height + 5 - Kamera.Prostokat_Kamery.Y;
-            points[2].X = Wymiary.X + Wymiary.Width + 5 - Kamera.Prostokat_Kamery.X;
-            points[2].Y = Wymiary.Y + Wymiary.Height + 5 - Kamera.Prostokat_Kamery.Y;
+            points[1].X = Wymiary.X + 10 - Kamera.Prostokat_Kamery.X;
+            points[1].Y = Wymiary.Y + Wymiary.Height + Wymiary.Height / 3 - Kamera.Prostokat_Kamery.Y;
+            points[2].X = Wymiary.X + Wymiary.Width + 10 - Kamera.Prostokat_Kamery.X;
+            points[2].Y = Wymiary.Y + Wymiary.Height + Wymiary.Height / 3 - Kamera.Prostokat_Kamery.Y;
             points[3].X = Wymiary.X + Wymiary.Width - Kamera.Prostokat_Kamery.X;
             points[3].Y = Wymiary.Y + Wymiary.Height - Kamera.Prostokat_Kamery.Y;
 
             g.FillPolygon(new SolidBrush(Color.Black), points);
-
-            Point[] points2 = new Point[4];
-            points2[0].X = Wymiary.X + Wymiary.Width - Kamera.Prostokat_Kamery.X;
-            points2[0].Y = Wymiary.Y - Kamera.Prostokat_Kamery.Y;
-            points2[1].X = Wymiary.X + Wymiary.Width + 5 - Kamera.Prostokat_Kamery.X;
-            points2[1].Y = Wymiary.Y + 5 - Kamera.Prostokat_Kamery.Y;
-            points2[2].X = Wymiary.X + Wymiary.Width + 5 - Kamera.Prostokat_Kamery.X;
-            points2[2].Y = Wymiary.Y + Wymiary.Height + 5 - Kamera.Prostokat_Kamery.Y;
-            points2[3].X = Wymiary.X + Wymiary.Width - Kamera.Prostokat_Kamery.X;
-            points2[3].Y = Wymiary.Y + Wymiary.Height - Kamera.Prostokat_Kamery.Y;
-
-            g.FillPolygon(new SolidBrush(Color.Black), points2); 
         }
         public object Clone()
         {
