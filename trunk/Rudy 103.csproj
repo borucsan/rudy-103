@@ -95,16 +95,22 @@
       <DependentUpon>MenuGlowne.cs</DependentUpon>
     </Compile>
     <Compile Include="src\Narzedzia.cs" />
-    <Compile Include="src\NowaGra.cs">
+    <Compile Include="src\Gra.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="src\NowaGra.Designer.cs">
-      <DependentUpon>NowaGra.cs</DependentUpon>
+    <Compile Include="src\Gra.Designer.cs">
+      <DependentUpon>Gra.cs</DependentUpon>
     </Compile>
     <Compile Include="src\Obiekty.cs" />
     <Compile Include="src\Opcje.cs" />
     <Compile Include="src\Plansza.cs" />
     <Compile Include="src\Pocisk.cs" />
+    <Compile Include="src\Profil.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="src\Profil.Designer.cs">
+      <DependentUpon>Profil.cs</DependentUpon>
+    </Compile>
     <Compile Include="src\Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -116,8 +122,8 @@
       <DependentUpon>MenuGlowne.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="src\NowaGra.resx">
-      <DependentUpon>NowaGra.cs</DependentUpon>
+    <EmbeddedResource Include="src\Gra.resx">
+      <DependentUpon>Gra.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="src\Top10.resx">
@@ -264,10 +270,16 @@
     <Content Include="Resources\Efekty\Slad\slad_left.png" />
     <Content Include="Resources\Efekty\Slad\slad_right.png" />
     <Content Include="Resources\Efekty\Slad\slad_up.png" />
-    <Content Include="Resources\Gracz\Polska\enemy_tank_poland_down.png" />
-    <Content Include="Resources\Gracz\Polska\enemy_tank_poland_left.png" />
-    <Content Include="Resources\Gracz\Polska\enemy_tank_poland_right.png" />
-    <Content Include="Resources\Gracz\Polska\enemy_tank_poland_up.png" />
+    <EmbeddedResource Include="Resources\Intro\intro1.png" />
+    <EmbeddedResource Include="Resources\Intro\intro2.png" />
+    <EmbeddedResource Include="Resources\Intro\intro3.png" />
+    <EmbeddedResource Include="Resources\Intro\intro4.png" />
+    <EmbeddedResource Include="Resources\Intro\intro5.png" />
+    <EmbeddedResource Include="Resources\Intro\intro6.png" />
+    <EmbeddedResource Include="Resources\Gracz\Polska\tank_poland_down.png" />
+    <EmbeddedResource Include="Resources\Gracz\Polska\tank_poland_left.png" />
+    <EmbeddedResource Include="Resources\Gracz\Polska\tank_poland_right.png" />
+    <EmbeddedResource Include="Resources\Gracz\Polska\tank_poland_up.png" />
     <EmbeddedResource Include="Resources\Podloze\Droga_EW.png" />
     <EmbeddedResource Include="Resources\Podloze\Droga_NS.png" />
     <EmbeddedResource Include="Resources\Podloze\Grass.png" />
@@ -338,6 +350,10 @@
     <EmbeddedResource Include="Resources\Ziemia\tlo_9.png" />
     <EmbeddedResource Include="src\KoniecGry.resx">
       <DependentUpon>KoniecGry.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="src\Profil.resx">
+      <DependentUpon>Profil.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>

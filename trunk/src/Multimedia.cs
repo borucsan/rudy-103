@@ -43,6 +43,8 @@ namespace Rudy_103.src
         public static Image[] baza;
 
         public static Image[] domyslny_gracz;
+        public static Image[] polska_gracz;
+
         public static Image[] przeciwnik_1;
         public static Image[] przeciwnik_2;
         public static Image[] przeciwnik_3;
@@ -56,6 +58,8 @@ namespace Rudy_103.src
 
         public static Image[] ogien;
         public static Image[] eksplozja;
+
+        public static Image[] intro_images;
 
         public static Image budynekA;
         public static Image budynekB;
@@ -173,6 +177,12 @@ namespace Rudy_103.src
             domyslny_gracz[2] = new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Gracz.Domyslny.tank_default_down.png"));
             domyslny_gracz[3] = new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Gracz.Domyslny.tank_default_left.png"));
 
+            polska_gracz = new Image[4];
+            polska_gracz[0] = new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Gracz.Polska.tank_poland_up.png"));
+            polska_gracz[1] = new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Gracz.Polska.tank_poland_right.png"));
+            polska_gracz[2] = new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Gracz.Polska.tank_poland_down.png"));
+            polska_gracz[3] = new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Gracz.Polska.tank_poland_left.png"));
+
             przeciwnik_1 = new Image[4];
             przeciwnik_1[0] = new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Przeciwnicy.Poziom_1.enemy_tank_1_up.png"));
             przeciwnik_1[1] = new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Przeciwnicy.Poziom_1.enemy_tank_1_right.png"));
@@ -248,6 +258,15 @@ namespace Rudy_103.src
             eksplozja[2] = new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Efekty.Eksplozja.wybuch_3.png"));
             eksplozja[3] = new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Efekty.Eksplozja.wybuch_4.png"));
             eksplozja[4] = new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Efekty.Eksplozja.wybuch_5.png"));
+
+            intro_images = new Image[6];
+            intro_images[0] = new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Intro.intro1.png"));
+            intro_images[1] = new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Intro.intro2.png"));
+            intro_images[2] = new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Intro.intro3.png"));
+            intro_images[3] = new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Intro.intro4.png"));
+            intro_images[4] = new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Intro.intro5.png"));
+            intro_images[5] = new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Intro.intro6.png"));
+
             #endregion Efekty
 
             #region Budynki

@@ -15,7 +15,7 @@ namespace Rudy_103.src
     /// <summary>
     /// NowaGra - jest to klasa okna nowej gry.
     /// </summary>
-    public partial class NowaGra : Form
+    public partial class Gra : Form
     {
         //Wartości określające graficzny interfejs użytkownika
         private bool panelEnergii;
@@ -72,7 +72,7 @@ namespace Rudy_103.src
         /// <summary>
         /// Konstruktor klasy nowej gry.
         /// </summary>
-        public NowaGra()
+        public Gra()
         {
             InitializeComponent();
 
@@ -426,7 +426,17 @@ namespace Rudy_103.src
             }
             if (panelEnergii)
             {
+                #region Lifes
+                Rectangle prostokat3 = new Rectangle(5, 0, 30, 30);
+                for (int i = 0; i < player.energia; i++)
+                {
+                    g.DrawImage(Multimedia.polska_gracz[0], prostokat3, 0, 0, Multimedia.polska_gracz[0].Width, Multimedia.polska_gracz[0].Height, GraphicsUnit.Pixel, transparentPink);
+                    prostokat3.X += 35;
+                }
+                #endregion Lifes
+                
                 #region RysowanieBaterii
+                /*
                 int procent_wytrzymalosci = (player.Wytrzymalosc * 100) / player.Wytrzymalosc_Bazowa;
                 if (player.energia == 3)
                 {
@@ -531,6 +541,7 @@ namespace Rudy_103.src
                         g.DrawImage(Multimedia.interfejs_bateria[6], prostokat3, 0, 0, Multimedia.interfejs_bateria[0].Width, Multimedia.interfejs_bateria[0].Height, GraphicsUnit.Pixel, transparentPink);
                     }
                 }
+                */
                 #endregion RysowanieBaterii
             }
             if (przyciskMapy)
@@ -630,9 +641,6 @@ namespace Rudy_103.src
                 int wysokosc_elementu = (Kamera.Wysokosc_Ekranu - 20 - (ilosc_opcji*5) ) / ilosc_opcji;
                 
                 int aktualna_wysokosc = 25;
-                
-                if (wysokosc_elementu < 30)
-                {
                     
                     #region Rysowanie Przycisku Radaru
                     przyciskWylaczRadar = new Rectangle(Kamera.Szerokosc_Ekranu/2 - 100, aktualna_wysokosc, 200, 30);
@@ -695,72 +703,7 @@ namespace Rudy_103.src
                         przyciskZamknijOpcjeProst, drawFormat);
                     aktualna_wysokosc += 35;
                     #endregion Rysowanie Przycisku Zamkniecia Opcji
-                }
-                else
-                {
-
-                    #region Rysowanie Przycisku Radaru
-                    przyciskWylaczRadar = new Rectangle(Kamera.Szerokosc_Ekranu / 2 - 100, aktualna_wysokosc, 200, 30);
-                    g.DrawImage(Multimedia.przyciskImageZamknij, przyciskWylaczRadar, 0, 0, Multimedia.przyciskImageZamknij.Width,
-                        Multimedia.przyciskImageZamknij.Height, GraphicsUnit.Pixel, transparentPink);
-                    if (panelRadaru) g.DrawString("Wyłącz Radar", new Font("Arial", 10, FontStyle.Bold), new SolidBrush(Color.Green),
-                         przyciskWylaczRadar, drawFormat);
-                    else g.DrawString("Włącz Radar", new Font("Arial", 10, FontStyle.Bold), new SolidBrush(Color.Red),
-                        przyciskWylaczRadar, drawFormat);
-                    aktualna_wysokosc += 35;
-                    #endregion Rysowanie Przycisku Radaru
-
-                    #region Rysowanie Przycisku Energii
-                    przyciskWylaczEnergie = new Rectangle(Kamera.Szerokosc_Ekranu / 2 - 100, aktualna_wysokosc, 200, 30);
-                    g.DrawImage(Multimedia.przyciskImageZamknij, przyciskWylaczEnergie, 0, 0, Multimedia.przyciskImageZamknij.Width,
-                        Multimedia.przyciskImageZamknij.Height, GraphicsUnit.Pixel, transparentPink);
-                    if (panelEnergii) g.DrawString("Wyłącz Energie", new Font("Arial", 10, FontStyle.Bold), new SolidBrush(Color.Green),
-                         przyciskWylaczEnergie, drawFormat);
-                    else g.DrawString("Włącz Energie", new Font("Arial", 10, FontStyle.Bold), new SolidBrush(Color.Red),
-                        przyciskWylaczEnergie, drawFormat);
-                    aktualna_wysokosc += 35;
-                    #endregion Rysowanie Przycisku Energii
-
-                    #region Rysowanie Przycisku Informacji
-                    przyciskWylaczInformacje = new Rectangle(Kamera.Szerokosc_Ekranu / 2 - 100, aktualna_wysokosc, 200, 30);
-                    g.DrawImage(Multimedia.przyciskImageZamknij, przyciskWylaczInformacje, 0, 0, Multimedia.przyciskImageZamknij.Width,
-                        Multimedia.przyciskImageZamknij.Height, GraphicsUnit.Pixel, transparentPink);
-                    if (panelInformacji) g.DrawString("Wyłącz Informacje", new Font("Arial", 10, FontStyle.Bold), new SolidBrush(Color.Green),
-                         przyciskWylaczInformacje, drawFormat);
-                    else g.DrawString("Włącz Informacje", new Font("Arial", 10, FontStyle.Bold), new SolidBrush(Color.Red),
-                        przyciskWylaczInformacje, drawFormat);
-                    aktualna_wysokosc += 35;
-                    #endregion Rysowanie Przycisku Informacji
-
-                    #region Rysowanie Przycisku Cieniowania
-                    przyciskWylaczCieniowanie = new Rectangle(Kamera.Szerokosc_Ekranu / 2 - 100, aktualna_wysokosc, 200, 30);
-                    g.DrawImage(Multimedia.przyciskImageZamknij, przyciskWylaczCieniowanie, 0, 0, Multimedia.przyciskImageZamknij.Width,
-                        Multimedia.przyciskImageZamknij.Height, GraphicsUnit.Pixel, transparentPink);
-                    if (Opcje.wlacz_cieniowanie) g.DrawString("Wyłącz Cieniowanie", new Font("Arial", 10, FontStyle.Bold), new SolidBrush(Color.Green),
-                         przyciskWylaczCieniowanie, drawFormat);
-                    else g.DrawString("Włącz Cieniowanie", new Font("Arial", 10, FontStyle.Bold), new SolidBrush(Color.Red),
-                        przyciskWylaczCieniowanie, drawFormat);
-                    aktualna_wysokosc += 35;
-                    #endregion Rysowanie Przycisku Cieniowania
-
-                    #region Rysowanie Przycisku Wyjscia
-                    przyciskWyjscia = new Rectangle(Kamera.Szerokosc_Ekranu / 2 - 100, aktualna_wysokosc, 200, 30);
-                    g.DrawImage(Multimedia.przyciskImageZamknij, przyciskWyjscia, 0, 0, Multimedia.przyciskImageZamknij.Width,
-                        Multimedia.przyciskImageZamknij.Height, GraphicsUnit.Pixel, transparentPink);
-                    g.DrawString("Zakończ Grę", new Font("Arial", 10, FontStyle.Bold), new SolidBrush(Color.Yellow),
-                        przyciskWyjscia, drawFormat);
-                    aktualna_wysokosc += 35;
-                    #endregion Rysowanie Przycisku Wyjscia
-
-                    #region Rysowanie Przycisku Zamkniecia Opcji
-                    przyciskZamknijOpcjeProst = new Rectangle(Kamera.Szerokosc_Ekranu / 2 - 100, aktualna_wysokosc, 200, 30);
-                    g.DrawImage(Multimedia.przyciskImageZamknij, przyciskZamknijOpcjeProst, 0, 0, Multimedia.przyciskImageZamknij.Width,
-                        Multimedia.przyciskImageZamknij.Height, GraphicsUnit.Pixel, transparentPink);
-                    g.DrawString("Zamknij Opcje", new Font("Arial", 10, FontStyle.Bold), new SolidBrush(Color.Yellow),
-                        przyciskZamknijOpcjeProst, drawFormat);
-                    aktualna_wysokosc += 35;
-                    #endregion Rysowanie Przycisku Zamkniecia Opcji
-                }
+               
             }
             if (panelUlepszen)
             {

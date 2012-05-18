@@ -8,6 +8,7 @@ using System.Text;
 using System.Windows.Forms;
 using Microsoft.WindowsMobile;
 using Microsoft.WindowsMobile.Status;
+using Microsoft.WindowsCE.Forms;
 //using Rudy_103.src;
 
 namespace Rudy_103.src
@@ -15,11 +16,9 @@ namespace Rudy_103.src
     public partial class MainWindow : Form
     {
         
-        private bool wczytywaniePlikow;
-        private int stan;
-        private NowaGra nowa;
         private int czas;
-        private Animacja Wczytywanie;
+        private bool isIntro;
+        private Animacja Intro_Animacja;
         
         /// <summary>
         /// Konstruktor klasy głównego okna.
@@ -27,56 +26,42 @@ namespace Rudy_103.src
         public MainWindow()
         {
             InitializeComponent();
-            wczytywaniePlikow = false;
-            panel1.Visible = true;
-            panel2.Visible = true;
-            panel3.Visible = true;
-
-            //KontynuujButton.Visible = true;
-            //NowaGraButton.Visible = true;
-            //Top10Button.Visible = true;
-            //WyjdzButton.Visible = true;
-            
-            label1.Visible = true;
-            linkLabel1.Visible = true;
+            isIntro = true;
+            panel1.Visible = false;
+            panel2.Visible = false;
+            panel3.Visible = false;
 
             czas = 0;
-            stan = 0;
-
-            //wczytywanieImage = new Image[4];
 
             System.Reflection.Assembly execAssem = System.Reflection.Assembly.GetExecutingAssembly();
             Narzedzia.transparentPink = new System.Drawing.Imaging.ImageAttributes();
             Narzedzia.transparentPink.SetColorKey(Color.Pink, Color.Pink);
 
-            //wczytywanieImage[0] = new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Wczytywanie.load_1.png"));
-            //wczytywanieImage[1] = new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Wczytywanie.load_2.png"));
-            //wczytywanieImage[2] = new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Wczytywanie.load_3.png"));
-            //wczytywanieImage[3] = new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Wczytywanie.load_4.png"));
-            
             //Wczytywanie Grafiki
             Multimedia.WczytajMultimedia(execAssem);
-            
+
+            SystemSettings.ScreenOrientation = ScreenOrientation.Angle270;
             Kamera.Szerokosc_Ekranu = Screen.PrimaryScreen.Bounds.Width;
             Kamera.Wysokosc_Ekranu = Screen.PrimaryScreen.Bounds.Height;
-
-            czas1.Enabled = false;
+            Kamera.Prostokat_Kamery.X = 0;
+            Kamera.Prostokat_Kamery.Y = 0;
 
             OdswiezEkran();
+
+            Intro_Animacja = new Animacja(Kamera.Prostokat_Kamery.Width / 2 - 100, Kamera.Prostokat_Kamery.Height / 2 - 100, 200, 200, 6, 1);
+            Intro_Animacja.WczytajObrazy(Multimedia.intro_images);
+
+            czas_odswiezania.Enabled = true;
+            czas1.Enabled = true;
+
         }
 
         private void NowaGraButton_Click(object sender, EventArgs e)
         {
-            nowa = null;
-            panel1.Visible = false;
-            panel2.Visible = false;
-            panel3.Visible = false;
-
-            wczytywaniePlikow = true;
-            czas1.Enabled = true;
-
-            Wczytywanie = new Animacja(Kamera.Szerokosc_Ekranu / 2 - 25, Kamera.Wysokosc_Ekranu / 2 - 25, 50, 50, 4, 1, Multimedia.wczytywanieImage);
-
+            Profil wybor_profilu = new Profil();
+            wybor_profilu.Owner = this;
+            wybor_profilu.Show();
+            this.Hide();
         }
 
         private void Top10Button_Click(object sender, EventArgs e)
@@ -101,6 +86,7 @@ namespace Rudy_103.src
             DialogResult wybor = MessageBox.Show("Czy na pewno chcesz wyjść z gry?", "Rudy 103 - Wyjście z Gry",
                 MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2);
             e.Cancel = (wybor == DialogResult.No);
+            SystemSettings.ScreenOrientation = ScreenOrientation.Angle0;
         }
 
         private void linkLabel1_Click(object sender, EventArgs e)
@@ -122,83 +108,46 @@ namespace Rudy_103.src
             //Tworzymy nowy buffor jezeli potrzebny.
             if (buforBitmapy == null)
             {
-                buforBitmapy = new Bitmap(Kamera.Szerokosc_Ekranu, Kamera.Wysokosc_Ekranu);
+                buforBitmapy = new Bitmap(800, 800);
             }
 
             //Tutaj ladujemy cala grafike
             using (Graphics g = Graphics.FromImage(buforBitmapy))
             {
                 g.Clear(Color.Black);
-                g.FillRectangle(new SolidBrush(Color.White), new Rectangle(0, 0, Kamera.Szerokosc_Ekranu, Kamera.Wysokosc_Ekranu));
-                if (wczytywaniePlikow)
+                g.FillRectangle(new SolidBrush(Color.White), new Rectangle(0, 0, 800, 800));
+                if (isIntro)
                 {
-                    wczytywanieNowejGry(g);
+                    Intro(g);
                 }
             }
             e.Graphics.DrawImage(buforBitmapy, 0, 0);
             
         }
-        private void wczytywanieNowejGry(Graphics g)
+        private void Intro(Graphics g)
         {
-
-            //g.Graphics.DrawRectangle(new Pen(Color.Blue), new Rectangle(0, 0, 240, 320));
             g.Clear(Color.Black);
-            //g.FillRectangle(new SolidBrush(Color.Black), new Rectangle(0, 0, 240, 320));
-            g.DrawString("Trwa Wczytywanie", new Font("Arial", 15, FontStyle.Regular), new SolidBrush(Color.White), new RectangleF(Kamera.Szerokosc_Ekranu/2 - 80, Kamera.Wysokosc_Ekranu/2 - 80, 200, 30));
-            
-            Wczytywanie.Rysuj(g, Narzedzia.transparentPink);
-            /*
-            if (stan == 0)
-            {
-                g.DrawImage(Grafika.wczytywanieImage[0], new Rectangle(Kamera.Szerokosc_Ekranu/2 - 25, Kamera.Wysokosc_Ekranu/2 - 25, 50, 50), new Rectangle(0, 0, wczytywanieImage[0].Width, wczytywanieImage[0].Height), GraphicsUnit.Pixel);
-            }
-            if (stan == 1)
-            {
-                g.DrawImage(Grafika.wczytywanieImage[1], new Rectangle(Kamera.Szerokosc_Ekranu / 2 - 25, Kamera.Wysokosc_Ekranu / 2 - 25, 50, 50), new Rectangle(0, 0, wczytywanieImage[1].Width, wczytywanieImage[1].Height), GraphicsUnit.Pixel);
-            }
-            if (stan == 2)
-            {
-                g.DrawImage(Grafika.wczytywanieImage[2], new Rectangle(Kamera.Szerokosc_Ekranu / 2 - 25, Kamera.Wysokosc_Ekranu / 2 - 25, 50, 50), new Rectangle(0, 0, wczytywanieImage[1].Width, wczytywanieImage[1].Height), GraphicsUnit.Pixel);
-            }
-            if (stan == 3)
-            {
-                g.DrawImage(Grafika.wczytywanieImage[3], new Rectangle(Kamera.Szerokosc_Ekranu / 2 - 25, Kamera.Wysokosc_Ekranu / 2 - 25, 50, 50), new Rectangle(0, 0, wczytywanieImage[1].Width, wczytywanieImage[1].Height), GraphicsUnit.Pixel);
-            }
-            */
+            Intro_Animacja.UstawPozycje(Kamera.Prostokat_Kamery.Width/2-100, 0);
+            Intro_Animacja.Rysuj(g, Narzedzia.transparentPink);
         }
+       
         private void czas1_Tick(object sender, EventArgs e)
         {
-            Wczytywanie.ZmienStan();
             czas += 1;
-            if (czas == 2) { nowa = new NowaGra(); }
-            stan += 1;
-            if (stan >= 4) stan = 0;
-            OdswiezEkran();
-            if (nowa != null)
+            if (czas == 6) 
             {
-                
-                if (nowa.graWczytana)
-                {
-                    panel1.Visible = true;
-                    panel2.Visible = true;
-                    panel3.Visible = true;
-
-                    //KontynuujButton.Visible = true;
-                    //NowaGraButton.Visible = true;
-                    //Top10Button.Visible = true;
-                    //WyjdzButton.Visible = true;
-                    
-                    //label1.Visible = true;
-                    //linkLabel1.Visible = true;
-                    wczytywaniePlikow = false;
-                    czas1.Enabled = false;
-                    czas = 0;
-                    nowa.Owner = this;
-                    
-                    nowa.Show();
-                    this.Hide();
-                }
+                isIntro = false;
+                panel1.Visible = true;
+                panel2.Visible = true;
+                panel3.Visible = true;
+                czas1.Enabled = false;
             }
+            Intro_Animacja.ZmienStan();
+            
+        }
+        private void czas_odswiezania_Tick(object sender, EventArgs e)
+        {
+            OdswiezEkran();
         }
         private void OdswiezEkran()
         {
@@ -229,6 +178,33 @@ namespace Rudy_103.src
 
             Invalidate();
         }
+
+        private void MainWindow_KeyDown(object sender, KeyEventArgs e)
+        {
+            if ((e.KeyCode == System.Windows.Forms.Keys.Up))
+            {
+                // Up
+            }
+            if ((e.KeyCode == System.Windows.Forms.Keys.Down))
+            {
+                // Down
+            }
+            if ((e.KeyCode == System.Windows.Forms.Keys.Left))
+            {
+                // Left
+            }
+            if ((e.KeyCode == System.Windows.Forms.Keys.Right))
+            {
+                // Right
+            }
+            if ((e.KeyCode == System.Windows.Forms.Keys.Enter))
+            {
+                // Enter
+            }
+
+        }
+
+        
         
 
     }
