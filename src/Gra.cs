@@ -108,10 +108,11 @@ namespace Rudy_103.src
             //plansza.GenerujDebugMapa(fabryka);
             player = Fabryka.ProdukujDomyslnegoGracza(execAssem);
             warsztat.UstawStatystyki(player);
-
-            Kamera.Prostokat_Kamery.X = plansza.Szerokosc /2 - Kamera.Prostokat_Kamery.Width /2;
-            Kamera.Prostokat_Kamery.Y = plansza.Wysokosc - Kamera.Prostokat_Kamery.Height;
-
+            Kamera.Szerokosc_Ekranu = this.Width;
+            Kamera.Wysokosc_Ekranu = this.Height;
+            Kamera.Prostokat_Kamery.X = plansza.Szerokosc/2 - Kamera.Szerokosc_Ekranu/2;
+            Kamera.Prostokat_Kamery.Y = plansza.Wysokosc - Kamera.Wysokosc_Ekranu;
+            Kamera.Odswiez_Kamere();
             //Ustawiamy początkowy GUI 
             panelEnergii = true;
             panelRadaru = true;
@@ -249,7 +250,6 @@ namespace Rudy_103.src
                         } break;
                     case Keys.Space:
                         {
-                            
                             plansza.ZmienPodloze();
                         } break;
                     case Keys.C:
@@ -264,6 +264,11 @@ namespace Rudy_103.src
                     case Keys.Z:
                         {
                             panelUlepszen = !panelUlepszen;
+                        } break;
+                    case Keys.V:
+                        {
+                            plansza.przeciwnicy.Clear();
+                            plansza.przeciwnicy_na_mapie.Clear();
                         } break;
                 }
                 //kamera = new Rectangle(pozycja_kamery.X, pozycja_kamery.Y, maxX, maxY);
@@ -313,8 +318,6 @@ namespace Rudy_103.src
                     g.DrawImage(plansza.AktualnePodloze(), 0, 0);
                 }
 
-
-                
                 plansza.RysujElementy(player,g, Narzedzia.transparentPink);
                 plansza.RysujEfekty(g, Narzedzia.transparentPink);
                 RysujInterfejs(g, Narzedzia.transparentPink);
@@ -707,12 +710,9 @@ namespace Rudy_103.src
             if (panelUlepszen)
             {
                 #region Rysowanie Panelu Ulepszeń
-                g.DrawImage(Multimedia.tlo_mapa, 0, 0);
-
-                g.DrawString("Warsztat", new Font("Arial", 14, FontStyle.Regular), new SolidBrush(Color.Yellow),
-                    new Rectangle(19, 5, 201, 25), drawFormat);
+                g.Clear(Color.Black);
                 g.DrawString("Ilość pieniędzy: " + player.pieniadze, new Font("Arial", 10, FontStyle.Regular), new SolidBrush(Color.Green),
-                    new Rectangle(19, 30, 201, 20), drawFormat);
+                    new Rectangle(Kamera.Prostokat_Kamery.Width/2 - 100, 0, 200, 20), drawFormat);
 
                 warsztat.Rysuj(g, transparentPink);
 
@@ -731,22 +731,23 @@ namespace Rudy_103.src
 
             if (plansza.ukonczony_poziom)
             {
-                g.DrawImage(Multimedia.tlo_mapa, 0, 0);
+                g.Clear(Color.Black);
 
                 g.DrawString(s_poziom + " Ukończony", new Font("Arial", 14, FontStyle.Regular), new SolidBrush(Color.Yellow),
-                    new Rectangle(19, 5, 201, 25), drawFormat);
+                    new Rectangle(Kamera.Prostokat_Kamery.Width/2-100, 5, 200, 25), drawFormat);
 
                 g.DrawString(s_czas, new Font("Arial", 12, FontStyle.Regular), new SolidBrush(Color.Yellow),
-                    new Rectangle(19, 35, 201, 25), drawFormat);
+                    new Rectangle(Kamera.Prostokat_Kamery.Width / 2 - 100, 35, 200, 25), drawFormat);
 
                 g.DrawString("Punkty: "+player.punkty, new Font("Arial", 12, FontStyle.Regular), new SolidBrush(Color.Yellow),
-                    new Rectangle(19, 65, 201, 25), drawFormat);
+                    new Rectangle(Kamera.Prostokat_Kamery.Width / 2 - 100, 65, 200, 25), drawFormat);
 
-                przyciskZamknijUkonczonyPoziom = new Rectangle(20, 285, 200, 30);
+                przyciskZamknijUkonczonyPoziom = new Rectangle(Kamera.Prostokat_Kamery.Width / 2 - 100, 
+                    Kamera.Prostokat_Kamery.Height - 40, 200, 30);
                 g.DrawImage(Multimedia.przyciskImageZamknij, przyciskZamknijUkonczonyPoziom, 0, 0, Multimedia.przyciskImageZamknij.Width,
                     Multimedia.przyciskImageZamknij.Height, GraphicsUnit.Pixel, transparentPink);
                 g.DrawString("Przejdź Dalej", new Font("Arial", 12, FontStyle.Regular), new SolidBrush(Color.Yellow),
-                    new Rectangle(20, 290, 200, 25), drawFormat);
+                    new Rectangle(Kamera.Prostokat_Kamery.Width / 2 - 100, Kamera.Prostokat_Kamery.Height - 30, 200, 25), drawFormat);
             }
             /*
             if (player.energia <= 0)
