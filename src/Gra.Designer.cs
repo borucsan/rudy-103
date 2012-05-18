@@ -1,6 +1,6 @@
 ﻿namespace Rudy_103.src
 {
-    partial class NowaGra
+    partial class Gra
     {
         /// <summary>
         /// Required designer variable.
@@ -59,17 +59,17 @@
             this.czas_odswiezania.Interval = 30;
             this.czas_odswiezania.Tick += new System.EventHandler(this.czas_odswiezania_Tick);
             // 
-            // NowaGra
+            // Gra
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.AutoScroll = true;
-            this.ClientSize = new System.Drawing.Size(240, 320);
+            this.ClientSize = new System.Drawing.Size(320, 240);
             this.ControlBox = false;
             this.KeyPreview = true;
             this.Location = new System.Drawing.Point(0, 0);
             this.MinimizeBox = false;
-            this.Name = "NowaGra";
+            this.Name = "Gra";
             this.Text = "Rudy 103 - Nowa Gra";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.MouseUp += new System.Windows.Forms.MouseEventHandler(this.NowaGra_MouseUp);

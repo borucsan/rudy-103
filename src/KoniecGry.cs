@@ -110,5 +110,11 @@ namespace Rudy_103.src
             Owner.Show();
             this.Close();
         }
+
+        private void wyjdzbutton2_Click(object sender, EventArgs e)
+        {
+            Owner.Show();
+            this.Close();
+        }
     }
 }
