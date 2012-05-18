@@ -13,20 +13,27 @@ namespace Rudy_103.src
         public int sila { get; set; }
         public int szybkosc { get; set; }
         public Czolg wlasciciel { get; set; }
-        public Pocisk(int X, int Y, int Szer, int Wys, int sila, int szybkosc, Czolg.Kierunek kierunek)
+        public int zasieg { get; set; }
+        public int pozostały_ruch { get; set; }
+        public bool trafil { get; set; }
+        public Pocisk(int X, int Y, int Szer, int Wys, int sila, int szybkosc, int zasieg, Czolg.Kierunek kierunek)
             : base(X, Y, Szer, Wys)
         {
             this.kierunek = kierunek;
             this.sila = sila;
             this.szybkosc = szybkosc;
+            this.zasieg = zasieg;
+            this.trafil = false;
         }
-        public Pocisk(int X, int Y, int Szer, int Wys, int sila, int szybkosc, Czolg.Kierunek kierunek, params Image[] obrazy)
+        public Pocisk(int X, int Y, int Szer, int Wys, int sila, int szybkosc, int zasieg, Czolg.Kierunek kierunek, params Image[] obrazy)
             : base(X, Y, Szer, Wys, obrazy)
         {
             this.kierunek = kierunek;
             this.sila = sila;
             this.szybkosc = szybkosc;
+            this.zasieg = zasieg;
             this.obrazy = obrazy;
+            this.trafil = false;
         }
         public override void Rysuj(Graphics g, System.Drawing.Imaging.ImageAttributes transparentPink) 
         {
@@ -34,7 +41,7 @@ namespace Rudy_103.src
                         obrazy[(int)kierunek].Width, obrazy[(int)kierunek].Width, GraphicsUnit.Pixel, transparentPink);
             
         }
-        public void UstawPocisk(int X, int Y, int sila, int szybkosc, Czolg.Kierunek kierunek, Czolg wlasciciel)
+        public void UstawPocisk(int X, int Y, int sila, int szybkosc, int zasieg, Czolg.Kierunek kierunek, Czolg wlasciciel)
         {
             wymiary.X = X;
             wymiary.Y = Y;
@@ -49,8 +56,11 @@ namespace Rudy_103.src
             }
             this.sila = sila;
             this.szybkosc = szybkosc;
+            this.zasieg = zasieg;
+            this.pozostały_ruch = zasieg;
             this.wlasciciel = wlasciciel;
         }
+        
         public bool Zderzenie(Plansza plansza)
         {
             for (int i = 0; i < plansza.przeciwnicy_na_mapie.Count; ++i)
@@ -68,12 +78,15 @@ namespace Rudy_103.src
                     
                     return true;
                 }
-                if (plansza.przeciwnicy_na_mapie[i].Pocisk !=null)
+                if (plansza.przeciwnicy_na_mapie[i].Pociski.Count > 0)
                 {
-                    if (plansza.przeciwnicy_na_mapie[i].Pocisk.Wymiary.IntersectsWith(Wymiary))
+                    for (int j = 0; j < plansza.przeciwnicy_na_mapie[i].Pociski.Count; ++j)
                     {
-                        plansza.przeciwnicy_na_mapie[i].Pocisk = null;
-                        return true;
+                        if (plansza.przeciwnicy_na_mapie[i].Pociski[j].Wymiary.IntersectsWith(Wymiary))
+                        {
+                            plansza.przeciwnicy_na_mapie[i].Pociski.RemoveAt(j);
+                            return true;
+                        }
                     }
                 }
             }
@@ -91,10 +104,16 @@ namespace Rudy_103.src
                 gracz.Uszkodz(sila);
                 return true;
             }
-            if(gracz.Pocisk != null && gracz.Pocisk.Wymiary.IntersectsWith(Wymiary))
+            if(gracz.Pociski.Count > 0)
             {
-                gracz.Pocisk = null;
-                return true;
+                for (int i = 0; i < gracz.Pociski.Count; ++i)
+                {
+                    if(this.wymiary.IntersectsWith(gracz.Pociski[i].Wymiary))
+                    {
+                        gracz.Pociski.RemoveAt(i);
+                        return true;
+                    }
+                }
             }
             
             for (int i = 0; i < plansza.przeciwnicy_na_mapie.Count; ++i)
@@ -104,14 +123,17 @@ namespace Rudy_103.src
                     {
                         return true;
                     }
-                if (plansza.przeciwnicy_na_mapie[i].Pocisk != null)
-                {
-                    if (plansza.przeciwnicy_na_mapie[i].Pocisk.Wymiary.IntersectsWith(Wymiary))
+                    if (plansza.przeciwnicy_na_mapie[i].Pociski.Count > 0)
                     {
-                        plansza.przeciwnicy_na_mapie[i].Pocisk = null;
-                        return true;
+                        for (int j = 0; j < plansza.przeciwnicy_na_mapie[i].Pociski.Count; ++j)
+                        {
+                            if (plansza.przeciwnicy_na_mapie[i].Pociski[j].Wymiary.IntersectsWith(Wymiary))
+                            {
+                                plansza.przeciwnicy_na_mapie[i].Pociski.RemoveAt(j);
+                                return true;
+                            }
+                        }
                     }
-                }
             }
             if (this.Wymiary.IntersectsWith(plansza.baza.Wymiary))
             {
@@ -125,7 +147,7 @@ namespace Rudy_103.src
 
         public object Clone()
         {
-            Pocisk klon = new Pocisk(0, 0, this.Wymiary.Width, this.Wymiary.Height, this.sila, this.szybkosc, Czolg.Kierunek.GORA);
+            Pocisk klon = new Pocisk(0, 0, this.Wymiary.Width, this.Wymiary.Height, this.sila, this.szybkosc, this.zasieg, Czolg.Kierunek.GORA);
             klon.WczytajObrazy(this.obrazy);
             return klon;
         }

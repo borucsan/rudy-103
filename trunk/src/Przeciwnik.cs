@@ -10,15 +10,14 @@ namespace Rudy_103.src
     class Przeciwnik : Czolg, ICloneable
     {
         public int punkty { get; set; }
-        public Przeciwnik(int X, int Y, int Szer, int Wys, int wytrzymalosc, int szybkosc, int sila, int dodawane_punkty)
-            : base(X, Y, Szer, Wys, wytrzymalosc, szybkosc, sila) { this.punkty = dodawane_punkty; }
-        public Przeciwnik(int X, int Y, int Szer, int Wys, int wytrzymalosc, int szybkosc, int sila, int dodawane_punkty, params Image[] obrazy)
-            : base(X, Y, Szer, Wys, wytrzymalosc, szybkosc, sila, obrazy) { this.punkty = dodawane_punkty; }
-        //public override void Rysuj(PaintEventArgs e) { }
+        public Przeciwnik(int X, int Y, int Szer, int Wys, int wytrzymalosc, int szybkosc, int sila, int zasieg, int max_pociskow, int przeladowanie, int dodawane_punkty)
+            : base(X, Y, Szer, Wys, wytrzymalosc, szybkosc, sila, zasieg, max_pociskow, przeladowanie) { this.punkty = dodawane_punkty; }
+        public Przeciwnik(int X, int Y, int Szer, int Wys, int wytrzymalosc, int szybkosc, int sila, int zasieg, int max_pociskow, int dodawane_punkty, int przeladowanie, params Image[] obrazy)
+            : base(X, Y, Szer, Wys, wytrzymalosc, szybkosc, sila, zasieg, max_pociskow, przeladowanie, obrazy) { this.punkty = dodawane_punkty; }
 
         public object Clone()
         {
-            Przeciwnik klon = new Przeciwnik(0, 0, this.Wymiary.Width, this.Wymiary.Height, this.wytrzymalosc, this.szybkosc, this.sila, this.punkty);
+            Przeciwnik klon = new Przeciwnik(0, 0, this.Wymiary.Width, this.Wymiary.Height, this.wytrzymalosc, this.szybkosc, this.sila, this.zasieg, this.max_pociskow, this.przeladowanie, this.punkty);
             klon.WczytajObrazy(this.obrazy);
             return klon;
         }
@@ -26,7 +25,7 @@ namespace Rudy_103.src
         {
             pozostaly_ruch = szybkosc;
         }
-        public void WykonajRuchPrzeciwnika(Plansza plansza, Fabryka fabryczka, Gracz gracz)
+        public void WykonajRuchPrzeciwnika(Plansza plansza, Fabryka fabryczka, Gracz gracz, int czas_strzalu)
         {
             bool WykrytoPrzeszkode = false;
             switch (kierunek)
@@ -52,17 +51,17 @@ namespace Rudy_103.src
                         if (Zderzenie3(plansza, gracz)){ ZmienPozycje(JEDNOSTKA_RUCHU, 0); WykrytoPrzeszkode = true; }
                     break;
             }
-            AnalizaRuchu(WykrytoPrzeszkode, fabryczka);
+            AnalizaRuchu(WykrytoPrzeszkode, fabryczka, czas_strzalu);
             pozostaly_ruch = pozostaly_ruch - JEDNOSTKA_RUCHU;
         }
-        public void AnalizaRuchu(bool wykryto_przeszkode, Fabryka fabryka)
+        public void AnalizaRuchu(bool wykryto_przeszkode, Fabryka fabryka, int czas_strzalu)
         {
             bool LosujKierunek = false;
             int losuj = Narzedzia.rand.Next(0, 51);
             if (losuj == 49) LosujKierunek = true;
             if ((wykryto_przeszkode == true) || (LosujKierunek == true))
             {
-                Strzelaj(fabryka);
+                //Strzelaj(fabryka, czas_strzalu);
                 int losuj_kierunek = Narzedzia.rand.Next(0, 5);
                 if (losuj_kierunek == 1) kierunek = Kierunek.GORA;
                 if (losuj_kierunek == 2) kierunek = Kierunek.PRAWO;
@@ -71,7 +70,7 @@ namespace Rudy_103.src
             }
             int CzyStrzelac;
             CzyStrzelac = Narzedzia.rand.Next(0, 3);
-            if (CzyStrzelac == 2) Strzelaj(fabryka);
+            if (CzyStrzelac == 2 || wykryto_przeszkode || LosujKierunek) Strzelaj(fabryka, czas_strzalu);
         }
         public void SprawdzPozostaleKolizje(Plansza plansza, Gracz gracz)
         {
@@ -93,62 +92,55 @@ namespace Rudy_103.src
         }
         public void RuchPocisku(Plansza plansza, Gracz gracz, Fabryka fabryka)
         {
-            if (pocisk != null)
+            for (int i = 0; i < pociski.Count; ++i)
             {
-                switch (pocisk.kierunek)
+                if (pociski[i].pozostały_ruch < pociski[i].szybkosc) pociski[i].pozostały_ruch = pociski[i].szybkosc - (pociski[i].szybkosc - pociski[i].pozostały_ruch);
+                switch (pociski[i].kierunek)
                 {
                     case Czolg.Kierunek.GORA:
-                        if (pocisk.Wymiary.Y > 0)
+                        if (pociski[i].Wymiary.Y > 0)
                         {
-                            pocisk.ZmienPozycje(0, -pocisk.szybkosc);
-                            if (pocisk.Zderzenie(plansza, gracz))
-                            {
-                                Wybuch(plansza, fabryka, pocisk.Wymiary.X + pocisk.Wymiary.Width / 2 - 25,
-                                    pocisk.Wymiary.Y + pocisk.Wymiary.Height / 2 - 25);
-                                pocisk = null;
-                            }
+                            pociski[i].ZmienPozycje(0, -pociski[i].szybkosc);
+                            pociski[i].trafil = pociski[i].Zderzenie(plansza, gracz);
+                            pociski[i].pozostały_ruch -= pociski[i].szybkosc;
                         }
-                        else pocisk = null;
+                        else pociski[i].trafil = true;
                         break;
                     case Czolg.Kierunek.PRAWO:
-                        if (pocisk.Wymiary.X < 1000)
+                        if (pociski[i].Wymiary.X < plansza.Szerokosc)
                         {
-                            pocisk.ZmienPozycje(pocisk.szybkosc, 0);
-                            if (pocisk.Zderzenie(plansza, gracz))
-                            {
-                                Wybuch(plansza, fabryka, pocisk.Wymiary.X + pocisk.Wymiary.Width / 2 - 25,
-                                    pocisk.Wymiary.Y + pocisk.Wymiary.Height / 2 - 25);
-                                pocisk = null;
-                            }
+                            pociski[i].ZmienPozycje(pociski[i].szybkosc, 0);
+                            pociski[i].trafil = pociski[i].Zderzenie(plansza, gracz);
+                            pociski[i].pozostały_ruch -= pociski[i].szybkosc;
                         }
-                        else pocisk = null;
+                        else pociski[i].trafil = true;
                         break;
                     case Czolg.Kierunek.DOL:
-                        if (pocisk.Wymiary.Y < 1000)
+                        if (pociski[i].Wymiary.Y < plansza.Wysokosc)
                         {
-                            pocisk.ZmienPozycje(0, pocisk.szybkosc);
-                            if (pocisk.Zderzenie(plansza, gracz))
-                            {
-                                Wybuch(plansza, fabryka, pocisk.Wymiary.X + pocisk.Wymiary.Width / 2 - 25,
-                                    pocisk.Wymiary.Y + pocisk.Wymiary.Height / 2 - 25);
-                                pocisk = null;
-                            }
+                            pociski[i].ZmienPozycje(0, pociski[i].szybkosc);
+                            pociski[i].trafil = pociski[i].Zderzenie(plansza, gracz);
+                            pociski[i].pozostały_ruch -= pociski[i].szybkosc;
                         }
-                        else pocisk = null;
+                        else pociski[i].trafil = true;
                         break;
                     case Czolg.Kierunek.LEWO:
-                        if (pocisk.Wymiary.X > 0)
+                        if (pociski[i].Wymiary.X > 0)
                         {
-                            pocisk.ZmienPozycje(-pocisk.szybkosc, 0);
-                            if (pocisk.Zderzenie(plansza, gracz))
-                            {
-                                Wybuch(plansza, fabryka, pocisk.Wymiary.X + pocisk.Wymiary.Width / 2 - 25,
-                                    pocisk.Wymiary.Y + pocisk.Wymiary.Height / 2 - 25);
-                                pocisk = null;
-                            }
+                            pociski[i].ZmienPozycje(-pociski[i].szybkosc, 0);
+                            pociski[i].trafil = pociski[i].Zderzenie(plansza, gracz);
+                            pociski[i].pozostały_ruch -= pociski[i].szybkosc;
                         }
-                        else pocisk = null;
+                        else pociski[i].trafil = true;
                         break;
+                }
+                if (pociski[i].pozostały_ruch <= 0) pociski[i].trafil = true;
+
+                if (pociski[i].trafil)
+                {
+                    Wybuch(plansza, fabryka, pociski[i].Wymiary.X + pociski[i].Wymiary.Width / 2 - 25,
+                                    pociski[i].Wymiary.Y + pociski[i].Wymiary.Height / 2 - 25);
+                    pociski.RemoveAt(i);
                 }
             }
         }

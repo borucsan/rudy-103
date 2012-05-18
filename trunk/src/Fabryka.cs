@@ -34,7 +34,7 @@ namespace Rudy_103.src
             wzorce_przeszkod = new Dictionary<string,Przeszkoda>();
             wzorce_przeciwnikow = new Dictionary<string,Przeciwnik>();
             wzorce_efektow = new Dictionary<string, Animacja>();
-            wzorzec_pocisku = new Pocisk(0, 0, 10, 10, 5, 10, Czolg.Kierunek.GORA);
+            wzorzec_pocisku = new Pocisk(0, 0, 10, 10, 5, 10, 30, Czolg.Kierunek.GORA);
             
             wzorzec_pocisku.WczytajObrazy(Multimedia.domyslny_pocisk);
             wzorzec_bazy = new Baza(0, 0, 50, 50, 10, false, Multimedia.baza);
@@ -108,7 +108,7 @@ namespace Rudy_103.src
         /// <returns>Zwraca instancję gracza</returns>
         public static Gracz ProdukujDomyslnegoGracza(System.Reflection.Assembly execAssem)
         {
-            Gracz player = new Gracz(Gracz.PunktRespGracza.X + 5, Gracz.PunktRespGracza.Y + 5, 40, 40, 100, 5, 10, 3);
+            Gracz player = new Gracz(Gracz.PunktRespGracza.X + 5, Gracz.PunktRespGracza.Y + 5, 40, 40, 100, 5, 10, 150, 2, 10, 3);
             
             player.WczytajObrazy(Multimedia.domyslny_gracz);
             return player;
@@ -146,16 +146,16 @@ namespace Rudy_103.src
             
             //Wzorce przeciwników
             Przeciwnik [] enemy = new Przeciwnik[10];
-            enemy[0] = new Przeciwnik(0, 0, 40, 40, 20, 6, 5, 100);
-            enemy[1] = new Przeciwnik(0, 0, 40, 40, 30, 6, 8, 200);
-            enemy[2] = new Przeciwnik(0, 0, 40, 40, 30, 7, 15, 300);
-            enemy[3] = new Przeciwnik(0, 0, 40, 40, 40, 7, 35, 400);
-            enemy[4] = new Przeciwnik(0, 0, 40, 40, 40, 8, 55, 500);
-            enemy[5] = new Przeciwnik(0, 0, 40, 40, 50, 8, 70, 600);
-            enemy[6] = new Przeciwnik(0, 0, 40, 40, 50, 9, 80, 700);
-            enemy[7] = new Przeciwnik(0, 0, 40, 40, 70, 11, 70, 800);
-            enemy[8] = new Przeciwnik(0, 0, 40, 40, 90, 13, 90, 900);
-            enemy[9] = new Przeciwnik(0, 0, 40, 40, 110, 15, 110, 1000);
+            enemy[0] = new Przeciwnik(0, 0, 40, 40, 20, 6, 5, 150, 2, 10, 100);
+            enemy[1] = new Przeciwnik(0, 0, 40, 40, 30, 6, 8, 180, 3, 10, 200);
+            enemy[2] = new Przeciwnik(0, 0, 40, 40, 30, 7, 15, 210, 4, 10, 300);
+            enemy[3] = new Przeciwnik(0, 0, 40, 40, 40, 7, 35, 240, 5, 10, 400);
+            enemy[4] = new Przeciwnik(0, 0, 40, 40, 40, 8, 55, 270, 6, 10, 500);
+            enemy[5] = new Przeciwnik(0, 0, 40, 40, 50, 8, 70, 300, 7, 10, 600);
+            enemy[6] = new Przeciwnik(0, 0, 40, 40, 50, 9, 80, 330, 8, 10, 700);
+            enemy[7] = new Przeciwnik(0, 0, 40, 40, 70, 11, 70, 360, 9, 10, 800);
+            enemy[8] = new Przeciwnik(0, 0, 40, 40, 90, 13, 90, 390, 10, 10, 900);
+            enemy[9] = new Przeciwnik(0, 0, 40, 40, 110, 15, 110, 410, 11, 10, 1000);
 
             enemy[0].WczytajObrazy(Multimedia.przeciwnik_1);
             enemy[1].WczytajObrazy(Multimedia.przeciwnik_2);

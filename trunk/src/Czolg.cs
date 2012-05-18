@@ -17,8 +17,20 @@ namespace Rudy_103.src
         protected int wytrzymalosc_bazowa;
         protected int szybkosc;
         protected int sila;
+        protected int zasieg;
         protected Rectangle rec_ruchu;
         protected int pozostaly_ruch = 0;
+        protected int ostatni_strzal = 0;
+        protected int przeladowanie;
+        public int Przeladowanie
+        {
+            get { return przeladowanie; }
+            set { przeladowanie = value; }
+        }
+        public int Czas_strzalu
+        {
+            get { return ostatni_strzal = 0; }
+        }
         public int Pozostaly_ruch
         {
             get { return pozostaly_ruch; }
@@ -29,6 +41,12 @@ namespace Rudy_103.src
             get { return rec_ruchu; }
             set { rec_ruchu = value; }
         }
+        
+        public Kierunek kierunek { get; protected set; }
+        protected int max_pociskow;
+        protected List<Pocisk> pociski;
+        
+
         public int Wytrzymalosc
         {
             get
@@ -74,32 +92,39 @@ namespace Rudy_103.src
                 sila = value;
             }
         }
-
-        public Kierunek kierunek { get; protected set; }
-        protected Pocisk pocisk;
-        public Pocisk Pocisk
+        public int Zasieg
+        {
+            get { return this.zasieg; }
+            set { this.zasieg = value; }
+        }
+        public int Max_Pociskow
+        {
+            get { return max_pociskow; }
+            set { max_pociskow = value; }
+        }
+        public List<Pocisk> Pociski
         {
             get
             {
-                return pocisk;
-            }
-            set
-            {
-                pocisk = value;
+                return pociski;
             }
         }
-        public Czolg(int X, int Y, int Szer, int Wys, int wytrzymalosc, int szybkosc, int sila)
+        public Czolg(int X, int Y, int Szer, int Wys, int wytrzymalosc, int szybkosc, int sila, int zasieg, int max_pociskow, int przeladowanie)
             : base(X, Y, Szer, Wys)
         {
             this.wytrzymalosc_bazowa = wytrzymalosc;
             this.wytrzymalosc = wytrzymalosc;
             this.szybkosc = szybkosc;
             this.sila = sila;
+            this.zasieg = zasieg;
             this.kierunek = Kierunek.GORA;
             this.rec_ruchu = wymiary;
+            this.max_pociskow = max_pociskow;
+            this.przeladowanie = przeladowanie;
+            pociski = new List<Pocisk>(max_pociskow);
         }
-        public Czolg(int X, int Y, int Szer, int Wys, int wytrzymalosc, int szybkosc, int sila, params Image[] obrazy)
-            : this(X, Y, Szer, Wys, wytrzymalosc, szybkosc, sila)
+        public Czolg(int X, int Y, int Szer, int Wys, int wytrzymalosc, int szybkosc, int sila, int zasieg, int max_pociskow, int przeladowanie, params Image[] obrazy)
+            : this(X, Y, Szer, Wys, wytrzymalosc, szybkosc, sila, zasieg, max_pociskow, przeladowanie)
         {
             this.obrazy = obrazy;
         }
@@ -143,22 +168,23 @@ namespace Rudy_103.src
             }
             pozostaly_ruch = pozostaly_ruch - JEDNOSTKA_RUCHU;
         }
-        public void Strzelaj(Fabryka fabryka)
+        public void Strzelaj(Fabryka fabryka, int czas_strzalu)
         {
-            if (pocisk == null)
+            if (pociski.Count < max_pociskow && Math.Abs(czas_strzalu - przeladowanie) >= ostatni_strzal)
             {
-                pocisk = fabryka.ProdukujPocisk();
-                pocisk.UstawPocisk(Wymiary.X + Wymiary.Width/2, Wymiary.Y + Wymiary.Height/2, this.sila, this.szybkosc+5, kierunek, this);
+                pociski.Add(fabryka.ProdukujPocisk());
+                pociski.Last().UstawPocisk(Wymiary.X + Wymiary.Width/2, Wymiary.Y + Wymiary.Height/2, this.sila, this.szybkosc+5,this.zasieg, kierunek, this);
                 if (Kamera.Prostokat_Kamery.IntersectsWith(Wymiary))
                 {
                     Multimedia.audio_wystrzal.Play();
                 }
+                ostatni_strzal = czas_strzalu;
             }
         }
         protected void Wybuch(Plansza plansza, Fabryka fabryka, int X, int Y)
         {
             
-            Random random = new Random();
+            //Random random = new Random();
             
             //plansza.efekty_na_mapie.Add(fabryka.ProdukujEfekt("Ogień"));
             //plansza.efekty_na_mapie.Last().UstawPozycje(new Point(X + random.Next(0, 20), Y + random.Next(0, 20)));
@@ -169,7 +195,7 @@ namespace Rudy_103.src
             //plansza.efekty_na_mapie.Add(fabryka.ProdukujEfekt("Ogień"));
             //plansza.efekty_na_mapie.Last().UstawPozycje(new Point(X - random.Next(0, 20), Y - random.Next(0, 20)));
 
-            if(Kamera.Prostokat_Kamery.IntersectsWith(new Rectangle(X, Y, 1, 1)))
+            if(Kamera.Prostokat_Kamery.IntersectsWith(new Rectangle(X, Y, 10, 10)))
             {
                 plansza.efekty_na_mapie.Add(fabryka.ProdukujEfekt("Eksplozja"));
                 plansza.efekty_na_mapie.Last().UstawPozycje(new Point(X, Y));
@@ -180,63 +206,55 @@ namespace Rudy_103.src
         }
         public void RuchPocisku(Plansza plansza, Fabryka fabryka)
         {
-            if (pocisk != null)
+            for (int i = 0; i < pociski.Count; ++i)
             {
-                
-                switch (pocisk.kierunek)
+                if (pociski[i].pozostały_ruch < pociski[i].szybkosc) pociski[i].pozostały_ruch = pociski[i].szybkosc - (pociski[i].szybkosc - pociski[i].pozostały_ruch);
+                switch (pociski[i].kierunek)
                 {
                     case Czolg.Kierunek.GORA:
-                        if (pocisk.Wymiary.Y > 0)
+                        if (pociski[i].Wymiary.Y > 0)
                         {
-                            pocisk.ZmienPozycje(0, -pocisk.szybkosc);
-                            if (pocisk.Zderzenie(plansza))
-                            {
-                                Wybuch(plansza, fabryka, pocisk.Wymiary.X + pocisk.Wymiary.Width/2 - 25, 
-                                    pocisk.Wymiary.Y + pocisk.Wymiary.Height/2 - 25);
-                                pocisk = null;
-                            }
+                            pociski[i].ZmienPozycje(0, -pociski[i].szybkosc);
+                            pociski[i].trafil = pociski[i].Zderzenie(plansza);
+                            pociski[i].pozostały_ruch -= pociski[i].szybkosc;
                         }
-                        else pocisk = null;
+                        else pociski[i].trafil = true;
                         break;
                     case Czolg.Kierunek.PRAWO:
-                        if (pocisk.Wymiary.X < plansza.Szerokosc)
+                        if (pociski[i].Wymiary.X < plansza.Szerokosc)
                         {
-                            pocisk.ZmienPozycje(pocisk.szybkosc, 0);
-                            if (pocisk.Zderzenie(plansza))
-                            {
-                                Wybuch(plansza, fabryka, pocisk.Wymiary.X + pocisk.Wymiary.Width / 2 - 25,
-                                    pocisk.Wymiary.Y + pocisk.Wymiary.Height / 2 - 25);
-                                pocisk = null;
-                            }
+                            pociski[i].ZmienPozycje(pociski[i].szybkosc, 0);
+                            pociski[i].trafil = pociski[i].Zderzenie(plansza);
+                            pociski[i].pozostały_ruch -= pociski[i].szybkosc;
                         }
-                        else pocisk = null;
+                        else pociski[i].trafil = true;
                         break;
                     case Czolg.Kierunek.DOL:
-                        if (pocisk.Wymiary.Y < plansza.Wysokosc)
+                        if (pociski[i].Wymiary.Y < plansza.Wysokosc)
                         {
-                            pocisk.ZmienPozycje(0, pocisk.szybkosc);
-                            if (pocisk.Zderzenie(plansza))
-                            {
-                                Wybuch(plansza, fabryka, pocisk.Wymiary.X + pocisk.Wymiary.Width / 2 - 25,
-                                    pocisk.Wymiary.Y + pocisk.Wymiary.Height / 2 - 25);
-                                pocisk = null;
-                            }
+                            pociski[i].ZmienPozycje(0, pociski[i].szybkosc);
+                            pociski[i].trafil = pociski[i].Zderzenie(plansza);
+                            pociski[i].pozostały_ruch -= pociski[i].szybkosc;
                         }
-                        else pocisk = null;
+                        else pociski[i].trafil = true;
                         break;
                     case Czolg.Kierunek.LEWO:
-                        if (pocisk.Wymiary.X > 0)
+                        if (pociski[i].Wymiary.X > 0)
                         {
-                            pocisk.ZmienPozycje(-pocisk.szybkosc, 0);
-                            if (pocisk.Zderzenie(plansza))
-                            {
-                                Wybuch(plansza, fabryka, pocisk.Wymiary.X + pocisk.Wymiary.Width / 2 - 25,
-                                    pocisk.Wymiary.Y + pocisk.Wymiary.Height / 2 - 25);
-                                pocisk = null;
-                            }
+                            pociski[i].ZmienPozycje(-pociski[i].szybkosc, 0);
+                            pociski[i].trafil = pociski[i].Zderzenie(plansza);
+                            pociski[i].pozostały_ruch -= pociski[i].szybkosc;
                         }
-                        else pocisk = null;
+                        else pociski[i].trafil = true;
                         break;
+                }
+                if (pociski[i].pozostały_ruch <= 0) pociski[i].trafil = true;
+
+                if (pociski[i].trafil)
+                {
+                    Wybuch(plansza, fabryka, pociski[i].Wymiary.X + pociski[i].Wymiary.Width / 2 - 25,
+                                    pociski[i].Wymiary.Y + pociski[i].Wymiary.Height / 2 - 25);
+                    pociski.RemoveAt(i);
                 }
             }
         }
@@ -432,12 +450,16 @@ namespace Rudy_103.src
                         obrazy[(int)kierunek].Width, obrazy[(int)kierunek].Width, GraphicsUnit.Pixel, transparentPink);
             g.DrawRectangle(new Pen(Color.Black), new Rectangle(Wymiary.X - Kamera.Prostokat_Kamery.X, Wymiary.Y + Wymiary.Height + 2 - Kamera.Prostokat_Kamery.Y,
                 Wymiary.Width, 5));
-            
+        }
+        public void RysujPociski(Graphics g, System.Drawing.Imaging.ImageAttributes transparentPink)
+        {
+            for (int i = 0; i < pociski.Count; ++i) pociski[i].Rysuj(g, transparentPink);
+        }
+        public void RysujPasekZycia(Graphics g, System.Drawing.Imaging.ImageAttributes transparentPink)
+        {
             int procenty_wytrzymalosci = (100 * this.Wytrzymalosc) / this.Wytrzymalosc_Bazowa;
             g.FillRectangle(new SolidBrush(Color.Red), new Rectangle(Wymiary.X + 1 - Kamera.Prostokat_Kamery.X, Wymiary.Y + Wymiary.Height + 3 - Kamera.Prostokat_Kamery.Y,
                 (Wymiary.Width * procenty_wytrzymalosci) / 100, 4));
-            
-            if (pocisk != null) pocisk.Rysuj(g, transparentPink);
         }
           
     }
