@@ -41,10 +41,11 @@ namespace Rudy_103.src
             Multimedia.WczytajMultimedia(execAssem);
 
             SystemSettings.ScreenOrientation = ScreenOrientation.Angle270;
-            Kamera.Szerokosc_Ekranu = Screen.PrimaryScreen.Bounds.Width;
-            Kamera.Wysokosc_Ekranu = Screen.PrimaryScreen.Bounds.Height;
             Kamera.Prostokat_Kamery.X = 0;
             Kamera.Prostokat_Kamery.Y = 0;
+            Kamera.Szerokosc_Ekranu = this.Width;
+            Kamera.Wysokosc_Ekranu = this.Height;
+            Kamera.Odswiez_Kamere();
 
             OdswiezEkran();
 
