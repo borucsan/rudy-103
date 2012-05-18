@@ -110,6 +110,9 @@ namespace Rudy_103.src
             gracz.Wytrzymalosc_Bazowa = 10 + poziom_pancerza * 10;
             gracz.Wytrzymalosc = gracz.Wytrzymalosc_Bazowa;
             gracz.Sila = 10 + poziom_ataku * 10;
+            gracz.Zasieg = 120 + poziom_ataku * 30;
+            gracz.Max_Pociskow = poziom_ataku + 1;
+           
         }
 
         public void Rysuj(Graphics g, System.Drawing.Imaging.ImageAttributes transparentPink)

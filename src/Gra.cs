@@ -48,6 +48,7 @@ namespace Rudy_103.src
         private int czas_minuty;
 
         private int czas_respawnow;
+        private int czas_strzalow;
 
         /// <summary>
         /// Wartość określająca czy gra wczytała już wszystkie pliki
@@ -79,6 +80,7 @@ namespace Rudy_103.src
             czas_minuty = 0;
             czas_sekundy = 0;
             czas_respawnow = 0;
+            czas_strzalow = 0;
             //Dostajemy się do resource wkompilowaniego w aplikacje
             System.Reflection.Assembly execAssem = System.Reflection.Assembly.GetExecutingAssembly();
 
@@ -105,9 +107,6 @@ namespace Rudy_103.src
             plansza.WczytajGrafikePodloza(Multimedia.tlo);
             //plansza.GenerujDebugMapa(fabryka);
             player = Fabryka.ProdukujDomyslnegoGracza(execAssem);
-            Kamera.Prostokat_Kamery.X = player.Wymiary.X - 25;
-            Kamera.Prostokat_Kamery.Y = player.Wymiary.Y - 245;
-           
             warsztat.UstawStatystyki(player);
 
             Kamera.Prostokat_Kamery.X = plansza.Szerokosc /2 - Kamera.Prostokat_Kamery.Width /2;
@@ -214,7 +213,7 @@ namespace Rudy_103.src
             }
             if (Opcje.Enter)
             {
-                player.Strzelaj(fabryka);
+                player.Strzelaj(fabryka, czas_strzalow);
             }
             
             
@@ -794,19 +793,15 @@ namespace Rudy_103.src
         }
         private void timer1_Tick(object sender, EventArgs e)
         {
-            
             zmienPozycjeGracza();
             ReakcjaWirtualnychKlawiszy();
             plansza.RuszPrzeciwnikow(fabryka, player);
-            plansza.RusziSprawdz(player, fabryka);
+            plansza.RusziSprawdz(player, fabryka, czas_strzalow);
             player.RuchPocisku(plansza, fabryka);
-            if (plansza.przeciwnicy_na_mapie.Count == 0 && plansza.przeciwnicy.Count > 0)
+            if (czas_respawnow % 150 == 0 || (plansza.przeciwnicy_na_mapie.Count == 0 && plansza.przeciwnicy.Count > 0))
             {
                 plansza.Respawn(player);
-            }
-            if (czas_respawnow % 100 == 0)
-            {
-                plansza.Respawn(player);
+                czas_respawnow = 1;
             }
             if (player.energia <= 0)
             {
@@ -816,11 +811,13 @@ namespace Rudy_103.src
             if ((plansza.przeciwnicy.Count + plansza.przeciwnicy_na_mapie.Count) == 0)
             {
                 plansza.ukonczony_poziom = true;
+                player.Pociski.Clear();
                 ZliczPunkty();
                 WstrzymajGre();
                 //Wykonaj kończenie poziomu: zliczenie punktów; ulepszenia; nowy poziom;
             }
             czas_respawnow++;
+            czas_strzalow++;
         }
 
         private void czas_rozgrywki_Tick(object sender, EventArgs e)

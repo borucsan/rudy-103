@@ -13,16 +13,16 @@ namespace Rudy_103.src
         public int energia { get; set; }
         //public int aktualna_wytrzymalosc { get; set; }
         public bool zginales { get; set; }
-        public Gracz(int X, int Y, int Szer, int Wys, int wytrzymalosc, int szybkosc, int sila, int energia)
-            : base(X, Y, Szer, Wys, wytrzymalosc, szybkosc, sila)
+        public Gracz(int X, int Y, int Szer, int Wys, int wytrzymalosc, int szybkosc, int sila, int zasieg, int max_pociskow, int przeladowanie, int energia)
+            : base(X, Y, Szer, Wys, wytrzymalosc, szybkosc, sila, zasieg, max_pociskow, przeladowanie)
         {
             this.punkty = 0;
             this.pieniadze = 0;
             this.energia = energia;
             //this.aktualna_wytrzymalosc = wytrzymalosc;
         }
-        public Gracz(int X, int Y, int Szer, int Wys, int wytrzymalosc, int szybkosc, int sila, int energia, params Image[] obrazy)
-            : this(X, Y, Szer, Wys, wytrzymalosc, szybkosc, sila, energia)
+        public Gracz(int X, int Y, int Szer, int Wys, int wytrzymalosc, int szybkosc, int sila, int zasieg, int max_pociskow, int przeladowanie, int energia, params Image[] obrazy)
+            : this(X, Y, Szer, Wys, wytrzymalosc, szybkosc, sila, zasieg, max_pociskow, przeladowanie, energia)
         {
             this.obrazy = obrazy;
         }

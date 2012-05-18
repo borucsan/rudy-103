@@ -129,7 +129,7 @@ namespace Rudy_103.src
         {
             int max, liczba;
             if (poziom == 1) max = 15;
-            else max = Narzedzia.rand.Next(18, 25);
+            else max = Narzedzia.rand.Next(18, 20);
             liczba = Narzedzia.rand.Next(1, poziom + 1);
             for (int i = 0; i < liczba; ++i)
             {
@@ -147,7 +147,7 @@ namespace Rudy_103.src
             {
                 List<Rectangle> temp_resp = new List<Rectangle>(PunktResp);
                 int liczba;
-                bool wolne;
+                bool wolne = false;
                 while (true)
                 {
                     if (temp_resp.Count == 0) return;
@@ -187,7 +187,7 @@ namespace Rudy_103.src
                 przeciwnicy_na_mapie[i].RuchPocisku(this, gracz, fabryka);
             }
         }
-        public void RusziSprawdz(Gracz gracz, Fabryka fabryka)
+        public void RusziSprawdz(Gracz gracz, Fabryka fabryka, int czas_strzalu)
         {
             while (gracz.Pozostaly_ruch > 0)
             {
@@ -198,7 +198,7 @@ namespace Rudy_103.src
             {
                 while (przeciwnicy_na_mapie[i].Pozostaly_ruch > 0)
                 {
-                    przeciwnicy_na_mapie[i].WykonajRuchPrzeciwnika(this, fabryka, gracz);
+                    przeciwnicy_na_mapie[i].WykonajRuchPrzeciwnika(this, fabryka, gracz, czas_strzalu);
                 }
             }
         }
@@ -216,25 +216,28 @@ namespace Rudy_103.src
                 baza.Rysuj(g, transparentPink);
             }
             //Rysowanie przeciwnikow, którzy znajdują się na mapie.
+            gracz.RysujPociski(g, transparentPink);
             if (przeciwnicy_na_mapie != null)
             {
                 for (int i = 0; i < przeciwnicy_na_mapie.Count; ++i)
                 {
+                    for (int j = 0; j < przeciwnicy_na_mapie[i].Pociski.Count; ++j)
+                    {
+                        przeciwnicy_na_mapie[i].Pociski[j].Rysuj(g, transparentPink);
+                    }
                     if (przeciwnicy_na_mapie[i].Wymiary.IntersectsWith(Kamera.Prostokat_Kamery))
                     {
                         przeciwnicy_na_mapie[i].Rysuj(g, transparentPink);
-                    }
-                    if (przeciwnicy_na_mapie[i].Pocisk != null)
-                    {
-                        if (przeciwnicy_na_mapie[i].Pocisk.Wymiary.IntersectsWith(Kamera.Prostokat_Kamery))
-                        {
-                            przeciwnicy_na_mapie[i].Pocisk.Rysuj(g, transparentPink);
-                        }
                     }
                 }
             }
             gracz.Rysuj(g, Narzedzia.transparentPink);
             region.RysujElementy(Kamera.Prostokat_Kamery, g, transparentPink);
+            for (int i = 0; i < przeciwnicy_na_mapie.Count; ++i)
+            {
+                przeciwnicy_na_mapie[i].RysujPasekZycia(g, transparentPink);
+            }
+            gracz.RysujPasekZycia(g, transparentPink);
         }
         //Metoda rysująca efekty na mapie
         public void RysujEfekty(Graphics g, System.Drawing.Imaging.ImageAttributes transparentPink)
