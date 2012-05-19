@@ -394,24 +394,26 @@ namespace Rudy_103.src
             if (panelRadaru)
             {
                 #region RysowanieMiniMapy
-                Rectangle prostokatRadaru = new Rectangle(Kamera.Szerokosc_Ekranu - 51, 1, 50, 50);
+                int szerokosc_radaru = plansza.Szerokosc / 10;
+                int wysokosc_radaru = plansza.Wysokosc / 10;
+                Rectangle prostokatRadaru = new Rectangle(Kamera.Szerokosc_Ekranu - (szerokosc_radaru+1), 1, szerokosc_radaru, wysokosc_radaru);
                 //Rectangle radar_rect = new Rectangle(Kamera.Szerokosc_Ekranu - 51, 1, 50, 50);
-                Rectangle prostokatObwoduRadaru = new Rectangle(Kamera.Szerokosc_Ekranu - 52, 0, 51, 51);
+                Rectangle prostokatObwoduRadaru = new Rectangle(Kamera.Szerokosc_Ekranu - (szerokosc_radaru + 2), 0, (szerokosc_radaru + 1), (wysokosc_radaru + 1));
 
                 g.DrawRectangle(new Pen(Color.Blue), prostokatObwoduRadaru);
                 g.DrawImage(Multimedia.interfejs_pole_radaru, prostokatRadaru, 0, 0, Multimedia.interfejs_pole_radaru.Width, Multimedia.interfejs_pole_radaru.Height, GraphicsUnit.Pixel, transparentPink);
                 //g.DrawImage(radar, radar_rect, 0, 0, radar.Width, radar.Height, GraphicsUnit.Pixel, transparentPink);
-                g.FillEllipse(new SolidBrush(Color.White), new Rectangle(prostokatRadaru.X + ((int)player.Wymiary.X / 20), prostokatRadaru.Y + ((int)player.Wymiary.Y / 20), 2, 2));
+                g.FillEllipse(new SolidBrush(Color.White), new Rectangle(prostokatRadaru.X + ((int)player.Wymiary.X / 10), prostokatRadaru.Y + ((int)player.Wymiary.Y / 10), 4, 4));
                 if (plansza.przeciwnicy_na_mapie != null)
                 {
                     for (int i = 0; i < plansza.przeciwnicy_na_mapie.Count; i++)
                     {
-                        g.FillEllipse(new SolidBrush(Color.Yellow), new Rectangle(prostokatRadaru.X + ((int)plansza.przeciwnicy_na_mapie[i].Wymiary.X / 20),
-                            prostokatRadaru.Y + ((int)plansza.przeciwnicy_na_mapie[i].Wymiary.Y / 20), 2, 2));
+                        g.FillEllipse(new SolidBrush(Color.Yellow), new Rectangle(prostokatRadaru.X + ((int)plansza.przeciwnicy_na_mapie[i].Wymiary.X / 10),
+                            prostokatRadaru.Y + ((int)plansza.przeciwnicy_na_mapie[i].Wymiary.Y / 10), 4, 4));
                     }
                 }
 
-                g.DrawRectangle(new Pen(Color.Red), prostokatRadaru.X + (int)Kamera.Prostokat_Kamery.X / 20, prostokatRadaru.Y + (int)Kamera.Prostokat_Kamery.Y / 20, 12, 13);
+                g.DrawRectangle(new Pen(Color.Red), prostokatRadaru.X + (int)Kamera.Prostokat_Kamery.X / 10, prostokatRadaru.Y + (int)Kamera.Prostokat_Kamery.Y / 10, (int)Kamera.Prostokat_Kamery.Width / 10, (int)Kamera.Prostokat_Kamery.Height / 10);
                 #endregion RysowanieMiniMapy
             }
             if (panelInformacji)
