@@ -128,7 +128,7 @@ namespace Rudy_103.src
         private void Intro(Graphics g)
         {
             g.Clear(Color.Black);
-            Intro_Animacja.UstawPozycje(Kamera.Prostokat_Kamery.Width/2-100, 0);
+            Intro_Animacja.UstawPozycje(Kamera.Prostokat_Kamery.Width / 2 - 100, Kamera.Prostokat_Kamery.Height / 2 - 100);
             Intro_Animacja.Rysuj(g, Narzedzia.transparentPink);
         }
        
