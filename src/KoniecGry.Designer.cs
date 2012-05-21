@@ -32,9 +32,9 @@
             this.mainMenu1 = new System.Windows.Forms.MainMenu();
             this.panel1 = new System.Windows.Forms.Panel();
             this.zatwierdzambutton = new System.Windows.Forms.Button();
-            this.punktylabel = new System.Windows.Forms.Label();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.namelabel = new System.Windows.Forms.Label();
+            this.punktylabel = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
             this.listBox1 = new System.Windows.Forms.ListBox();
             this.wyjdzbutton = new System.Windows.Forms.Button();
@@ -48,6 +48,8 @@
             // 
             // panel1
             // 
+            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.panel1.BackColor = System.Drawing.Color.Red;
             this.panel1.Controls.Add(this.zatwierdzambutton);
             this.panel1.Controls.Add(this.textBox1);
@@ -67,15 +69,6 @@
             this.zatwierdzambutton.Text = "Zatwierdzam";
             this.zatwierdzambutton.Click += new System.EventHandler(this.zatwierdzambutton_Click);
             // 
-            // punktylabel
-            // 
-            this.punktylabel.ForeColor = System.Drawing.SystemColors.ControlLight;
-            this.punktylabel.Location = new System.Drawing.Point(143, 8);
-            this.punktylabel.Name = "punktylabel";
-            this.punktylabel.Size = new System.Drawing.Size(107, 20);
-            this.punktylabel.Text = "Punkty: 0";
-            this.punktylabel.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            // 
             // textBox1
             // 
             this.textBox1.Location = new System.Drawing.Point(85, 3);
@@ -92,8 +85,19 @@
             this.namelabel.Text = "Nick:";
             this.namelabel.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
+            // punktylabel
+            // 
+            this.punktylabel.ForeColor = System.Drawing.SystemColors.ControlLight;
+            this.punktylabel.Location = new System.Drawing.Point(143, 8);
+            this.punktylabel.Name = "punktylabel";
+            this.punktylabel.Size = new System.Drawing.Size(107, 20);
+            this.punktylabel.Text = "Punkty: 0";
+            this.punktylabel.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            // 
             // panel2
             // 
+            this.panel2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.panel2.AutoScroll = true;
             this.panel2.BackColor = System.Drawing.Color.Red;
             this.panel2.Controls.Add(this.listBox1);
@@ -103,6 +107,8 @@
             // 
             // listBox1
             // 
+            this.listBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.listBox1.Location = new System.Drawing.Point(22, 3);
             this.listBox1.Name = "listBox1";
             this.listBox1.Size = new System.Drawing.Size(289, 58);
@@ -122,6 +128,8 @@
             // 
             // panel3
             // 
+            this.panel3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.panel3.BackColor = System.Drawing.Color.Red;
             this.panel3.Controls.Add(this.label1);
             this.panel3.Controls.Add(this.punktylabel);
@@ -141,6 +149,7 @@
             // 
             // wyjdzbutton2
             // 
+            this.wyjdzbutton2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.wyjdzbutton2.BackColor = System.Drawing.Color.Yellow;
             this.wyjdzbutton2.ForeColor = System.Drawing.SystemColors.ActiveCaption;
             this.wyjdzbutton2.Location = new System.Drawing.Point(176, 174);

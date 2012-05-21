@@ -334,12 +334,14 @@ namespace Rudy_103.src
             drawFormat.Alignment = StringAlignment.Center;
             if (Opcje.wlaczonePrzyciskiEkranowe)
             {
+
+                Opcje.przyciskEnter = new Rectangle(0, Kamera.Wysokosc_Ekranu - Narzedzia.PointToPixelHorizontal(120) + Narzedzia.PointToPixelHorizontal(30), Narzedzia.PointToPixelVertical(50), Narzedzia.PointToPixelHorizontal(50));
+
+                Opcje.przyciskGora = new Rectangle(Kamera.Szerokosc_Ekranu - Narzedzia.PointToPixelVertical(45 + 12), Kamera.Wysokosc_Ekranu - Narzedzia.PointToPixelHorizontal(120), Narzedzia.PointToPixelVertical(25), Narzedzia.PointToPixelHorizontal(25));
                 
-                Opcje.przyciskGora = new Rectangle(Kamera.Szerokosc_Ekranu - 45 - 12, Kamera.Wysokosc_Ekranu - 120, 25, 25);
-                Opcje.przyciskEnter = new Rectangle(Kamera.Szerokosc_Ekranu - 45 - 12, Kamera.Wysokosc_Ekranu - 120 + 30, 25, 25);
-                Opcje.przyciskDol = new Rectangle(Kamera.Szerokosc_Ekranu - 45 - 12, Kamera.Wysokosc_Ekranu - 120 + 30 + 30, 25, 25);
-                Opcje.przyciskLewo = new Rectangle(Kamera.Szerokosc_Ekranu - 75 - 12, Kamera.Wysokosc_Ekranu - 120 + 30, 25, 25);
-                Opcje.przyciskPrawo = new Rectangle(Kamera.Szerokosc_Ekranu - 45 - 12 + 30, Kamera.Wysokosc_Ekranu - 120 + 30, 25, 25);
+                Opcje.przyciskDol = new Rectangle(Kamera.Szerokosc_Ekranu - Narzedzia.PointToPixelVertical(45 + 12), Kamera.Wysokosc_Ekranu - Narzedzia.PointToPixelHorizontal(120) + Narzedzia.PointToPixelHorizontal(30) + Narzedzia.PointToPixelHorizontal(30), Narzedzia.PointToPixelVertical(25), Narzedzia.PointToPixelHorizontal(25));
+                Opcje.przyciskLewo = new Rectangle(Kamera.Szerokosc_Ekranu - Narzedzia.PointToPixelVertical(75 + 12), Kamera.Wysokosc_Ekranu - Narzedzia.PointToPixelHorizontal(120) + Narzedzia.PointToPixelHorizontal(30), Narzedzia.PointToPixelVertical(25), Narzedzia.PointToPixelHorizontal(25));
+                Opcje.przyciskPrawo = new Rectangle(Kamera.Szerokosc_Ekranu - Narzedzia.PointToPixelVertical(45 + 12 - 30), Kamera.Wysokosc_Ekranu - Narzedzia.PointToPixelHorizontal(120) + Narzedzia.PointToPixelHorizontal(30), Narzedzia.PointToPixelVertical(25), Narzedzia.PointToPixelHorizontal(25));
                 if (Opcje.Gora) g.DrawImage(Multimedia.interfejs_buttonUp[1], Opcje.przyciskGora, 0, 0, Multimedia.interfejs_buttonUp[1].Width, Multimedia.interfejs_buttonUp[1].Height, GraphicsUnit.Pixel,
                     transparentPink);
                 else g.DrawImage(Multimedia.interfejs_buttonUp[0], Opcje.przyciskGora, 0, 0, Multimedia.interfejs_buttonUp[0].Width, Multimedia.interfejs_buttonUp[0].Height, GraphicsUnit.Pixel,
@@ -394,48 +396,55 @@ namespace Rudy_103.src
             if (panelRadaru)
             {
                 #region RysowanieMiniMapy
+                int punktX = Narzedzia.PointToPixelVertical(plansza.Szerokosc / 50);
+                int punktY = Narzedzia.PointToPixelHorizontal(plansza.Wysokosc / 50);
                 int szerokosc_radaru = plansza.Szerokosc / 10;
                 int wysokosc_radaru = plansza.Wysokosc / 10;
-                Rectangle prostokatRadaru = new Rectangle(Kamera.Szerokosc_Ekranu - (szerokosc_radaru+1), 1, szerokosc_radaru, wysokosc_radaru);
+                Rectangle prostokatRadaru = new Rectangle(Kamera.Szerokosc_Ekranu - Narzedzia.PointToPixelVertical(51), Narzedzia.PointToPixelHorizontal(1), Narzedzia.PointToPixelVertical(50), Narzedzia.PointToPixelHorizontal(50));
                 //Rectangle radar_rect = new Rectangle(Kamera.Szerokosc_Ekranu - 51, 1, 50, 50);
-                Rectangle prostokatObwoduRadaru = new Rectangle(Kamera.Szerokosc_Ekranu - (szerokosc_radaru + 2), 0, (szerokosc_radaru + 1), (wysokosc_radaru + 1));
+                Rectangle prostokatObwoduRadaru = new Rectangle(Kamera.Szerokosc_Ekranu - Narzedzia.PointToPixelVertical(52), 0, Narzedzia.PointToPixelHorizontal(51), Narzedzia.PointToPixelVertical(51));
 
                 g.DrawRectangle(new Pen(Color.Blue), prostokatObwoduRadaru);
                 g.DrawImage(Multimedia.interfejs_pole_radaru, prostokatRadaru, 0, 0, Multimedia.interfejs_pole_radaru.Width, Multimedia.interfejs_pole_radaru.Height, GraphicsUnit.Pixel, transparentPink);
                 //g.DrawImage(radar, radar_rect, 0, 0, radar.Width, radar.Height, GraphicsUnit.Pixel, transparentPink);
-                g.FillEllipse(new SolidBrush(Color.White), new Rectangle(prostokatRadaru.X + ((int)player.Wymiary.X / 10), prostokatRadaru.Y + ((int)player.Wymiary.Y / 10), 4, 4));
+                g.FillEllipse(new SolidBrush(Color.White), new Rectangle(prostokatRadaru.X + ( Narzedzia.PointToPixelVertical( (int)player.Wymiary.X ) / punktX) - Narzedzia.PointToPixelVertical(1), prostokatRadaru.Y + ( Narzedzia.PointToPixelHorizontal( (int)player.Wymiary.Y ) / punktY) - Narzedzia.PointToPixelHorizontal(1), Narzedzia.PointToPixelVertical(2), Narzedzia.PointToPixelHorizontal(2)));
                 if (plansza.przeciwnicy_na_mapie != null)
                 {
                     for (int i = 0; i < plansza.przeciwnicy_na_mapie.Count; i++)
                     {
-                        g.FillEllipse(new SolidBrush(Color.Yellow), new Rectangle(prostokatRadaru.X + ((int)plansza.przeciwnicy_na_mapie[i].Wymiary.X / 10),
-                            prostokatRadaru.Y + ((int)plansza.przeciwnicy_na_mapie[i].Wymiary.Y / 10), 4, 4));
+                        g.FillEllipse(new SolidBrush(Color.Yellow), new Rectangle(prostokatRadaru.X + ( Narzedzia.PointToPixelVertical( (int)plansza.przeciwnicy_na_mapie[i].Wymiary.X ) / punktX) - Narzedzia.PointToPixelVertical(1),
+                            prostokatRadaru.Y + ( Narzedzia.PointToPixelHorizontal( (int)plansza.przeciwnicy_na_mapie[i].Wymiary.Y ) / punktY) - Narzedzia.PointToPixelHorizontal(1), Narzedzia.PointToPixelVertical(2), Narzedzia.PointToPixelHorizontal(2)));
                     }
                 }
 
-                g.DrawRectangle(new Pen(Color.Red), prostokatRadaru.X + (int)Kamera.Prostokat_Kamery.X / 10, prostokatRadaru.Y + (int)Kamera.Prostokat_Kamery.Y / 10, (int)Kamera.Prostokat_Kamery.Width / 10, (int)Kamera.Prostokat_Kamery.Height / 10);
+                g.DrawRectangle(new Pen(Color.Red), prostokatRadaru.X + Narzedzia.PointToPixelVertical( (int)Kamera.Prostokat_Kamery.X ) / punktX, prostokatRadaru.Y + Narzedzia.PointToPixelHorizontal( (int)Kamera.Prostokat_Kamery.Y ) / punktY, (int)Kamera.Prostokat_Kamery.Width / punktX, (int)Kamera.Prostokat_Kamery.Height / punktY);
                 #endregion RysowanieMiniMapy
             }
             if (panelInformacji)
             {
+                
                 #region RysowanieInformacji
-                g.DrawImage(Multimedia.interfejs_informacje, new Rectangle(Kamera.Szerokosc_Ekranu / 2 - Multimedia.interfejs_informacje.Width / 2, Kamera.Wysokosc_Ekranu - 30, Multimedia.interfejs_informacje.Width, 30), 0, 0, Multimedia.interfejs_informacje.Width, Multimedia.interfejs_informacje.Height, GraphicsUnit.Pixel, transparentPink);
 
-                if (licznik_informacji == 1) g.DrawString(s_poziom, new Font("Arial", 12, FontStyle.Regular), new SolidBrush(Color.White), new RectangleF(0, Kamera.Wysokosc_Ekranu - 25, Kamera.Szerokosc_Ekranu, 25), drawFormat);
-                if (licznik_informacji == 2) g.DrawString(s_czas, new Font("Arial", 12, FontStyle.Regular), new SolidBrush(Color.White), new RectangleF(0, Kamera.Wysokosc_Ekranu - 25, Kamera.Szerokosc_Ekranu, 25), drawFormat);
-                if (licznik_informacji == 3) g.DrawString(s_przeciwnicy, new Font("Arial", 12, FontStyle.Regular), new SolidBrush(Color.White), new RectangleF(0, Kamera.Wysokosc_Ekranu - 25, Kamera.Szerokosc_Ekranu, 25), drawFormat);
-                if (licznik_informacji == 4) g.DrawString(s_punkty, new Font("Arial", 12, FontStyle.Regular), new SolidBrush(Color.White), new RectangleF(0, Kamera.Wysokosc_Ekranu - 25, Kamera.Szerokosc_Ekranu, 25), drawFormat);
+                g.DrawImage(Multimedia.interfejs_informacje, new Rectangle(Kamera.Szerokosc_Ekranu / 2 - Narzedzia.PointToPixelVertical(Multimedia.interfejs_informacje.Width / 2),
+                    Kamera.Wysokosc_Ekranu - Narzedzia.PointToPixelHorizontal(30), Narzedzia.PointToPixelVertical(Multimedia.interfejs_informacje.Width), Narzedzia.PointToPixelHorizontal(30)), 
+                    0, 0, Multimedia.interfejs_informacje.Width, Multimedia.interfejs_informacje.Height, 
+                    GraphicsUnit.Pixel, transparentPink);
+
+                if (licznik_informacji == 1) g.DrawString(s_poziom, new Font("Arial", 10, FontStyle.Regular), new SolidBrush(Color.White), new RectangleF(0, Kamera.Wysokosc_Ekranu - Narzedzia.PointToPixelHorizontal(25), Kamera.Szerokosc_Ekranu, Narzedzia.PointToPixelHorizontal(25)), drawFormat);
+                if (licznik_informacji == 2) g.DrawString(s_czas, new Font("Arial", 10, FontStyle.Regular), new SolidBrush(Color.White), new RectangleF(0, Kamera.Wysokosc_Ekranu - Narzedzia.PointToPixelHorizontal(25), Kamera.Szerokosc_Ekranu, Narzedzia.PointToPixelHorizontal(25)), drawFormat);
+                if (licznik_informacji == 3) g.DrawString(s_przeciwnicy, new Font("Arial", 10, FontStyle.Regular), new SolidBrush(Color.White), new RectangleF(0, Kamera.Wysokosc_Ekranu - Narzedzia.PointToPixelHorizontal(25), Kamera.Szerokosc_Ekranu, Narzedzia.PointToPixelHorizontal(25)), drawFormat);
+                if (licznik_informacji == 4) g.DrawString(s_punkty, new Font("Arial", 10, FontStyle.Regular), new SolidBrush(Color.White), new RectangleF(0, Kamera.Wysokosc_Ekranu - Narzedzia.PointToPixelHorizontal(25), Kamera.Szerokosc_Ekranu, Narzedzia.PointToPixelHorizontal(25)), drawFormat);
 
                 #endregion RysowanieInformacji
             }
             if (panelEnergii)
             {
                 #region Lifes
-                Rectangle prostokat3 = new Rectangle(5, 0, 30, 30);
+                Rectangle prostokat3 = new Rectangle(0, 0, Narzedzia.PointToPixelVertical(30), Narzedzia.PointToPixelHorizontal(30));
                 for (int i = 0; i < player.energia; i++)
                 {
                     g.DrawImage(Multimedia.polska_gracz[0], prostokat3, 0, 0, Multimedia.polska_gracz[0].Width, Multimedia.polska_gracz[0].Height, GraphicsUnit.Pixel, transparentPink);
-                    prostokat3.X += 35;
+                    prostokat3.X += Narzedzia.PointToPixelVertical(35);
                 }
                 #endregion Lifes
                 
@@ -552,8 +561,10 @@ namespace Rudy_103.src
             {
                 #region RysowaniePrzyciskuMapa
 
-                przyciskMapyProst = new Rectangle(Kamera.Szerokosc_Ekranu / 2 + Multimedia.interfejs_informacje.Width / 2, Kamera.Wysokosc_Ekranu - 30, 60, 30);
-                Rectangle prostokatPrzycisk2 = new Rectangle(Kamera.Szerokosc_Ekranu / 2 + Multimedia.interfejs_informacje.Width / 2, Kamera.Wysokosc_Ekranu - 25, 60, 15);
+                przyciskMapyProst = new Rectangle(Kamera.Szerokosc_Ekranu / 2 + Narzedzia.PointToPixelVertical(Multimedia.interfejs_informacje.Width / 2), Kamera.Wysokosc_Ekranu - Narzedzia.PointToPixelHorizontal(30), 
+                    Narzedzia.PointToPixelVertical(60), Narzedzia.PointToPixelHorizontal(30));
+                Rectangle prostokatPrzycisk2 = new Rectangle(Kamera.Szerokosc_Ekranu / 2 + Narzedzia.PointToPixelVertical(Multimedia.interfejs_informacje.Width / 2),
+                    Kamera.Wysokosc_Ekranu - Narzedzia.PointToPixelHorizontal(25), Narzedzia.PointToPixelVertical(60), Narzedzia.PointToPixelHorizontal(15));
 
                 g.DrawImage(Multimedia.przyciskImageZamknij, przyciskMapyProst, 0, 0, Multimedia.przyciskImageZamknij.Width,
                     Multimedia.przyciskImageZamknij.Height, GraphicsUnit.Pixel, transparentPink);
@@ -570,26 +581,18 @@ namespace Rudy_103.src
                     bufforMapa = new Bitmap(Kamera.Szerokosc_Ekranu, Kamera.Wysokosc_Ekranu);
                     using (Graphics graph = Graphics.FromImage(bufforMapa))
                     {
-                        if (Kamera.Szerokosc_Ekranu > Multimedia.tlo_mapa.Width)
-                        {
-                            graph.DrawImage(Multimedia.tlo_mapa, (Kamera.Szerokosc_Ekranu - Multimedia.tlo_mapa.Width) / 2, 0);
-                        }
-                        else
-                        {
-                            graph.DrawImage(Multimedia.tlo_mapa, 0, 0);
-                        }
-                       
                         //graph.DrawRectangle(new Pen(Color.Blue), new Rectangle(19, 20, 201, 30));
                         //graph.FillRectangle(new SolidBrush(Color.Black), new Rectangle(20, 21, 200, 29));
-                        graph.DrawString("Mapa", new Font("Arial", 14, FontStyle.Regular), new SolidBrush(Color.Yellow),
-                            new Rectangle(Kamera.Szerokosc_Ekranu/2-101, 1, 200, 25), drawFormat);
+                        graph.DrawString("Mapa", new Font("Arial", 10, FontStyle.Regular), new SolidBrush(Color.Yellow),
+                            new Rectangle(Kamera.Szerokosc_Ekranu / 2 - Narzedzia.PointToPixelVertical(100), 0, Narzedzia.PointToPixelVertical(200), Narzedzia.PointToPixelHorizontal(25)), drawFormat);
                         graph.DrawRectangle(new Pen(Color.Blue), new Rectangle(Kamera.Szerokosc_Ekranu/2-101, 29, 201, 201));
 
-                        graph.DrawImage(Multimedia.pusta_mapa, new Rectangle(Kamera.Szerokosc_Ekranu / 2 - 100, 30, 200, 200), 0, 0, Multimedia.pusta_mapa.Width, Multimedia.pusta_mapa.Height,
+                        graph.DrawImage(Multimedia.pusta_mapa, new Rectangle(Kamera.Szerokosc_Ekranu / 2 - Narzedzia.PointToPixelVertical(100), Narzedzia.PointToPixelHorizontal(30), 
+                            Narzedzia.PointToPixelVertical(200), Narzedzia.PointToPixelHorizontal(200)), 0, 0, Multimedia.pusta_mapa.Width, Multimedia.pusta_mapa.Height,
                             GraphicsUnit.Pixel, transparentPink);
 
                         plansza.region.RysujMape(graph, Multimedia.przeszkoda_mapa);
-                        graph.DrawImage(Multimedia.gracz_mapa, player.Wymiary.X / 5 + Kamera.Szerokosc_Ekranu / 2 - 100, player.Wymiary.Y / 5 + 30);
+                        graph.DrawImage(Multimedia.gracz_mapa, player.Wymiary.X / Narzedzia.PointToPixelVertical(5) + Kamera.Szerokosc_Ekranu / 2 - Narzedzia.PointToPixelVertical(100), player.Wymiary.Y / Narzedzia.PointToPixelHorizontal(5) + Narzedzia.PointToPixelHorizontal(30));
                         graph.Dispose();
                     }
 
@@ -604,7 +607,7 @@ namespace Rudy_103.src
                 #endregion RysowanieMapy
 
                 #region RysowaniePrzyciskuZamknieciaMapy
-                przyciskZamknijMapeProst = new Rectangle(Kamera.Szerokosc_Ekranu/2 - 70, Kamera.Wysokosc_Ekranu - 30, 140, 30);
+                przyciskZamknijMapeProst = new Rectangle(Kamera.Szerokosc_Ekranu / 2 - Narzedzia.PointToPixelVertical(70), Kamera.Wysokosc_Ekranu - Narzedzia.PointToPixelHorizontal(30), Narzedzia.PointToPixelVertical(140), Narzedzia.PointToPixelHorizontal(30));
                 g.DrawImage(Multimedia.przyciskImageZamknij, przyciskZamknijMapeProst, 0, 0, Multimedia.przyciskImageZamknij.Width,
                     Multimedia.przyciskImageZamknij.Height, GraphicsUnit.Pixel, transparentPink);
                 g.DrawString("Zamknij Mapę", new Font("Arial", 10, FontStyle.Regular), new SolidBrush(Color.Yellow), przyciskZamknijMapeProst, drawFormat);
@@ -615,8 +618,10 @@ namespace Rudy_103.src
             {
                 #region RysowaniePrzyciskuOpcji
 
-                przyciskOpcjiProst = new Rectangle(Kamera.Szerokosc_Ekranu / 2 - Multimedia.interfejs_informacje.Width / 2 - 60, Kamera.Wysokosc_Ekranu - 30, 60, 30);
-                Rectangle prostokatPrzycisk2 = new Rectangle(Kamera.Szerokosc_Ekranu / 2 - Multimedia.interfejs_informacje.Width / 2 - 60, Kamera.Wysokosc_Ekranu - 25, 60, 15);
+                przyciskOpcjiProst = new Rectangle(Kamera.Szerokosc_Ekranu / 2 - Narzedzia.PointToPixelVertical(Multimedia.interfejs_informacje.Width / 2) - Narzedzia.PointToPixelVertical(60),
+                    Kamera.Wysokosc_Ekranu - Narzedzia.PointToPixelHorizontal(30), Narzedzia.PointToPixelVertical(60), Narzedzia.PointToPixelHorizontal(30));
+                Rectangle prostokatPrzycisk2 = new Rectangle(Kamera.Szerokosc_Ekranu / 2 - Narzedzia.PointToPixelVertical(Multimedia.interfejs_informacje.Width / 2) - Narzedzia.PointToPixelVertical(60),
+                    Kamera.Wysokosc_Ekranu - Narzedzia.PointToPixelHorizontal(25), Narzedzia.PointToPixelVertical(60), Narzedzia.PointToPixelHorizontal(15));
 
                 g.DrawImage(Multimedia.przyciskImageZamknij, przyciskOpcjiProst, 0, 0, Multimedia.przyciskImageZamknij.Width,
                     Multimedia.przyciskImageZamknij.Height, GraphicsUnit.Pixel, transparentPink);
@@ -628,84 +633,75 @@ namespace Rudy_103.src
             if (panelOpcji)
             {
                 #region RysowaniePaneluOpcji
-                g.Clear(Color.Gray);
-                if (Kamera.Szerokosc_Ekranu > Multimedia.tlo_mapa.Width)
-                {
-                    g.DrawImage(Multimedia.tlo_mapa, (Kamera.Szerokosc_Ekranu - Multimedia.tlo_mapa.Width) / 2, 0);
-                }
-                else
-                {
-                    g.DrawImage(Multimedia.tlo_mapa, 0, 0);
-                }
-                
+                g.Clear(Color.Black);
                 g.DrawString("Opcje", new Font("Arial", 10, FontStyle.Regular), new SolidBrush(Color.Yellow),
-                    new Rectangle(Kamera.Szerokosc_Ekranu/2 - 50, 0, 100, 20), drawFormat);
+                    new Rectangle(Kamera.Szerokosc_Ekranu / 2 - Narzedzia.PointToPixelVertical(50), 0, Narzedzia.PointToPixelVertical(100), Narzedzia.PointToPixelHorizontal(20)), drawFormat);
                 #endregion RysowaniePaneluOpcji
 
-                int wysokosc_elementu = (Kamera.Wysokosc_Ekranu - 20 - (ilosc_opcji*5) ) / ilosc_opcji;
-                
-                int aktualna_wysokosc = 25;
+                //int wysokosc_elementu = (Kamera.Wysokosc_Ekranu - 20 - (ilosc_opcji*5) ) / ilosc_opcji;
+
+                int aktualna_wysokosc = Narzedzia.PointToPixelHorizontal(25);
                     
                     #region Rysowanie Przycisku Radaru
-                    przyciskWylaczRadar = new Rectangle(Kamera.Szerokosc_Ekranu/2 - 100, aktualna_wysokosc, 200, 30);
+                    przyciskWylaczRadar = new Rectangle(Kamera.Szerokosc_Ekranu / 2 - Narzedzia.PointToPixelVertical(100), aktualna_wysokosc, Narzedzia.PointToPixelVertical(200), Narzedzia.PointToPixelHorizontal(30));
                     g.DrawImage(Multimedia.przyciskImageZamknij, przyciskWylaczRadar, 0, 0, Multimedia.przyciskImageZamknij.Width,
                         Multimedia.przyciskImageZamknij.Height, GraphicsUnit.Pixel, transparentPink);
                     if (panelRadaru) g.DrawString("Wyłącz Radar", new Font("Arial", 10, FontStyle.Regular), new SolidBrush(Color.Green),
                          przyciskWylaczRadar, drawFormat);
                     else g.DrawString("Włącz Radar", new Font("Arial", 10, FontStyle.Regular), new SolidBrush(Color.Red),
                         przyciskWylaczRadar, drawFormat);
-                    aktualna_wysokosc += 35;
+                    aktualna_wysokosc += Narzedzia.PointToPixelHorizontal(35);
                     #endregion Rysowanie Przycisku Radaru
 
                     #region Rysowanie Przycisku Energii
-                    przyciskWylaczEnergie = new Rectangle(Kamera.Szerokosc_Ekranu / 2 - 100, aktualna_wysokosc, 200, 30);
+                    przyciskWylaczEnergie = new Rectangle(Kamera.Szerokosc_Ekranu / 2 - Narzedzia.PointToPixelVertical(100), aktualna_wysokosc, Narzedzia.PointToPixelVertical(200), Narzedzia.PointToPixelHorizontal(30));
                     g.DrawImage(Multimedia.przyciskImageZamknij, przyciskWylaczEnergie, 0, 0, Multimedia.przyciskImageZamknij.Width,
                         Multimedia.przyciskImageZamknij.Height, GraphicsUnit.Pixel, transparentPink);
                     if (panelEnergii) g.DrawString("Wyłącz Energie", new Font("Arial", 10, FontStyle.Regular), new SolidBrush(Color.Green),
                          przyciskWylaczEnergie, drawFormat);
                     else g.DrawString("Włącz Energie", new Font("Arial", 10, FontStyle.Regular), new SolidBrush(Color.Red),
                         przyciskWylaczEnergie, drawFormat);
-                    aktualna_wysokosc += 35;
+                    aktualna_wysokosc += Narzedzia.PointToPixelHorizontal(35);
                     #endregion Rysowanie Przycisku Energii
 
                     #region Rysowanie Przycisku Informacji
-                    przyciskWylaczInformacje = new Rectangle(Kamera.Szerokosc_Ekranu / 2 - 100, aktualna_wysokosc, 200, 30);
+                    przyciskWylaczInformacje = new Rectangle(Kamera.Szerokosc_Ekranu / 2 - Narzedzia.PointToPixelVertical(100), aktualna_wysokosc, Narzedzia.PointToPixelVertical(200), Narzedzia.PointToPixelHorizontal(30));
                     g.DrawImage(Multimedia.przyciskImageZamknij, przyciskWylaczInformacje, 0, 0, Multimedia.przyciskImageZamknij.Width,
                         Multimedia.przyciskImageZamknij.Height, GraphicsUnit.Pixel, transparentPink);
                     if (panelInformacji) g.DrawString("Wyłącz Informacje", new Font("Arial", 10, FontStyle.Regular), new SolidBrush(Color.Green),
                          przyciskWylaczInformacje, drawFormat);
                     else g.DrawString("Włącz Informacje", new Font("Arial", 10, FontStyle.Regular), new SolidBrush(Color.Red),
                         przyciskWylaczInformacje, drawFormat);
-                    aktualna_wysokosc += 35;
+                    aktualna_wysokosc += Narzedzia.PointToPixelHorizontal(35);
                     #endregion Rysowanie Przycisku Informacji
 
                     #region Rysowanie Przycisku Cieniowania
-                    przyciskWylaczCieniowanie = new Rectangle(Kamera.Szerokosc_Ekranu / 2 - 100, aktualna_wysokosc, 200, 30);
+                    przyciskWylaczCieniowanie = new Rectangle(Kamera.Szerokosc_Ekranu / 2 - Narzedzia.PointToPixelVertical(100), aktualna_wysokosc, Narzedzia.PointToPixelVertical(200), Narzedzia.PointToPixelHorizontal(30));
                     g.DrawImage(Multimedia.przyciskImageZamknij, przyciskWylaczCieniowanie, 0, 0, Multimedia.przyciskImageZamknij.Width,
                         Multimedia.przyciskImageZamknij.Height, GraphicsUnit.Pixel, transparentPink);
                     if (Opcje.wlacz_cieniowanie) g.DrawString("Wyłącz Cieniowanie", new Font("Arial", 10, FontStyle.Regular), new SolidBrush(Color.Green),
                          przyciskWylaczCieniowanie, drawFormat);
                     else g.DrawString("Włącz Cieniowanie", new Font("Arial", 10, FontStyle.Regular), new SolidBrush(Color.Red),
                         przyciskWylaczCieniowanie, drawFormat);
-                    aktualna_wysokosc += 35;
+                    aktualna_wysokosc += Narzedzia.PointToPixelHorizontal(35);
                     #endregion Rysowanie Przycisku Cieniowania
 
                     #region Rysowanie Przycisku Wyjscia
-                    przyciskWyjscia = new Rectangle(Kamera.Szerokosc_Ekranu / 2 - 100, aktualna_wysokosc, 200, 30);
+                    przyciskWyjscia = new Rectangle(Kamera.Szerokosc_Ekranu / 2 - Narzedzia.PointToPixelVertical(100), aktualna_wysokosc, Narzedzia.PointToPixelVertical(200), Narzedzia.PointToPixelHorizontal(30));
                     g.DrawImage(Multimedia.przyciskImageZamknij, przyciskWyjscia, 0, 0, Multimedia.przyciskImageZamknij.Width,
                         Multimedia.przyciskImageZamknij.Height, GraphicsUnit.Pixel, transparentPink);
                     g.DrawString("Zakończ Grę", new Font("Arial", 10, FontStyle.Regular), new SolidBrush(Color.Yellow),
                         przyciskWyjscia, drawFormat);
-                    aktualna_wysokosc += 35;
+                    aktualna_wysokosc += Narzedzia.PointToPixelHorizontal(35);
                     #endregion Rysowanie Przycisku Wyjscia
 
                     #region Rysowanie Przycisku Zamkniecia Opcji
-                    przyciskZamknijOpcjeProst = new Rectangle(Kamera.Szerokosc_Ekranu / 2 - 100, aktualna_wysokosc, 200, 30);
+                    przyciskZamknijOpcjeProst = new Rectangle(Kamera.Szerokosc_Ekranu / 2 - Narzedzia.PointToPixelVertical(100), aktualna_wysokosc, Narzedzia.PointToPixelVertical(200), Narzedzia.PointToPixelHorizontal(30));
                     g.DrawImage(Multimedia.przyciskImageZamknij, przyciskZamknijOpcjeProst, 0, 0, Multimedia.przyciskImageZamknij.Width,
                         Multimedia.przyciskImageZamknij.Height, GraphicsUnit.Pixel, transparentPink);
                     g.DrawString("Zamknij Opcje", new Font("Arial", 10, FontStyle.Regular), new SolidBrush(Color.Yellow),
                         przyciskZamknijOpcjeProst, drawFormat);
-                    aktualna_wysokosc += 35;
+                    aktualna_wysokosc += Narzedzia.PointToPixelHorizontal(35);
                     #endregion Rysowanie Przycisku Zamkniecia Opcji
                
             }
@@ -714,7 +710,7 @@ namespace Rudy_103.src
                 #region Rysowanie Panelu Ulepszeń
                 g.Clear(Color.Black);
                 g.DrawString("Ilość pieniędzy: " + player.pieniadze, new Font("Arial", 10, FontStyle.Regular), new SolidBrush(Color.Green),
-                    new Rectangle(Kamera.Prostokat_Kamery.Width/2 - 100, 0, 200, 20), drawFormat);
+                    new Rectangle(Kamera.Prostokat_Kamery.Width / 2 - Narzedzia.PointToPixelVertical(100), 0, Narzedzia.PointToPixelVertical(200), Narzedzia.PointToPixelHorizontal(20)), drawFormat);
 
                 warsztat.Rysuj(g, transparentPink);
 
@@ -724,10 +720,10 @@ namespace Rudy_103.src
             }
             if (player.zginales)
             {
-                g.FillRectangle(new SolidBrush(Color.White), new Rectangle(5, 120, 230, 30));
-                g.DrawRectangle(new Pen(Color.Black), new Rectangle(5, 120, 230, 30));
-                g.DrawString("Zostałeś Zniszczony!", new Font("Arial", 14, FontStyle.Regular), new SolidBrush(Color.Black),
-                    new Rectangle(5, 122, 230, 26), drawFormat);
+                g.FillRectangle(new SolidBrush(Color.White), new Rectangle(Narzedzia.PointToPixelVertical(5), Narzedzia.PointToPixelHorizontal(120), Narzedzia.PointToPixelVertical(230), Narzedzia.PointToPixelHorizontal(30)));
+                g.DrawRectangle(new Pen(Color.Black), new Rectangle(Narzedzia.PointToPixelVertical(5), Narzedzia.PointToPixelHorizontal(120), Narzedzia.PointToPixelVertical(230), Narzedzia.PointToPixelHorizontal(30)));
+                g.DrawString("Zostałeś Zniszczony!", new Font("Arial", 10, FontStyle.Regular), new SolidBrush(Color.Black),
+                    new Rectangle(Narzedzia.PointToPixelVertical(5), Narzedzia.PointToPixelHorizontal(122), Narzedzia.PointToPixelVertical(230), Narzedzia.PointToPixelHorizontal(26)), drawFormat);
                 
             }
 
@@ -735,21 +731,21 @@ namespace Rudy_103.src
             {
                 g.Clear(Color.Black);
 
-                g.DrawString(s_poziom + " Ukończony", new Font("Arial", 14, FontStyle.Regular), new SolidBrush(Color.Yellow),
-                    new Rectangle(Kamera.Prostokat_Kamery.Width/2-100, 5, 200, 25), drawFormat);
+                g.DrawString(s_poziom + " Ukończony", new Font("Arial", 10, FontStyle.Regular), new SolidBrush(Color.Yellow),
+                    new Rectangle(Kamera.Prostokat_Kamery.Width / 2 - Narzedzia.PointToPixelVertical(100), Narzedzia.PointToPixelHorizontal(0), Narzedzia.PointToPixelVertical(200), Narzedzia.PointToPixelHorizontal(25)), drawFormat);
 
-                g.DrawString(s_czas, new Font("Arial", 12, FontStyle.Regular), new SolidBrush(Color.Yellow),
-                    new Rectangle(Kamera.Prostokat_Kamery.Width / 2 - 100, 35, 200, 25), drawFormat);
+                g.DrawString(s_czas, new Font("Arial", 10, FontStyle.Regular), new SolidBrush(Color.Yellow),
+                    new Rectangle(Kamera.Prostokat_Kamery.Width / 2 - Narzedzia.PointToPixelVertical(100), Narzedzia.PointToPixelHorizontal(35), Narzedzia.PointToPixelVertical(200), Narzedzia.PointToPixelHorizontal(25)), drawFormat);
 
-                g.DrawString("Punkty: "+player.punkty, new Font("Arial", 12, FontStyle.Regular), new SolidBrush(Color.Yellow),
-                    new Rectangle(Kamera.Prostokat_Kamery.Width / 2 - 100, 65, 200, 25), drawFormat);
+                g.DrawString("Punkty: "+player.punkty, new Font("Arial", 10, FontStyle.Regular), new SolidBrush(Color.Yellow),
+                    new Rectangle(Kamera.Prostokat_Kamery.Width / 2 - Narzedzia.PointToPixelVertical(100), Narzedzia.PointToPixelHorizontal(65), Narzedzia.PointToPixelVertical(200), Narzedzia.PointToPixelHorizontal(25)), drawFormat);
 
-                przyciskZamknijUkonczonyPoziom = new Rectangle(Kamera.Prostokat_Kamery.Width / 2 - 100, 
-                    Kamera.Prostokat_Kamery.Height - 40, 200, 30);
+                przyciskZamknijUkonczonyPoziom = new Rectangle(Kamera.Prostokat_Kamery.Width / 2 - Narzedzia.PointToPixelVertical(100),
+                    Kamera.Prostokat_Kamery.Height - Narzedzia.PointToPixelHorizontal(40), Narzedzia.PointToPixelVertical(200), Narzedzia.PointToPixelHorizontal(30));
                 g.DrawImage(Multimedia.przyciskImageZamknij, przyciskZamknijUkonczonyPoziom, 0, 0, Multimedia.przyciskImageZamknij.Width,
                     Multimedia.przyciskImageZamknij.Height, GraphicsUnit.Pixel, transparentPink);
-                g.DrawString("Przejdź Dalej", new Font("Arial", 12, FontStyle.Regular), new SolidBrush(Color.Yellow),
-                    new Rectangle(Kamera.Prostokat_Kamery.Width / 2 - 100, Kamera.Prostokat_Kamery.Height - 30, 200, 25), drawFormat);
+                g.DrawString("Przejdź Dalej", new Font("Arial", 10, FontStyle.Regular), new SolidBrush(Color.Yellow),
+                    new Rectangle(Kamera.Prostokat_Kamery.Width / 2 - Narzedzia.PointToPixelVertical(100), Kamera.Prostokat_Kamery.Height - Narzedzia.PointToPixelHorizontal(30), Narzedzia.PointToPixelVertical(200), Narzedzia.PointToPixelHorizontal(25)), drawFormat);
             }
             /*
             if (player.energia <= 0)

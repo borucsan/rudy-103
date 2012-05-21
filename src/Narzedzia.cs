@@ -121,5 +121,27 @@ namespace Rudy_103.src
         }
 
         public static System.Drawing.Imaging.ImageAttributes transparentPink;
+
+        public static int PointToPixelVertical(int width)
+        {
+            /*
+             * Konwertuje szerokość, warość X 
+             * na jednostke wyglądającą tak samo 
+             * na każdym urządzeniu, teoretycznie
+            */
+            int mnoznik_szerokosci = Kamera.Prostokat_Kamery.Width / 320;
+            return width * mnoznik_szerokosci;
+        }
+        public static int PointToPixelHorizontal(int height)
+        {
+            /*
+             * Konwertuje wysokość, warość Y 
+             * na jednostke wyglądającą tak samo 
+             * na każdym urządzeniu, teoretycznie
+            */
+            int mnoznik_wysokosci = Kamera.Prostokat_Kamery.Height / 240;
+            return height * mnoznik_wysokosci;
+        }
+
     }
 }

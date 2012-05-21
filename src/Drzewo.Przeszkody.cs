@@ -389,8 +389,8 @@ namespace Rudy_103.src
                 for (int i = 0; i < iterator.lista.Count; ++i)
                 {
                         Przeszkoda pr = (iterator.lista[i].obiekt) as Przeszkoda;
-                        graph.DrawImage(przeszkoda_mapa, pr.Wymiary.X / 5 + Kamera.Szerokosc_Ekranu / 2 - 100,
-                                pr.Wymiary.Y / 5 + 30);
+                        graph.DrawImage(przeszkoda_mapa, pr.Wymiary.X / Narzedzia.PointToPixelVertical(5) + Kamera.Szerokosc_Ekranu / 2 - Narzedzia.PointToPixelVertical(100),
+                                pr.Wymiary.Y / Narzedzia.PointToPixelHorizontal(5) + Narzedzia.PointToPixelHorizontal(30));
                 }
             }
         }
