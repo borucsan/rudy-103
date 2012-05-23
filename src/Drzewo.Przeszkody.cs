@@ -84,8 +84,8 @@ namespace Rudy_103.src
             {
                 for (int i = 0; i < iterator.lista.Count; ++i)
                 {
+                    if (iterator.lista[i].transparent) continue;
                     Przeszkoda pr = (iterator.lista[i].obiekt) as Przeszkoda;
-                    if (pr.transparent) continue;
                     if (poc.Wymiary.IntersectsWith(iterator.lista[i].Wymiary) && pr.energia > 0)
                     {
                         if (pr.Uszkodz(poc.sila))
@@ -94,7 +94,6 @@ namespace Rudy_103.src
                         }
                         return true;
                     }
-
                 }
             }
             return false;
@@ -128,8 +127,8 @@ namespace Rudy_103.src
             {
                 for (int i = 0; i < iterator.lista.Count; ++i)
                 {
+                    if (iterator.lista[i].transparent) continue;
                     Przeszkoda pr = (Przeszkoda)(iterator.lista[i].obiekt);
-                    if (pr.transparent) continue;
                     if (obj.Wymiary.IntersectsWith(pr.Wymiary) && pr.energia > 0)
                     {
                         return true;
@@ -183,15 +182,14 @@ namespace Rudy_103.src
             {
                 for (int i = 0; i < iterator.lista.Count; ++i)
                 {
+                    if (iterator.lista[i].transparent) continue;
                     Przeszkoda pr = (Przeszkoda)(iterator.lista[i].obiekt);
-                    if (pr.transparent) continue;
                     if (obj.Wymiary.IntersectsWith(pr.Wymiary) && pr.energia > 0) return pr;
                 }
             }
             return null;
         }
         #endregion
-
 
         #region Rysowanie podloza
         public void RysujPodloze(Rectangle rec, Graphics g, System.Drawing.Imaging.ImageAttributes transparentPink)

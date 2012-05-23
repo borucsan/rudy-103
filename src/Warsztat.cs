@@ -20,7 +20,7 @@ namespace Rudy_103.src
         public Rectangle przyciskUlepszAtak;
         public Rectangle przyciskUlepszMur;
 
-        public Warsztat(System.Reflection.Assembly execAssem)
+        public Warsztat()
         {
             poziom_szybkosci = 1;
             poziom_pancerza = 1;

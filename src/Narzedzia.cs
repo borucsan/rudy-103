@@ -8,7 +8,9 @@ namespace Rudy_103.src
 {
     static class Narzedzia
     {
+      
         public static Random rand = new Random();
+        public static System.Drawing.Imaging.ImageAttributes transparentPink;
 
         public static PodzialProstokata DzielProsokat(Rectangle Prosokat, out Rectangle SubProstokat1, out Rectangle SubProstokat2)
         {
@@ -29,6 +31,32 @@ namespace Rudy_103.src
                 else
                 {
                     DzielProsokat(Prosokat, out SubProstokat1, out SubProstokat2, PodzialProstokata.X);
+                    return PodzialProstokata.X;
+                }
+            }
+        }
+        public static PodzialProstokata DzielProsokat(Rectangle Prosokat, out Rectangle SubProstokat1, out Rectangle SubProstokat2, int pozycja_podzialu)
+        {
+            SubProstokat1 = new Rectangle();
+            SubProstokat2 = new Rectangle();
+            if (Prosokat.Width == Prosokat.Height)
+            {
+                SubProstokat1 = new Rectangle(Prosokat.X, Prosokat.Y, pozycja_podzialu, Prosokat.Height);
+                SubProstokat2 = new Rectangle(Prosokat.X + pozycja_podzialu, Prosokat.Y, Prosokat.Width - pozycja_podzialu, Prosokat.Height);
+                return PodzialProstokata.X;
+            }
+            else
+            {
+                if (Prosokat.Height > Prosokat.Width)
+                {
+                    SubProstokat1 = new Rectangle(Prosokat.X, Prosokat.Y, Prosokat.Width, pozycja_podzialu);
+                    SubProstokat2 = new Rectangle(Prosokat.X, Prosokat.Y + pozycja_podzialu, Prosokat.Width, Prosokat.Height - pozycja_podzialu);
+                    return PodzialProstokata.Y;
+                }
+                else
+                {
+                    SubProstokat1 = new Rectangle(Prosokat.X, Prosokat.Y, pozycja_podzialu, Prosokat.Height);
+                    SubProstokat2 = new Rectangle(Prosokat.X + pozycja_podzialu, Prosokat.Y, Prosokat.Width - pozycja_podzialu, Prosokat.Height);
                     return PodzialProstokata.X;
                 }
             }
@@ -86,7 +114,6 @@ namespace Rudy_103.src
         
         public enum PodzialProstokata : int {X, Y};
 
-
         public static List<T> Tasuj<T>(List<T> lista)
         {
             List<int> pozycje = new List<int>(lista.Count);
@@ -119,8 +146,24 @@ namespace Rudy_103.src
             }
             return return_list.ToArray<T>();
         }
+        public static string WykryjKarteSD()
+        {
+            string firstCard = "";
 
-        public static System.Drawing.Imaging.ImageAttributes transparentPink;
+            System.IO.DirectoryInfo di = new System.IO.DirectoryInfo("\\");
+            System.IO.FileSystemInfo[] fsi = di.GetFileSystemInfos();
+
+            for (int x = 0; x < fsi.Length; x++)
+            {
+                if ((fsi[x].Attributes & System.IO.FileAttributes.Temporary) == System.IO.FileAttributes.Temporary)
+                {
+                    firstCard = fsi[x].FullName;
+                }
+            }
+
+            return firstCard;
+        }
+        
 
         public static int PointToPixelVertical(int width)
         {

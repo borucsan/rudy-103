@@ -332,7 +332,7 @@ namespace Rudy_103.src
                 wymiary.Location = poprzednia_pozycja;
                 if (pozostaly_ruch == szybkosc)
                 {
-                    ObliczPozycje3(pr);
+                    ObliczPozycje(pr);
                     pozostaly_ruch = 0;
                     if(Zderzenie2(plansza)) wymiary.Location = poprzednia_pozycja;
                 }
@@ -344,56 +344,7 @@ namespace Rudy_103.src
             }
             return false;
         }
-        public void ObliczPozycje2(Przeszkoda przeszkoda)
-        {
-            int X = wymiary.X - przeszkoda.Wymiary.X;
-            int Y = wymiary.Y - przeszkoda.Wymiary.Y;
-            if (wymiary.Y >= przeszkoda.Wymiary.Bottom && Math.Abs(X) <= wymiary.Width)
-            {
-                if(wymiary.IntersectsWith(przeszkoda.krawedzie[2]))
-                {
-                    UstawPozycje(przeszkoda.Wymiary.X - wymiary.Width, przeszkoda.Wymiary.Bottom - 3);
-                }
-                else if (wymiary.IntersectsWith(przeszkoda.krawedzie[3]))
-                {
-                    UstawPozycje(przeszkoda.Wymiary.Right, przeszkoda.Wymiary.Bottom - 3);
-                }
-            }
-            if (wymiary.Right <= przeszkoda.Wymiary.X && Math.Abs(Y) <= wymiary.Height)
-            {
-                if (wymiary.IntersectsWith(przeszkoda.krawedzie[0]))
-                {
-                    UstawPozycje(przeszkoda.Wymiary.X - wymiary.Width + 3, przeszkoda.Wymiary.Y - wymiary.Height);
-                }
-                else if (wymiary.IntersectsWith(przeszkoda.krawedzie[2]))
-                {
-                    UstawPozycje(przeszkoda.Wymiary.X - wymiary.Width + 3, przeszkoda.Wymiary.Bottom);
-                }
-            }
-            if (wymiary.Bottom <= przeszkoda.Wymiary.Y && Math.Abs(X) <= wymiary.Width)
-            {
-                if (wymiary.IntersectsWith(przeszkoda.krawedzie[0]))
-                {
-                    UstawPozycje(przeszkoda.Wymiary.X - wymiary.Width, przeszkoda.Wymiary.Y - wymiary.Height + 3);
-                }
-                else if (wymiary.IntersectsWith(przeszkoda.krawedzie[1]))
-                {
-                    UstawPozycje(przeszkoda.Wymiary.Right, przeszkoda.Wymiary.Y - wymiary.Height + 3);
-                }
-            }
-            if (wymiary.X >= przeszkoda.Wymiary.Right && Math.Abs(Y) <= wymiary.Height) 
-            {
-                if (wymiary.IntersectsWith(przeszkoda.krawedzie[1]))
-                {
-                    UstawPozycje(przeszkoda.Wymiary.Right - 1, przeszkoda.Wymiary.Y - wymiary.Height);
-                }
-                else if (wymiary.IntersectsWith(przeszkoda.krawedzie[3]))
-                {
-                    UstawPozycje(przeszkoda.Wymiary.Right - 1, przeszkoda.Wymiary.Bottom);
-                }
-            }
-        }
-        public void ObliczPozycje3(Przeszkoda przeszkoda)
+        public void ObliczPozycje(Przeszkoda przeszkoda)
         {
             int X = wymiary.X - przeszkoda.Wymiary.X;
             int Y = wymiary.Y - przeszkoda.Wymiary.Y;

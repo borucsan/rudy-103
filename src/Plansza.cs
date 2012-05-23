@@ -12,17 +12,17 @@ namespace Rudy_103.src
 {
     class Plansza
     {
-        public Stack<Przeciwnik> przeciwnicy { get; set; }
-        public List<Przeciwnik> przeciwnicy_na_mapie { get; set; }
-        public List<Animacja> efekty_na_mapie { get; set; }
+        public Stack<Przeciwnik> przeciwnicy { get; private set; }
+        public List<Przeciwnik> przeciwnicy_na_mapie { get; private set; }
+        public List<Animacja> efekty_na_mapie { get; private set; }
 
-        public Rectangle[] PunktResp { get; set; }
-        public Baza baza { get; set; }
-        public DrzewoPrzeszkody region { get; set; }
-        public DrzewoPrzeszkody podloza { get; set; }
-        public int poziom { get; set; }
-        public int Wysokosc { get; set; }
-        public int Szerokosc { get; set; }
+        public Rectangle[] PunktResp { get; private set; }
+        public Baza baza { get; private set; }
+        public DrzewoPrzeszkody region { get; private set; }
+        public DrzewoPrzeszkody podloza { get; private set; }
+        public int poziom { get; private set; }
+        public int Wysokosc { get; private set; }
+        public int Szerokosc { get; private set; }
         public int zdobyte_punkty { get; set; }
         public bool ukonczony_poziom { get; set; }
         protected Image[] Podloze;
@@ -81,6 +81,7 @@ namespace Rudy_103.src
                     }
                 }
             }
+            #region BudowaObronyBazy
             string typ_muru = Plansza.WybierzTypMuru(poziom_muru);
             przeszkody.Add(fabryka.ProdukujPrzeszkode(typ_muru));
             przeszkody.Last().UstawPozycje(plansza.baza.Wymiary.X - 25, plansza.baza.Wymiary.Y + 25);
@@ -98,6 +99,7 @@ namespace Rudy_103.src
             przeszkody.Last().UstawPozycje(plansza.baza.Wymiary.X + 50, plansza.baza.Wymiary.Y);
             przeszkody.Add(fabryka.ProdukujPrzeszkode(typ_muru));
             przeszkody.Last().UstawPozycje(plansza.baza.Wymiary.X + 50, plansza.baza.Wymiary.Y + 25);
+            #endregion
 
             plansza.podloza = new DrzewoPrzeszkody(podloza, new Rectangle(0, 0, plansza.Szerokosc, plansza.Wysokosc), true);
             plansza.region = new DrzewoPrzeszkody(przeszkody, new Rectangle(0, 0, plansza.Szerokosc, plansza.Wysokosc), true);
@@ -127,19 +129,35 @@ namespace Rudy_103.src
         
         private void LosujPrzeciwnikow(Fabryka fabryka)
         {
-            int max, liczba;
+            int max;
             if (poziom == 1) max = 15;
-            else max = Narzedzia.rand.Next(18, 20);
-            liczba = Narzedzia.rand.Next(1, poziom + 1);
-            for (int i = 0; i < liczba; ++i)
-            {
-                przeciwnicy.Push(fabryka.ProdukujPrzeciwnika("Przeciwnik: Poziom 2"));
-            }
-            max = max - liczba;
+            else max = 20; //Narzedzia.rand.Next(18, 20);
+            if (poziom >= 9) max -= LosujTypPrzeciwnikow(10, this.poziom, fabryka);
+            if (poziom >= 8 && max > 0) max -= LosujTypPrzeciwnikow(9, this.poziom, fabryka);
+            if (poziom >= 7 && max > 0) max -= LosujTypPrzeciwnikow(8, this.poziom, fabryka);
+            if (poziom >= 6 && max > 0) max -= LosujTypPrzeciwnikow(7, this.poziom, fabryka);
+            if (poziom >= 5 && max > 0) max -= LosujTypPrzeciwnikow(6, this.poziom, fabryka);
+            if (poziom >= 4 && max > 0) max -= LosujTypPrzeciwnikow(5, this.poziom, fabryka);
+            if (poziom >= 3 && max > 0) max -= LosujTypPrzeciwnikow(4, this.poziom, fabryka);
+            if (poziom >= 2 && max > 0) max -= LosujTypPrzeciwnikow(3, this.poziom, fabryka);
+
+
+            max -= LosujTypPrzeciwnikow(2,this.poziom, fabryka);
+            if (max <= 0) return;
             for (int i = 0; i < max; ++i)
             {
                 przeciwnicy.Push(fabryka.ProdukujPrzeciwnika("Przeciwnik: Poziom 1"));
             }
+        }
+        private int LosujTypPrzeciwnikow(int poziom_przeciwnika, int poziom, Fabryka fabryka)
+        {
+            string typ = "Przeciwnik: Poziom " + poziom_przeciwnika.ToString();
+            int liczba = Narzedzia.rand.Next(1, poziom - (poziom - 1));
+            for (int i = 0; i < liczba; ++i)
+            {
+                przeciwnicy.Push(fabryka.ProdukujPrzeciwnika(typ));
+            }
+            return liczba;
         }
         public void Respawn(Gracz gracz)
         {

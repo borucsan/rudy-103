@@ -10,7 +10,7 @@ namespace Rudy_103.src
     /// Generyczna klasa drzewa BSP.
     /// </summary>
     /// <typeparam name="T">Przyjmuje obiekty zwracające Rectangle</typeparam>
-    class Drzewo<T> where T : IPodzielny
+    class Drzewo<T> where T : IPodzielny, IComparable
     {
         /// <summary>
         /// Korzeń drzewa.
@@ -24,6 +24,7 @@ namespace Rudy_103.src
         /// <param name="kompresja">Parametr umożliwiający tworzenie drzewa zkompresowanego(Zawierającego tylko listy w liściach.</param>
         public Drzewo(List<T> lista_obiektow, Rectangle wymiar, bool kompresja)
         {
+            lista_obiektow.Sort();
             List<ElementObiektu<T>> elem = new List<ElementObiektu<T>>();
             for (int i = 0; i < lista_obiektow.Count; ++i)
             {
@@ -49,6 +50,7 @@ namespace Rudy_103.src
                 Rectangle k1, k2;
                 List<ElementObiektu<T>> lista1 = new List<ElementObiektu<T>>();
                 List<ElementObiektu<T>> lista2 = new List<ElementObiektu<T>>();
+                
                 Narzedzia.PodzialProstokata pp = Narzedzia.DzielProsokat(iterator.Wymiary, out k1, out k2);
                 for (int i = 0; i < iterator.lista.Count; ++i)
                 {

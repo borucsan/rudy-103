@@ -10,11 +10,12 @@ namespace Rudy_103.src
     /// <summary>
     /// Klasa bazowa dla wszystkich obiektów na planszy(np. przeszkody, czołgi...)
     /// </summary>
-    abstract class Obiekty : IPodzielny
+    abstract class Obiekty : IPodzielny, IComparable
     {
         public Point poprzednia_pozycja { get; protected set; }
         protected Rectangle wymiary;
         protected Image[] obrazy;
+        protected bool transparent = false;
       
         /// <summary>
         /// Konstruktor bazowy dla obiektów
@@ -94,6 +95,27 @@ namespace Rudy_103.src
         public Rectangle Wymiary
         {
             get { return wymiary; }
+        }
+        public bool Transparent
+        {
+            get { return transparent; }
+        }
+        #endregion
+
+
+        #region IComparable Members
+
+        public int CompareTo(object obj)
+        {
+            Obiekty objekt = obj as Obiekty;
+            if (this.wymiary.Y > objekt.Wymiary.Y) return 1;
+            else if (this.wymiary.Y < objekt.Wymiary.Y) return -1;
+            else
+            {
+                if (this.wymiary.X > objekt.Wymiary.X) return 1;
+                else if (this.wymiary.X == objekt.Wymiary.X) return 0;
+                else return -1;
+            }
         }
 
         #endregion

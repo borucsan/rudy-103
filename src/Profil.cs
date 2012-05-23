@@ -6,6 +6,7 @@ using System.Data;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
+using System.IO;
 
 namespace Rudy_103.src
 {
@@ -14,6 +15,7 @@ namespace Rudy_103.src
     {
         private int wybrany_profil;
         private bool isProfileSelected;
+        
         public Profil()
         {
             InitializeComponent();
@@ -60,6 +62,7 @@ namespace Rudy_103.src
 
         private void nowyProfilButton_Click(object sender, EventArgs e)
         {
+            string path = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().GetName().CodeBase) + @"/Dane/Profile/";
             if (wybrany_profil == 1)
             {
                 profil1radioButton.Text = DateTime.Now.Date.ToString(); 
@@ -91,12 +94,14 @@ namespace Rudy_103.src
 
         private void NewGameButton_Click(object sender, EventArgs e)
         {
+            string poprzedni = NewGameButton.Text;
             NewGameButton.Text = "Proszę Czekać";
             NewGameButton.Enabled = false;
             Gra newgame = new Gra();
             newgame.Owner = this.Owner;
             newgame.Show();
             this.Hide();
+            NewGameButton.Text = poprzedni;
         }
 
         private void ContinueButton_Click(object sender, EventArgs e)
@@ -106,7 +111,24 @@ namespace Rudy_103.src
 
         private void LoadCustomButton_Click(object sender, EventArgs e)
         {
-
+            OpenFileDialog dialog = new OpenFileDialog();
+            dialog.Filter = "Plik mapy (*.xml)|*.xml";
+            dialog.FilterIndex = 0;
+            dialog.InitialDirectory = Narzedzia.WykryjKarteSD();
+            string poprzedni = LoadCustomButton.Text;
+            LoadCustomButton.Text = "Proszę Czekać";
+            if (dialog.ShowDialog() == DialogResult.OK)
+            {
+                
+                Gra newgame = new Gra(dialog.FileName);
+                newgame.Owner = this.Owner;
+             
+                newgame.Show();
+                this.Hide();
+            }
+            dialog.Dispose();
+            LoadCustomButton.Text = poprzedni;
         }
+        
     }
 }
