@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
-
 using System.Text;
 using System.Windows.Forms;
 using Microsoft.WindowsMobile;
@@ -17,18 +16,20 @@ namespace Rudy_103.src
     /// </summary>
     public partial class Gra : Form
     {
+        #region Zmienne_bool_GUI
         //Wartości określające graficzny interfejs użytkownika
-        private bool panelEnergii;
-        private bool panelRadaru;
-        private bool panelInformacji;
-        private bool przyciskMapy;      //przycisk, który będzie otwierał większą mapę
-        private bool panelMapy;         //większa mapa
+        private bool panelEnergii = true;
+        private bool panelRadaru = true;
+        private bool panelInformacji = true;
+        private bool przyciskMapy = true;      //przycisk, który będzie otwierał większą mapę
+        private bool panelMapy = false;         //większa mapa
         private bool narysowanaMapa;    //zmienna sprawdzajaca stan narysowanej mapy
-        private bool przyciskOpcji;
-        private bool panelOpcji;
+        private bool przyciskOpcji = true;
+        private bool panelOpcji = false;
         private bool panelUlepszen;     //zmienna służąca do włączania/wyłączania panelu ulepszeń
+        #endregion
 
-
+        #region Prostokaty_Przyciskow
         //Prostokaty okreslajace przyciski
         Rectangle przyciskMapyProst;
         Rectangle przyciskOpcjiProst;
@@ -43,7 +44,8 @@ namespace Rudy_103.src
         Rectangle przyciskWyjscia;
 
         Rectangle przyciskZamknijUkonczonyPoziom;
-       
+        #endregion
+
         private int czas_sekundy;
         private int czas_minuty;
 
@@ -55,47 +57,77 @@ namespace Rudy_103.src
         /// </summary>
         public bool graWczytana = false;
 
+        #region Zmienne_Informacji
         private String s_czas;  //String do wyświetlania czasu
         private String s_poziom; //String do wyświetlania poziomu
         private String s_przeciwnicy; //String do wyświetlania liczby przeciwników
         private String s_punkty;    //String do wyświetlania liczby punktów
         private int licznik_informacji; //Licznik potrzebny do timera informacji (czas_informacji)
+        #endregion
 
         private Gracz player;
-        private Fabryka fabryka;
         private Plansza plansza;
-        private Warsztat warsztat;
+        private Fabryka fabryka = new Fabryka(true);
+        private Warsztat warsztat = new Warsztat();
 
-        private int numer_efektu;
+        private int numer_efektu = 0;
 
-        private int ilosc_opcji;
-        
+        private int ilosc_opcji = 6;
+
+        /// <summary>
+        /// Scieżka do pliku custom mapy
+        /// </summary>
+        public string path {get; set;}
+        /// <summary>
+        /// Konstruktor uwzględniający custom mapy
+        /// </summary>
+        /// <param name="path">Scieżka do pliku custom mapy</param>
+        public Gra(string path)
+        {
+            this.path = path;
+            InitializeComponent();
+            //Dostajemy się do resource wkompilowaniego w aplikacje
+            Kamera.Szerokosc_Ekranu = this.Width;
+            Kamera.Wysokosc_Ekranu = this.Height;
+            
+            warsztat.UstawDomyslneWartosci();
+            PrzygotowywanieMapy();
+            player = Fabryka.ProdukujDomyslnegoGracza();
+            warsztat.UstawStatystyki(player);
+
+            UstawKamere();
+            InicjalizujTimery();
+            graWczytana = true;
+        }
         /// <summary>
         /// Konstruktor klasy nowej gry.
         /// </summary>
         public Gra()
         {
             InitializeComponent();
-
-            czas_minuty = 0;
-            czas_sekundy = 0;
-            czas_respawnow = 0;
-            czas_strzalow = 0;
             //Dostajemy się do resource wkompilowaniego w aplikacje
-            System.Reflection.Assembly execAssem = System.Reflection.Assembly.GetExecutingAssembly();
+            Kamera.Szerokosc_Ekranu = this.Width;
+            Kamera.Wysokosc_Ekranu = this.Height;
 
-            
-
-            numer_efektu = 0;
-            licznik_informacji = 1;
-
-            fabryka = new Fabryka(execAssem, true);
-            warsztat = new Warsztat(execAssem);
             warsztat.UstawDomyslneWartosci();
+            PrzygotowywanieMapy();
+            player = Fabryka.ProdukujDomyslnegoGracza();
+            warsztat.UstawStatystyki(player);
+
+            UstawKamere();
+            InicjalizujTimery();
+            graWczytana = true;
+        }
+        private void PrzygotowywanieMapy()
+        {
             try
             {
-                string path = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().GetName().CodeBase) + @"/Mapy/City.xml";
-                plansza = Plansza.WczytajMape(path, 1, fabryka, warsztat.poziom_muru);
+                if (path == null)
+                {
+                    string defaultpath = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().GetName().CodeBase) + @"/Mapy/City.xml";
+                    plansza = Plansza.WczytajMape(defaultpath, 1, fabryka, warsztat.poziom_muru);
+                }
+                else plansza = Plansza.WczytajMape(path, 1, fabryka, warsztat.poziom_muru);
             }
             catch (Exception ex)
             {
@@ -106,36 +138,27 @@ namespace Rudy_103.src
             //plansza = new Plansza(1000, 1000);
             plansza.WczytajGrafikePodloza(Multimedia.tlo);
             //plansza.GenerujDebugMapa(fabryka);
-            player = Fabryka.ProdukujDomyslnegoGracza(execAssem);
-            warsztat.UstawStatystyki(player);
-            Kamera.Szerokosc_Ekranu = this.Width;
-            Kamera.Wysokosc_Ekranu = this.Height;
-            Kamera.Prostokat_Kamery.X = plansza.Szerokosc/2 - Kamera.Szerokosc_Ekranu/2;
-            Kamera.Prostokat_Kamery.Y = plansza.Wysokosc - Kamera.Wysokosc_Ekranu;
-            Kamera.Odswiez_Kamere();
-            //Ustawiamy początkowy GUI 
-            panelEnergii = true;
-            panelRadaru = true;
-            panelInformacji = true;
-
-            przyciskMapy = true;
-            panelMapy = false;
-
-            przyciskOpcji = true;
-            panelOpcji = false;
-
-            ilosc_opcji = 6;
-
+            
+            
+        }
+        private void InicjalizujTimery()
+        {
+            czas_minuty = 0;
+            czas_sekundy = 0;
+            czas_respawnow = 0;
+            czas_strzalow = 0;
             this.timer1.Enabled = true;
             this.czas_rozgrywki.Enabled = true;
             this.czas_efektow.Enabled = true;
             this.czas_informacji.Enabled = true;
             this.czas_odswiezania.Enabled = true;
-            //this.timer2.Enabled = true;
-
-            graWczytana = true;
         }
-
+        private void UstawKamere()
+        {
+            Kamera.Prostokat_Kamery.X = plansza.Szerokosc / 2 - Kamera.Szerokosc_Ekranu / 2;
+            Kamera.Prostokat_Kamery.Y = plansza.Wysokosc - Kamera.Wysokosc_Ekranu;
+            Kamera.Odswiez_Kamere();
+        }
         private System.Windows.Forms.KeyEventArgs wcisniety_klawisz = null;
         private void NowaGra_KeyDown(object sender, KeyEventArgs e)
         {

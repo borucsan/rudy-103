@@ -6,11 +6,12 @@ using System.Drawing;
 
 namespace Rudy_103.src
 {
-    class ElementObiektu<T> where T : IPodzielny 
+    class ElementObiektu<T> where T : IPodzielny, IComparable
     {
         public T obiekt { get; private set; }
         private Rectangle wymiar;
         public bool rysuj { get; set; }
+        public bool transparent { get; set; }
         public ElementObiektu<T> element;
         public ElementObiektu(T obiekt)
         {
@@ -18,6 +19,7 @@ namespace Rudy_103.src
             this.wymiar = obiekt.Wymiary;
             this.rysuj = true;
             this.element = null;
+            this.transparent = obiekt.Transparent;
         }
         public ElementObiektu(T obiekt, Rectangle rec, ElementObiektu<T> polowa, bool rysuj)
         {
@@ -25,6 +27,7 @@ namespace Rudy_103.src
             this.wymiar = rec;
             this.rysuj = rysuj;
             this.element = polowa;
+            this.transparent = obiekt.Transparent;
         }
         public ElementObiektu(T obiekt, Rectangle rec, bool rysuj)
         {
@@ -32,6 +35,7 @@ namespace Rudy_103.src
             this.wymiar = rec;
             this.rysuj = rysuj;
             this.element = null;
+            this.transparent = obiekt.Transparent;
         }
         public void UstawElement(ElementObiektu<T> element)
         {

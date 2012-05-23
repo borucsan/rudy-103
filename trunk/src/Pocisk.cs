@@ -101,7 +101,7 @@ namespace Rudy_103.src
         {
             if (gracz.Wymiary.IntersectsWith(Wymiary))
             {
-                gracz.Uszkodz(sila);
+                gracz.Uszkodz(sila, plansza);
                 return true;
             }
             if(gracz.Pociski.Count > 0)

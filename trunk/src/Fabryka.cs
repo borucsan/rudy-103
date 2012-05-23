@@ -10,26 +10,15 @@ namespace Rudy_103.src
     /// </summary>
     class Fabryka
     {
-        public Dictionary<String, Przeciwnik> wzorce_przeciwnikow;
-        private Dictionary<String, Przeszkoda> wzorce_przeszkod;
-        public Dictionary<String, Animacja> wzorce_efektow;
-        public Baza wzorzec_bazy { get; set; }
-        private Pocisk wzorzec_pocisku;
-        public Pocisk WzorzecPocisku
-        {
-            get
-            {
-                return wzorzec_pocisku;
-            }
-            set
-            {
-                wzorzec_pocisku = value;
-            }
-        }
+        public Dictionary<String, Przeciwnik> wzorce_przeciwnikow { get; private set; }
+        public Dictionary<String, Przeszkoda> wzorce_przeszkod { get; private set; }
+        public Dictionary<String, Animacja> wzorce_efektow { get; private set; }
+        public Baza wzorzec_bazy { get; private set; }
+        public Pocisk wzorzec_pocisku { get; private set; }
         /// <summary>
         /// Konstruktor fabryki wzorców.
         /// </summary>
-        public Fabryka(System.Reflection.Assembly execAssem, bool TworzDomyslneWzorce)
+        public Fabryka(bool TworzDomyslneWzorce)
         {
             wzorce_przeszkod = new Dictionary<string,Przeszkoda>();
             wzorce_przeciwnikow = new Dictionary<string,Przeciwnik>();
@@ -38,7 +27,7 @@ namespace Rudy_103.src
             
             wzorzec_pocisku.WczytajObrazy(Multimedia.domyslny_pocisk);
             wzorzec_bazy = new Baza(0, 0, 50, 50, 10, false, Multimedia.baza);
-            if (TworzDomyslneWzorce) this.TworzDomyslneWzorce(execAssem);
+            if (TworzDomyslneWzorce) this.TworzDomyslneWzorce();
 
         }
         /// <summary>
@@ -106,7 +95,7 @@ namespace Rudy_103.src
         /// Metoda statyczna tworząca nową instancje gracza z podstawowymi parametrami.
         /// </summary>
         /// <returns>Zwraca instancję gracza</returns>
-        public static Gracz ProdukujDomyslnegoGracza(System.Reflection.Assembly execAssem)
+        public static Gracz ProdukujDomyslnegoGracza()
         {
             Gracz player = new Gracz(Gracz.PunktRespGracza.X + 5, Gracz.PunktRespGracza.Y + 5, 40, 40, 100, 5, 10, 150, 2, 10, 3);
             
@@ -116,8 +105,7 @@ namespace Rudy_103.src
         /// <summary>
         /// Metoda tworząca domyślne wzorce. Jest to metoda pomocnicza
         /// </summary>
-        /// <param name="execAssem"></param>
-        public void TworzDomyslneWzorce(System.Reflection.Assembly execAssem)
+        private void TworzDomyslneWzorce()
         {
             //Wzorce przeszkód budynków
             DodajWzorzecPrzeszkody("Budynek A", new Przeszkoda(0, 0, 100, 100, 40, false, Multimedia.budynekA));
@@ -187,8 +175,6 @@ namespace Rudy_103.src
             Animacja animacja_eksplozja = new Animacja(0, 0, 50, 50, 4, 1);
             animacja_eksplozja.WczytajObrazy(Multimedia.eksplozja);
             DodajWzorzecEfektu("Eksplozja", animacja_eksplozja);
-
-            
         }
     }
 }

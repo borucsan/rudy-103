@@ -8,6 +8,7 @@ namespace Rudy_103.src
 {
     interface IPodzielny
     {
-        Rectangle Wymiary{ get; }
+        Rectangle Wymiary { get; }
+        bool Transparent { get; }
     }
 }

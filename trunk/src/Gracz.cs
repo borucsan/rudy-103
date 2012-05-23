@@ -26,7 +26,7 @@ namespace Rudy_103.src
         {
             this.obrazy = obrazy;
         }
-        public new void Uszkodz(int sila)
+        public void Uszkodz(int sila, Plansza plansza)
         {
             //this.aktualna_wytrzymalosc = this.aktualna_wytrzymalosc - sila;
             this.Wytrzymalosc = this.Wytrzymalosc - sila;
@@ -37,8 +37,8 @@ namespace Rudy_103.src
                 this.Wytrzymalosc = this.Wytrzymalosc_Bazowa;
                 this.energia -= 1;
                 this.UstawPozycje(PunktRespGracza.X + 5, PunktRespGracza.Y + 5);
-                Kamera.Prostokat_Kamery.X = PunktRespGracza.X - 25;
-                Kamera.Prostokat_Kamery.Y = PunktRespGracza.Y - 275;
+                Kamera.Prostokat_Kamery.X = plansza.Szerokosc / 2 - Kamera.Szerokosc_Ekranu / 2;
+                Kamera.Prostokat_Kamery.Y = plansza.Wysokosc - Kamera.Wysokosc_Ekranu;
             }
         }
        public static Rectangle PunktRespGracza = new Rectangle(425, 925, 50, 50);

@@ -9,7 +9,7 @@ namespace Rudy_103.src
 {
     class Przeciwnik : Czolg, ICloneable
     {
-        public int punkty { get; set; }
+        public int punkty { get; private set; }
         public Przeciwnik(int X, int Y, int Szer, int Wys, int wytrzymalosc, int szybkosc, int sila, int zasieg, int max_pociskow, int przeladowanie, int dodawane_punkty)
             : base(X, Y, Szer, Wys, wytrzymalosc, szybkosc, sila, zasieg, max_pociskow, przeladowanie) { this.punkty = dodawane_punkty; }
         public Przeciwnik(int X, int Y, int Szer, int Wys, int wytrzymalosc, int szybkosc, int sila, int zasieg, int max_pociskow, int dodawane_punkty, int przeladowanie, params Image[] obrazy)
@@ -34,15 +34,12 @@ namespace Rudy_103.src
                         ZmienPozycje(0, -JEDNOSTKA_RUCHU);
                         if (Zderzenie3(plansza, gracz))
                         { ZmienPozycje(0, JEDNOSTKA_RUCHU); WykrytoPrzeszkode = true; }
-                        //rec_ruchu = new Rectangle(wymiary.X, wymiary.Y - szybkosc, wymiary.Width, wymiary.Height);
                     break;
                 case Kierunek.PRAWO:
-                        //rec_ruchu = new Rectangle(wymiary.X + szybkosc, wymiary.Y, wymiary.Width, wymiary.Height);
                         ZmienPozycje(JEDNOSTKA_RUCHU, 0);
                         if (Zderzenie3(plansza, gracz)){ ZmienPozycje(-JEDNOSTKA_RUCHU, 0); WykrytoPrzeszkode = true; }
                     break;
                 case Kierunek.DOL:
-                        //rec_ruchu = new Rectangle(wymiary.X, wymiary.Y + szybkosc, wymiary.Width, wymiary.Height);
                         ZmienPozycje(0, JEDNOSTKA_RUCHU);
                         if (Zderzenie3(plansza, gracz)) { ZmienPozycje(0, -JEDNOSTKA_RUCHU); WykrytoPrzeszkode = true; }
                     break;
@@ -148,7 +145,7 @@ namespace Rudy_103.src
         {
             if (this.Wymiary.IntersectsWith(plansza.baza.Wymiary))
             {
-                ObliczPozycje2(plansza.baza);
+                ObliczPozycje(plansza.baza);
                 return true;
             }
             return plansza.region.CzyKoliduje(this);

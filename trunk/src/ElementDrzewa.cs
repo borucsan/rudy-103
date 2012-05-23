@@ -6,7 +6,7 @@ using System.Drawing;
 
 namespace Rudy_103.src
 {
-    class ElementDrzewa<T> where T : IPodzielny
+    class ElementDrzewa<T> where T : IPodzielny, IComparable
     {
         public List<ElementObiektu<T>> lista { get; set; }
         public Rectangle Wymiary { get; set; }
