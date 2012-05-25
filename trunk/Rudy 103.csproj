@@ -18,6 +18,8 @@
     <NativePlatformName>Windows Mobile 6 Professional SDK</NativePlatformName>
     <FormFactorID>
     </FormFactorID>
+    <DeployDirPrefix>%25CSIDL_PROGRAM_FILES%25</DeployDirPrefix>
+    <ApplicationIcon>Resources\tank_default_up.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -44,6 +46,7 @@
     <FileAlignment>512</FileAlignment>
     <WarningLevel>4</WarningLevel>
     <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
+    <DocumentationFile>doc\dokumentacja.XML</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.WindowsCE.Forms" />
@@ -111,6 +114,7 @@
     <Compile Include="src\Profil.Designer.cs">
       <DependentUpon>Profil.cs</DependentUpon>
     </Compile>
+    <Compile Include="src\ProfilGracza.cs" />
     <Compile Include="src\Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -270,6 +274,8 @@
     <Content Include="Resources\Efekty\Slad\slad_left.png" />
     <Content Include="Resources\Efekty\Slad\slad_right.png" />
     <Content Include="Resources\Efekty\Slad\slad_up.png" />
+    <None Include="Resources\tank_default_up.ico" />
+    <None Include="Resources\ikona.png" />
     <EmbeddedResource Include="Resources\Intro\intro1.png" />
     <EmbeddedResource Include="Resources\Intro\intro2.png" />
     <EmbeddedResource Include="Resources\Intro\intro3.png" />
