@@ -832,7 +832,7 @@ namespace Rudy_103.src
             plansza.RuszPrzeciwnikow(fabryka, player);
             plansza.RusziSprawdz(player, fabryka, czas_strzalow);
             player.RuchPocisku(plansza, fabryka);
-            if (czas_respawnow % 150 == 0 || (plansza.przeciwnicy_na_mapie.Count == 0 && plansza.przeciwnicy.Count > 0))
+            if (czas_respawnow % 100 == 0)
             {
                 plansza.Respawn(player);
                 czas_respawnow = 1;

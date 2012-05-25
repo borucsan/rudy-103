@@ -14,7 +14,7 @@ namespace Rudy_103.src
             : base(X, Y, Szer, Wys, wytrzymalosc, szybkosc, sila, zasieg, max_pociskow, przeladowanie) { this.punkty = dodawane_punkty; }
         public Przeciwnik(int X, int Y, int Szer, int Wys, int wytrzymalosc, int szybkosc, int sila, int zasieg, int max_pociskow, int dodawane_punkty, int przeladowanie, params Image[] obrazy)
             : base(X, Y, Szer, Wys, wytrzymalosc, szybkosc, sila, zasieg, max_pociskow, przeladowanie, obrazy) { this.punkty = dodawane_punkty; }
-
+        public bool respwan { get; set; }
         public object Clone()
         {
             Przeciwnik klon = new Przeciwnik(0, 0, this.Wymiary.Width, this.Wymiary.Height, this.wytrzymalosc, this.szybkosc, this.sila, this.zasieg, this.max_pociskow, this.przeladowanie, this.punkty);
@@ -33,38 +33,60 @@ namespace Rudy_103.src
                 case Kierunek.GORA:
                         ZmienPozycje(0, -JEDNOSTKA_RUCHU);
                         if (Zderzenie3(plansza, gracz))
-                        { ZmienPozycje(0, JEDNOSTKA_RUCHU); WykrytoPrzeszkode = true; }
+                        { 
+                            ZmienPozycje(0, JEDNOSTKA_RUCHU); 
+                            WykrytoPrzeszkode = true; 
+                        }
                     break;
                 case Kierunek.PRAWO:
                         ZmienPozycje(JEDNOSTKA_RUCHU, 0);
-                        if (Zderzenie3(plansza, gracz)){ ZmienPozycje(-JEDNOSTKA_RUCHU, 0); WykrytoPrzeszkode = true; }
+                        if (Zderzenie3(plansza, gracz))
+                        { 
+                            ZmienPozycje(-JEDNOSTKA_RUCHU, 0); 
+                            WykrytoPrzeszkode = true; 
+                        }
                     break;
                 case Kierunek.DOL:
                         ZmienPozycje(0, JEDNOSTKA_RUCHU);
-                        if (Zderzenie3(plansza, gracz)) { ZmienPozycje(0, -JEDNOSTKA_RUCHU); WykrytoPrzeszkode = true; }
+                        if (Zderzenie3(plansza, gracz)) 
+                        { 
+                            ZmienPozycje(0, -JEDNOSTKA_RUCHU); 
+                            WykrytoPrzeszkode = true; 
+                        }
                     break;
                 case Kierunek.LEWO:
                         ZmienPozycje(-JEDNOSTKA_RUCHU, 0);
                         if (Zderzenie3(plansza, gracz)){ ZmienPozycje(JEDNOSTKA_RUCHU, 0); WykrytoPrzeszkode = true; }
                     break;
             }
-            AnalizaRuchu(WykrytoPrzeszkode, fabryczka, czas_strzalu);
+            AnalizaRuchu(WykrytoPrzeszkode, fabryczka, plansza, czas_strzalu);
             pozostaly_ruch = pozostaly_ruch - JEDNOSTKA_RUCHU;
         }
-        public void AnalizaRuchu(bool wykryto_przeszkode, Fabryka fabryka, int czas_strzalu)
+        public void AnalizaRuchu(bool wykryto_przeszkode, Fabryka fabryka, Plansza plansza, int czas_strzalu)
         {
             bool LosujKierunek = false;
-            int losuj = Narzedzia.rand.Next(0, 51);
-            if (losuj == 49) LosujKierunek = true;
-            if ((wykryto_przeszkode == true) || (LosujKierunek == true))
+            if (new Rectangle(0, 0, plansza.Szerokosc, plansza.Wysokosc).Contains(wymiary))
             {
+                respwan = false;
+                int losuj = Narzedzia.rand.Next(0, 51);
+                if (losuj == 49) LosujKierunek = true;
+                if ((wykryto_przeszkode == true) || (LosujKierunek == true))
+                {
                 //Strzelaj(fabryka, czas_strzalu);
-                int losuj_kierunek = Narzedzia.rand.Next(0, 5);
-                if (losuj_kierunek == 1) kierunek = Kierunek.GORA;
-                if (losuj_kierunek == 2) kierunek = Kierunek.PRAWO;
-                if (losuj_kierunek == 3) kierunek = Kierunek.DOL;
-                if (losuj_kierunek == 4) kierunek = Kierunek.LEWO;
+                    int losuj_kierunek = Narzedzia.rand.Next(0, 5);
+                    if (losuj_kierunek == 1) kierunek = Kierunek.GORA;
+                    if (losuj_kierunek == 2) kierunek = Kierunek.PRAWO;
+                    if (losuj_kierunek == 3) kierunek = Kierunek.DOL;
+                    if (losuj_kierunek == 4) kierunek = Kierunek.LEWO;
+                }
             }
+            else
+            {
+                respwan = true;
+                kierunek = Kierunek.DOL;
+            }
+            
+            
             int CzyStrzelac;
             CzyStrzelac = Narzedzia.rand.Next(0, 3);
             if (CzyStrzelac == 2 || wykryto_przeszkode || LosujKierunek) Strzelaj(fabryka, czas_strzalu);
@@ -152,7 +174,7 @@ namespace Rudy_103.src
         }
         public bool Zderzenie3(Plansza plansza, Gracz gracz)
         {
-            if (wymiary.Y < 0 || wymiary.Bottom > plansza.Wysokosc || wymiary.X < 0 || wymiary.Right > plansza.Szerokosc) return true;
+            if ((wymiary.Y < 0 || wymiary.Bottom > plansza.Wysokosc || wymiary.X < 0 || wymiary.Right > plansza.Szerokosc) && respwan == false) return true;
             if (this.wymiary.IntersectsWith(plansza.baza.Wymiary))
             {
                 return true;
