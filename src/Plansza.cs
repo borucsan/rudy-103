@@ -40,9 +40,9 @@ namespace Rudy_103.src
             efekty_na_mapie = new List<Animacja>();
 
             PunktResp = new Rectangle[3];
-            PunktResp[0] = new Rectangle(0, 0, 50, 50);
-            PunktResp[1] = new Rectangle(X / 2, 0, 50, 50);
-            PunktResp[2] = new Rectangle(X - 50, 0, 50, 50);
+            PunktResp[0] = new Rectangle(0, -50, 50, 50);
+            PunktResp[1] = new Rectangle(X / 2, -50, 50, 50);
+            PunktResp[2] = new Rectangle(X - 50, -50, 50, 50);
             aktualne_podloze = 0;
         }
         public static Plansza WczytajMape() { return null; }
