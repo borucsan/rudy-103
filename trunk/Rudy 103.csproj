@@ -19,7 +19,8 @@
     <FormFactorID>
     </FormFactorID>
     <DeployDirPrefix>%25CSIDL_PROGRAM_FILES%25</DeployDirPrefix>
-    <ApplicationIcon>Resources\tank_default_up.ico</ApplicationIcon>
+    <ApplicationIcon>
+    </ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -274,8 +275,6 @@
     <Content Include="Resources\Efekty\Slad\slad_left.png" />
     <Content Include="Resources\Efekty\Slad\slad_right.png" />
     <Content Include="Resources\Efekty\Slad\slad_up.png" />
-    <None Include="Resources\tank_default_up.ico" />
-    <None Include="Resources\ikona.png" />
     <EmbeddedResource Include="Resources\Intro\intro1.png" />
     <EmbeddedResource Include="Resources\Intro\intro2.png" />
     <EmbeddedResource Include="Resources\Intro\intro3.png" />
