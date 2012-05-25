@@ -7,41 +7,91 @@ using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
 using System.IO;
+using System.Xml.Serialization;
 
 namespace Rudy_103.src
 {
-    
+    /// <summary>
+    /// Klasa formy profili.
+    /// </summary>
     public partial class Profil : Form
     {
         private int wybrany_profil;
         private bool isProfileSelected;
+        private ProfilGracza [] profile = new ProfilGracza[3];
         
+        /// <summary>
+        /// Konstruktor formy profili.
+        /// </summary>
         public Profil()
         {
             InitializeComponent();
             timer1.Enabled = true;
+            for (int i = 0; i < 3; ++i)
+            {
+                WczytajProfilXml(i);
+            }
+            
         }
-
+        private void WczytajProfilXml(int index)
+        {
+            RadioButton rd = null;
+            switch (index)
+            {
+                default: rd = profil1radioButton; break;
+                case 1: rd = profil2radioButton; break;
+                case 2: rd = profil3radioButton; break;
+            }
+            string path = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().GetName().CodeBase) + @"/Dane/Profile/Profil" + index + ".xml";
+            if (File.Exists(path))
+            {
+                try
+                {
+                    XmlSerializer deserializer = new XmlSerializer(typeof(ProfilGracza));
+                    using (TextReader reader = new StreamReader(path))
+                    {
+                        profile[index] = (ProfilGracza)deserializer.Deserialize(reader);
+                        //reader.Close();
+                    }
+                    profile[index].sciezka = path;
+                    //rd.Text = profile[index].nazwa;
+                    rd.Text = profile[index].data.ToString();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Błąd Wczytywania profiu! -" + ex.GetType() + "\n" + ex.Message, "Błąd wczytywania profilu", MessageBoxButtons.OK, MessageBoxIcon.Hand, MessageBoxDefaultButton.Button1);
+                    profile[index] = new ProfilGracza();
+                    profile[index].sciezka = path;
+                    rd.Text = "Pusty";
+                }
+            }
+            else
+            {
+                profile[index] = new ProfilGracza();
+                profile[index].sciezka = path;
+                rd.Text = "Pusty";
+            }
+        }
         private void timer1_Tick(object sender, EventArgs e)
         {
             if (profil1radioButton.Checked)
             {
-                wybrany_profil = 1;
-                wczytajProfilButton.Enabled = true;
+                wybrany_profil = 0;
+                
                 nowyProfilButton.Enabled = true;
                 isProfileSelected = true;
             }
             if (profil2radioButton.Checked)
             {
-                wybrany_profil = 2;
-                wczytajProfilButton.Enabled = true;
+                wybrany_profil = 1;
+                
                 nowyProfilButton.Enabled = true;
                 isProfileSelected = true;
             }
             if (profil3radioButton.Checked)
             {
-                wybrany_profil = 3;
-                wczytajProfilButton.Enabled = true;
+                wybrany_profil = 2;
+                
                 nowyProfilButton.Enabled = true;
                 isProfileSelected = true;
             }
@@ -58,35 +108,12 @@ namespace Rudy_103.src
             ContinueButton.Enabled = true;
             LoadCustomButton.Enabled = true;
             panel2.Enabled = false;
+            
         }
 
         private void nowyProfilButton_Click(object sender, EventArgs e)
         {
-            string path = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().GetName().CodeBase) + @"/Dane/Profile/";
-            if (wybrany_profil == 1)
-            {
-                profil1radioButton.Text = DateTime.Now.Date.ToString(); 
-                /*
-                 * Tutaj powinno być nadpisanie starego zapisanego stanu
-                */
-                
-            }
-            if (wybrany_profil == 2)
-            {
-                profil2radioButton.Text = DateTime.Now.Date.ToString();
-                /*
-                 * Tutaj powinno być nadpisanie starego zapisanego stanu
-                */
-
-            }
-            if (wybrany_profil == 3)
-            {
-                profil3radioButton.Text = DateTime.Now.Date.ToString();
-                /*
-                 * Tutaj powinno być nadpisanie starego zapisanego stanu
-                */
-
-            }
+            ContinueButton.Enabled = true;
             panel2.Enabled = false;
             NewGameButton.Enabled = true;
             LoadCustomButton.Enabled = true;
@@ -97,7 +124,11 @@ namespace Rudy_103.src
             string poprzedni = NewGameButton.Text;
             NewGameButton.Text = "Proszę Czekać";
             NewGameButton.Enabled = false;
-            Gra newgame = new Gra();
+            string old_path = profile[wybrany_profil].sciezka;
+            profile[wybrany_profil] = new ProfilGracza();
+            profile[wybrany_profil].sciezka = old_path;
+
+            Gra newgame = new Gra(profile[wybrany_profil]);
             newgame.Owner = this.Owner;
             newgame.Show();
             this.Hide();
@@ -106,7 +137,14 @@ namespace Rudy_103.src
 
         private void ContinueButton_Click(object sender, EventArgs e)
         {
-
+            string poprzedni = ContinueButton.Text;
+            ContinueButton.Text = "Proszę Czekać";
+            ContinueButton.Enabled = false;
+            Gra newgame = new Gra(profile[wybrany_profil]);
+            newgame.Owner = this.Owner;
+            newgame.Show();
+            this.Hide();
+            NewGameButton.Text = poprzedni;
         }
 
         private void LoadCustomButton_Click(object sender, EventArgs e)
@@ -120,7 +158,7 @@ namespace Rudy_103.src
             if (dialog.ShowDialog() == DialogResult.OK)
             {
                 
-                Gra newgame = new Gra(dialog.FileName);
+                Gra newgame = new Gra(profile[wybrany_profil], dialog.FileName);
                 newgame.Owner = this.Owner;
              
                 newgame.Show();

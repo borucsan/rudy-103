@@ -103,7 +103,13 @@ namespace Rudy_103.src
             poziom_ataku = 1;
             poziom_muru = 1;
         }
-        
+        public void UstawWartosciZProfilu(ProfilGracza profil)
+        {
+            this.poziom_ataku = profil.ulepszenia.poziom_ataku;
+            this.poziom_pancerza = profil.ulepszenia.poziom_wytrzymalosci;
+            this.poziom_szybkosci = profil.ulepszenia.poziom_szybkosci;
+            this.poziom_muru = profil.ulepszenia.poziom_muru;
+        }
         public void UstawStatystyki(Gracz gracz)
         {
             gracz.Szybkosc = 5 + poziom_szybkosci;

@@ -31,7 +31,6 @@
             this.panel2 = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
             this.nowyProfilButton = new System.Windows.Forms.Button();
-            this.wczytajProfilButton = new System.Windows.Forms.Button();
             this.profil3radioButton = new System.Windows.Forms.RadioButton();
             this.profil2radioButton = new System.Windows.Forms.RadioButton();
             this.profil1radioButton = new System.Windows.Forms.RadioButton();
@@ -51,7 +50,6 @@
             this.panel2.BackColor = System.Drawing.SystemColors.HotTrack;
             this.panel2.Controls.Add(this.label1);
             this.panel2.Controls.Add(this.nowyProfilButton);
-            this.panel2.Controls.Add(this.wczytajProfilButton);
             this.panel2.Controls.Add(this.profil3radioButton);
             this.panel2.Controls.Add(this.profil2radioButton);
             this.panel2.Controls.Add(this.profil1radioButton);
@@ -78,19 +76,8 @@
             this.nowyProfilButton.Name = "nowyProfilButton";
             this.nowyProfilButton.Size = new System.Drawing.Size(100, 20);
             this.nowyProfilButton.TabIndex = 4;
-            this.nowyProfilButton.Text = "Nowy Profil";
+            this.nowyProfilButton.Text = "Wybierz";
             this.nowyProfilButton.Click += new System.EventHandler(this.nowyProfilButton_Click);
-            // 
-            // wczytajProfilButton
-            // 
-            this.wczytajProfilButton.BackColor = System.Drawing.Color.Red;
-            this.wczytajProfilButton.Enabled = false;
-            this.wczytajProfilButton.Location = new System.Drawing.Point(6, 105);
-            this.wczytajProfilButton.Name = "wczytajProfilButton";
-            this.wczytajProfilButton.Size = new System.Drawing.Size(100, 20);
-            this.wczytajProfilButton.TabIndex = 3;
-            this.wczytajProfilButton.Text = "Wczytaj Profil";
-            this.wczytajProfilButton.Click += new System.EventHandler(this.wczytajProfilButton_Click);
             // 
             // profil3radioButton
             // 
@@ -203,7 +190,6 @@
         private System.Windows.Forms.RadioButton profil2radioButton;
         private System.Windows.Forms.RadioButton profil1radioButton;
         private System.Windows.Forms.Button nowyProfilButton;
-        private System.Windows.Forms.Button wczytajProfilButton;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Button LoadCustomButton;
