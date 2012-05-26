@@ -143,6 +143,12 @@
     <Compile Include="src\Przeciwnik.cs" />
     <Compile Include="src\Przeszkoda.cs" />
     <Compile Include="src\PrzeszkodaZapisOdczyt.cs" />
+    <Compile Include="src\Statystyki.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="src\Statystyki.Designer.cs">
+      <DependentUpon>Statystyki.cs</DependentUpon>
+    </Compile>
     <Compile Include="src\Top10.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -360,6 +366,9 @@
     <EmbeddedResource Include="src\Profil.resx">
       <DependentUpon>Profil.cs</DependentUpon>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="src\Statystyki.resx">
+      <DependentUpon>Statystyki.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CompactFramework.CSharp.targets" />
