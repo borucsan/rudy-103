@@ -12,6 +12,8 @@ namespace Rudy_103.src
         public int poziom_pancerza;
         public int poziom_ataku;
         public int poziom_muru;
+        public int poziom_zasiegu;
+        public int poziom_magazynku;
 
         //Przyciski panelu Warsztatu
         public Rectangle przyciskZamknijUlepszenia;
@@ -19,13 +21,21 @@ namespace Rudy_103.src
         public Rectangle przyciskUlepszPancerz;
         public Rectangle przyciskUlepszAtak;
         public Rectangle przyciskUlepszMur;
+        public Rectangle przyciskUlepszZasieg;
+        //public Rectangle przyciskUlepszMagazynek;
+        //public Rectangle przyciskDodajZycie;
+
+        public String ZamknijWarsztatString = "Zamknij";
 
         public Warsztat()
         {
             poziom_szybkosci = 1;
             poziom_pancerza = 1;
             poziom_ataku = 1;
-            poziom_muru = 1;        
+            poziom_muru = 1;
+            poziom_zasiegu = 1;
+            poziom_magazynku = 1;
+            
         }
 
         #region Metody Zwiększające Poziom
@@ -94,6 +104,22 @@ namespace Rudy_103.src
                 }
             }
         }
+        public void ZwiekszPoziomZasiegu(Gracz gracz)
+        {
+            int cena = (500 + 1000 * poziom_zasiegu);
+            if (gracz.pieniadze >= cena)
+            {
+                if (poziom_zasiegu >= 10)
+                {
+                    poziom_zasiegu = 10;
+                }
+                else
+                {
+                    poziom_zasiegu += 1;
+                    gracz.pieniadze -= cena;
+                }
+            }
+        }
         #endregion Metody Zwiększające Poziom
         
         public void UstawDomyslneWartosci()
@@ -102,6 +128,8 @@ namespace Rudy_103.src
             poziom_pancerza = 1;
             poziom_ataku = 1;
             poziom_muru = 1;
+            poziom_zasiegu = 1;
+            poziom_magazynku = 1;
         }
         public void UstawWartosciZProfilu(ProfilGracza profil)
         {
@@ -109,6 +137,8 @@ namespace Rudy_103.src
             this.poziom_pancerza = profil.ulepszenia.poziom_wytrzymalosci;
             this.poziom_szybkosci = profil.ulepszenia.poziom_szybkosci;
             this.poziom_muru = profil.ulepszenia.poziom_muru;
+            this.poziom_zasiegu = profil.ulepszenia.poziom_zasiegu;
+            this.poziom_magazynku = profil.ulepszenia.poziom_magazynku;
         }
         public void UstawStatystyki(Gracz gracz)
         {
@@ -116,8 +146,8 @@ namespace Rudy_103.src
             gracz.Wytrzymalosc_Bazowa = 10 + poziom_pancerza * 10;
             gracz.Wytrzymalosc = gracz.Wytrzymalosc_Bazowa;
             gracz.Sila = 10 + poziom_ataku * 10;
-            gracz.Zasieg = 120 + poziom_ataku * 30;
-            gracz.Max_Pociskow = poziom_ataku + 1;
+            gracz.Zasieg = 120 + poziom_zasiegu * 30;
+            gracz.Max_Pociskow = poziom_magazynku + 1;
            
         }
 
@@ -134,15 +164,14 @@ namespace Rudy_103.src
             przyciskUlepszSzybkosc = new Rectangle(0, 20, 35, 35);
             g.DrawImage(Multimedia.ImageSzybkosc, przyciskUlepszSzybkosc, 0, 0, Multimedia.ImageSzybkosc.Width, Multimedia.ImageSzybkosc.Height,
                 GraphicsUnit.Pixel, transparentPink);
-            g.DrawString("Koszt: "+(500 + 1000 * poziom_szybkosci), new Font("Arial", 10, FontStyle.Regular), new SolidBrush(Color.Yellow),
-                new Rectangle(35, 40, 100, 20), drawFormat);
-
+            
             for(int szybkosc = 0; szybkosc < poziom_szybkosci; szybkosc++)
             {
                 g.DrawImage(Multimedia.poziom_ulepszenia, new Rectangle(42 + szybkosc * 22, 21, 21, 18), 0, 0, Multimedia.poziom_ulepszenia.Width, Multimedia.poziom_ulepszenia.Height,
                 GraphicsUnit.Pixel, transparentPink);
             }
-            
+            g.DrawString("Koszt: " + (500 + 1000 * poziom_szybkosci), new Font("Arial", 10, FontStyle.Bold), new SolidBrush(Color.White),
+                new Rectangle(35, 20, 100, 20), drawFormat);
             
             #endregion Rysowanie Ulepszenia Szybkości
 
@@ -203,12 +232,31 @@ namespace Rudy_103.src
             
             #endregion Rysowanie Ulepszenia Bazy
 
+            #region Rysowanie Ulepszenia Zasięgu
+            /*
+            g.DrawImage(Multimedia.pasek_ulepszenia, new Rectangle(40, 160, 220, 20), 0, 0, Multimedia.pasek_ulepszenia.Width, Multimedia.pasek_ulepszenia.Height,
+               GraphicsUnit.Pixel, transparentPink);
+
+            przyciskUlepszZasieg = new Rectangle(0, 160, 35, 35);
+            g.DrawImage(Multimedia.ImageMur, przyciskUlepszZasieg, 0, 0, Multimedia.ImageAtak.Width, Multimedia.ImageAtak.Height,
+                GraphicsUnit.Pixel, transparentPink);
+            g.DrawString("Koszt: " + (500 + 1000 * poziom_zasiegu), new Font("Arial", 10, FontStyle.Regular), new SolidBrush(Color.Yellow),
+                new Rectangle(35, 180, 100, 20), drawFormat);
+
+            for (int zasieg = 0; zasieg < poziom_zasiegu; zasieg++)
+            {
+                g.DrawImage(Multimedia.poziom_ulepszenia, new Rectangle(42 + zasieg * 22, 161, 21, 18), 0, 0, Multimedia.poziom_ulepszenia.Width, Multimedia.poziom_ulepszenia.Height,
+                GraphicsUnit.Pixel, transparentPink);
+            }
+            */
+            #endregion Rysowanie Ulepszenia Zasięgu
+
             #region Rysowanie Przycisku Zamkniecia Ulepszeń
 
             przyciskZamknijUlepszenia = new Rectangle(Kamera.Prostokat_Kamery.Width / 2 - 100, Kamera.Prostokat_Kamery.Height - 30, 200, 30);
             g.DrawImage(Multimedia.przyciskImageZamknij, przyciskZamknijUlepszenia, 0, 0, Multimedia.przyciskImageZamknij.Width,
                 Multimedia.przyciskImageZamknij.Height, GraphicsUnit.Pixel, transparentPink);
-            g.DrawString("Zamknij", new Font("Arial", 12, FontStyle.Regular), new SolidBrush(Color.Yellow),
+            g.DrawString(ZamknijWarsztatString, new Font("Arial", 12, FontStyle.Regular), new SolidBrush(Color.Yellow),
                 new Rectangle(Kamera.Prostokat_Kamery.Width / 2 - 100, Kamera.Prostokat_Kamery.Height - 25, 200, 25), drawFormat);
             #endregion Rysowanie Przycisku Zamkniecia Ulepszeń
         }

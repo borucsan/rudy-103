@@ -93,7 +93,7 @@ namespace Rudy_103.src
             }
             catch (Exception ex)
             {
-                System.Windows.Forms.MessageBox.Show("Błąd zapisu gry -!" +  ex.GetType() + "\n" + ex.Message, "Błąd zapisu gry!\n", System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Hand, System.Windows.Forms.MessageBoxDefaultButton.Button1);
+                System.Windows.Forms.MessageBox.Show("Błąd zapisu gry -!" + ex.GetType() + "\n" + ex.Message, "Błąd zapisu gry!\n", System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Hand, System.Windows.Forms.MessageBoxDefaultButton.Button1);
             }
         }
         /// <summary>
@@ -128,11 +128,21 @@ namespace Rudy_103.src
             [XmlAttribute]
             public int poziom_muru { get; set; }
             /// <summary>
+            /// Poziom zasięgu(Profil)
+            /// </summary>
+            [XmlAttribute]
+            public int poziom_zasiegu { get; set; }
+            /// <summary>
+            /// Poziom magazynku(Profil)
+            /// </summary>
+            [XmlAttribute]
+            public int poziom_magazynku { get; set; }
+            /// <summary>
             /// Konstruktor domyślny ulepszeń(Profil)
             /// </summary>
             public Ulepszenia()
             {
-                poziom_ataku = poziom_wytrzymalosci = poziom_szybkosci = poziom_muru = 1;
+                poziom_ataku = poziom_wytrzymalosci = poziom_szybkosci = poziom_muru = poziom_zasiegu = poziom_magazynku = 1;
                 poziom_gracza = 1;
             }
         }
