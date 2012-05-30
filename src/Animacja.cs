@@ -6,7 +6,7 @@ using System.Drawing;
 
 namespace Rudy_103.src
 {
-    class Animacja : Obiekty, ICloneable
+    public class Animacja : Obiekty, ICloneable
     {
         public int aktualny_stan;
         public int ilosc_stanow;

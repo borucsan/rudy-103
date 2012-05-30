@@ -10,7 +10,7 @@ namespace Rudy_103.src
     /// <summary>
     /// Klasa bazowa dla wszystkich obiektów na planszy(np. przeszkody, czołgi...)
     /// </summary>
-    abstract class Obiekty : IPodzielny, IComparable
+    public abstract class Obiekty : IPodzielny, IComparable
     {
         public Point poprzednia_pozycja { get; protected set; }
         protected Rectangle wymiary;

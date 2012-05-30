@@ -10,7 +10,7 @@ namespace Rudy_103.src
     /// Generyczna klasa drzewa BSP.
     /// </summary>
     /// <typeparam name="T">Przyjmuje obiekty zwracające Rectangle</typeparam>
-    class Drzewo<T> where T : IPodzielny, IComparable
+    public class Drzewo<T> where T : IPodzielny, IComparable
     {
         /// <summary>
         /// Korzeń drzewa.

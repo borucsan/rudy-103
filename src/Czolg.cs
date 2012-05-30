@@ -11,7 +11,7 @@ namespace Rudy_103.src
     /// <summary>
     /// Klasa bazowa dla czołgów (Gracza, Przeciników)
     /// </summary>
-    abstract class Czolg : Obiekty
+    public abstract class Czolg : Obiekty
     {
         protected int wytrzymalosc;
         protected int wytrzymalosc_bazowa;
@@ -399,8 +399,7 @@ namespace Rudy_103.src
 
             g.DrawImage(obrazy[(int)kierunek], new Rectangle(Wymiary.X - Kamera.Prostokat_Kamery.X, Wymiary.Y - Kamera.Prostokat_Kamery.Y, Wymiary.Width, Wymiary.Height), 0, 0,
                         obrazy[(int)kierunek].Width, obrazy[(int)kierunek].Width, GraphicsUnit.Pixel, transparentPink);
-            g.DrawRectangle(new Pen(Color.Black), new Rectangle(Wymiary.X - Kamera.Prostokat_Kamery.X, Wymiary.Y + Wymiary.Height + 2 - Kamera.Prostokat_Kamery.Y,
-                Wymiary.Width, 5));
+            
         }
         public void RysujPociski(Graphics g, System.Drawing.Imaging.ImageAttributes transparentPink)
         {
@@ -409,9 +408,12 @@ namespace Rudy_103.src
         public void RysujPasekZycia(Graphics g, System.Drawing.Imaging.ImageAttributes transparentPink)
         {
             int procenty_wytrzymalosci = (100 * this.Wytrzymalosc) / this.Wytrzymalosc_Bazowa;
+            g.DrawRectangle(new Pen(Color.Black), new Rectangle(Wymiary.X - Kamera.Prostokat_Kamery.X, Wymiary.Y + Wymiary.Height + 2 - Kamera.Prostokat_Kamery.Y,
+                Wymiary.Width, 5));
             g.FillRectangle(new SolidBrush(Color.Red), new Rectangle(Wymiary.X + 1 - Kamera.Prostokat_Kamery.X, Wymiary.Y + Wymiary.Height + 3 - Kamera.Prostokat_Kamery.Y,
                 (Wymiary.Width * procenty_wytrzymalosci) / 100, 4));
         }
+        
           
     }
 }

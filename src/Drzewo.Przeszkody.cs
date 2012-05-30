@@ -9,7 +9,7 @@ namespace Rudy_103.src
     /// <summary>
     /// Klasa pochodna po drzewie BSP do podziału przeszkód na obszary.
     /// </summary>
-    class DrzewoPrzeszkody : Drzewo<Przeszkoda>
+    public class DrzewoPrzeszkody : Drzewo<Przeszkoda>
     {
         private List<Przeszkoda> narysowane = new List<Przeszkoda>();
         /// <summary>

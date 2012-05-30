@@ -29,12 +29,12 @@
         private void InitializeComponent()
         {
             this.panel1 = new System.Windows.Forms.Panel();
-            this.ZamknijStatystykibutton = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
+            this.PoziomLabel = new System.Windows.Forms.Label();
             this.PunktyLabel = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.ZamknijStatystykibutton = new System.Windows.Forms.Button();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.tabPage2 = new System.Windows.Forms.TabPage();
             this.panel6 = new System.Windows.Forms.Panel();
             this.DodajSzybkoscButton = new System.Windows.Forms.Button();
             this.PoziomSzybkosciTextBox = new System.Windows.Forms.TextBox();
@@ -43,9 +43,9 @@
             this.DodajObronaButton = new System.Windows.Forms.Button();
             this.ObronaTextBox = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
+            this.tabPage2 = new System.Windows.Forms.TabPage();
             this.panel9 = new System.Windows.Forms.Panel();
-            this.DodajLufeButton = new System.Windows.Forms.Button();
+            this.DodajMagazynekButton = new System.Windows.Forms.Button();
             this.LufaTextBox = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
             this.panel8 = new System.Windows.Forms.Panel();
@@ -68,9 +68,9 @@
             this.panel1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
-            this.tabPage2.SuspendLayout();
             this.panel6.SuspendLayout();
             this.panel5.SuspendLayout();
+            this.tabPage2.SuspendLayout();
             this.panel9.SuspendLayout();
             this.panel8.SuspendLayout();
             this.panel3.SuspendLayout();
@@ -82,13 +82,42 @@
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.SystemColors.HotTrack;
-            this.panel1.Controls.Add(this.label3);
+            this.panel1.Controls.Add(this.PoziomLabel);
             this.panel1.Controls.Add(this.PunktyLabel);
             this.panel1.Controls.Add(this.label1);
             this.panel1.Controls.Add(this.ZamknijStatystykibutton);
             this.panel1.Location = new System.Drawing.Point(4, 4);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(313, 28);
+            // 
+            // PoziomLabel
+            // 
+            this.PoziomLabel.Font = new System.Drawing.Font("Tahoma", 8F, System.Drawing.FontStyle.Regular);
+            this.PoziomLabel.ForeColor = System.Drawing.Color.Yellow;
+            this.PoziomLabel.Location = new System.Drawing.Point(53, 4);
+            this.PoziomLabel.Name = "PoziomLabel";
+            this.PoziomLabel.Size = new System.Drawing.Size(72, 16);
+            this.PoziomLabel.Text = "Poziom: 1";
+            this.PoziomLabel.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            // 
+            // PunktyLabel
+            // 
+            this.PunktyLabel.Font = new System.Drawing.Font("Tahoma", 8F, System.Drawing.FontStyle.Regular);
+            this.PunktyLabel.ForeColor = System.Drawing.Color.Yellow;
+            this.PunktyLabel.Location = new System.Drawing.Point(219, 4);
+            this.PunktyLabel.Name = "PunktyLabel";
+            this.PunktyLabel.Size = new System.Drawing.Size(72, 16);
+            this.PunktyLabel.Text = "Punkty: 0";
+            this.PunktyLabel.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            // 
+            // label1
+            // 
+            this.label1.ForeColor = System.Drawing.SystemColors.ActiveCaption;
+            this.label1.Location = new System.Drawing.Point(119, 0);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(94, 20);
+            this.label1.Text = "STATYSTKI";
+            this.label1.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
             // ZamknijStatystykibutton
             // 
@@ -100,25 +129,6 @@
             this.ZamknijStatystykibutton.TabIndex = 0;
             this.ZamknijStatystykibutton.Text = "X";
             this.ZamknijStatystykibutton.Click += new System.EventHandler(this.ZamknijStatystykibutton_Click);
-            // 
-            // label1
-            // 
-            this.label1.ForeColor = System.Drawing.SystemColors.ActiveCaption;
-            this.label1.Location = new System.Drawing.Point(119, 0);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(94, 20);
-            this.label1.Text = "STATYSTKI";
-            this.label1.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            // 
-            // PunktyLabel
-            // 
-            this.PunktyLabel.Font = new System.Drawing.Font("Tahoma", 8F, System.Drawing.FontStyle.Regular);
-            this.PunktyLabel.ForeColor = System.Drawing.Color.Yellow;
-            this.PunktyLabel.Location = new System.Drawing.Point(219, 4);
-            this.PunktyLabel.Name = "PunktyLabel";
-            this.PunktyLabel.Size = new System.Drawing.Size(72, 16);
-            this.PunktyLabel.Text = "Punkty: 0";
-            this.PunktyLabel.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
             // tabControl1
             // 
@@ -142,17 +152,6 @@
             this.tabPage1.Size = new System.Drawing.Size(313, 176);
             this.tabPage1.Text = "Czołg";
             // 
-            // tabPage2
-            // 
-            this.tabPage2.BackColor = System.Drawing.SystemColors.HotTrack;
-            this.tabPage2.Controls.Add(this.panel9);
-            this.tabPage2.Controls.Add(this.panel8);
-            this.tabPage2.Controls.Add(this.panel3);
-            this.tabPage2.Location = new System.Drawing.Point(0, 0);
-            this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Size = new System.Drawing.Size(313, 176);
-            this.tabPage2.Text = "Pociski";
-            // 
             // panel6
             // 
             this.panel6.Controls.Add(this.DodajSzybkoscButton);
@@ -171,10 +170,10 @@
             this.DodajSzybkoscButton.Size = new System.Drawing.Size(25, 21);
             this.DodajSzybkoscButton.TabIndex = 2;
             this.DodajSzybkoscButton.Text = "+";
+            this.DodajSzybkoscButton.Click += new System.EventHandler(this.DodajStatyButton_Click);
             // 
             // PoziomSzybkosciTextBox
             // 
-            this.PoziomSzybkosciTextBox.Enabled = false;
             this.PoziomSzybkosciTextBox.Font = new System.Drawing.Font("Tahoma", 8F, System.Drawing.FontStyle.Regular);
             this.PoziomSzybkosciTextBox.Location = new System.Drawing.Point(228, 8);
             this.PoziomSzybkosciTextBox.Multiline = true;
@@ -212,10 +211,10 @@
             this.DodajObronaButton.Size = new System.Drawing.Size(25, 21);
             this.DodajObronaButton.TabIndex = 2;
             this.DodajObronaButton.Text = "+";
+            this.DodajObronaButton.Click += new System.EventHandler(this.DodajStatyButton_Click);
             // 
             // ObronaTextBox
             // 
-            this.ObronaTextBox.Enabled = false;
             this.ObronaTextBox.Font = new System.Drawing.Font("Tahoma", 8F, System.Drawing.FontStyle.Regular);
             this.ObronaTextBox.Location = new System.Drawing.Point(228, 7);
             this.ObronaTextBox.Multiline = true;
@@ -235,38 +234,39 @@
             this.label4.Text = "POZIOM OBRONY";
             this.label4.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
-            // label3
+            // tabPage2
             // 
-            this.label3.Font = new System.Drawing.Font("Tahoma", 8F, System.Drawing.FontStyle.Regular);
-            this.label3.ForeColor = System.Drawing.Color.Yellow;
-            this.label3.Location = new System.Drawing.Point(53, 4);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(72, 16);
-            this.label3.Text = "Poziom: 1";
-            this.label3.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.tabPage2.BackColor = System.Drawing.SystemColors.HotTrack;
+            this.tabPage2.Controls.Add(this.panel9);
+            this.tabPage2.Controls.Add(this.panel8);
+            this.tabPage2.Controls.Add(this.panel3);
+            this.tabPage2.Location = new System.Drawing.Point(0, 0);
+            this.tabPage2.Name = "tabPage2";
+            this.tabPage2.Size = new System.Drawing.Size(313, 176);
+            this.tabPage2.Text = "Pociski";
             // 
             // panel9
             // 
-            this.panel9.Controls.Add(this.DodajLufeButton);
+            this.panel9.Controls.Add(this.DodajMagazynekButton);
             this.panel9.Controls.Add(this.LufaTextBox);
             this.panel9.Controls.Add(this.label8);
             this.panel9.Location = new System.Drawing.Point(7, 7);
             this.panel9.Name = "panel9";
             this.panel9.Size = new System.Drawing.Size(299, 45);
             // 
-            // DodajLufeButton
+            // DodajMagazynekButton
             // 
-            this.DodajLufeButton.BackColor = System.Drawing.Color.Red;
-            this.DodajLufeButton.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.DodajLufeButton.Location = new System.Drawing.Point(259, 11);
-            this.DodajLufeButton.Name = "DodajLufeButton";
-            this.DodajLufeButton.Size = new System.Drawing.Size(25, 21);
-            this.DodajLufeButton.TabIndex = 2;
-            this.DodajLufeButton.Text = "+";
+            this.DodajMagazynekButton.BackColor = System.Drawing.Color.Red;
+            this.DodajMagazynekButton.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.DodajMagazynekButton.Location = new System.Drawing.Point(259, 11);
+            this.DodajMagazynekButton.Name = "DodajMagazynekButton";
+            this.DodajMagazynekButton.Size = new System.Drawing.Size(25, 21);
+            this.DodajMagazynekButton.TabIndex = 2;
+            this.DodajMagazynekButton.Text = "+";
+            this.DodajMagazynekButton.Click += new System.EventHandler(this.DodajStatyButton_Click);
             // 
             // LufaTextBox
             // 
-            this.LufaTextBox.Enabled = false;
             this.LufaTextBox.Font = new System.Drawing.Font("Tahoma", 8F, System.Drawing.FontStyle.Regular);
             this.LufaTextBox.Location = new System.Drawing.Point(228, 11);
             this.LufaTextBox.Multiline = true;
@@ -304,10 +304,10 @@
             this.DodajZasiegButton.Size = new System.Drawing.Size(25, 21);
             this.DodajZasiegButton.TabIndex = 2;
             this.DodajZasiegButton.Text = "+";
+            this.DodajZasiegButton.Click += new System.EventHandler(this.DodajStatyButton_Click);
             // 
             // ZasiegTextBox
             // 
-            this.ZasiegTextBox.Enabled = false;
             this.ZasiegTextBox.Font = new System.Drawing.Font("Tahoma", 8F, System.Drawing.FontStyle.Regular);
             this.ZasiegTextBox.Location = new System.Drawing.Point(228, 13);
             this.ZasiegTextBox.Multiline = true;
@@ -345,10 +345,10 @@
             this.DodajAtakButton.Size = new System.Drawing.Size(25, 21);
             this.DodajAtakButton.TabIndex = 2;
             this.DodajAtakButton.Text = "+";
+            this.DodajAtakButton.Click += new System.EventHandler(this.DodajStatyButton_Click);
             // 
             // PoziomAtakTextBox
             // 
-            this.PoziomAtakTextBox.Enabled = false;
             this.PoziomAtakTextBox.Font = new System.Drawing.Font("Tahoma", 8F, System.Drawing.FontStyle.Regular);
             this.PoziomAtakTextBox.Location = new System.Drawing.Point(228, 11);
             this.PoziomAtakTextBox.Multiline = true;
@@ -375,7 +375,7 @@
             this.tabPage3.Controls.Add(this.panel7);
             this.tabPage3.Location = new System.Drawing.Point(0, 0);
             this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Size = new System.Drawing.Size(313, 176);
+            this.tabPage3.Size = new System.Drawing.Size(305, 173);
             this.tabPage3.Text = "Inne";
             // 
             // panel10
@@ -396,10 +396,10 @@
             this.DodajZycieButton.Size = new System.Drawing.Size(25, 21);
             this.DodajZycieButton.TabIndex = 2;
             this.DodajZycieButton.Text = "+";
+            this.DodajZycieButton.Click += new System.EventHandler(this.DodajStatyButton_Click);
             // 
             // ZyciaTextBox
             // 
-            this.ZyciaTextBox.Enabled = false;
             this.ZyciaTextBox.Font = new System.Drawing.Font("Tahoma", 8F, System.Drawing.FontStyle.Regular);
             this.ZyciaTextBox.Location = new System.Drawing.Point(228, 8);
             this.ZyciaTextBox.Multiline = true;
@@ -437,10 +437,10 @@
             this.DodajBazaButton.Size = new System.Drawing.Size(25, 21);
             this.DodajBazaButton.TabIndex = 2;
             this.DodajBazaButton.Text = "+";
+            this.DodajBazaButton.Click += new System.EventHandler(this.DodajStatyButton_Click);
             // 
             // BazaTextBox
             // 
-            this.BazaTextBox.Enabled = false;
             this.BazaTextBox.Font = new System.Drawing.Font("Tahoma", 8F, System.Drawing.FontStyle.Regular);
             this.BazaTextBox.Location = new System.Drawing.Point(228, 8);
             this.BazaTextBox.Multiline = true;
@@ -479,9 +479,9 @@
             this.panel1.ResumeLayout(false);
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
-            this.tabPage2.ResumeLayout(false);
             this.panel6.ResumeLayout(false);
             this.panel5.ResumeLayout(false);
+            this.tabPage2.ResumeLayout(false);
             this.panel9.ResumeLayout(false);
             this.panel8.ResumeLayout(false);
             this.panel3.ResumeLayout(false);
@@ -509,9 +509,9 @@
         private System.Windows.Forms.TextBox ObronaTextBox;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TabPage tabPage2;
-        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label PoziomLabel;
         private System.Windows.Forms.Panel panel9;
-        private System.Windows.Forms.Button DodajLufeButton;
+        private System.Windows.Forms.Button DodajMagazynekButton;
         private System.Windows.Forms.TextBox LufaTextBox;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Panel panel8;

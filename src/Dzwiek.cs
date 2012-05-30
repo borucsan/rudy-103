@@ -7,7 +7,7 @@ using System.Runtime.InteropServices;
 
 namespace Rudy_103.src
 {
-    class Dzwiek
+    public class Dzwiek
     {
         private static bool Enabled = true;
         private byte[] soundBytes;

@@ -38,9 +38,13 @@ namespace Rudy_103.src
         /// </summary>
         public int punkty { get; set; }
         /// <summary>
-        /// Ilość punktów doświadczenia.
+        /// Ilość potrzevnych punktów doświadczenia do podniesienia poziomu.
         /// </summary>
-        public int XP { get; set; }
+        public int XP_Potrzebne { get; set; }
+        /// <summary>
+        /// Ilość aktualnych punktów doświadczenia.
+        /// </summary>
+        public int XP_Aktualne { get; set; }
         /// <summary>
         /// Ilość punktów które można wymienić na ulepszenia.(TODO)
         /// </summary>
@@ -67,7 +71,8 @@ namespace Rudy_103.src
             ulepszenia = new Ulepszenia();
             punkty = 0;
             punkty_level = 0;
-            XP = 0;
+            XP_Aktualne = 0;
+            XP_Potrzebne = 100;
             zycia = 3;
         }
         /// <summary>

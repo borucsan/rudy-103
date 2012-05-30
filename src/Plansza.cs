@@ -10,7 +10,7 @@ using System.Windows.Forms;
 
 namespace Rudy_103.src
 {
-    class Plansza
+    public class Plansza
     {
         public Stack<Przeciwnik> przeciwnicy { get; private set; }
         public List<Przeciwnik> przeciwnicy_na_mapie { get; private set; }
@@ -256,6 +256,7 @@ namespace Rudy_103.src
                 przeciwnicy_na_mapie[i].RysujPasekZycia(g, transparentPink);
             }
             gracz.RysujPasekZycia(g, transparentPink);
+            gracz.RysujPasekXP(g, transparentPink);
         }
         //Metoda rysująca efekty na mapie
         public void RysujEfekty(Graphics g, System.Drawing.Imaging.ImageAttributes transparentPink)
