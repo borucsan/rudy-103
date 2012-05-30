@@ -6,7 +6,7 @@ using System.Drawing;
 
 namespace Rudy_103.src
 {
-    class ElementObiektu<T> where T : IPodzielny, IComparable
+    public class ElementObiektu<T> where T : IPodzielny, IComparable
     {
         public T obiekt { get; private set; }
         private Rectangle wymiar;

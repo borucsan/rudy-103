@@ -8,7 +8,7 @@ namespace Rudy_103.src
     /// <summary>
     /// Klasa trzymająca wzorce i "produkująca" obiekty.
     /// </summary>
-    class Fabryka
+    public class Fabryka
     {
         public Dictionary<String, Przeciwnik> wzorce_przeciwnikow { get; private set; }
         public Dictionary<String, Przeszkoda> wzorce_przeszkod { get; private set; }

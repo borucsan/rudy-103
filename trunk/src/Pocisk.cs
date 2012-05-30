@@ -7,7 +7,7 @@ using System.Drawing;
 
 namespace Rudy_103.src
 {
-    class Pocisk : Obiekty, ICloneable
+    public class Pocisk : Obiekty, ICloneable
     {
         public Czolg.Kierunek kierunek { get; set; }
         public int sila { get; set; }

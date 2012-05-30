@@ -6,7 +6,7 @@ using System.Drawing;
 
 namespace Rudy_103.src
 {
-    class Warsztat
+    public class Warsztat
     {
         public int poziom_szybkosci;
         public int poziom_pancerza;
@@ -41,8 +41,7 @@ namespace Rudy_103.src
         #region Metody Zwiększające Poziom
         public void ZwiekszPoziomSzybkosci(Gracz gracz)
         {
-            int cena = (500 + 1000 * poziom_szybkosci);
-            if (gracz.pieniadze >= cena)
+            if (gracz.ilosc_punktow_ulepszen > 0)
             {
                 if (poziom_szybkosci >= 10)
                 {
@@ -51,15 +50,15 @@ namespace Rudy_103.src
                 else
                 {
                     poziom_szybkosci += 1;
-                    gracz.pieniadze -= cena;
+                    gracz.ilosc_punktow_ulepszen -= 1;
                 }
             }
         }
         
         public void ZwiekszPoziomPancerza(Gracz gracz)
         {
-            int cena = (500 + 1000 * poziom_pancerza);
-            if (gracz.pieniadze >= cena)
+
+            if (gracz.ilosc_punktow_ulepszen > 0)
             {
                 if (poziom_pancerza >= 10)
                 {
@@ -68,14 +67,14 @@ namespace Rudy_103.src
                 else
                 {
                     poziom_pancerza += 1;
-                    gracz.pieniadze -= cena;
+                    gracz.ilosc_punktow_ulepszen -= 1;
                 }
             }
         }
         public void ZwiekszPoziomAtaku(Gracz gracz)
         {
-            int cena = (500 + 1000 * poziom_ataku);
-            if (gracz.pieniadze >= cena)
+
+            if (gracz.ilosc_punktow_ulepszen > 0)
             {
                 if (poziom_ataku >= 10)
                 {
@@ -84,14 +83,14 @@ namespace Rudy_103.src
                 else
                 {
                     poziom_ataku += 1;
-                    gracz.pieniadze -= cena;
+                    gracz.ilosc_punktow_ulepszen -= 1;
                 }
             }
         }
         public void ZwiekszPoziomMuru(Gracz gracz)
         {
-            int cena = (500 + 1000 * poziom_muru);
-            if (gracz.pieniadze >= cena)
+            
+            if (gracz.ilosc_punktow_ulepszen > 0)
             {
                 if (poziom_muru >= 10)
                 {
@@ -100,14 +99,14 @@ namespace Rudy_103.src
                 else
                 {
                     poziom_muru += 1;
-                    gracz.pieniadze -= cena;
+                    gracz.ilosc_punktow_ulepszen -= 1;
                 }
             }
         }
         public void ZwiekszPoziomZasiegu(Gracz gracz)
         {
-            int cena = (500 + 1000 * poziom_zasiegu);
-            if (gracz.pieniadze >= cena)
+            
+            if (gracz.ilosc_punktow_ulepszen > 0)
             {
                 if (poziom_zasiegu >= 10)
                 {
@@ -116,7 +115,39 @@ namespace Rudy_103.src
                 else
                 {
                     poziom_zasiegu += 1;
-                    gracz.pieniadze -= cena;
+                    gracz.ilosc_punktow_ulepszen -= 1;
+                }
+            }
+        }
+        public void ZwiekszPoziomMagazynku(Gracz gracz)
+        {
+
+            if (gracz.ilosc_punktow_ulepszen > 0)
+            {
+                if (poziom_magazynku >= 10)
+                {
+                    poziom_magazynku = 10;
+                }
+                else
+                {
+                    poziom_magazynku += 1;
+                    gracz.ilosc_punktow_ulepszen -= 1;
+                }
+            }
+        }
+        public void ZwiekszEnergie(Gracz gracz)
+        {
+
+            if (gracz.ilosc_punktow_ulepszen > 0)
+            {
+                if (gracz.energia >= 5)
+                {
+                    gracz.energia = 5;
+                }
+                else
+                {
+                    gracz.energia += 1;
+                    gracz.ilosc_punktow_ulepszen -= 1;
                 }
             }
         }

@@ -6,7 +6,7 @@ using System.Drawing;
 
 namespace Rudy_103.src
 {
-    class Baza : Przeszkoda
+    public class Baza : Przeszkoda
     {
         public bool zniszczona{ get; set; } 
         public Baza(int X, int Y, int Szer, int Wys, int energia, bool transparent)

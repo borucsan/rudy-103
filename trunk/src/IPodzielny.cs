@@ -6,7 +6,7 @@ using System.Drawing;
 
 namespace Rudy_103.src
 {
-    interface IPodzielny
+    public interface IPodzielny
     {
         Rectangle Wymiary { get; }
         bool Transparent { get; }

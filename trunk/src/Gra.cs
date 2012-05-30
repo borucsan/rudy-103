@@ -28,6 +28,8 @@ namespace Rudy_103.src
         private bool przyciskOpcji = true;
         private bool panelOpcji = false;
         private bool panelUlepszen;     //zmienna służąca do włączania/wyłączania panelu ulepszeń
+        public bool wlaczoneStatystyki = false;
+        private bool przyciskStatystyk = true;
         #endregion
 
         #region Prostokaty_Przyciskow
@@ -45,6 +47,8 @@ namespace Rudy_103.src
         Rectangle przyciskWyjscia;
 
         Rectangle przyciskZamknijUkonczonyPoziom;
+
+        Rectangle przyciskStatystykProst;
         #endregion
 
         private int czas_sekundy;
@@ -74,7 +78,7 @@ namespace Rudy_103.src
 
         private int numer_efektu = 0;
 
-        private int ilosc_opcji = 6;
+        //private int ilosc_opcji = 6;
 
         /// <summary>
         /// Scieżka do pliku custom mapy
@@ -85,6 +89,9 @@ namespace Rudy_103.src
         /// </summary>
         /// <param name="path">Scieżka do pliku custom mapy.</param>
         /// <param name="profil">Profil gracza.</param>
+        /// 
+        public Statystyki oknoStatystyk;
+
         public Gra(ProfilGracza profil, string path)
         {
             this.profil = profil;
@@ -98,7 +105,8 @@ namespace Rudy_103.src
             
             PrzygotowywanieMapy();
             player = Fabryka.ProdukujDomyslnegoGracza();
-            player.pieniadze = profil.XP;
+            player.XP_Aktualne = profil.XP_Aktualne;
+            player.XP_Potrzebne = profil.XP_Potrzebne;
             player.punkty = profil.punkty;
             player.energia = profil.zycia;
             warsztat.UstawStatystyki(player);
@@ -121,7 +129,8 @@ namespace Rudy_103.src
             warsztat.UstawWartosciZProfilu(profil);
             PrzygotowywanieMapy();
             player = Fabryka.ProdukujDomyslnegoGracza();
-            player.pieniadze = profil.XP;
+            player.XP_Aktualne = profil.XP_Aktualne;
+            player.XP_Potrzebne = profil.XP_Potrzebne;
             player.punkty = profil.punkty;
             player.energia = profil.zycia;
             warsztat.UstawStatystyki(player);
@@ -290,7 +299,7 @@ namespace Rudy_103.src
                     case Keys.C:
                         {
                             player.punkty += 2000;
-                            player.pieniadze += 2000;
+                            
                         } break;
                     case Keys.X:
                         {
@@ -298,12 +307,15 @@ namespace Rudy_103.src
                         } break;
                     case Keys.Z:
                         {
-                            panelUlepszen = !panelUlepszen;
                         } break;
                     case Keys.V:
                         {
                             plansza.przeciwnicy.Clear();
                             plansza.przeciwnicy_na_mapie.Clear();
+                        } break;
+                    case Keys.B:
+                        {
+                            DodajTestoweXP();
                         } break;
                 }
                 //kamera = new Rectangle(pozycja_kamery.X, pozycja_kamery.Y, maxX, maxY);
@@ -592,6 +604,15 @@ namespace Rudy_103.src
                 */
                 #endregion RysowanieBaterii
             }
+            if (przyciskStatystyk)
+            {
+                przyciskStatystykProst = new Rectangle(Kamera.Prostokat_Kamery.Width - Narzedzia.PointToPixelHorizontal(52), Narzedzia.PointToPixelHorizontal(50), Narzedzia.PointToPixelVertical(50), Narzedzia.PointToPixelVertical(30));
+                Rectangle przyciskStatystykNapisProst = new Rectangle(Kamera.Prostokat_Kamery.Width - Narzedzia.PointToPixelHorizontal(50), Narzedzia.PointToPixelVertical(55), Narzedzia.PointToPixelVertical(50), Narzedzia.PointToPixelHorizontal(15));
+                g.DrawImage(Multimedia.przyciskImageZamknij, przyciskStatystykProst, 0, 0, Multimedia.przyciskImageZamknij.Width,
+                    Multimedia.przyciskImageZamknij.Height, GraphicsUnit.Pixel, transparentPink);
+
+                g.DrawString("Statystyki", new Font("Arial", 8, FontStyle.Regular), new SolidBrush(Color.Yellow), przyciskStatystykNapisProst, drawFormat);
+            }
             if (przyciskMapy)
             {
                 #region RysowaniePrzyciskuMapa
@@ -744,8 +765,8 @@ namespace Rudy_103.src
             {
                 #region Rysowanie Panelu Ulepszeń
                 g.Clear(Color.Black);
-                g.DrawString("Ilość pieniędzy: " + player.pieniadze, new Font("Arial", 10, FontStyle.Regular), new SolidBrush(Color.Green),
-                    new Rectangle(Kamera.Prostokat_Kamery.Width / 2 - Narzedzia.PointToPixelVertical(100), 0, Narzedzia.PointToPixelVertical(200), Narzedzia.PointToPixelHorizontal(20)), drawFormat);
+                //g.DrawString("Ilość pieniędzy: " + player.XP, new Font("Arial", 10, FontStyle.Regular), new SolidBrush(Color.Green),
+                   // new Rectangle(Kamera.Prostokat_Kamery.Width / 2 - Narzedzia.PointToPixelVertical(100), 0, Narzedzia.PointToPixelVertical(200), Narzedzia.PointToPixelHorizontal(20)), drawFormat);
 
                 warsztat.Rysuj(g, transparentPink);
 
@@ -848,6 +869,7 @@ namespace Rudy_103.src
                 player.Pociski.Clear();
                 ZliczPunkty();
                 WstrzymajGre();
+                
                 //Wykonaj kończenie poziomu: zliczenie punktów; ulepszenia; nowy poziom;
             }
             czas_respawnow++;
@@ -909,7 +931,20 @@ namespace Rudy_103.src
                 }
             }
             #endregion Informacje o Przeciwniku
-
+            #region Statystyki
+            if (przyciskStatystyk)
+            {
+                if (mysz.IntersectsWith(przyciskStatystykProst))
+                {
+                    przyciskStatystykProst = new Rectangle();   //zerujemy wymiary po nacisnieciu
+                    wlaczoneStatystyki = true;
+                    oknoStatystyk = new Statystyki(warsztat, player);
+                    oknoStatystyk.Owner = this;
+                    WstrzymajGre();
+                    oknoStatystyk.Show();
+                }
+            }
+            #endregion Statystyki
             #region Mapa
             if (przyciskMapy)
             {
@@ -1010,7 +1045,8 @@ namespace Rudy_103.src
                         profil.ulepszenia.poziom_wytrzymalosci = warsztat.poziom_pancerza;
                         profil.ulepszenia.poziom_szybkosci = warsztat.poziom_szybkosci;
                         profil.ulepszenia.poziom_muru = warsztat.poziom_muru;
-                        profil.XP = player.pieniadze;
+                        profil.XP_Aktualne = player.XP_Aktualne;
+                        profil.XP_Potrzebne = player.XP_Potrzebne;
                         ThreadPool.QueueUserWorkItem(ZapiszDane);
                     }
                     else
@@ -1020,7 +1056,8 @@ namespace Rudy_103.src
                         profil.ulepszenia.poziom_wytrzymalosci = warsztat.poziom_pancerza;
                         profil.ulepszenia.poziom_szybkosci = warsztat.poziom_szybkosci;
                         profil.ulepszenia.poziom_muru = warsztat.poziom_muru;
-                        profil.XP = player.pieniadze;
+                        profil.XP_Aktualne = player.XP_Aktualne;
+                        profil.XP_Potrzebne = player.XP_Potrzebne;
                         profil.zycia = player.energia;
                         profil.punkty = player.punkty;
                         profil.poziom++;
@@ -1089,12 +1126,12 @@ namespace Rudy_103.src
             
         }
 
-        private void WstrzymajGre()
+        public void WstrzymajGre()
         {
             this.timer1.Enabled = false;
             this.czas_rozgrywki.Enabled = false;
         }
-        private void WznowGre()
+        public void WznowGre()
         {
             this.timer1.Enabled = true;
             this.czas_rozgrywki.Enabled = true;
@@ -1103,7 +1140,7 @@ namespace Rudy_103.src
         {
             int mnoznik_punktowy = 1;
             player.punkty += plansza.zdobyte_punkty * mnoznik_punktowy;
-            player.pieniadze += plansza.zdobyte_punkty * mnoznik_punktowy;
+            //player.XP += plansza.zdobyte_punkty * mnoznik_punktowy;
         }
 
         private void OdswiezEkran()
@@ -1192,6 +1229,17 @@ namespace Rudy_103.src
         private void ZapiszDane(object stateInfo)
         {
             profil.ZapiszDane();
+        }
+        private void DodajTestoweXP()
+        {
+            player.XP_Aktualne += 50;
+            if (player.XP_Aktualne >= player.XP_Potrzebne)
+            {
+                player.XP_Aktualne -= player.XP_Potrzebne;
+                player.poziom += 1;
+                player.ilosc_punktow_ulepszen += 1;
+                player.XP_Potrzebne = (int)(player.XP_Potrzebne * 1.3);
+            }
         }
     }
 }

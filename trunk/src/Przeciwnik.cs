@@ -7,7 +7,7 @@ using System.Drawing;
 
 namespace Rudy_103.src
 {
-    class Przeciwnik : Czolg, ICloneable
+    public class Przeciwnik : Czolg, ICloneable
     {
         public int punkty { get; private set; }
         public Przeciwnik(int X, int Y, int Szer, int Wys, int wytrzymalosc, int szybkosc, int sila, int zasieg, int max_pociskow, int przeladowanie, int dodawane_punkty)

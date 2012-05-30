@@ -7,7 +7,7 @@ using System.Drawing;
 
 namespace Rudy_103.src
 {
-    class Przeszkoda : Obiekty, ICloneable
+    public class Przeszkoda : Obiekty, ICloneable
     {
         public int energia { get; set; }
         public Przeszkoda(int X, int Y, int Szer, int Wys, int energia, bool transparent)
