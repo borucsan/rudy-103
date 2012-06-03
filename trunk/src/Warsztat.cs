@@ -6,16 +6,38 @@ using System.Drawing;
 
 namespace Rudy_103.src
 {
+    /// <summary>
+    /// Klasa obsługująca statystyki gracza, wszelkie upgrade'y.
+    /// </summary>
     public class Warsztat
     {
+        /// <summary>
+        /// Wartość poziomu szybkości gracza od 1-10.
+        /// </summary>
         public int poziom_szybkosci;
+        /// <summary>
+        /// Wartość poziomu pancerza gracza od 1-10.
+        /// </summary>
         public int poziom_pancerza;
+        /// <summary>
+        /// Wartość poziomu ataku gracza od 1-10.
+        /// </summary>
         public int poziom_ataku;
+        /// <summary>
+        /// Wartość poziomu obrony bazy gracza od 1-10.
+        /// </summary>
         public int poziom_muru;
+        /// <summary>
+        /// Wartość poziomu zasięgu wystrzelonych pocisków gracza od 1-10.
+        /// </summary>
         public int poziom_zasiegu;
+        /// <summary>
+        /// Wartość poziomu ilości wystrzelonych pocisków gracza od 1-10.
+        /// </summary>
         public int poziom_magazynku;
 
-        //Przyciski panelu Warsztatu
+        //Przyciski panelu Warsztatu(Old)
+        /*
         public Rectangle przyciskZamknijUlepszenia;
         public Rectangle przyciskUlepszSzybkosc;
         public Rectangle przyciskUlepszPancerz;
@@ -24,9 +46,12 @@ namespace Rudy_103.src
         public Rectangle przyciskUlepszZasieg;
         //public Rectangle przyciskUlepszMagazynek;
         //public Rectangle przyciskDodajZycie;
+        */
+        //public String ZamknijWarsztatString = "Zamknij";
 
-        public String ZamknijWarsztatString = "Zamknij";
-
+        /// <summary>
+        /// Konstruktor domyślny klasy Warsztat ustawiająca wszystkie statystyki na pierwszy poziom
+        /// </summary>
         public Warsztat()
         {
             poziom_szybkosci = 1;
@@ -34,11 +59,15 @@ namespace Rudy_103.src
             poziom_ataku = 1;
             poziom_muru = 1;
             poziom_zasiegu = 1;
-            poziom_magazynku = 1;
-            
+            poziom_magazynku = 1;  
         }
 
         #region Metody Zwiększające Poziom
+        /// <summary>
+        /// Metoda sprawdza czy gracz ma punkty do rozdania oraz czy poziom statystyki jest mniejszy
+        /// od 10, jeżeli tak to dodaje poziom i zmniejsza liczbę punktów do rozdania o 1.
+        /// </summary>
+        /// <param name="gracz">Referencja do gracza potrzebna, aby sprawdzać czy ma punkty do rozdania statystyk.</param>
         public void ZwiekszPoziomSzybkosci(Gracz gracz)
         {
             if (gracz.ilosc_punktow_ulepszen > 0)
@@ -54,7 +83,12 @@ namespace Rudy_103.src
                 }
             }
         }
-        
+        /// <summary>
+        /// Metoda sprawdza czy gracz ma punkty do rozdania oraz czy poziom statystyki jest mniejszy
+        /// od 10, jeżeli tak to dodaje poziom i zmniejsza liczbę punktów do rozdania o 1.
+        /// Metoda zwiększa poziom pancerza, wytrzymałości czołga gracza.
+        /// </summary>
+        /// <param name="gracz">Referencja do gracza potrzebna, aby sprawdzać czy ma punkty do rozdania statystyk.</param>
         public void ZwiekszPoziomPancerza(Gracz gracz)
         {
 
@@ -71,6 +105,12 @@ namespace Rudy_103.src
                 }
             }
         }
+        /// <summary>
+        /// Metoda sprawdza czy gracz ma punkty do rozdania oraz czy poziom statystyki jest mniejszy
+        /// od 10, jeżeli tak to dodaje poziom i zmniejsza liczbę punktów do rozdania o 1.
+        /// Metoda zwiększa poziom siły ataku gracza.
+        /// </summary>
+        /// <param name="gracz">Referencja do gracza potrzebna, aby sprawdzać czy ma punkty do rozdania statystyk.</param>
         public void ZwiekszPoziomAtaku(Gracz gracz)
         {
 
@@ -87,6 +127,12 @@ namespace Rudy_103.src
                 }
             }
         }
+        /// <summary>
+        /// Metoda sprawdza czy gracz ma punkty do rozdania oraz czy poziom statystyki jest mniejszy
+        /// od 10, jeżeli tak to dodaje poziom i zmniejsza liczbę punktów do rozdania o 1.
+        /// Metoda zwiększa poziom obrony bazy, każdy poziom jest to inny mur obronny wokół bazy.
+        /// </summary>
+        /// <param name="gracz">Referencja do gracza potrzebna, aby sprawdzać czy ma punkty do rozdania statystyk.</param>
         public void ZwiekszPoziomMuru(Gracz gracz)
         {
             
@@ -103,6 +149,12 @@ namespace Rudy_103.src
                 }
             }
         }
+        /// <summary>
+        /// Metoda sprawdza czy gracz ma punkty do rozdania oraz czy poziom statystyki jest mniejszy
+        /// od 10, jeżeli tak to dodaje poziom i zmniejsza liczbę punktów do rozdania o 1.
+        /// Metoda zwiększa poziom zasięgu pocisków gracza.
+        /// </summary>
+        /// <param name="gracz">Referencja do gracza potrzebna, aby sprawdzać czy ma punkty do rozdania statystyk.</param>
         public void ZwiekszPoziomZasiegu(Gracz gracz)
         {
             
@@ -119,6 +171,12 @@ namespace Rudy_103.src
                 }
             }
         }
+        /// <summary>
+        /// Metoda sprawdza czy gracz ma punkty do rozdania oraz czy poziom statystyki jest mniejszy
+        /// od 10, jeżeli tak to dodaje poziom i zmniejsza liczbę punktów do rozdania o 1.
+        /// Metoda zwiększa poziom możliwości wystrzelenia większej ilości pocisków.
+        /// </summary>
+        /// <param name="gracz">Referencja do gracza potrzebna, aby sprawdzać czy ma punkty do rozdania statystyk.</param>
         public void ZwiekszPoziomMagazynku(Gracz gracz)
         {
 
@@ -135,6 +193,11 @@ namespace Rudy_103.src
                 }
             }
         }
+        /// <summary>
+        /// Metoda sprawdza czy gracz ma punkty do rozdania oraz czy ilość energi(żyć) gracza 
+        /// nie przekracza 5, jeżeli tak to dodaje jedną energie(życie) i zmniejsza ilość punktów statystyk o 1.
+        /// </summary>
+        /// <param name="gracz">Referencja do gracza potrzebna, aby sprawdzać czy ma punkty do rozdania statystyk.</param>
         public void ZwiekszEnergie(Gracz gracz)
         {
 
@@ -153,6 +216,9 @@ namespace Rudy_103.src
         }
         #endregion Metody Zwiększające Poziom
         
+        /// <summary>
+        /// Metoda ustawiająca wszystkie wartości poziomów na pierwszy poziom.
+        /// </summary>
         public void UstawDomyslneWartosci()
         {
             poziom_szybkosci = 1;
@@ -162,6 +228,10 @@ namespace Rudy_103.src
             poziom_zasiegu = 1;
             poziom_magazynku = 1;
         }
+        /// <summary>
+        /// Ustawia poziomy statystyk gracza z profilu.
+        /// </summary>
+        /// <param name="profil">Referencja na wybrany profil gracza.</param>
         public void UstawWartosciZProfilu(ProfilGracza profil)
         {
             this.poziom_ataku = profil.ulepszenia.poziom_ataku;
@@ -171,6 +241,10 @@ namespace Rudy_103.src
             this.poziom_zasiegu = profil.ulepszenia.poziom_zasiegu;
             this.poziom_magazynku = profil.ulepszenia.poziom_magazynku;
         }
+        /// <summary>
+        /// Ustawia statystyki na bazie poziomów, w które gracz zainwestował.
+        /// </summary>
+        /// <param name="gracz">Referencja do gracza, aby można było ustawić statystyki.</param>
         public void UstawStatystyki(Gracz gracz)
         {
             gracz.Szybkosc = 5 + poziom_szybkosci;
@@ -181,7 +255,8 @@ namespace Rudy_103.src
             gracz.Max_Pociskow = poziom_magazynku + 1;
            
         }
-
+        //Poprzednia wersja warsztatu, która opierała się na rysowaniu Statystyk na ekranie, oraz ich upgradów
+        /*
         public void Rysuj(Graphics g, System.Drawing.Imaging.ImageAttributes transparentPink)
         {
             StringFormat drawFormat = new StringFormat();
@@ -280,6 +355,7 @@ namespace Rudy_103.src
                 GraphicsUnit.Pixel, transparentPink);
             }
             */
+            /*
             #endregion Rysowanie Ulepszenia Zasięgu
 
             #region Rysowanie Przycisku Zamkniecia Ulepszeń
@@ -291,5 +367,6 @@ namespace Rudy_103.src
                 new Rectangle(Kamera.Prostokat_Kamery.Width / 2 - 100, Kamera.Prostokat_Kamery.Height - 25, 200, 25), drawFormat);
             #endregion Rysowanie Przycisku Zamkniecia Ulepszeń
         }
+        */
     }
 }

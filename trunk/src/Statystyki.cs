@@ -11,15 +11,23 @@ namespace Rudy_103.src
 {
     /// <summary>
     /// Okno do obsługi wyświetlania statystyk
+    /// oraz dodawania statystyk po zdobytym poziomie.
     /// </summary>
     public partial class Statystyki : Form
     {
-        //private Warsztat warsztat_gracza;
         /// <summary>
-        /// Domyślny konstruktor Okna statystyk 
+        /// Obiekt warsztatu, który będzie przechowywał referencję do warsztatu z formatki Gra.
         /// </summary>
         public Warsztat warsztat;
+        /// <summary>
+        /// Obiekt gracza, który będzie przechowywał referencję do gracza z formatki Gra.
+        /// </summary>
         public Gracz gracz;
+        /// <summary>
+        /// Domyślny konstruktor Okna statystyk
+        /// przyjmuje referencje do warsztatu oraz gracza, aby możliwe było modyfikowanie statystyk gracza oraz skorzystanie
+        /// z metod warsztatu do przydzielania statystyk.
+        /// </summary>
         public Statystyki(Warsztat ref_warsztat, Gracz ref_gracz)
         {
             InitializeComponent();
