@@ -51,7 +51,7 @@ namespace Rudy_103.src
             }
         }
         /// <summary>
-        /// Metoda ta zamyka bieżące okno i powraca do menu, które jest w dalszym ciągu otwarte.
+        /// Metoda ta zamyka bieżące okno i powraca do menu.
         /// </summary>
         private void WrocButton_Click(object sender, EventArgs e)
         {

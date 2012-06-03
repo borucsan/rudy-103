@@ -346,13 +346,13 @@ namespace Rudy_103.src
         private Bitmap bitmapBuffor = null;
         private void NowaGra_Paint(object sender, PaintEventArgs e)
         {
-            //Tworzymy nowy buffor jezeli potrzebny.
+            //Tworzymy nowy buffor jezeli nie został wcześniej stworzony.
             if (bitmapBuffor == null)
             {
                 bitmapBuffor = new Bitmap(Kamera.Szerokosc_Ekranu, Kamera.Wysokosc_Ekranu);
             }
 
-            //Tutaj rysujemy cala grafike
+            //Tutaj rysujemy całą grafikę
             using (Graphics g = Graphics.FromImage(bitmapBuffor))
             {
                 g.Clear(Color.Gray);
@@ -768,7 +768,7 @@ namespace Rudy_103.src
                 //g.DrawString("Ilość pieniędzy: " + player.XP, new Font("Arial", 10, FontStyle.Regular), new SolidBrush(Color.Green),
                    // new Rectangle(Kamera.Prostokat_Kamery.Width / 2 - Narzedzia.PointToPixelVertical(100), 0, Narzedzia.PointToPixelVertical(200), Narzedzia.PointToPixelHorizontal(20)), drawFormat);
 
-                warsztat.Rysuj(g, transparentPink);
+                //warsztat.Rysuj(g, transparentPink);
 
                 #endregion Rysowanie Panelu Ulepszeń
 
@@ -1031,7 +1031,7 @@ namespace Rudy_103.src
                 }
             }
             #endregion Opcje
-
+            /*
             #region Ulepszenia
             if (panelUlepszen)
             {
@@ -1111,7 +1111,7 @@ namespace Rudy_103.src
                 }
             }
             #endregion Ulepszenia
-
+            */
             #region Ukończony Poziom
             if (plansza.ukonczony_poziom)
             {
@@ -1125,17 +1125,26 @@ namespace Rudy_103.src
             #endregion Ukończony Poziom
             
         }
-
+        /// <summary>
+        /// Metoda wstrzymująca grę, wstrzymuje dwa timery, jeden do obsługi ogólnej mechaniki gry np. ruszanie czołgiem etc.
+        /// a drugi timer służy do liczenia czasu rozgrywki.
+        /// </summary>
         public void WstrzymajGre()
         {
             this.timer1.Enabled = false;
             this.czas_rozgrywki.Enabled = false;
         }
+        /// <summary>
+        /// Metoda wznawia grę, włączając 2 timery.
+        /// </summary>
         public void WznowGre()
         {
             this.timer1.Enabled = true;
             this.czas_rozgrywki.Enabled = true;
         }
+        /// <summary>
+        /// Metoda zlicza punkty które gracz otrzymał za zniszczenie czołgów i dodaje je do puli punktów gracza.
+        /// </summary>
         private void ZliczPunkty()
         {
             int mnoznik_punktowy = 1;
@@ -1143,6 +1152,9 @@ namespace Rudy_103.src
             //player.XP += plansza.zdobyte_punkty * mnoznik_punktowy;
         }
 
+        /// <summary>
+        /// Metoda sprawdzająca orientacje ekrany i odświeżająca ekran.
+        /// </summary>
         private void OdswiezEkran()
         {
             //Landscape
@@ -1177,6 +1189,11 @@ namespace Rudy_103.src
             Invalidate();
         }
 
+        /// <summary>
+        /// Reakcja na dotyk, ruszanie i strzelanie czołgiem gracza.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void NowaGra_MouseDown(object sender, MouseEventArgs e)
         {
             #region Graficzne Sterowanie
@@ -1207,7 +1224,9 @@ namespace Rudy_103.src
             }
             #endregion Graficzne Sterowanie
         }
-
+        /// <summary>
+        /// W momencie kiedy nie naciskamy na ekran wszystkie kierunki są wyzerowane, aby nie odbywał się dalej ruch.
+        /// </summary>
         private void NowaGra_MouseUp(object sender, MouseEventArgs e)
         {
             Opcje.Gora = false;
@@ -1216,6 +1235,9 @@ namespace Rudy_103.src
             Opcje.Lewo = false;
             Opcje.Enter = false;
         }
+        /// <summary>
+        /// Metoda obsługująca koniec gry.
+        /// </summary>
         private void GameOver()
         {
             ZliczPunkty();
