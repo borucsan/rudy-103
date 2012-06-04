@@ -10,26 +10,78 @@ using System.Windows.Forms;
 
 namespace Rudy_103.src
 {
+    /// <summary>
+    /// Klasa planszy.
+    /// </summary>
     public class Plansza
     {
+        /// <summary>
+        /// Stos puli przeciwników poziomu.
+        /// </summary>
         public Stack<Przeciwnik> przeciwnicy { get; private set; }
+        /// <summary>
+        /// Lista przeciwników na mapie.
+        /// </summary>
         public List<Przeciwnik> przeciwnicy_na_mapie { get; private set; }
+        /// <summary>
+        /// Lista efektów na mapie.
+        /// </summary>
         public List<Animacja> efekty_na_mapie { get; private set; }
-
+        /// <summary>
+        /// Tablica punktów odrodzeń przeciwników.
+        /// </summary>
         public Rectangle[] PunktResp { get; private set; }
+        /// <summary>
+        /// Obiekt bazy na planszy.
+        /// </summary>
         public Baza baza { get; private set; }
+        /// <summary>
+        /// Drzewo przeszkód.
+        /// </summary>
         public DrzewoPrzeszkody region { get; private set; }
+        /// <summary>
+        /// Drzewo podłoża.
+        /// </summary>
         public DrzewoPrzeszkody podloza { get; private set; }
+        /// <summary>
+        /// Poziom planszy.
+        /// </summary>
         public int poziom { get; private set; }
+        /// <summary>
+        /// Wysokość planszy.
+        /// </summary>
         public int Wysokosc { get; private set; }
+        /// <summary>
+        /// Szerokość planszy.
+        /// </summary>
         public int Szerokosc { get; private set; }
+        /// <summary>
+        /// Zdobyte punkty na poziomie.
+        /// </summary>
         public int zdobyte_punkty { get; set; }
+        /// <summary>
+        /// Zmienna określa czy ukończono poziom.
+        /// </summary>
         public bool ukonczony_poziom { get; set; }
+        /// <summary>
+        /// Tablica teł.
+        /// </summary>
         protected Image[] Podloze;
+        /// <summary>
+        /// Aktualnie wybrane tło.
+        /// </summary>
         protected int aktualne_podloze;
 
+        /// <summary>
+        /// Stała określająca maksymalną ilość przeciwników na mapie.
+        /// </summary>
         public const int MAX_PRZECIWNIKOW_MAPA = 5;
 
+        /// <summary>
+        /// Konstruktor planszy.
+        /// </summary>
+        /// <param name="X">Szerokość mapy.</param>
+        /// <param name="Y">Wysokość mapy.</param>
         public Plansza(int X, int Y)
         {
             Wysokosc = Y;
@@ -45,7 +97,16 @@ namespace Rudy_103.src
             PunktResp[2] = new Rectangle(X - 50, -50, 50, 50);
             aktualne_podloze = 0;
         }
-        public static Plansza WczytajMape() { return null; }
+
+        //public static Plansza WczytajMape() { return null; }
+        /// <summary>
+        /// Metoda fabrykująca mapę.
+        /// </summary>
+        /// <param name="plik">Pełna ścieżka do pliku.</param>
+        /// <param name="poziom_gry">Poziom gracza.</param>
+        /// <param name="fabryka">Fabryka obiektów.</param>
+        /// <param name="poziom_muru">Poziom muru.</param>
+        /// <returns>Obiekt mapy.</returns>
         public static Plansza WczytajMape(String plik, int poziom_gry, Fabryka fabryka, int poziom_muru)
         {
             Mapa mapa;
@@ -106,6 +167,11 @@ namespace Rudy_103.src
             plansza.LosujPrzeciwnikow(fabryka);
             return plansza;
         }
+        /// <summary>
+        /// Metoda wybiera typ mapy.
+        /// </summary>
+        /// <param name="poziom">Poziom muru</param>
+        /// <returns>Nazwę muru</returns>
         private static string WybierzTypMuru(int poziom)
         {
             switch (poziom)
@@ -120,13 +186,14 @@ namespace Rudy_103.src
                     return "cegielka3";
                 case 6:
                     return "cegielka4";
-                case 7:
-                    return "mur";
                 default:
                     return "mur";
             }
         }
-        
+        /// <summary>
+        /// Metoda losująca przeciwników zaleźnie od poziomu.
+        /// </summary>
+        /// <param name="fabryka">Fabryka obiektów.</param>
         private void LosujPrzeciwnikow(Fabryka fabryka)
         {
             int max;
@@ -159,6 +226,10 @@ namespace Rudy_103.src
             }
             return liczba;
         }
+        /// <summary>
+        /// Metoda tworząca nowych przeciwników na mapie.
+        /// </summary>
+        /// <param name="gracz">Obiekt gracza.</param>
         public void Respawn(Gracz gracz)
         {
             if (przeciwnicy_na_mapie.Count < MAX_PRZECIWNIKOW_MAPA && przeciwnicy.Count > 0)
@@ -197,6 +268,11 @@ namespace Rudy_103.src
             }
         }
         #region Ruch
+        /// <summary>
+        /// Metoda wykonuje Ruch przeciwników.
+        /// </summary>
+        /// <param name="fabryka">Fabryka obiektów.</param>
+        /// <param name="gracz">Obiekt gracza.</param>
         public void RuszPrzeciwnikow(Fabryka fabryka, Gracz gracz)
         {
             for (int i = 0; i < przeciwnicy_na_mapie.Count; ++i)
@@ -205,6 +281,12 @@ namespace Rudy_103.src
                 przeciwnicy_na_mapie[i].RuchPocisku(this, gracz, fabryka);
             }
         }
+        /// <summary>
+        /// Rusza wszystkich przeciwników i sprawdza kolizje.
+        /// </summary>
+        /// <param name="gracz">Obiekt gracza.</param>
+        /// <param name="fabryka">Fabryka obiektów.</param>
+        /// <param name="czas_strzalu">Czas strzałów.</param>
         public void RusziSprawdz(Gracz gracz, Fabryka fabryka, int czas_strzalu)
         {
             while (gracz.Pozostaly_ruch > 0)
@@ -225,6 +307,12 @@ namespace Rudy_103.src
         
       
         #region Rysowanie elementow i efektow
+        /// <summary>
+        /// Rysuje elementów mapy.
+        /// </summary>
+        /// <param name="gracz">Obiekt gracza.</param>
+        /// <param name="g"></param>
+        /// <param name="transparentPink"></param>
         public void RysujElementy(Gracz gracz, Graphics g, System.Drawing.Imaging.ImageAttributes transparentPink)
         {
             podloza.RysujPodloze(Kamera.Prostokat_Kamery, g, transparentPink);
@@ -258,7 +346,11 @@ namespace Rudy_103.src
             gracz.RysujPasekZycia(g, transparentPink);
             gracz.RysujPasekXP(g, transparentPink);
         }
-        //Metoda rysująca efekty na mapie
+        /// <summary>
+        /// Metoda rysująca efekty na mapie.
+        /// </summary>
+        /// <param name="g"></param>
+        /// <param name="transparentPink"></param>
         public void RysujEfekty(Graphics g, System.Drawing.Imaging.ImageAttributes transparentPink)
         {
             //Rysowanie efektów, które znajdują się na mapie.
@@ -278,6 +370,9 @@ namespace Rudy_103.src
         }
         //Metoda sprawdzająca czy efekty wykonały już określoną ilość pętli, jeżeli tak to są usuwane
         #endregion
+        /// <summary>
+        /// Sprawdza zakończenie efektów na planszy.
+        /// </summary>
         public void SprawdzEfekty()
         {
             if (efekty_na_mapie != null)
@@ -291,7 +386,9 @@ namespace Rudy_103.src
                 }
             }
         }
-        //Metoda zmieniająca stan efektów
+        /// <summary>
+        /// Metoda zmieniająca stan efktów na mapie.
+        /// </summary>
         public void ZmienStanEfektow()
         {
             if (efekty_na_mapie != null)
@@ -302,15 +399,26 @@ namespace Rudy_103.src
                 }
             }
         }
+        /// <summary>
+        /// Wczytuje grafiki teł.
+        /// </summary>
+        /// <param name="podloza"></param>
         public void WczytajGrafikePodloza(params Image[] podloza)
         {
             this.Podloze = podloza;
         }
+        /// <summary>
+        /// Zmienia aktualne tło.
+        /// </summary>
         public void ZmienPodloze()
         {
             aktualne_podloze += 1;
             if (aktualne_podloze >= Podloze.Count()) aktualne_podloze = 0;
         }
+        /// <summary>
+        /// Zwraca aktualne tło.
+        /// </summary>
+        /// <returns></returns>
         public Image AktualnePodloze() { return this.Podloze[aktualne_podloze]; }
 
         #region Losowe mapy
@@ -433,6 +541,10 @@ namespace Rudy_103.src
 
             region = new DrzewoPrzeszkody(przeszkody, new Rectangle(0, 0, Szerokosc, Wysokosc), true);
         }
+        /// <summary>
+        /// Generowanie losowe mapy.
+        /// </summary>
+        /// <param name="fabryka">Fabryka obiektów,</param>
         public void GenerujDebugMapa(Fabryka fabryka)
         {
             Random random = new Random();

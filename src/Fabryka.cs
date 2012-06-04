@@ -10,10 +10,25 @@ namespace Rudy_103.src
     /// </summary>
     public class Fabryka
     {
+        /// <summary>
+        /// Słownik wzorców przeciwników.
+        /// </summary>
         public Dictionary<String, Przeciwnik> wzorce_przeciwnikow { get; private set; }
+        /// <summary>
+        /// Słownik wzorców przeszkód.
+        /// </summary>
         public Dictionary<String, Przeszkoda> wzorce_przeszkod { get; private set; }
+        /// <summary>
+        /// Słownik wzorców efektów.
+        /// </summary>
         public Dictionary<String, Animacja> wzorce_efektow { get; private set; }
+        /// <summary>
+        /// Wzorzec bazy.
+        /// </summary>
         public Baza wzorzec_bazy { get; private set; }
+        /// <summary>
+        /// Wzorzec pocisku.
+        /// </summary>
         public Pocisk wzorzec_pocisku { get; private set; }
         /// <summary>
         /// Konstruktor fabryki wzorców.
@@ -87,6 +102,10 @@ namespace Rudy_103.src
             if (!wzorce_efektow.ContainsKey(nazwa_wzorca)) return null;
             return (Animacja)wzorce_efektow[nazwa_wzorca].Clone();
         }
+        /// <summary>
+        /// Metoda zwracająca nowy obiekt pocisku.
+        /// </summary>
+        /// <returns>Obiekt pocisku.</returns>
         public Pocisk ProdukujPocisk()
         {
             return (Pocisk)wzorzec_pocisku.Clone();

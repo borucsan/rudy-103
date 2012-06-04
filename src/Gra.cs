@@ -84,14 +84,12 @@ namespace Rudy_103.src
         /// Scieżka do pliku custom mapy
         /// </summary>
         public string path {get; set;}
+        public Statystyki oknoStatystyk;
         /// <summary>
         /// Konstruktor uwzględniający custom mapy.
         /// </summary>
         /// <param name="path">Scieżka do pliku custom mapy.</param>
         /// <param name="profil">Profil gracza.</param>
-        /// 
-        public Statystyki oknoStatystyk;
-
         public Gra(ProfilGracza profil, string path)
         {
             this.profil = profil;
@@ -105,10 +103,7 @@ namespace Rudy_103.src
             
             PrzygotowywanieMapy();
             player = Fabryka.ProdukujDomyslnegoGracza();
-            player.XP_Aktualne = profil.XP_Aktualne;
-            player.XP_Potrzebne = profil.XP_Potrzebne;
-            player.punkty = profil.punkty;
-            player.energia = profil.zycia;
+            player.WczytajDaneGracza(profil);
             warsztat.UstawStatystyki(player);
 
             UstawKamere();
@@ -129,10 +124,7 @@ namespace Rudy_103.src
             warsztat.UstawWartosciZProfilu(profil);
             PrzygotowywanieMapy();
             player = Fabryka.ProdukujDomyslnegoGracza();
-            player.XP_Aktualne = profil.XP_Aktualne;
-            player.XP_Potrzebne = profil.XP_Potrzebne;
-            player.punkty = profil.punkty;
-            player.energia = profil.zycia;
+            player.WczytajDaneGracza(profil);
             warsztat.UstawStatystyki(player);
 
             UstawKamere();
@@ -146,9 +138,9 @@ namespace Rudy_103.src
                 if (path == null)
                 {
                     string defaultpath = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().GetName().CodeBase) + @"/Mapy/City.xml";
-                    plansza = Plansza.WczytajMape(defaultpath, profil.poziom, fabryka, warsztat.poziom_muru);
+                    plansza = Plansza.WczytajMape(defaultpath, profil.ulepszenia.poziom_gracza, fabryka, warsztat.poziom_muru);
                 }
-                else plansza = Plansza.WczytajMape(path, 1, fabryka, warsztat.poziom_muru);
+                else plansza = Plansza.WczytajMape(path, player.poziom, fabryka, warsztat.poziom_muru);
             }
             catch (Exception ex)
             {
@@ -936,9 +928,10 @@ namespace Rudy_103.src
             {
                 if (mysz.IntersectsWith(przyciskStatystykProst))
                 {
+                    
                     przyciskStatystykProst = new Rectangle();   //zerujemy wymiary po nacisnieciu
                     wlaczoneStatystyki = true;
-                    oknoStatystyk = new Statystyki(warsztat, player);
+                    oknoStatystyk = new Statystyki(warsztat, player, profil);
                     oknoStatystyk.Owner = this;
                     WstrzymajGre();
                     oknoStatystyk.Show();
@@ -1052,36 +1045,13 @@ namespace Rudy_103.src
                     else
                     {
                         panelUlepszen = false;
-                        profil.ulepszenia.poziom_ataku = warsztat.poziom_ataku;
-                        profil.ulepszenia.poziom_wytrzymalosci = warsztat.poziom_pancerza;
-                        profil.ulepszenia.poziom_szybkosci = warsztat.poziom_szybkosci;
-                        profil.ulepszenia.poziom_muru = warsztat.poziom_muru;
-                        profil.XP_Aktualne = player.XP_Aktualne;
-                        profil.XP_Potrzebne = player.XP_Potrzebne;
-                        profil.zycia = player.energia;
-                        profil.punkty = player.punkty;
+                        
                         profil.poziom++;
-                        ThreadPool.QueueUserWorkItem(ZapiszDane);
+                        
                         //profil.ZapiszDane();
                         warsztat.UstawStatystyki(player);
                         warsztat.przyciskZamknijUlepszenia = new Rectangle();
-                        czas_minuty = 0;
-                        czas_sekundy = 0;
-                        czas_respawnow = 0;
-                        try
-                        {
-                            string defaultpath = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().GetName().CodeBase) + @"/Mapy/City.xml";
-                            plansza = Plansza.WczytajMape(defaultpath, profil.poziom, fabryka, warsztat.poziom_muru);
-                        }
-                        catch (Exception ex)
-                        {
-                            MessageBox.Show("Błąd wczytywania mapy!\n" + ex.Message, "Błąd wczytywania mapy", MessageBoxButtons.OK, MessageBoxIcon.Hand, MessageBoxDefaultButton.Button1);
-                            this.Close();
-                            return;
-                        }
-                        plansza.WczytajGrafikePodloza(Multimedia.tlo);
-                        player.UstawPozycje(Gracz.PunktRespGracza.X + 5, Gracz.PunktRespGracza.Y + 5);
-                        UstawKamere();
+                        
                         WznowGre();
                     }
                 }
@@ -1118,8 +1088,29 @@ namespace Rudy_103.src
                 if (mysz.IntersectsWith(przyciskZamknijUkonczonyPoziom))
                 {
                     plansza.ukonczony_poziom = false;
-                    panelUlepszen = true;
                     przyciskZamknijUkonczonyPoziom = new Rectangle();
+                    czas_minuty = 0;
+                    czas_sekundy = 0;
+                    czas_respawnow = 0;
+                    try
+                    {
+                        string defaultpath = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().GetName().CodeBase) + @"/Mapy/City.xml";
+                        plansza = Plansza.WczytajMape(defaultpath, profil.poziom, fabryka, warsztat.poziom_muru);
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Błąd wczytywania mapy!\n" + ex.Message, "Błąd wczytywania mapy", MessageBoxButtons.OK, MessageBoxIcon.Hand, MessageBoxDefaultButton.Button1);
+                        this.Close();
+                        return;
+                    }
+                    plansza.WczytajGrafikePodloza(Multimedia.tlo);
+                    player.UstawPozycje(Gracz.PunktRespGracza.X + 5, Gracz.PunktRespGracza.Y + 5);
+                    UstawKamere();
+                    wlaczoneStatystyki = true;
+                    oknoStatystyk = new Statystyki(warsztat, player, profil);
+                    oknoStatystyk.Owner = this;
+                    WstrzymajGre();
+                    oknoStatystyk.Show();
                 }
             }
             #endregion Ukończony Poziom
@@ -1248,20 +1239,10 @@ namespace Rudy_103.src
             koniec.Show();
             this.Close();
         }
-        private void ZapiszDane(object stateInfo)
-        {
-            profil.ZapiszDane();
-        }
+        
         private void DodajTestoweXP()
         {
-            player.XP_Aktualne += 50;
-            if (player.XP_Aktualne >= player.XP_Potrzebne)
-            {
-                player.XP_Aktualne -= player.XP_Potrzebne;
-                player.poziom += 1;
-                player.ilosc_punktow_ulepszen += 1;
-                player.XP_Potrzebne = (int)(player.XP_Potrzebne * 1.3);
-            }
+            player.DodajXP(100);
         }
     }
 }
