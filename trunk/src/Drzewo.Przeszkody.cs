@@ -137,6 +137,11 @@ namespace Rudy_103.src
             }
             return false;
         }
+        /// <summary>
+        /// Metoda sprawdza czy czołg koliduje z przeszkodą.
+        /// </summary>
+        /// <param name="obj">Obiekt czołgu</param>
+        /// <returns>Obiekt z którym nastąpiła kolizja.</returns>
         public Obiekty CzyKoliduje2(Czolg obj)
         {
             if (root.lewo != null)
@@ -192,6 +197,12 @@ namespace Rudy_103.src
         #endregion
 
         #region Rysowanie podloza
+        /// <summary>
+        /// Metoda rysująca podłoże.
+        /// </summary>
+        /// <param name="rec">Prostokąt widoku.</param>
+        /// <param name="g"></param>
+        /// <param name="transparentPink"></param>
         public void RysujPodloze(Rectangle rec, Graphics g, System.Drawing.Imaging.ImageAttributes transparentPink)
         {
             if (root.lewo != null)
@@ -238,6 +249,12 @@ namespace Rudy_103.src
         #endregion
 
         #region Rysowanie cieni
+        /// <summary>
+        /// Metoda rysująca cienie.
+        /// </summary>
+        /// <param name="rec">Prostokąt widoku.</param>
+        /// <param name="g"></param>
+        /// <param name="transparentPink"></param>
         public void RysujCienie(Rectangle rec, Graphics g, System.Drawing.Imaging.ImageAttributes transparentPink)
         {
             if (root.lewo != null)
@@ -304,6 +321,12 @@ namespace Rudy_103.src
 #endregion
 
         #region Rysowanie elementow
+        /// <summary>
+        /// Metoda rysująca elementy.
+        /// </summary>
+        /// <param name="rec">Prostokąt widoku.</param>
+        /// <param name="g"></param>
+        /// <param name="transparentPink"></param>
         public void RysujElementy(Rectangle rec, Graphics g, System.Drawing.Imaging.ImageAttributes transparentPink)
         {
             if (root.lewo != null)
@@ -364,6 +387,11 @@ namespace Rudy_103.src
         #endregion
 
         #region Rysowanie minimapy
+        /// <summary>
+        /// Metoda rysująca minimapę.
+        /// </summary>
+        /// <param name="graph"></param>
+        /// <param name="przeszkoda_mapa"></param>
         public void RysujMape(Graphics graph, Image przeszkoda_mapa)
         {
             RysujEleMapa(root.lewo, graph, przeszkoda_mapa);

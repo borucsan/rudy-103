@@ -7,21 +7,21 @@ using System.Drawing;
 namespace Rudy_103.src
 {
     /// <summary>
-    /// Generyczna klasa drzewa BSP.
+    /// Generyczna klasa drzewa BSP. Drzewo opisuje przestrzeń jako powiązane ze sobą elementy. Obiekty znajdujące się w tej przestrzeni są grupowane w tych mniejszych obszarach.
     /// </summary>
-    /// <typeparam name="T">Przyjmuje obiekty zwracające Rectangle</typeparam>
+    /// <typeparam name="T">Przyjmuje obiekty implementujące interfejsy IPodzielny i IComparable.</typeparam>
     public class Drzewo<T> where T : IPodzielny, IComparable
     {
         /// <summary>
         /// Korzeń drzewa.
         /// </summary>
-        public ElementDrzewa<T> root {get; private set;}
+        protected ElementDrzewa<T> root;
         /// <summary>
-        /// Konstruktor drzewa BSP
+        /// Konstruktor drzewa BSP.
         /// </summary>
         /// <param name="lista_obiektow">Lista wszystkich obiektów podlegających podziałowi</param>
         /// <param name="wymiar">Prostokąt obiektu podlegającego partycjowaniu</param>
-        /// <param name="kompresja">Parametr umożliwiający tworzenie drzewa zkompresowanego(Zawierającego tylko listy w liściach.</param>
+        /// <param name="kompresja">Parametr umożliwiający tworzenie drzewa zkompresowanego(Zawierającego obiekty tylko w liściach.</param>
         public Drzewo(List<T> lista_obiektow, Rectangle wymiar, bool kompresja)
         {
             lista_obiektow.Sort();
@@ -32,12 +32,12 @@ namespace Rudy_103.src
             }
             if (kompresja)
             {
-                root = new ElementDrzewa<T>(null, wymiar, 0);
+                root = new ElementDrzewa<T>(null, wymiar);
                 TworzDrzewo(root, elem);
             }
             else
             {
-                root = new ElementDrzewa<T>(elem, wymiar, 0);
+                root = new ElementDrzewa<T>(elem, wymiar);
                 TworzDrzewo(root);
             }
         }

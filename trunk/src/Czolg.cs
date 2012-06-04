@@ -13,95 +13,119 @@ namespace Rudy_103.src
     /// </summary>
     public abstract class Czolg : Obiekty
     {
+        /// <summary>
+        /// Obecny poziom wytrzymałości czołgu.(Poziom życia)
+        /// </summary>
         protected int wytrzymalosc;
+        /// <summary>
+        /// Wytrzymałość bazowa czołgu
+        /// </summary>
         protected int wytrzymalosc_bazowa;
+        /// <summary>
+        /// Szybkość czołgu
+        /// </summary>
         protected int szybkosc;
+        /// <summary>
+        /// Siła strzałów czołgu.
+        /// </summary>
         protected int sila;
+        /// <summary>
+        /// Zasięg strzałów czołgu.
+        /// </summary>
         protected int zasieg;
-        protected Rectangle rec_ruchu;
+        /// <summary>
+        /// Ruch jaki pozostał do wykonania.
+        /// </summary>
         protected int pozostaly_ruch = 0;
+        /// <summary>
+        /// Czas ostatniego strzału.
+        /// </summary>
         protected int ostatni_strzal = 0;
+        /// <summary>
+        /// Szybkość strzelania.
+        /// </summary>
         protected int przeladowanie;
+        /// <summary>
+        /// Zmienna statystyk określająca liczbę oddanych strzałów.
+        /// </summary>
+        protected int ilosc_strzalow = 0;
+        /// <summary>
+        /// Zmienna statystyk określająca liczbę celnych strzałów.
+        /// </summary>
+        protected int ilosc_trafien = 0;
+        
+        /// <summary>
+        /// Maksymalna ilość pocisków jaką "jednocześnie" może wystrzelić czołg.
+        /// </summary>
+        protected int max_pociskow;
+        /// <summary>
+        /// Lista wystrzelonych pocisków.
+        /// </summary>
+        protected List<Pocisk> pociski;
+
+        #region Wlasciwosci
+        /// <summary>
+        /// Szybkość strzelania.
+        /// </summary>
         public int Przeladowanie
         {
             get { return przeladowanie; }
             set { przeladowanie = value; }
         }
+        /// <summary>
+        /// Czas ostatniego strzału.
+        /// </summary>
         public int Czas_strzalu
         {
             get { return ostatni_strzal = 0; }
         }
+        /// <summary>
+        /// Ruch jaki pozostał do wykonania.
+        /// </summary>
         public int Pozostaly_ruch
         {
             get { return pozostaly_ruch; }
             set { pozostaly_ruch = value; }
         }
-        public Rectangle Rec_ruchu
-        {
-            get { return rec_ruchu; }
-            set { rec_ruchu = value; }
-        }
-        
+        /// <summary>
+        /// Kierunek w który porusza się czołg.
+        /// </summary>
         public Kierunek kierunek { get; protected set; }
-        protected int max_pociskow;
-        protected List<Pocisk> pociski;
-        
-
-        public int Wytrzymalosc
-        {
-            get
-            {
-                return wytrzymalosc;
-            }
-            set
-            {
-                wytrzymalosc = value;
-            }
-        }
-        public int Wytrzymalosc_Bazowa
-        {
-            get
-            {
-                return this.wytrzymalosc_bazowa;
-            }
-            set
-            {
-                wytrzymalosc_bazowa = value;
-            }
-        }
-        
-        public int Szybkosc
-        {
-            get
-            {
-                return szybkosc;
-            }
-            set
-            {
-                szybkosc = value;
-            }
-        }
-        public int Sila
-        {
-            get
-            {
-                return sila;
-            }
-            set
-            {
-                sila = value;
-            }
-        }
+        /// <summary>
+        /// Obecny poziom wytrzymałości czołgu.(Poziom życia)
+        /// </summary>
+        public int Wytrzymalosc { get { return wytrzymalosc; } set { wytrzymalosc = value; }}
+        /// <summary>
+        /// Wytrzymałość bazowa czołgu
+        /// </summary>
+        public int Wytrzymalosc_Bazowa { get { return this.wytrzymalosc_bazowa; } set { wytrzymalosc_bazowa = value; }}
+        /// <summary>
+        /// Szybkość czołgu
+        /// </summary>
+        public int Szybkosc { get { return szybkosc; } set { szybkosc = value;}}
+        /// <summary>
+        /// Siła strzałów czołgu.
+        /// </summary>
+        public int Sila { get { return sila; } set { sila = value; }}
+        /// <summary>
+        /// Zasięg strzałów czołgu.
+        /// </summary>
         public int Zasieg
         {
             get { return this.zasieg; }
             set { this.zasieg = value; }
         }
+        /// <summary>
+        /// Maksymalna ilość pocisków jaką "jednocześnie" może wystrzelić czołg.
+        /// </summary>
         public int Max_Pociskow
         {
             get { return max_pociskow; }
             set { max_pociskow = value; }
         }
+        /// <summary>
+        /// Lista wystrzelonych pocisków.
+        /// </summary>
         public List<Pocisk> Pociski
         {
             get
@@ -109,6 +133,28 @@ namespace Rudy_103.src
                 return pociski;
             }
         }
+        /// <summary>
+        /// Zmienna statystyk określająca liczbę oddanych strzałów.
+        /// </summary>
+        public int Strzalow { get { return ilosc_strzalow; } set { ilosc_strzalow = value; } }
+        /// <summary>
+        /// Zmienna statystyk określająca liczbę celnych strzałów.
+        /// </summary>
+        public int Trafien { get { return ilosc_trafien; } set { ilosc_trafien = value; } }
+        #endregion
+        /// <summary>
+        /// Konstruktor czołgów.(Tylko do przeciążenia)
+        /// </summary>
+        /// <param name="X">Pozycja pozioma obiektu.</param>
+        /// <param name="Y">Pozycja pionowa obiektu.</param>
+        /// <param name="Szer">Szerokość obiektu.</param>
+        /// <param name="Wys">Wysokość obiektu.</param>
+        /// <param name="wytrzymalosc">Wytrzymałość maksymalna czołgu.</param>
+        /// <param name="szybkosc">Szybkość maksymalna czołgu.</param>
+        /// <param name="sila">Siła maksymalna strzałów czołgu.</param>
+        /// <param name="zasieg">Zasię maksymalny strzałów czołgu.</param>
+        /// <param name="max_pociskow">Maksymalna ilość pocisków.</param>
+        /// <param name="przeladowanie">Częstotliwość strzałów</param>
         public Czolg(int X, int Y, int Szer, int Wys, int wytrzymalosc, int szybkosc, int sila, int zasieg, int max_pociskow, int przeladowanie)
             : base(X, Y, Szer, Wys)
         {
@@ -118,29 +164,55 @@ namespace Rudy_103.src
             this.sila = sila;
             this.zasieg = zasieg;
             this.kierunek = Kierunek.GORA;
-            this.rec_ruchu = wymiary;
             this.max_pociskow = max_pociskow;
             this.przeladowanie = przeladowanie;
             pociski = new List<Pocisk>(max_pociskow);
         }
+        /// <summary>
+        /// Konstruktor czołgów.(Tylko do przeciążenia)
+        /// </summary>
+        /// <param name="X">Pozycja pozioma obiektu.</param>
+        /// <param name="Y">Pozycja pionowa obiektu.</param>
+        /// <param name="Szer">Szerokość obiektu.</param>
+        /// <param name="Wys">Wysokość obiektu.</param>
+        /// <param name="wytrzymalosc">Wytrzymałość maksymalna czołgu.</param>
+        /// <param name="szybkosc">Szybkość maksymalna czołgu.</param>
+        /// <param name="sila">Siła maksymalna strzałów czołgu.</param>
+        /// <param name="zasieg">Zasię maksymalny strzałów czołgu.</param>
+        /// <param name="max_pociskow">Maksymalna ilość pocisków.</param>
+        /// <param name="przeladowanie">Częstotliwość strzałów</param>
+        /// <param name="obrazy">Tablica bitmap obiektów.</param>
         public Czolg(int X, int Y, int Szer, int Wys, int wytrzymalosc, int szybkosc, int sila, int zasieg, int max_pociskow, int przeladowanie, params Image[] obrazy)
             : this(X, Y, Szer, Wys, wytrzymalosc, szybkosc, sila, zasieg, max_pociskow, przeladowanie)
         {
             this.obrazy = obrazy;
         }
         /// <summary>
-        /// Metoda do poruszania czołgami
+        /// Metoda do poruszania czołgami.
         /// </summary>
-        /// <param name="kierunek">Enumeracja reprezentująca kierunek</param>
-        /// <param name="plansza">Referencja obiektu mapy</param>
+        /// <param name="kierunek">Enumeracja reprezentująca kierunek.</param>
+        /// <param name="plansza">Referencja obiektu mapy.</param>
         public virtual void Ruch(Kierunek kierunek, Plansza plansza)
         {
             this.kierunek = kierunek;
             this.pozostaly_ruch = szybkosc;
         }
+        /// <summary>
+        /// Stała określa jak często będą sprawdzane kolizje podczas ruchu. 
+        /// </summary>
         public const int JEDNOSTKA_RUCHU = 1;
+        /// <summary>
+        /// Stała określa ilość jednostek o ile czołg "przeskoczy" dotykając krawędzi przeszkody.
+        /// </summary>
         public const int PRZESKOK = 3;
+        /// <summary>
+        /// Stała określa maksymalną odległość krawędzi czołgu od krawędzi przeszkody aby uzyskać wspomaganie przy ruchu.
+        /// </summary>
         public const int WARUNEK_PRZESKOKU = 15;
+        /// <summary>
+        /// Metoda wykonuje przesuniecie o JEDNOSTKA_RUCHU i sprawdza kolizję.
+        /// </summary>
+        /// <param name="plansza"></param>
         public void WykonajRuch(Plansza plansza)
         {
             switch (kierunek)
@@ -168,6 +240,11 @@ namespace Rudy_103.src
             }
             pozostaly_ruch = pozostaly_ruch - JEDNOSTKA_RUCHU;
         }
+        /// <summary>
+        /// Metoda wykonująca strzał czołgu.
+        /// </summary>
+        /// <param name="fabryka">Fabrka obiektów.</param>
+        /// <param name="czas_strzalu">Częstotliwość z jaką oddawane są strzały.</param>
         public void Strzelaj(Fabryka fabryka, int czas_strzalu)
         {
             if (pociski.Count < max_pociskow && Math.Abs(czas_strzalu - przeladowanie) >= ostatni_strzal)
@@ -178,23 +255,19 @@ namespace Rudy_103.src
                 {
                     Multimedia.audio_wystrzal.Play();
                 }
+                ++ilosc_strzalow;
                 ostatni_strzal = czas_strzalu;
             }
         }
+        /// <summary>
+        /// Metoda tworząca efekt wybuchu na planszy.
+        /// </summary>
+        /// <param name="plansza">Aktualna plansza</param>
+        /// <param name="fabryka">Fabryka obiektów.</param>
+        /// <param name="X">Pozycja wybuchu na osi X</param>
+        /// <param name="Y">Pozycja wybuchu na osi Y</param>
         protected void Wybuch(Plansza plansza, Fabryka fabryka, int X, int Y)
         {
-            
-            //Random random = new Random();
-            
-            //plansza.efekty_na_mapie.Add(fabryka.ProdukujEfekt("Ogień"));
-            //plansza.efekty_na_mapie.Last().UstawPozycje(new Point(X + random.Next(0, 20), Y + random.Next(0, 20)));
-
-            //plansza.efekty_na_mapie.Add(fabryka.ProdukujEfekt("Ogień"));
-            //1plansza.efekty_na_mapie.Last().UstawPozycje(new Point(X - random.Next(0, 20), Y + random.Next(0, 20)));
-
-            //plansza.efekty_na_mapie.Add(fabryka.ProdukujEfekt("Ogień"));
-            //plansza.efekty_na_mapie.Last().UstawPozycje(new Point(X - random.Next(0, 20), Y - random.Next(0, 20)));
-
             if(Kamera.Prostokat_Kamery.IntersectsWith(new Rectangle(X, Y, 10, 10)))
             {
                 plansza.efekty_na_mapie.Add(fabryka.ProdukujEfekt("Eksplozja"));
@@ -202,8 +275,12 @@ namespace Rudy_103.src
                 Multimedia.audio_wybuch.Play();
                 
             }
-            
         }
+        /// <summary>
+        /// Metoda wykonująca ruch pocisku.
+        /// </summary>
+        /// <param name="plansza">Aktualna plansza.</param>
+        /// <param name="fabryka">Fabryka obiektów.</param>
         public void RuchPocisku(Plansza plansza, Fabryka fabryka)
         {
             for (int i = 0; i < pociski.Count; ++i)
@@ -258,25 +335,6 @@ namespace Rudy_103.src
                 }
             }
         }
-        public void WykonajPozostalyRuchiZatwierdz()
-        {
-            switch (kierunek)
-            {
-                case Kierunek.GORA:
-                        rec_ruchu = new Rectangle(wymiary.X, wymiary.Y - pozostaly_ruch, wymiary.Width, wymiary.Height);
-                    break;
-                case Kierunek.PRAWO:
-                        rec_ruchu = new Rectangle(wymiary.X + pozostaly_ruch, wymiary.Y, wymiary.Width, wymiary.Height);
-                    break;
-                case Kierunek.DOL:
-                        rec_ruchu = new Rectangle(wymiary.X, wymiary.Y + pozostaly_ruch, wymiary.Width, wymiary.Height);
-                    break;
-                case Kierunek.LEWO:
-                        rec_ruchu = new Rectangle(wymiary.X - pozostaly_ruch, wymiary.Y, wymiary.Width, wymiary.Height);
-                    break;
-            }
-            UstawNowyRect(rec_ruchu);
-        }
         /// <summary>
         /// Metoda zderzeń v.2
         /// </summary>
@@ -303,6 +361,11 @@ namespace Rudy_103.src
             }
             return plansza.region.CzyKoliduje(this);
         }
+        /// <summary>
+        /// Metoda zderzeń v.3.
+        /// </summary>
+        /// <param name="plansza">Obiekt planszy.</param>
+        /// <returns>true jeśli wykryje zderzenie.</returns>
         public bool Zderzenie3(Plansza plansza)
         {
             if (wymiary.Y < 0 || wymiary.Bottom > plansza.Wysokosc || wymiary.X < 0 || wymiary.Right > plansza.Szerokosc)
@@ -344,6 +407,10 @@ namespace Rudy_103.src
             }
             return false;
         }
+        /// <summary>
+        /// Metoda ustwia czołg przy wspomaganiu ominiecia przeszkód.
+        /// </summary>
+        /// <param name="przeszkoda"></param>
         public void ObliczPozycje(Przeszkoda przeszkoda)
         {
             int X = wymiary.X - przeszkoda.Wymiary.X;
@@ -393,18 +460,54 @@ namespace Rudy_103.src
                 }
             }
         }
-        public enum Kierunek : int { GORA = 0, PRAWO, DOL, LEWO }
+        /// <summary>
+        /// Enumeracja określająca kierunek ruchu.
+        /// </summary>
+        public enum Kierunek : int 
+        { 
+            /// <summary>
+            /// Ruch w górę planszy(-Y).
+            /// </summary>
+            GORA = 0,
+            /// <summary>
+            /// Ruch w prawo planszy(+X).
+            /// </summary>
+            PRAWO,
+            /// <summary>
+            /// Ruch w dół planszy(+Y).
+            /// </summary>
+            DOL,
+            /// <summary>
+            /// Ruch w lewo planszy(-X).
+            /// </summary>
+            LEWO
+        }
+        #region Rysowanie
+        /// <summary>
+        /// Metoda rysująca czołg.
+        /// </summary>
+        /// <param name="g"></param>
+        /// <param name="transparentPink">Kolor przezroczystości</param>
         public override void Rysuj(Graphics g, System.Drawing.Imaging.ImageAttributes transparentPink)
         {
 
             g.DrawImage(obrazy[(int)kierunek], new Rectangle(Wymiary.X - Kamera.Prostokat_Kamery.X, Wymiary.Y - Kamera.Prostokat_Kamery.Y, Wymiary.Width, Wymiary.Height), 0, 0,
                         obrazy[(int)kierunek].Width, obrazy[(int)kierunek].Width, GraphicsUnit.Pixel, transparentPink);
-            
         }
+        /// <summary>
+        /// Metoda rysująca pociski czołgu.
+        /// </summary>
+        /// <param name="g"></param>
+        /// <param name="transparentPink">Kolor przezroczystości</param>
         public void RysujPociski(Graphics g, System.Drawing.Imaging.ImageAttributes transparentPink)
         {
             for (int i = 0; i < pociski.Count; ++i) pociski[i].Rysuj(g, transparentPink);
         }
+        /// <summary>
+        /// Metoda rysująca pasek życia czołgu.
+        /// </summary>
+        /// <param name="g"></param>
+        /// <param name="transparentPink">Kolor przezroczystości</param>
         public void RysujPasekZycia(Graphics g, System.Drawing.Imaging.ImageAttributes transparentPink)
         {
             int procenty_wytrzymalosci = (100 * this.Wytrzymalosc) / this.Wytrzymalosc_Bazowa;
@@ -413,7 +516,7 @@ namespace Rudy_103.src
             g.FillRectangle(new SolidBrush(Color.Red), new Rectangle(Wymiary.X + 1 - Kamera.Prostokat_Kamery.X, Wymiary.Y + Wymiary.Height + 3 - Kamera.Prostokat_Kamery.Y,
                 (Wymiary.Width * procenty_wytrzymalosci) / 100, 4));
         }
-        
-          
+
+        #endregion
     }
 }

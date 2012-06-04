@@ -7,15 +7,50 @@ using System.Drawing;
 
 namespace Rudy_103.src
 {
+    /// <summary>
+    /// Klasa pocisku.
+    /// </summary>
     public class Pocisk : Obiekty, ICloneable
     {
+        /// <summary>
+        /// Kierunek ruchu pocisku.
+        /// </summary>
         public Czolg.Kierunek kierunek { get; set; }
+        /// <summary>
+        /// Siła pocisku.
+        /// </summary>
         public int sila { get; set; }
+        /// <summary>
+        /// Szybkość pocisku.
+        /// </summary>
         public int szybkosc { get; set; }
+        /// <summary>
+        /// Właściciel pocisku.
+        /// </summary>
         public Czolg wlasciciel { get; set; }
+        /// <summary>
+        /// Zasięg pocisku.
+        /// </summary>
         public int zasieg { get; set; }
+        /// <summary>
+        /// Ruch jaki pozostał do wykonania.
+        /// </summary>
         public int pozostały_ruch { get; set; }
+        /// <summary>
+        /// Zmienna określająca trafienia.
+        /// </summary>
         public bool trafil { get; set; }
+        /// <summary>
+        /// Konstruktor pocisków.
+        /// </summary>
+        /// <param name="X">Pozycja pozioma obiektu.</param>
+        /// <param name="Y">Pozycja pionowa obiektu.</param>
+        /// <param name="Szer">Szerokość obiektu.</param>
+        /// <param name="Wys">Wysokość obiektu.</param>
+        /// <param name="sila">Siła pocisku.</param>
+        /// <param name="szybkosc">Szybkość pocisku.</param>
+        /// <param name="zasieg">Zasięg pocisku.</param>
+        /// <param name="kierunek">Kierunek ruchu pocisku.</param>
         public Pocisk(int X, int Y, int Szer, int Wys, int sila, int szybkosc, int zasieg, Czolg.Kierunek kierunek)
             : base(X, Y, Szer, Wys)
         {
@@ -25,6 +60,18 @@ namespace Rudy_103.src
             this.zasieg = zasieg;
             this.trafil = false;
         }
+        /// <summary>
+        /// Konstruktor pocisków.
+        /// </summary>
+        /// <param name="X">Pozycja pozioma obiektu.</param>
+        /// <param name="Y">Pozycja pionowa obiektu.</param>
+        /// <param name="Szer">Szerokość obiektu.</param>
+        /// <param name="Wys">Wysokość obiektu.</param>
+        /// <param name="sila">Siła pocisku.</param>
+        /// <param name="szybkosc">Szybkość pocisku.</param>
+        /// <param name="zasieg">Zasięg pocisku.</param>
+        /// <param name="kierunek">Kierunek ruchu pocisku.</param>
+        /// <param name="obrazy">Tablica bitmap obiektów.</param>
         public Pocisk(int X, int Y, int Szer, int Wys, int sila, int szybkosc, int zasieg, Czolg.Kierunek kierunek, params Image[] obrazy)
             : base(X, Y, Szer, Wys, obrazy)
         {
@@ -35,12 +82,27 @@ namespace Rudy_103.src
             this.obrazy = obrazy;
             this.trafil = false;
         }
+        /// <summary>
+        /// Metoda rysująca pocisk.
+        /// </summary>
+        /// <param name="g"></param>
+        /// <param name="transparentPink">Kolor przezroczystości.</param>
         public override void Rysuj(Graphics g, System.Drawing.Imaging.ImageAttributes transparentPink) 
         {
             g.DrawImage(obrazy[(int)kierunek], new Rectangle(Wymiary.X - Kamera.Prostokat_Kamery.X, Wymiary.Y - Kamera.Prostokat_Kamery.Y, Wymiary.Width, Wymiary.Height), 0, 0,
                         obrazy[(int)kierunek].Width, obrazy[(int)kierunek].Width, GraphicsUnit.Pixel, transparentPink);
             
         }
+        /// <summary>
+        /// Metoda ustawiająca parametry czołgu.
+        /// </summary>
+        /// <param name="X">Pozycja na osi X.</param>
+        /// <param name="Y">Pozycja na osi Y.</param>
+        /// <param name="sila">Siła pocisku.</param>
+        /// <param name="szybkosc">Szybkość pocisku.</param>
+        /// <param name="zasieg">Zasięg pocisku.</param>
+        /// <param name="kierunek">Kierunek ruch pocisku.</param>
+        /// <param name="wlasciciel">Właściciel pocisku</param>
         public void UstawPocisk(int X, int Y, int sila, int szybkosc, int zasieg, Czolg.Kierunek kierunek, Czolg wlasciciel)
         {
             wymiary.X = X;
@@ -60,22 +122,25 @@ namespace Rudy_103.src
             this.pozostały_ruch = zasieg;
             this.wlasciciel = wlasciciel;
         }
-        
+        /// <summary>
+        /// Metoda zderzeń dla pocisków.
+        /// </summary>
+        /// <param name="plansza">Obiekt planszy.</param>
+        /// <returns>true jeśli wykryto trafienie.</returns>
         public bool Zderzenie(Plansza plansza)
         {
             for (int i = 0; i < plansza.przeciwnicy_na_mapie.Count; ++i)
             {
                 if (plansza.przeciwnicy_na_mapie[i].Wymiary.IntersectsWith(Wymiary))
                 {
-                    
                     if (plansza.przeciwnicy_na_mapie[i].Uszkodz(sila))
                     {
                         Opcje.WylaczInformacje();
                         plansza.zdobyte_punkty += plansza.przeciwnicy_na_mapie[i].punkty;
+                        ((Gracz)wlasciciel).DodajXP(plansza.przeciwnicy_na_mapie[i].punkty);
                         plansza.przeciwnicy_na_mapie.RemoveAt(i);
-
                     }
-                    
+                    ++(wlasciciel.Trafien);
                     return true;
                 }
                 if (plansza.przeciwnicy_na_mapie[i].Pociski.Count > 0)
@@ -97,6 +162,12 @@ namespace Rudy_103.src
             }
             return plansza.region.CzyKoliduje(this);
         }
+        /// <summary>
+        /// Metoda zderzeń dla pocisków.
+        /// </summary>
+        /// <param name="plansza">Obiekt planszy.</param>
+        /// <param name="gracz">Obiekt gracza.</param>
+        /// <returns>true jeśli wykryto trafienie.</returns>
         public bool Zderzenie(Plansza plansza, Gracz gracz)
         {
             if (gracz.Wymiary.IntersectsWith(Wymiary))
@@ -144,7 +215,10 @@ namespace Rudy_103.src
             
         }
         #region ICloneable Members
-
+        /// <summary>
+        /// Metoda klonująca pocisk.
+        /// </summary>
+        /// <returns>Nowy obiekt pocisku.</returns>
         public object Clone()
         {
             Pocisk klon = new Pocisk(0, 0, this.Wymiary.Width, this.Wymiary.Height, this.sila, this.szybkosc, this.zasieg, Czolg.Kierunek.GORA);

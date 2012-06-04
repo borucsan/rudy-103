@@ -53,7 +53,10 @@ namespace Rudy_103.src
         /// Ilość żyć gracza.(Profil)
         /// </summary>
         public int zycia { get; set; }
-
+        /// <summary>
+        /// Statystyki gracza.(Profil)
+        /// </summary>
+        public Statystyki statystkyki { get; set; }
         /// <summary>
         /// Scieżka dostępu do pliku profilu.
         /// </summary>
@@ -69,10 +72,11 @@ namespace Rudy_103.src
             data = new DateTime();
             poziom = 1;
             ulepszenia = new Ulepszenia();
+            statystkyki = new Statystyki();
             punkty = 0;
             punkty_level = 0;
             XP_Aktualne = 0;
-            XP_Potrzebne = 100;
+            XP_Potrzebne = 1000;
             zycia = 3;
         }
         /// <summary>
@@ -164,11 +168,6 @@ namespace Rudy_103.src
             [XmlAttribute]
             public int liczba_strzalow { get; set; }
             /// <summary>
-            /// Celność z jaką strzelał gracz
-            /// </summary>
-            [XmlAttribute]
-            public double celnosc { get; set; }
-            /// <summary>
             /// Liczba strzałów celnych gracza.
             /// </summary>
             [XmlAttribute]
@@ -178,7 +177,18 @@ namespace Rudy_103.src
             /// </summary>
             public Statystyki()
             {
-
+                liczba_strzalow = strzalow_celnych = 0;
+            }
+            /// <summary>
+            /// Zwraca celność z jaką strzelał gracz.
+            /// </summary>
+            [XmlIgnore]
+            public double Celnosc
+            {
+                get
+                {
+                    return (strzalow_celnych / liczba_strzalow) * 100;
+                }
             }
         }
     }
