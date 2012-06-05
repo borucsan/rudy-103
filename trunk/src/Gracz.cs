@@ -28,9 +28,13 @@ namespace Rudy_103.src
         /// </summary>
         public int energia { get; set; }
         /// <summary>
-        /// Zmienna okręla czy "gracz stracił życie".
+        /// Zmienna określa czy "gracz stracił życie".
         /// </summary>
         public bool zginales { get; set; }
+        /// <summary>
+        /// Zmienna określa czy gracz zdobył nowy poziom.
+        /// </summary>
+        public bool levelUp { get; set; }
         /// <summary>
         /// Ilość punktów które można wymienić na ulepszenia.
         /// </summary>
@@ -92,6 +96,7 @@ namespace Rudy_103.src
             this.Wytrzymalosc = this.Wytrzymalosc - sila;
             if (this.Wytrzymalosc <= 0)
             {
+                
                 Multimedia.audio_zginales.Play();
                 this.zginales = true;
                 this.Wytrzymalosc = this.Wytrzymalosc_Bazowa;
@@ -99,6 +104,7 @@ namespace Rudy_103.src
                 this.UstawPozycje(PunktRespGracza.X + 5, PunktRespGracza.Y + 5);
                 Kamera.Prostokat_Kamery.X = plansza.Szerokosc / 2 - Kamera.Szerokosc_Ekranu / 2;
                 Kamera.Prostokat_Kamery.Y = plansza.Wysokosc - Kamera.Wysokosc_Ekranu;
+
             }
         }
         /// <summary>
@@ -114,6 +120,7 @@ namespace Rudy_103.src
                 ++ilosc_punktow_ulepszen;
                 ++poziom;
                 XP_Potrzebne = poziom * 1000;
+                this.levelUp = true;
             }
         }
         /// <summary>

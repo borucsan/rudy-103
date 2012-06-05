@@ -85,7 +85,7 @@
             this.profil3radioButton.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.profil3radioButton.Location = new System.Drawing.Point(111, 82);
             this.profil3radioButton.Name = "profil3radioButton";
-            this.profil3radioButton.Size = new System.Drawing.Size(118, 20);
+            this.profil3radioButton.Size = new System.Drawing.Size(199, 20);
             this.profil3radioButton.TabIndex = 2;
             this.profil3radioButton.Text = "profil 3";
             // 
@@ -95,7 +95,7 @@
             this.profil2radioButton.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.profil2radioButton.Location = new System.Drawing.Point(111, 56);
             this.profil2radioButton.Name = "profil2radioButton";
-            this.profil2radioButton.Size = new System.Drawing.Size(118, 20);
+            this.profil2radioButton.Size = new System.Drawing.Size(199, 20);
             this.profil2radioButton.TabIndex = 1;
             this.profil2radioButton.Text = "profil 2";
             // 
@@ -105,7 +105,7 @@
             this.profil1radioButton.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.profil1radioButton.Location = new System.Drawing.Point(111, 30);
             this.profil1radioButton.Name = "profil1radioButton";
-            this.profil1radioButton.Size = new System.Drawing.Size(118, 20);
+            this.profil1radioButton.Size = new System.Drawing.Size(199, 20);
             this.profil1radioButton.TabIndex = 0;
             this.profil1radioButton.Text = "profil 1";
             // 

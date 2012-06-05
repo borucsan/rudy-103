@@ -49,7 +49,7 @@ namespace Rudy_103.src
 
             OdswiezEkran();
 
-            Intro_Animacja = new Animacja(Kamera.Prostokat_Kamery.Width / 2 - 100, Kamera.Prostokat_Kamery.Height / 2 - 100, 200, 200, 6, 1);
+            Intro_Animacja = new Animacja(Kamera.Prostokat_Kamery.Width / 2 - 100, Kamera.Prostokat_Kamery.Height / 2 - 100, 200, 200, 4, 1);
             Intro_Animacja.WczytajObrazy(Multimedia.intro_images);
 
             czas_odswiezania.Enabled = true;
@@ -135,7 +135,7 @@ namespace Rudy_103.src
         private void czas1_Tick(object sender, EventArgs e)
         {
             czas += 1;
-            if (czas == 6) 
+            if (czas == 4) 
             {
                 isIntro = false;
                 panel1.Visible = true;

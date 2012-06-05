@@ -292,7 +292,7 @@ namespace Rudy_103.src
                         if (pociski[i].Wymiary.Y > 0)
                         {
                             pociski[i].ZmienPozycje(0, -pociski[i].szybkosc);
-                            pociski[i].trafil = pociski[i].Zderzenie(plansza);
+                            pociski[i].trafil = pociski[i].Zderzenie(plansza, fabryka);
                             pociski[i].pozostały_ruch -= pociski[i].szybkosc;
                         }
                         else pociski[i].trafil = true;
@@ -301,7 +301,7 @@ namespace Rudy_103.src
                         if (pociski[i].Wymiary.X < plansza.Szerokosc)
                         {
                             pociski[i].ZmienPozycje(pociski[i].szybkosc, 0);
-                            pociski[i].trafil = pociski[i].Zderzenie(plansza);
+                            pociski[i].trafil = pociski[i].Zderzenie(plansza, fabryka);
                             pociski[i].pozostały_ruch -= pociski[i].szybkosc;
                         }
                         else pociski[i].trafil = true;
@@ -310,7 +310,7 @@ namespace Rudy_103.src
                         if (pociski[i].Wymiary.Y < plansza.Wysokosc)
                         {
                             pociski[i].ZmienPozycje(0, pociski[i].szybkosc);
-                            pociski[i].trafil = pociski[i].Zderzenie(plansza);
+                            pociski[i].trafil = pociski[i].Zderzenie(plansza, fabryka);
                             pociski[i].pozostały_ruch -= pociski[i].szybkosc;
                         }
                         else pociski[i].trafil = true;
@@ -319,7 +319,7 @@ namespace Rudy_103.src
                         if (pociski[i].Wymiary.X > 0)
                         {
                             pociski[i].ZmienPozycje(-pociski[i].szybkosc, 0);
-                            pociski[i].trafil = pociski[i].Zderzenie(plansza);
+                            pociski[i].trafil = pociski[i].Zderzenie(plansza, fabryka);
                             pociski[i].pozostały_ruch -= pociski[i].szybkosc;
                         }
                         else pociski[i].trafil = true;

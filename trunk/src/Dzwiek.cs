@@ -7,10 +7,17 @@ using System.Runtime.InteropServices;
 
 namespace Rudy_103.src
 {
+    /// <summary>
+    /// Klasa obsługująca dźwięk w grze.
+    /// </summary>
     public class Dzwiek
     {
         private static bool Enabled = true;
         private byte[] soundBytes;
+        /// <summary>
+        /// Konstruktor parametryczny klasy Dzwiek.
+        /// </summary>
+        /// <param name="soundStream">Strumień danych dźwięku, podajemy tutaj referencje do pliku dźwięku.</param>
         public Dzwiek(Stream soundStream)
         {
             soundBytes = new byte[soundStream.Length];
@@ -28,6 +35,9 @@ namespace Rudy_103.src
         byte[] szSound,
         IntPtr hMod,
         int flags);
+        /// <summary>
+        /// Metoda za pomocą której dźwięk jest odtwarzany.
+        /// </summary>
         public void Play()
         {
             if (Dzwiek.Enabled)
