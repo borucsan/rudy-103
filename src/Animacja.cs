@@ -12,9 +12,21 @@ namespace Rudy_103.src
     /// </summary>
     public class Animacja : Obiekty, ICloneable
     {
+        /// <summary>
+        /// Wartość określająca, która grafika jest aktualnie wyświetlana.
+        /// </summary>
         public int aktualny_stan;
+        /// <summary>
+        /// Liczba określająca, ile obrazków jest w animacji.
+        /// </summary>
         public int ilosc_stanow;
+        /// <summary>
+        /// Liczba określająca, ile razy powinna zostać wywołana animacja.
+        /// </summary>
         public int ilosc_wykonan_animacji;
+        /// <summary>
+        /// Liczba określająca, ile razy została już wykonana animacja.
+        /// </summary>
         public int wykonane_animacje;
         /// <summary>
         /// Konstruktor parametryczny klasy Animacja.
@@ -36,6 +48,12 @@ namespace Rudy_103.src
         /// <summary>
         /// Konstruktor parametryczny klasy Animacja z uwzględnieniem obrazów.
         /// </summary>
+        /// <param name="X">Określa położenie na osi X.</param>
+        /// <param name="Y">Określa położenie na osi Y.</param>
+        /// <param name="Szer">Parametr określający szerokość w pixelach wyświetlanej animacji.</param>
+        /// <param name="Wys">Parametr określający wysokość w pixelach wyświetlanej animacji.</param>
+        /// <param name="_ilosc_stanow">Parametr określający ilość stanów animacji, czyli ile jest obrazów w animacji.</param>
+        /// <param name="_ilosc_wykonan_animacji">Parametr określający ile razy animacja ma zostać wykonana.</param>
         /// <param name="obrazy">Lista obrazów animacji.</param>
         public Animacja(int X, int Y, int Szer, int Wys, int _ilosc_stanow, int _ilosc_wykonan_animacji, params Image[] obrazy)
             : this(X, Y, Szer, Wys, _ilosc_stanow, _ilosc_wykonan_animacji)
@@ -67,6 +85,10 @@ namespace Rudy_103.src
                 this.wykonane_animacje += 1;
             }
         }
+        /// <summary>
+        /// Tworzy kopie animacji.
+        /// </summary>
+        /// <returns>Zwraca skopiowany obiekt.</returns>
         public object Clone()
         {
             Animacja klon = new Animacja(0, 0, this.Wymiary.Width, this.Wymiary.Height, this.ilosc_stanow, this.ilosc_wykonan_animacji);

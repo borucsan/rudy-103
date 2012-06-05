@@ -127,7 +127,7 @@ namespace Rudy_103.src
         /// </summary>
         /// <param name="plansza">Obiekt planszy.</param>
         /// <returns>true jeśli wykryto trafienie.</returns>
-        public bool Zderzenie(Plansza plansza)
+        public bool Zderzenie(Plansza plansza, Fabryka fabryka)
         {
             for (int i = 0; i < plansza.przeciwnicy_na_mapie.Count; ++i)
             {
@@ -138,6 +138,15 @@ namespace Rudy_103.src
                         Opcje.WylaczInformacje();
                         plansza.zdobyte_punkty += plansza.przeciwnicy_na_mapie[i].punkty;
                         ((Gracz)wlasciciel).DodajXP(plansza.przeciwnicy_na_mapie[i].punkty);
+                        for (int szer = plansza.przeciwnicy_na_mapie[i].Wymiary.X; szer < plansza.przeciwnicy_na_mapie[i].Wymiary.X + plansza.przeciwnicy_na_mapie[i].Wymiary.Width; szer += 10)
+                        {
+                            for (int wys = plansza.przeciwnicy_na_mapie[i].Wymiary.Y; wys < plansza.przeciwnicy_na_mapie[i].Wymiary.Y + plansza.przeciwnicy_na_mapie[i].Wymiary.Height; wys += 10)
+                            {
+                                plansza.efekty_na_mapie.Add(fabryka.ProdukujEfekt("Ogień"));
+                                plansza.efekty_na_mapie.Last().UstawPozycje(szer, wys);
+                            }
+                        }
+                        
                         plansza.przeciwnicy_na_mapie.RemoveAt(i);
                     }
                     ++(wlasciciel.Trafien);

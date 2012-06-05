@@ -27,9 +27,12 @@ namespace Rudy_103.src
         private bool narysowanaMapa;    //zmienna sprawdzajaca stan narysowanej mapy
         private bool przyciskOpcji = true;
         private bool panelOpcji = false;
-        private bool panelUlepszen;     //zmienna służąca do włączania/wyłączania panelu ulepszeń
-        public bool wlaczoneStatystyki = false;
+        //private bool panelUlepszen;     //zmienna służąca do włączania/wyłączania panelu ulepszeń
         private bool przyciskStatystyk = true;
+        /// <summary>
+        /// Określa czy okno statystyk zostało włączone
+        /// </summary>
+        public bool wlaczoneStatystyki = false;
         #endregion
 
         #region Prostokaty_Przyciskow
@@ -84,6 +87,9 @@ namespace Rudy_103.src
         /// Scieżka do pliku custom mapy
         /// </summary>
         public string path {get; set;}
+        /// <summary>
+        /// Obiekt klasy Statystyki, obsługujący statystyki gracza oraz dystrybycje dostępnych punktów.
+        /// </summary>
         public Statystyki oknoStatystyk;
         /// <summary>
         /// Konstruktor uwzględniający custom mapy.
@@ -374,13 +380,12 @@ namespace Rudy_103.src
             if (Opcje.wlaczonePrzyciskiEkranowe)
             {
 
-                Opcje.przyciskEnter = new Rectangle(0, Kamera.Wysokosc_Ekranu - Narzedzia.PointToPixelHorizontal(120) + Narzedzia.PointToPixelHorizontal(30), Narzedzia.PointToPixelVertical(50), Narzedzia.PointToPixelHorizontal(50));
+                Opcje.przyciskEnter = new Rectangle(Kamera.Szerokosc_Ekranu - Narzedzia.PointToPixelVertical(36), Kamera.Wysokosc_Ekranu - Narzedzia.PointToPixelHorizontal(120) + Narzedzia.PointToPixelHorizontal(30), Narzedzia.PointToPixelVertical(36), Narzedzia.PointToPixelHorizontal(36));
 
-                Opcje.przyciskGora = new Rectangle(Kamera.Szerokosc_Ekranu - Narzedzia.PointToPixelVertical(45 + 12), Kamera.Wysokosc_Ekranu - Narzedzia.PointToPixelHorizontal(120), Narzedzia.PointToPixelVertical(25), Narzedzia.PointToPixelHorizontal(25));
-                
-                Opcje.przyciskDol = new Rectangle(Kamera.Szerokosc_Ekranu - Narzedzia.PointToPixelVertical(45 + 12), Kamera.Wysokosc_Ekranu - Narzedzia.PointToPixelHorizontal(120) + Narzedzia.PointToPixelHorizontal(30) + Narzedzia.PointToPixelHorizontal(30), Narzedzia.PointToPixelVertical(25), Narzedzia.PointToPixelHorizontal(25));
-                Opcje.przyciskLewo = new Rectangle(Kamera.Szerokosc_Ekranu - Narzedzia.PointToPixelVertical(75 + 12), Kamera.Wysokosc_Ekranu - Narzedzia.PointToPixelHorizontal(120) + Narzedzia.PointToPixelHorizontal(30), Narzedzia.PointToPixelVertical(25), Narzedzia.PointToPixelHorizontal(25));
-                Opcje.przyciskPrawo = new Rectangle(Kamera.Szerokosc_Ekranu - Narzedzia.PointToPixelVertical(45 + 12 - 30), Kamera.Wysokosc_Ekranu - Narzedzia.PointToPixelHorizontal(120) + Narzedzia.PointToPixelHorizontal(30), Narzedzia.PointToPixelVertical(25), Narzedzia.PointToPixelHorizontal(25));
+                Opcje.przyciskGora = new Rectangle(0 + Narzedzia.PointToPixelVertical(24), Kamera.Wysokosc_Ekranu - Narzedzia.PointToPixelHorizontal(120), Narzedzia.PointToPixelVertical(24), Narzedzia.PointToPixelHorizontal(24));
+                Opcje.przyciskDol = new Rectangle(0 + Narzedzia.PointToPixelVertical(24), Kamera.Wysokosc_Ekranu - Narzedzia.PointToPixelHorizontal(120) + Narzedzia.PointToPixelHorizontal(24) + Narzedzia.PointToPixelHorizontal(24), Narzedzia.PointToPixelVertical(24), Narzedzia.PointToPixelHorizontal(24));
+                Opcje.przyciskPrawo = new Rectangle(0 + Narzedzia.PointToPixelVertical(48), Kamera.Wysokosc_Ekranu - Narzedzia.PointToPixelHorizontal(120) + Narzedzia.PointToPixelHorizontal(24), Narzedzia.PointToPixelVertical(24), Narzedzia.PointToPixelHorizontal(24));
+                Opcje.przyciskLewo = new Rectangle(0, Kamera.Wysokosc_Ekranu - Narzedzia.PointToPixelHorizontal(120) + Narzedzia.PointToPixelHorizontal(24), Narzedzia.PointToPixelVertical(24), Narzedzia.PointToPixelHorizontal(24));
                 if (Opcje.Gora) g.DrawImage(Multimedia.interfejs_buttonUp[1], Opcje.przyciskGora, 0, 0, Multimedia.interfejs_buttonUp[1].Width, Multimedia.interfejs_buttonUp[1].Height, GraphicsUnit.Pixel,
                     transparentPink);
                 else g.DrawImage(Multimedia.interfejs_buttonUp[0], Opcje.przyciskGora, 0, 0, Multimedia.interfejs_buttonUp[0].Width, Multimedia.interfejs_buttonUp[0].Height, GraphicsUnit.Pixel,
@@ -602,8 +607,9 @@ namespace Rudy_103.src
                 Rectangle przyciskStatystykNapisProst = new Rectangle(Kamera.Prostokat_Kamery.Width - Narzedzia.PointToPixelHorizontal(50), Narzedzia.PointToPixelVertical(55), Narzedzia.PointToPixelVertical(50), Narzedzia.PointToPixelHorizontal(15));
                 g.DrawImage(Multimedia.przyciskImageZamknij, przyciskStatystykProst, 0, 0, Multimedia.przyciskImageZamknij.Width,
                     Multimedia.przyciskImageZamknij.Height, GraphicsUnit.Pixel, transparentPink);
-
-                g.DrawString("Statystyki", new Font("Arial", 8, FontStyle.Regular), new SolidBrush(Color.Yellow), przyciskStatystykNapisProst, drawFormat);
+                if (player.levelUp) g.DrawString("!Level Up!", new Font("Arial", 8, FontStyle.Regular), new SolidBrush(Color.Red), przyciskStatystykNapisProst, drawFormat);
+                else g.DrawString("Statystyki", new Font("Arial", 8, FontStyle.Regular), new SolidBrush(Color.Yellow), przyciskStatystykNapisProst, drawFormat);
+                
             }
             if (przyciskMapy)
             {
@@ -753,10 +759,10 @@ namespace Rudy_103.src
                     #endregion Rysowanie Przycisku Zamkniecia Opcji
                
             }
-            if (panelUlepszen)
-            {
+            //if (panelUlepszen)
+            //{
                 #region Rysowanie Panelu Ulepszeń
-                g.Clear(Color.Black);
+                //g.Clear(Color.Black);
                 //g.DrawString("Ilość pieniędzy: " + player.XP, new Font("Arial", 10, FontStyle.Regular), new SolidBrush(Color.Green),
                    // new Rectangle(Kamera.Prostokat_Kamery.Width / 2 - Narzedzia.PointToPixelVertical(100), 0, Narzedzia.PointToPixelVertical(200), Narzedzia.PointToPixelHorizontal(20)), drawFormat);
 
@@ -765,13 +771,13 @@ namespace Rudy_103.src
                 #endregion Rysowanie Panelu Ulepszeń
 
 
-            }
+            //}
             if (player.zginales)
             {
-                g.FillRectangle(new SolidBrush(Color.White), new Rectangle(Narzedzia.PointToPixelVertical(5), Narzedzia.PointToPixelHorizontal(120), Narzedzia.PointToPixelVertical(230), Narzedzia.PointToPixelHorizontal(30)));
+                g.FillRectangle(new SolidBrush(Color.White), new Rectangle(Narzedzia.PointToPixelVertical(5), Kamera.Prostokat_Kamery.Height / 2 - Narzedzia.PointToPixelHorizontal(28), Kamera.Prostokat_Kamery.Width - Narzedzia.PointToPixelVertical(5), Narzedzia.PointToPixelHorizontal(28)));
                 g.DrawRectangle(new Pen(Color.Black), new Rectangle(Narzedzia.PointToPixelVertical(5), Narzedzia.PointToPixelHorizontal(120), Narzedzia.PointToPixelVertical(230), Narzedzia.PointToPixelHorizontal(30)));
                 g.DrawString("Zostałeś Zniszczony!", new Font("Arial", 10, FontStyle.Regular), new SolidBrush(Color.Black),
-                    new Rectangle(Narzedzia.PointToPixelVertical(5), Narzedzia.PointToPixelHorizontal(122), Narzedzia.PointToPixelVertical(230), Narzedzia.PointToPixelHorizontal(26)), drawFormat);
+                    new Rectangle(Narzedzia.PointToPixelVertical(5), Kamera.Prostokat_Kamery.Height / 2 - Narzedzia.PointToPixelHorizontal(26), Kamera.Prostokat_Kamery.Width - Narzedzia.PointToPixelVertical(5), Narzedzia.PointToPixelHorizontal(26)), drawFormat);
                 
             }
 
@@ -855,6 +861,10 @@ namespace Rudy_103.src
                 GameOver();
                 //Wykonanie kończenia gry i zliczenia punktów
             }
+            if (plansza.baza.zniszczona)
+            {
+                GameOver();
+            }
             if ((plansza.przeciwnicy.Count + plansza.przeciwnicy_na_mapie.Count) == 0)
             {
                 plansza.ukonczony_poziom = true;
@@ -934,6 +944,7 @@ namespace Rudy_103.src
                     oknoStatystyk = new Statystyki(warsztat, player, profil);
                     oknoStatystyk.Owner = this;
                     WstrzymajGre();
+                    player.levelUp = false;
                     oknoStatystyk.Show();
                 }
             }

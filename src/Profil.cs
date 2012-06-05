@@ -17,7 +17,7 @@ namespace Rudy_103.src
     public partial class Profil : Form
     {
         private int wybrany_profil;
-        private bool isProfileSelected;
+        //private bool isProfileSelected;
         private ProfilGracza [] profile = new ProfilGracza[3];
         
         /// <summary>
@@ -79,21 +79,21 @@ namespace Rudy_103.src
                 wybrany_profil = 0;
                 
                 nowyProfilButton.Enabled = true;
-                isProfileSelected = true;
+                //isProfileSelected = true;
             }
             if (profil2radioButton.Checked)
             {
                 wybrany_profil = 1;
                 
                 nowyProfilButton.Enabled = true;
-                isProfileSelected = true;
+                //isProfileSelected = true;
             }
             if (profil3radioButton.Checked)
             {
                 wybrany_profil = 2;
                 
                 nowyProfilButton.Enabled = true;
-                isProfileSelected = true;
+                //isProfileSelected = true;
             }
 
         }
