@@ -21,6 +21,7 @@ namespace Rudy_103.src
         public static int przeciwnik_punkty = 0;
 
         public static bool wlacz_cieniowanie = false;
+        public static bool wlacz_podloza = false;
         public static bool wlaczonePrzyciskiEkranowe = true;
         public static bool Gora = false;
         public static bool Prawo = false;

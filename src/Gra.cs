@@ -60,6 +60,8 @@ namespace Rudy_103.src
         private int czas_respawnow;
         private int czas_strzalow;
 
+        private ManualResetEvent ZapisBlocker = new ManualResetEvent(true);
+
         /// <summary>
         /// Wartość określająca czy gra wczytała już wszystkie pliki
         /// </summary>
@@ -91,6 +93,9 @@ namespace Rudy_103.src
         /// Obiekt klasy Statystyki, obsługujący statystyki gracza oraz dystrybycje dostępnych punktów.
         /// </summary>
         public Statystyki oknoStatystyk;
+
+        private string sciezka_map = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().GetName().CodeBase) + @"/Mapy/";
+        
         /// <summary>
         /// Konstruktor uwzględniający custom mapy.
         /// </summary>
@@ -107,7 +112,7 @@ namespace Rudy_103.src
 
             warsztat.UstawWartosciZProfilu(profil);
             
-            PrzygotowywanieMapy();
+            PrzygotowywanieMapy(path);
             player = Fabryka.ProdukujDomyslnegoGracza();
             player.WczytajDaneGracza(profil);
             warsztat.UstawStatystyki(player);
@@ -128,7 +133,8 @@ namespace Rudy_103.src
             Kamera.Wysokosc_Ekranu = this.Height;
 
             warsztat.UstawWartosciZProfilu(profil);
-            PrzygotowywanieMapy();
+
+            PrzygotowywanieMapy("P" + profil.poziom + ".xml");
             player = Fabryka.ProdukujDomyslnegoGracza();
             player.WczytajDaneGracza(profil);
             warsztat.UstawStatystyki(player);
@@ -137,16 +143,15 @@ namespace Rudy_103.src
             InicjalizujTimery();
             graWczytana = true;
         }
-        private void PrzygotowywanieMapy()
+        private void PrzygotowywanieMapy(string mapa)
         {
             try
             {
                 if (path == null)
                 {
-                    string defaultpath = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().GetName().CodeBase) + @"/Mapy/City.xml";
-                    plansza = Plansza.WczytajMape(defaultpath, profil.ulepszenia.poziom_gracza, fabryka, warsztat.poziom_muru);
+                    plansza = Plansza.WczytajMape(sciezka_map + mapa, profil.ulepszenia.poziom_gracza, fabryka, warsztat.poziom_muru);
                 }
-                else plansza = Plansza.WczytajMape(path, player.poziom, fabryka, warsztat.poziom_muru);
+                else plansza = Plansza.WczytajMape(mapa, profil.ulepszenia.poziom_gracza, fabryka, warsztat.poziom_muru);
             }
             catch (Exception ex)
             {
@@ -491,115 +496,6 @@ namespace Rudy_103.src
                     prostokat3.X += Narzedzia.PointToPixelVertical(35);
                 }
                 #endregion Lifes
-                
-                #region RysowanieBaterii
-                /*
-                int procent_wytrzymalosci = (player.Wytrzymalosc * 100) / player.Wytrzymalosc_Bazowa;
-                if (player.energia == 3)
-                {
-                    Rectangle prostokat3 = new Rectangle(0, 0, 18, 36);
-                    g.DrawImage(Multimedia.interfejs_bateria[0], prostokat3, 0, 0, Multimedia.interfejs_bateria[0].Width, Multimedia.interfejs_bateria[0].Height, GraphicsUnit.Pixel, transparentPink);
-                    prostokat3.X += 20;
-                    g.DrawImage(Multimedia.interfejs_bateria[0], prostokat3, 0, 0, Multimedia.interfejs_bateria[0].Width, Multimedia.interfejs_bateria[0].Height, GraphicsUnit.Pixel, transparentPink);
-                    prostokat3.X += 20;
-                    if (procent_wytrzymalosci <= 100 && procent_wytrzymalosci > 85)
-                    {
-                        g.DrawImage(Multimedia.interfejs_bateria[0], prostokat3, 0, 0, Multimedia.interfejs_bateria[0].Width, Multimedia.interfejs_bateria[0].Height, GraphicsUnit.Pixel, transparentPink);
-                    }
-                    if (procent_wytrzymalosci <= 85 && procent_wytrzymalosci > 70)
-                    {
-                        g.DrawImage(Multimedia.interfejs_bateria[1], prostokat3, 0, 0, Multimedia.interfejs_bateria[0].Width, Multimedia.interfejs_bateria[0].Height, GraphicsUnit.Pixel, transparentPink);
-                    }
-                    if (procent_wytrzymalosci <= 70 && procent_wytrzymalosci > 55)
-                    {
-                        g.DrawImage(Multimedia.interfejs_bateria[2], prostokat3, 0, 0, Multimedia.interfejs_bateria[0].Width, Multimedia.interfejs_bateria[0].Height, GraphicsUnit.Pixel, transparentPink);
-                    }
-                    if (procent_wytrzymalosci <= 55 && procent_wytrzymalosci > 40)
-                    {
-                        g.DrawImage(Multimedia.interfejs_bateria[3], prostokat3, 0, 0, Multimedia.interfejs_bateria[0].Width, Multimedia.interfejs_bateria[0].Height, GraphicsUnit.Pixel, transparentPink);
-                    }
-                    if (procent_wytrzymalosci <= 40 && procent_wytrzymalosci > 25)
-                    {
-                        g.DrawImage(Multimedia.interfejs_bateria[4], prostokat3, 0, 0, Multimedia.interfejs_bateria[0].Width, Multimedia.interfejs_bateria[0].Height, GraphicsUnit.Pixel, transparentPink);
-                    }
-                    if (procent_wytrzymalosci <= 25 && procent_wytrzymalosci > 10)
-                    {
-                        g.DrawImage(Multimedia.interfejs_bateria[5], prostokat3, 0, 0, Multimedia.interfejs_bateria[0].Width, Multimedia.interfejs_bateria[0].Height, GraphicsUnit.Pixel, transparentPink);
-                    }
-                    if (procent_wytrzymalosci <= 10)
-                    {
-                        g.DrawImage(Multimedia.interfejs_bateria[6], prostokat3, 0, 0, Multimedia.interfejs_bateria[0].Width, Multimedia.interfejs_bateria[0].Height, GraphicsUnit.Pixel, transparentPink);
-                    }
-                }
-                if (player.energia == 2)
-                {
-                    Rectangle prostokat3 = new Rectangle(0, 0, 18, 36);
-                    g.DrawImage(Multimedia.interfejs_bateria[0], prostokat3, 0, 0, Multimedia.interfejs_bateria[0].Width, Multimedia.interfejs_bateria[0].Height, GraphicsUnit.Pixel, transparentPink);
-
-                    prostokat3.X += 20;
-                    if (procent_wytrzymalosci <= 100 && procent_wytrzymalosci > 85)
-                    {
-                        g.DrawImage(Multimedia.interfejs_bateria[0], prostokat3, 0, 0, Multimedia.interfejs_bateria[0].Width, Multimedia.interfejs_bateria[0].Height, GraphicsUnit.Pixel, transparentPink);
-                    }
-                    if (procent_wytrzymalosci <= 85 && procent_wytrzymalosci > 70)
-                    {
-                        g.DrawImage(Multimedia.interfejs_bateria[1], prostokat3, 0, 0, Multimedia.interfejs_bateria[0].Width, Multimedia.interfejs_bateria[0].Height, GraphicsUnit.Pixel, transparentPink);
-                    }
-                    if (procent_wytrzymalosci <= 70 && procent_wytrzymalosci > 55)
-                    {
-                        g.DrawImage(Multimedia.interfejs_bateria[2], prostokat3, 0, 0, Multimedia.interfejs_bateria[0].Width, Multimedia.interfejs_bateria[0].Height, GraphicsUnit.Pixel, transparentPink);
-                    }
-                    if (procent_wytrzymalosci <= 55 && procent_wytrzymalosci > 40)
-                    {
-                        g.DrawImage(Multimedia.interfejs_bateria[3], prostokat3, 0, 0, Multimedia.interfejs_bateria[0].Width, Multimedia.interfejs_bateria[0].Height, GraphicsUnit.Pixel, transparentPink);
-                    }
-                    if (procent_wytrzymalosci <= 40 && procent_wytrzymalosci > 25)
-                    {
-                        g.DrawImage(Multimedia.interfejs_bateria[4], prostokat3, 0, 0, Multimedia.interfejs_bateria[0].Width, Multimedia.interfejs_bateria[0].Height, GraphicsUnit.Pixel, transparentPink);
-                    }
-                    if (procent_wytrzymalosci <= 25 && procent_wytrzymalosci > 10)
-                    {
-                        g.DrawImage(Multimedia.interfejs_bateria[5], prostokat3, 0, 0, Multimedia.interfejs_bateria[0].Width, Multimedia.interfejs_bateria[0].Height, GraphicsUnit.Pixel, transparentPink);
-                    }
-                    if (procent_wytrzymalosci <= 10)
-                    {
-                        g.DrawImage(Multimedia.interfejs_bateria[6], prostokat3, 0, 0, Multimedia.interfejs_bateria[0].Width, Multimedia.interfejs_bateria[0].Height, GraphicsUnit.Pixel, transparentPink);
-                    }
-                }
-                if (player.energia == 1)
-                {
-                    Rectangle prostokat3 = new Rectangle(0, 0, 18, 36);
-                    if (procent_wytrzymalosci <= 100 && procent_wytrzymalosci > 85)
-                    {
-                        g.DrawImage(Multimedia.interfejs_bateria[0], prostokat3, 0, 0, Multimedia.interfejs_bateria[0].Width, Multimedia.interfejs_bateria[0].Height, GraphicsUnit.Pixel, transparentPink);
-                    }
-                    if (procent_wytrzymalosci <= 85 && procent_wytrzymalosci > 70)
-                    {
-                        g.DrawImage(Multimedia.interfejs_bateria[1], prostokat3, 0, 0, Multimedia.interfejs_bateria[0].Width, Multimedia.interfejs_bateria[0].Height, GraphicsUnit.Pixel, transparentPink);
-                    }
-                    if (procent_wytrzymalosci <= 70 && procent_wytrzymalosci > 55)
-                    {
-                        g.DrawImage(Multimedia.interfejs_bateria[2], prostokat3, 0, 0, Multimedia.interfejs_bateria[0].Width, Multimedia.interfejs_bateria[0].Height, GraphicsUnit.Pixel, transparentPink);
-                    }
-                    if (procent_wytrzymalosci <= 55 && procent_wytrzymalosci > 40)
-                    {
-                        g.DrawImage(Multimedia.interfejs_bateria[3], prostokat3, 0, 0, Multimedia.interfejs_bateria[0].Width, Multimedia.interfejs_bateria[0].Height, GraphicsUnit.Pixel, transparentPink);
-                    }
-                    if (procent_wytrzymalosci <= 40 && procent_wytrzymalosci > 25)
-                    {
-                        g.DrawImage(Multimedia.interfejs_bateria[4], prostokat3, 0, 0, Multimedia.interfejs_bateria[0].Width, Multimedia.interfejs_bateria[0].Height, GraphicsUnit.Pixel, transparentPink);
-                    }
-                    if (procent_wytrzymalosci <= 25 && procent_wytrzymalosci > 10)
-                    {
-                        g.DrawImage(Multimedia.interfejs_bateria[5], prostokat3, 0, 0, Multimedia.interfejs_bateria[0].Width, Multimedia.interfejs_bateria[0].Height, GraphicsUnit.Pixel, transparentPink);
-                    }
-                    if (procent_wytrzymalosci <= 10)
-                    {
-                        g.DrawImage(Multimedia.interfejs_bateria[6], prostokat3, 0, 0, Multimedia.interfejs_bateria[0].Width, Multimedia.interfejs_bateria[0].Height, GraphicsUnit.Pixel, transparentPink);
-                    }
-                }
-                */
-                #endregion RysowanieBaterii
             }
             if (przyciskStatystyk)
             {
@@ -759,26 +655,12 @@ namespace Rudy_103.src
                     #endregion Rysowanie Przycisku Zamkniecia Opcji
                
             }
-            //if (panelUlepszen)
-            //{
-                #region Rysowanie Panelu Ulepszeń
-                //g.Clear(Color.Black);
-                //g.DrawString("Ilość pieniędzy: " + player.XP, new Font("Arial", 10, FontStyle.Regular), new SolidBrush(Color.Green),
-                   // new Rectangle(Kamera.Prostokat_Kamery.Width / 2 - Narzedzia.PointToPixelVertical(100), 0, Narzedzia.PointToPixelVertical(200), Narzedzia.PointToPixelHorizontal(20)), drawFormat);
-
-                //warsztat.Rysuj(g, transparentPink);
-
-                #endregion Rysowanie Panelu Ulepszeń
-
-
-            //}
             if (player.zginales)
             {
                 g.FillRectangle(new SolidBrush(Color.White), new Rectangle(Narzedzia.PointToPixelVertical(5), Kamera.Prostokat_Kamery.Height / 2 - Narzedzia.PointToPixelHorizontal(28), Kamera.Prostokat_Kamery.Width - Narzedzia.PointToPixelVertical(5), Narzedzia.PointToPixelHorizontal(28)));
                 g.DrawRectangle(new Pen(Color.Black), new Rectangle(Narzedzia.PointToPixelVertical(5), Narzedzia.PointToPixelHorizontal(120), Narzedzia.PointToPixelVertical(230), Narzedzia.PointToPixelHorizontal(30)));
                 g.DrawString("Zostałeś Zniszczony!", new Font("Arial", 10, FontStyle.Regular), new SolidBrush(Color.Black),
                     new Rectangle(Narzedzia.PointToPixelVertical(5), Kamera.Prostokat_Kamery.Height / 2 - Narzedzia.PointToPixelHorizontal(26), Kamera.Prostokat_Kamery.Width - Narzedzia.PointToPixelVertical(5), Narzedzia.PointToPixelHorizontal(26)), drawFormat);
-                
             }
 
             if (plansza.ukonczony_poziom)
@@ -800,28 +682,8 @@ namespace Rudy_103.src
                     Multimedia.przyciskImageZamknij.Height, GraphicsUnit.Pixel, transparentPink);
                 g.DrawString("Przejdź Dalej", new Font("Arial", 10, FontStyle.Regular), new SolidBrush(Color.Yellow),
                     new Rectangle(Kamera.Prostokat_Kamery.Width / 2 - Narzedzia.PointToPixelVertical(100), Kamera.Prostokat_Kamery.Height - Narzedzia.PointToPixelHorizontal(30), Narzedzia.PointToPixelVertical(200), Narzedzia.PointToPixelHorizontal(25)), drawFormat);
+                
             }
-            /*
-            if (player.energia <= 0)
-            {
-                g.DrawImage(Grafika.tlo_mapa, 0, 0);
-
-                g.DrawString("Game Over", new Font("Arial", 10, FontStyle.Regular), new SolidBrush(Color.Yellow),
-                    new Rectangle(19, 5, 201, 25), drawFormat);
-
-                g.DrawString(s_czas, new Font("Arial", 12, FontStyle.Regular), new SolidBrush(Color.Yellow),
-                    new Rectangle(19, 35, 201, 25), drawFormat);
-
-                g.DrawString("Punkty: " + player.punkty, new Font("Arial", 12, FontStyle.Regular), new SolidBrush(Color.Yellow),
-                    new Rectangle(19, 65, 201, 25), drawFormat);
-
-                przyciskZamknijKoniecGry = new Rectangle(20, 285, 200, 30);
-                g.DrawImage(Grafika.przyciskImageZamknij, przyciskZamknijKoniecGry, 0, 0, Grafika.przyciskImageZamknij.Width,
-                    Grafika.przyciskImageZamknij.Height, GraphicsUnit.Pixel, transparentPink);
-                g.DrawString("Wyjdź", new Font("Arial", 12, FontStyle.Regular), new SolidBrush(Color.Yellow),
-                    new Rectangle(20, 290, 200, 25), drawFormat);
-            }
-            */
         }
 
         #region Timery
@@ -938,10 +800,9 @@ namespace Rudy_103.src
             {
                 if (mysz.IntersectsWith(przyciskStatystykProst))
                 {
-                    
                     przyciskStatystykProst = new Rectangle();   //zerujemy wymiary po nacisnieciu
                     wlaczoneStatystyki = true;
-                    oknoStatystyk = new Statystyki(warsztat, player, profil);
+                    oknoStatystyk = new Statystyki(warsztat, player, profil, ZapisBlocker);
                     oknoStatystyk.Owner = this;
                     WstrzymajGre();
                     player.levelUp = false;
@@ -1035,64 +896,6 @@ namespace Rudy_103.src
                 }
             }
             #endregion Opcje
-            /*
-            #region Ulepszenia
-            if (panelUlepszen)
-            {
-                if (mysz.IntersectsWith(warsztat.przyciskZamknijUlepszenia))
-                {
-                    if (path != null)
-                    {
-                        Owner.Show();
-                        this.Hide();
-                        profil.ulepszenia.poziom_ataku = warsztat.poziom_ataku;
-                        profil.ulepszenia.poziom_wytrzymalosci = warsztat.poziom_pancerza;
-                        profil.ulepszenia.poziom_szybkosci = warsztat.poziom_szybkosci;
-                        profil.ulepszenia.poziom_muru = warsztat.poziom_muru;
-                        profil.XP_Aktualne = player.XP_Aktualne;
-                        profil.XP_Potrzebne = player.XP_Potrzebne;
-                        ThreadPool.QueueUserWorkItem(ZapiszDane);
-                    }
-                    else
-                    {
-                        panelUlepszen = false;
-                        
-                        profil.poziom++;
-                        
-                        //profil.ZapiszDane();
-                        warsztat.UstawStatystyki(player);
-                        warsztat.przyciskZamknijUlepszenia = new Rectangle();
-                        
-                        WznowGre();
-                    }
-                }
-                if (mysz.IntersectsWith(warsztat.przyciskUlepszSzybkosc))
-                {
-                    warsztat.ZwiekszPoziomSzybkosci(player);
-                    
-                    warsztat.przyciskUlepszSzybkosc = new Rectangle();
-                }
-                if (mysz.IntersectsWith(warsztat.przyciskUlepszPancerz))
-                {
-                    warsztat.ZwiekszPoziomPancerza(player);
-                    
-                    warsztat.przyciskUlepszPancerz = new Rectangle();
-                }
-                if (mysz.IntersectsWith(warsztat.przyciskUlepszAtak))
-                {
-                    warsztat.ZwiekszPoziomAtaku(player);
-                    
-                    warsztat.przyciskUlepszAtak = new Rectangle();
-                }
-                if (mysz.IntersectsWith(warsztat.przyciskUlepszMur))
-                {
-                    warsztat.ZwiekszPoziomMuru(player);
-                    
-                    warsztat.przyciskUlepszMur = new Rectangle();
-                }
-            }
-            #endregion Ulepszenia
-            */
             #region Ukończony Poziom
             if (plansza.ukonczony_poziom)
             {
@@ -1100,28 +903,30 @@ namespace Rudy_103.src
                 {
                     plansza.ukonczony_poziom = false;
                     przyciskZamknijUkonczonyPoziom = new Rectangle();
-                    czas_minuty = 0;
-                    czas_sekundy = 0;
-                    czas_respawnow = 0;
-                    try
-                    {
-                        string defaultpath = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().GetName().CodeBase) + @"/Mapy/City.xml";
-                        plansza = Plansza.WczytajMape(defaultpath, profil.poziom, fabryka, warsztat.poziom_muru);
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show("Błąd wczytywania mapy!\n" + ex.Message, "Błąd wczytywania mapy", MessageBoxButtons.OK, MessageBoxIcon.Hand, MessageBoxDefaultButton.Button1);
-                        this.Close();
-                        return;
-                    }
-                    plansza.WczytajGrafikePodloza(Multimedia.tlo);
-                    player.UstawPozycje(Gracz.PunktRespGracza.X + 5, Gracz.PunktRespGracza.Y + 5);
-                    UstawKamere();
-                    wlaczoneStatystyki = true;
-                    oknoStatystyk = new Statystyki(warsztat, player, profil);
-                    oknoStatystyk.Owner = this;
                     WstrzymajGre();
-                    oknoStatystyk.Show();
+                    profil.poziom++;
+                    if (path == null) profil.PrzypiszInformacjedoProfilu(player, warsztat, true);
+                    else profil.PrzypiszInformacjedoProfilu(player, warsztat, false);
+                    ZapisBlocker.WaitOne();
+                    ZapisBlocker.Reset();
+                    ThreadPool.QueueUserWorkItem(ZapiszDane, ZapisBlocker);
+                    if (path == null)
+                    {
+                        czas_minuty = 0;
+                        czas_sekundy = 0;
+                        PrzygotowywanieMapy("P" + profil.poziom + ".xml");
+                        plansza.WczytajGrafikePodloza(Multimedia.tlo);
+                        player.UstawPozycje(Gracz.PunktRespGracza.X + 5, Gracz.PunktRespGracza.Y + 5);
+                        UstawKamere();
+                        WznowGre();
+                    }
+                    else
+                    {
+                        ZapisBlocker.WaitOne();
+                        (this.Owner as MainWindow).wybor_profilu = new Profil();
+                        this.Owner.Show();
+                        this.Close();
+                    }
                 }
             }
             #endregion Ukończony Poziom
@@ -1242,6 +1047,7 @@ namespace Rudy_103.src
         /// </summary>
         private void GameOver()
         {
+            (this.Owner as MainWindow).wybor_profilu = new Profil();
             ZliczPunkty();
             WstrzymajGre();
             Multimedia.audio_game_over.Play();
@@ -1250,7 +1056,18 @@ namespace Rudy_103.src
             koniec.Show();
             this.Close();
         }
-        
+        private void ZapiszDane(object stateInfo)
+        {
+            ManualResetEvent mre = (ManualResetEvent)stateInfo;
+            try
+            {
+                profil.ZapiszDane();
+            }
+            finally
+            {
+                mre.Set();
+            }
+        }
         private void DodajTestoweXP()
         {
             player.DodajXP(100);

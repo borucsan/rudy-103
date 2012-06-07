@@ -268,14 +268,17 @@
     <EmbeddedResource Include="Resources\Dzwieki\wystrzal.wav" />
     <EmbeddedResource Include="Resources\Dzwieki\end.wav" />
     <EmbeddedResource Include="Resources\Dzwieki\killed.wav" />
-    <Content Include="Mapy\City.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    <Content Include="Mapy\P2.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Mapy\Miasto.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    <Content Include="Mapy\P4.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Mapy\ModernCity.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    <Content Include="Mapy\P3.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Mapy\P1.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Efekty\Slad\slad_down.png" />
     <Content Include="Resources\Efekty\Slad\slad_left.png" />

@@ -15,10 +15,13 @@ namespace Rudy_103.src
 {
     public partial class MainWindow : Form
     {
-        
         private int czas;
         private bool isIntro;
         private Animacja Intro_Animacja;
+        /// <summary>
+        /// Forma profili.
+        /// </summary>
+        public Profil wybor_profilu { get; set; }
         
         /// <summary>
         /// Konstruktor klasy głównego okna.
@@ -26,6 +29,7 @@ namespace Rudy_103.src
         public MainWindow()
         {
             InitializeComponent();
+            wybor_profilu = new Profil();
             isIntro = true;
             panel1.Visible = false;
             panel2.Visible = false;
@@ -59,7 +63,7 @@ namespace Rudy_103.src
 
         private void NowaGraButton_Click(object sender, EventArgs e)
         {
-            Profil wybor_profilu = new Profil();
+            wybor_profilu.mre.WaitOne();
             wybor_profilu.Owner = this;
             wybor_profilu.Show();
             this.Hide();

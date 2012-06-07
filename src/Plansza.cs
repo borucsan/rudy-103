@@ -43,6 +43,7 @@ namespace Rudy_103.src
         /// Drzewo podłoża.
         /// </summary>
         public DrzewoPrzeszkody podloza { get; private set; }
+        private List<Przeszkoda> mur_bazy = new List<Przeszkoda>(8);
         /// <summary>
         /// Poziom planszy.
         /// </summary>
@@ -103,11 +104,11 @@ namespace Rudy_103.src
         /// Metoda fabrykująca mapę.
         /// </summary>
         /// <param name="plik">Pełna ścieżka do pliku.</param>
-        /// <param name="poziom_gry">Poziom gracza.</param>
+        /// <param name="poziom_gracza">Poziom gracza.</param>
         /// <param name="fabryka">Fabryka obiektów.</param>
         /// <param name="poziom_muru">Poziom muru.</param>
         /// <returns>Obiekt mapy.</returns>
-        public static Plansza WczytajMape(String plik, int poziom_gry, Fabryka fabryka, int poziom_muru)
+        public static Plansza WczytajMape(String plik, int poziom_gracza, Fabryka fabryka, int poziom_muru)
         {
             Mapa mapa;
             List<Przeszkoda> przeszkody = new List<Przeszkoda>();
@@ -120,9 +121,9 @@ namespace Rudy_103.src
                 //reader.Close();
             }
             Plansza plansza = new Plansza(mapa.szerokosc, mapa.wysokosc);
-            plansza.poziom = poziom_gry;
+            plansza.poziom = poziom_gracza;
             plansza.baza = fabryka.wzorzec_bazy;
-            plansza.baza.UstawPozycje(plansza.Szerokosc / 2, plansza.Wysokosc - 50);
+            plansza.baza.UstawPozycje((plansza.Szerokosc / 2) - 25, plansza.Wysokosc - 50);
             Rectangle Rplanszy = new Rectangle(0, 0, plansza.Szerokosc, plansza.Wysokosc);
             Rectangle recbazy = new Rectangle(plansza.baza.Wymiary.X - 25, plansza.baza.Wymiary.Y - 25, 100, 100);
             Gracz.PunktRespGracza = new Rectangle(plansza.baza.Wymiary.X - 75, plansza.baza.Wymiary.Y, 50, 50);
@@ -134,7 +135,7 @@ namespace Rudy_103.src
                 {
                     podloza.Add(prze);
                 }
-                else
+                else if(mapa.lista_przeszkod[i].warstwa == 2)
                 {
                     if (Rplanszy.Contains(prze.Wymiary) && !plansza.baza.Wymiary.IntersectsWith(prze.Wymiary) && !Gracz.PunktRespGracza.IntersectsWith(prze.Wymiary) && !plansza.PunktResp[0].IntersectsWith(prze.Wymiary) && !plansza.PunktResp[1].IntersectsWith(prze.Wymiary) && !plansza.PunktResp[2].IntersectsWith(prze.Wymiary))
                     {
@@ -144,28 +145,43 @@ namespace Rudy_103.src
             }
             #region BudowaObronyBazy
             string typ_muru = Plansza.WybierzTypMuru(poziom_muru);
-            przeszkody.Add(fabryka.ProdukujPrzeszkode(typ_muru));
-            przeszkody.Last().UstawPozycje(plansza.baza.Wymiary.X - 25, plansza.baza.Wymiary.Y + 25);
-            przeszkody.Add(fabryka.ProdukujPrzeszkode(typ_muru));
-            przeszkody.Last().UstawPozycje(plansza.baza.Wymiary.X - 25, plansza.baza.Wymiary.Y);
-            przeszkody.Add(fabryka.ProdukujPrzeszkode(typ_muru));
-            przeszkody.Last().UstawPozycje(plansza.baza.Wymiary.X - 25, plansza.baza.Wymiary.Y - 25);
-            przeszkody.Add(fabryka.ProdukujPrzeszkode(typ_muru));
-            przeszkody.Last().UstawPozycje(plansza.baza.Wymiary.X, plansza.baza.Wymiary.Y - 25);
-            przeszkody.Add(fabryka.ProdukujPrzeszkode(typ_muru));
-            przeszkody.Last().UstawPozycje(plansza.baza.Wymiary.X + 25, plansza.baza.Wymiary.Y - 25);
-            przeszkody.Add(fabryka.ProdukujPrzeszkode(typ_muru));
-            przeszkody.Last().UstawPozycje(plansza.baza.Wymiary.X + 50, plansza.baza.Wymiary.Y - 25);
-            przeszkody.Add(fabryka.ProdukujPrzeszkode(typ_muru));
-            przeszkody.Last().UstawPozycje(plansza.baza.Wymiary.X + 50, plansza.baza.Wymiary.Y);
-            przeszkody.Add(fabryka.ProdukujPrzeszkode(typ_muru));
-            przeszkody.Last().UstawPozycje(plansza.baza.Wymiary.X + 50, plansza.baza.Wymiary.Y + 25);
+            plansza.mur_bazy.Add(fabryka.ProdukujPrzeszkode(typ_muru));
+            plansza.mur_bazy.Last().UstawPozycje(plansza.baza.Wymiary.X - 25, plansza.baza.Wymiary.Y + 25);
+            plansza.mur_bazy.Add(fabryka.ProdukujPrzeszkode(typ_muru));
+            plansza.mur_bazy.Last().UstawPozycje(plansza.baza.Wymiary.X - 25, plansza.baza.Wymiary.Y);
+            plansza.mur_bazy.Add(fabryka.ProdukujPrzeszkode(typ_muru));
+            plansza.mur_bazy.Last().UstawPozycje(plansza.baza.Wymiary.X - 25, plansza.baza.Wymiary.Y - 25);
+            plansza.mur_bazy.Add(fabryka.ProdukujPrzeszkode(typ_muru));
+            plansza.mur_bazy.Last().UstawPozycje(plansza.baza.Wymiary.X, plansza.baza.Wymiary.Y - 25);
+            plansza.mur_bazy.Add(fabryka.ProdukujPrzeszkode(typ_muru));
+            plansza.mur_bazy.Last().UstawPozycje(plansza.baza.Wymiary.X + 25, plansza.baza.Wymiary.Y - 25);
+            plansza.mur_bazy.Add(fabryka.ProdukujPrzeszkode(typ_muru));
+            plansza.mur_bazy.Last().UstawPozycje(plansza.baza.Wymiary.X + 50, plansza.baza.Wymiary.Y - 25);
+            plansza.mur_bazy.Add(fabryka.ProdukujPrzeszkode(typ_muru));
+            plansza.mur_bazy.Last().UstawPozycje(plansza.baza.Wymiary.X + 50, plansza.baza.Wymiary.Y);
+            plansza.mur_bazy.Add(fabryka.ProdukujPrzeszkode(typ_muru));
+            plansza.mur_bazy.Last().UstawPozycje(plansza.baza.Wymiary.X + 50, plansza.baza.Wymiary.Y + 25);
+            przeszkody.AddRange(plansza.mur_bazy);
+            
             #endregion
 
             plansza.podloza = new DrzewoPrzeszkody(podloza, new Rectangle(0, 0, plansza.Szerokosc, plansza.Wysokosc), true);
             plansza.region = new DrzewoPrzeszkody(przeszkody, new Rectangle(0, 0, plansza.Szerokosc, plansza.Wysokosc), true);
             plansza.LosujPrzeciwnikow(fabryka);
             return plansza;
+        }
+        /// <summary>
+        /// Metoda zmieniająca typ muru bazy po upgrade'ie.
+        /// </summary>
+        /// <param name="fabryka">Fabryka obiektów</param>
+        /// <param name="poziom_muru">Poziom muru z warsztatu.</param>
+        public void PrzebudujBaze(Fabryka fabryka, int poziom_muru)
+        {
+            Przeszkoda pre = fabryka.ProdukujPrzeszkode(Plansza.WybierzTypMuru(poziom_muru));
+            for (int i = 0; i < mur_bazy.Count; ++i)
+            {
+                mur_bazy[i].WczytajNoweDaneZWzorca(pre);
+            }
         }
         /// <summary>
         /// Metoda wybiera typ mapy.
@@ -198,7 +214,7 @@ namespace Rudy_103.src
         {
             int max;
             if (poziom == 1) max = 15;
-            else max = 20; //Narzedzia.rand.Next(18, 20);
+            else max = 20 + (10 * poziom / 35); //Narzedzia.rand.Next(18, 20);
             if (poziom >= 9) max -= LosujTypPrzeciwnikow(10, this.poziom, fabryka);
             if (poziom >= 8 && max > 0) max -= LosujTypPrzeciwnikow(9, this.poziom, fabryka);
             if (poziom >= 7 && max > 0) max -= LosujTypPrzeciwnikow(8, this.poziom, fabryka);
@@ -219,7 +235,7 @@ namespace Rudy_103.src
         private int LosujTypPrzeciwnikow(int poziom_przeciwnika, int poziom, Fabryka fabryka)
         {
             string typ = "Przeciwnik: Poziom " + poziom_przeciwnika.ToString();
-            int liczba = Narzedzia.rand.Next(1, poziom - (poziom - 1));
+            int liczba = poziom - (poziom_przeciwnika - 2);
             for (int i = 0; i < liczba; ++i)
             {
                 przeciwnicy.Push(fabryka.ProdukujPrzeciwnika(typ));

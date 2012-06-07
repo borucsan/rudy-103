@@ -106,6 +106,31 @@ namespace Rudy_103.src
             }
         }
         /// <summary>
+        /// Metoda przypisuje wartości z obiektu gracza do obiektu profili.
+        /// </summary>
+        /// <param name="gracz">Obiekt gracza.</param>
+        /// <param name="warsztat">Obiekt warsztatu.</param>
+        /// <param name="zapisz_punkty">Parametr określa czy zapisywać punkty rankingowe do profilu</param>
+        public void PrzypiszInformacjedoProfilu(Gracz gracz, Warsztat warsztat, bool zapisz_punkty)
+        {
+            this.punkty_level = gracz.ilosc_punktow_ulepszen;
+            if (zapisz_punkty) this.punkty = gracz.punkty;
+            this.XP_Aktualne = gracz.XP_Aktualne;
+            this.XP_Potrzebne = gracz.XP_Potrzebne;
+            this.zycia = gracz.energia;
+            this.ulepszenia.poziom_gracza = gracz.poziom;
+
+            this.ulepszenia.poziom_ataku = warsztat.poziom_ataku;
+            this.ulepszenia.poziom_magazynku = warsztat.poziom_magazynku;
+            this.ulepszenia.poziom_muru = warsztat.poziom_muru;
+            this.ulepszenia.poziom_szybkosci = warsztat.poziom_szybkosci;
+            this.ulepszenia.poziom_wytrzymalosci = warsztat.poziom_pancerza;
+            this.ulepszenia.poziom_zasiegu = warsztat.poziom_zasiegu;
+
+            this.statystkyki.liczba_strzalow = gracz.Strzalow;
+            this.statystkyki.strzalow_celnych = gracz.Trafien;
+        }
+        /// <summary>
         /// Klasa ulepszeń do zapisu.
         /// </summary>
         [Serializable]

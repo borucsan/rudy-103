@@ -1,0 +1,881 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Mapa xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" szerokosc="550" wysokosc="550" nazwa="P1" autor="Boruć-san" xmlns="https://code.google.com/p/rudy-103/">
+  <lista_przeszkod>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Droga A1" warstwa="1">
+      <pozycja y="375" x="325" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Droga A1" warstwa="1">
+      <pozycja y="425" x="325" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Droga A1" warstwa="1">
+      <pozycja y="475" x="325" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Droga A1" warstwa="1">
+      <pozycja y="525" x="325" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Droga A1" warstwa="1">
+      <pozycja y="375" x="175" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Droga A1" warstwa="1">
+      <pozycja y="425" x="175" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Droga A1" warstwa="1">
+      <pozycja y="475" x="175" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Droga A1" warstwa="1">
+      <pozycja y="525" x="175" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="cegielka" warstwa="2">
+      <pozycja y="375" x="225" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="cegielka" warstwa="2">
+      <pozycja y="400" x="250" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="cegielka" warstwa="2">
+      <pozycja y="400" x="275" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="cegielka" warstwa="2">
+      <pozycja y="350" x="250" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="cegielka" warstwa="2">
+      <pozycja y="350" x="275" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="cegielka" warstwa="2">
+      <pozycja y="375" x="300" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="cegielka" warstwa="2">
+      <pozycja y="400" x="225" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="cegielka" warstwa="2">
+      <pozycja y="425" x="225" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="cegielka" warstwa="2">
+      <pozycja y="450" x="225" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="cegielka" warstwa="2">
+      <pozycja y="425" x="275" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="cegielka" warstwa="2">
+      <pozycja y="450" x="300" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Droga A1" warstwa="1">
+      <pozycja y="325" x="175" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Droga A1" warstwa="1">
+      <pozycja y="325" x="325" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Droga A2" warstwa="1">
+      <pozycja y="275" x="0" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Droga A2" warstwa="1">
+      <pozycja y="275" x="50" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Droga A2" warstwa="1">
+      <pozycja y="275" x="100" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Droga A2" warstwa="1">
+      <pozycja y="275" x="150" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Droga A2" warstwa="1">
+      <pozycja y="275" x="200" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Droga A2" warstwa="1">
+      <pozycja y="275" x="250" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Droga A2" warstwa="1">
+      <pozycja y="275" x="300" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Droga A2" warstwa="1">
+      <pozycja y="275" x="350" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Droga A2" warstwa="1">
+      <pozycja y="275" x="400" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Droga A2" warstwa="1">
+      <pozycja y="275" x="450" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Droga A2" warstwa="1">
+      <pozycja y="275" x="500" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Skrzynka" warstwa="2">
+      <pozycja y="325" x="0" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Skrzynka" warstwa="2">
+      <pozycja y="350" x="0" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Skrzynka" warstwa="2">
+      <pozycja y="375" x="0" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Skrzynka" warstwa="2">
+      <pozycja y="400" x="0" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Skrzynka" warstwa="2">
+      <pozycja y="425" x="0" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Skrzynka" warstwa="2">
+      <pozycja y="450" x="0" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Skrzynka" warstwa="2">
+      <pozycja y="475" x="0" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Skrzynka" warstwa="2">
+      <pozycja y="325" x="25" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Skrzynka" warstwa="2">
+      <pozycja y="350" x="25" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Skrzynka" warstwa="2">
+      <pozycja y="375" x="25" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Skrzynka" warstwa="2">
+      <pozycja y="400" x="25" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Skrzynka" warstwa="2">
+      <pozycja y="425" x="25" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Skrzynka" warstwa="2">
+      <pozycja y="450" x="25" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Skrzynka" warstwa="2">
+      <pozycja y="475" x="25" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Skrzynka" warstwa="2">
+      <pozycja y="325" x="125" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Skrzynka" warstwa="2">
+      <pozycja y="350" x="125" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Skrzynka" warstwa="2">
+      <pozycja y="375" x="125" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Skrzynka" warstwa="2">
+      <pozycja y="400" x="125" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Skrzynka" warstwa="2">
+      <pozycja y="425" x="125" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Skrzynka" warstwa="2">
+      <pozycja y="450" x="125" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Skrzynka" warstwa="2">
+      <pozycja y="475" x="125" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Skrzynka" warstwa="2">
+      <pozycja y="325" x="150" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Skrzynka" warstwa="2">
+      <pozycja y="350" x="150" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Skrzynka" warstwa="2">
+      <pozycja y="375" x="150" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Skrzynka" warstwa="2">
+      <pozycja y="400" x="150" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Skrzynka" warstwa="2">
+      <pozycja y="425" x="150" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Skrzynka" warstwa="2">
+      <pozycja y="450" x="150" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Skrzynka" warstwa="2">
+      <pozycja y="475" x="150" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Skrzynka" warstwa="2">
+      <pozycja y="325" x="375" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Skrzynka" warstwa="2">
+      <pozycja y="350" x="375" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Skrzynka" warstwa="2">
+      <pozycja y="375" x="375" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Skrzynka" warstwa="2">
+      <pozycja y="400" x="375" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Skrzynka" warstwa="2">
+      <pozycja y="425" x="375" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Skrzynka" warstwa="2">
+      <pozycja y="450" x="375" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Skrzynka" warstwa="2">
+      <pozycja y="475" x="375" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Skrzynka" warstwa="2">
+      <pozycja y="325" x="400" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Skrzynka" warstwa="2">
+      <pozycja y="350" x="400" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Skrzynka" warstwa="2">
+      <pozycja y="375" x="400" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Skrzynka" warstwa="2">
+      <pozycja y="400" x="400" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Skrzynka" warstwa="2">
+      <pozycja y="425" x="400" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Skrzynka" warstwa="2">
+      <pozycja y="450" x="400" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Skrzynka" warstwa="2">
+      <pozycja y="475" x="400" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Skrzynka" warstwa="2">
+      <pozycja y="325" x="500" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Skrzynka" warstwa="2">
+      <pozycja y="350" x="500" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Skrzynka" warstwa="2">
+      <pozycja y="375" x="500" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Skrzynka" warstwa="2">
+      <pozycja y="400" x="500" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Skrzynka" warstwa="2">
+      <pozycja y="425" x="500" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Skrzynka" warstwa="2">
+      <pozycja y="450" x="500" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Skrzynka" warstwa="2">
+      <pozycja y="475" x="500" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Skrzynka" warstwa="2">
+      <pozycja y="325" x="525" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Skrzynka" warstwa="2">
+      <pozycja y="350" x="525" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Skrzynka" warstwa="2">
+      <pozycja y="375" x="525" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Skrzynka" warstwa="2">
+      <pozycja y="400" x="525" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Skrzynka" warstwa="2">
+      <pozycja y="425" x="525" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Skrzynka" warstwa="2">
+      <pozycja y="450" x="525" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Skrzynka" warstwa="2">
+      <pozycja y="475" x="525" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Skrzynka" warstwa="2">
+      <pozycja y="500" x="525" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Skrzynka" warstwa="2">
+      <pozycja y="525" x="525" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Skrzynka" warstwa="2">
+      <pozycja y="550" x="525" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Skrzynka" warstwa="2">
+      <pozycja y="500" x="0" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Skrzynka" warstwa="2">
+      <pozycja y="525" x="0" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Skrzynka" warstwa="2">
+      <pozycja y="550" x="0" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Ziemia" warstwa="1">
+      <pozycja y="50" x="175" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Ziemia" warstwa="1">
+      <pozycja y="75" x="175" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Ziemia" warstwa="1">
+      <pozycja y="100" x="175" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Ziemia" warstwa="1">
+      <pozycja y="125" x="175" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Ziemia" warstwa="1">
+      <pozycja y="150" x="175" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Ziemia" warstwa="1">
+      <pozycja y="175" x="175" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Ziemia" warstwa="1">
+      <pozycja y="200" x="175" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Ziemia" warstwa="1">
+      <pozycja y="225" x="175" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Ziemia" warstwa="1">
+      <pozycja y="250" x="175" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Ziemia" warstwa="1">
+      <pozycja y="50" x="200" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Ziemia" warstwa="1">
+      <pozycja y="75" x="200" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Ziemia" warstwa="1">
+      <pozycja y="100" x="200" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Ziemia" warstwa="1">
+      <pozycja y="125" x="200" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Ziemia" warstwa="1">
+      <pozycja y="150" x="200" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Ziemia" warstwa="1">
+      <pozycja y="175" x="200" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Ziemia" warstwa="1">
+      <pozycja y="200" x="200" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Ziemia" warstwa="1">
+      <pozycja y="225" x="200" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Ziemia" warstwa="1">
+      <pozycja y="250" x="200" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Ziemia" warstwa="1">
+      <pozycja y="50" x="325" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Ziemia" warstwa="1">
+      <pozycja y="75" x="325" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Ziemia" warstwa="1">
+      <pozycja y="100" x="325" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Ziemia" warstwa="1">
+      <pozycja y="125" x="325" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Ziemia" warstwa="1">
+      <pozycja y="150" x="325" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Ziemia" warstwa="1">
+      <pozycja y="175" x="325" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Ziemia" warstwa="1">
+      <pozycja y="200" x="325" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Ziemia" warstwa="1">
+      <pozycja y="225" x="325" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Ziemia" warstwa="1">
+      <pozycja y="250" x="325" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Ziemia" warstwa="1">
+      <pozycja y="50" x="350" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Ziemia" warstwa="1">
+      <pozycja y="75" x="350" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Ziemia" warstwa="1">
+      <pozycja y="100" x="350" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Ziemia" warstwa="1">
+      <pozycja y="125" x="350" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Ziemia" warstwa="1">
+      <pozycja y="150" x="350" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Ziemia" warstwa="1">
+      <pozycja y="175" x="350" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Ziemia" warstwa="1">
+      <pozycja y="200" x="350" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Ziemia" warstwa="1">
+      <pozycja y="225" x="350" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Ziemia" warstwa="1">
+      <pozycja y="250" x="350" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Ziemia" warstwa="1">
+      <pozycja y="325" x="50" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Ziemia" warstwa="1">
+      <pozycja y="350" x="50" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Ziemia" warstwa="1">
+      <pozycja y="375" x="50" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Ziemia" warstwa="1">
+      <pozycja y="400" x="50" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Ziemia" warstwa="1">
+      <pozycja y="425" x="50" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Ziemia" warstwa="1">
+      <pozycja y="450" x="50" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Ziemia" warstwa="1">
+      <pozycja y="475" x="50" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Ziemia" warstwa="1">
+      <pozycja y="325" x="75" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Ziemia" warstwa="1">
+      <pozycja y="350" x="75" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Ziemia" warstwa="1">
+      <pozycja y="375" x="75" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Ziemia" warstwa="1">
+      <pozycja y="400" x="75" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Ziemia" warstwa="1">
+      <pozycja y="425" x="75" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Ziemia" warstwa="1">
+      <pozycja y="450" x="75" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Ziemia" warstwa="1">
+      <pozycja y="475" x="75" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Ziemia" warstwa="1">
+      <pozycja y="325" x="100" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Ziemia" warstwa="1">
+      <pozycja y="350" x="100" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Ziemia" warstwa="1">
+      <pozycja y="375" x="100" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Ziemia" warstwa="1">
+      <pozycja y="400" x="100" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Ziemia" warstwa="1">
+      <pozycja y="425" x="100" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Ziemia" warstwa="1">
+      <pozycja y="450" x="100" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Ziemia" warstwa="1">
+      <pozycja y="475" x="100" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Ziemia" warstwa="1">
+      <pozycja y="325" x="425" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Ziemia" warstwa="1">
+      <pozycja y="350" x="425" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Ziemia" warstwa="1">
+      <pozycja y="375" x="425" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Ziemia" warstwa="1">
+      <pozycja y="400" x="425" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Ziemia" warstwa="1">
+      <pozycja y="425" x="425" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Ziemia" warstwa="1">
+      <pozycja y="450" x="425" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Ziemia" warstwa="1">
+      <pozycja y="475" x="425" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Ziemia" warstwa="1">
+      <pozycja y="325" x="450" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Ziemia" warstwa="1">
+      <pozycja y="350" x="450" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Ziemia" warstwa="1">
+      <pozycja y="375" x="450" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Ziemia" warstwa="1">
+      <pozycja y="400" x="450" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Ziemia" warstwa="1">
+      <pozycja y="425" x="450" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Ziemia" warstwa="1">
+      <pozycja y="450" x="450" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Ziemia" warstwa="1">
+      <pozycja y="475" x="450" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Ziemia" warstwa="1">
+      <pozycja y="325" x="475" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Ziemia" warstwa="1">
+      <pozycja y="350" x="475" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Ziemia" warstwa="1">
+      <pozycja y="375" x="475" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Ziemia" warstwa="1">
+      <pozycja y="400" x="475" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Ziemia" warstwa="1">
+      <pozycja y="425" x="475" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Ziemia" warstwa="1">
+      <pozycja y="450" x="475" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Ziemia" warstwa="1">
+      <pozycja y="475" x="475" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Woda" warstwa="1">
+      <pozycja y="50" x="225" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Woda" warstwa="1">
+      <pozycja y="75" x="225" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Woda" warstwa="1">
+      <pozycja y="100" x="225" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Woda" warstwa="1">
+      <pozycja y="125" x="225" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Woda" warstwa="1">
+      <pozycja y="150" x="225" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Woda" warstwa="1">
+      <pozycja y="175" x="225" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Woda" warstwa="1">
+      <pozycja y="200" x="225" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Woda" warstwa="1">
+      <pozycja y="225" x="225" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Woda" warstwa="1">
+      <pozycja y="250" x="225" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Woda" warstwa="1">
+      <pozycja y="50" x="250" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Woda" warstwa="1">
+      <pozycja y="75" x="250" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Woda" warstwa="1">
+      <pozycja y="100" x="250" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Woda" warstwa="1">
+      <pozycja y="125" x="250" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Woda" warstwa="1">
+      <pozycja y="150" x="250" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Woda" warstwa="1">
+      <pozycja y="175" x="250" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Woda" warstwa="1">
+      <pozycja y="200" x="250" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Woda" warstwa="1">
+      <pozycja y="225" x="250" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Woda" warstwa="1">
+      <pozycja y="250" x="250" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Woda" warstwa="1">
+      <pozycja y="50" x="275" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Woda" warstwa="1">
+      <pozycja y="75" x="275" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Woda" warstwa="1">
+      <pozycja y="100" x="275" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Woda" warstwa="1">
+      <pozycja y="125" x="275" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Woda" warstwa="1">
+      <pozycja y="150" x="275" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Woda" warstwa="1">
+      <pozycja y="175" x="275" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Woda" warstwa="1">
+      <pozycja y="200" x="275" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Woda" warstwa="1">
+      <pozycja y="225" x="275" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Woda" warstwa="1">
+      <pozycja y="250" x="275" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Woda" warstwa="1">
+      <pozycja y="50" x="300" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Woda" warstwa="1">
+      <pozycja y="75" x="300" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Woda" warstwa="1">
+      <pozycja y="100" x="300" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Woda" warstwa="1">
+      <pozycja y="125" x="300" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Woda" warstwa="1">
+      <pozycja y="150" x="300" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Woda" warstwa="1">
+      <pozycja y="175" x="300" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Woda" warstwa="1">
+      <pozycja y="200" x="300" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Woda" warstwa="1">
+      <pozycja y="225" x="300" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Woda" warstwa="1">
+      <pozycja y="250" x="300" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Ziemia" warstwa="1">
+      <pozycja y="0" x="0" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Ziemia" warstwa="1">
+      <pozycja y="25" x="0" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Ziemia" warstwa="1">
+      <pozycja y="0" x="25" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Ziemia" warstwa="1">
+      <pozycja y="25" x="25" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Ziemia" warstwa="1">
+      <pozycja y="0" x="50" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Ziemia" warstwa="1">
+      <pozycja y="25" x="50" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Ziemia" warstwa="1">
+      <pozycja y="0" x="75" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Ziemia" warstwa="1">
+      <pozycja y="25" x="75" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Ziemia" warstwa="1">
+      <pozycja y="0" x="100" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Ziemia" warstwa="1">
+      <pozycja y="25" x="100" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Ziemia" warstwa="1">
+      <pozycja y="0" x="125" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Ziemia" warstwa="1">
+      <pozycja y="25" x="125" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Ziemia" warstwa="1">
+      <pozycja y="0" x="150" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Ziemia" warstwa="1">
+      <pozycja y="25" x="150" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Ziemia" warstwa="1">
+      <pozycja y="0" x="175" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Ziemia" warstwa="1">
+      <pozycja y="25" x="175" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Ziemia" warstwa="1">
+      <pozycja y="0" x="200" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Ziemia" warstwa="1">
+      <pozycja y="25" x="200" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Ziemia" warstwa="1">
+      <pozycja y="0" x="225" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Ziemia" warstwa="1">
+      <pozycja y="25" x="225" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Ziemia" warstwa="1">
+      <pozycja y="0" x="250" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Ziemia" warstwa="1">
+      <pozycja y="25" x="250" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Ziemia" warstwa="1">
+      <pozycja y="0" x="275" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Ziemia" warstwa="1">
+      <pozycja y="25" x="275" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Ziemia" warstwa="1">
+      <pozycja y="0" x="300" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Ziemia" warstwa="1">
+      <pozycja y="25" x="300" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Ziemia" warstwa="1">
+      <pozycja y="0" x="325" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Ziemia" warstwa="1">
+      <pozycja y="25" x="325" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Ziemia" warstwa="1">
+      <pozycja y="0" x="350" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Ziemia" warstwa="1">
+      <pozycja y="25" x="350" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Ziemia" warstwa="1">
+      <pozycja y="0" x="375" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Ziemia" warstwa="1">
+      <pozycja y="25" x="375" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Ziemia" warstwa="1">
+      <pozycja y="0" x="400" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Ziemia" warstwa="1">
+      <pozycja y="25" x="400" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Ziemia" warstwa="1">
+      <pozycja y="0" x="425" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Ziemia" warstwa="1">
+      <pozycja y="25" x="425" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Ziemia" warstwa="1">
+      <pozycja y="0" x="450" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Ziemia" warstwa="1">
+      <pozycja y="25" x="450" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Ziemia" warstwa="1">
+      <pozycja y="0" x="475" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Ziemia" warstwa="1">
+      <pozycja y="25" x="475" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Ziemia" warstwa="1">
+      <pozycja y="0" x="500" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Ziemia" warstwa="1">
+      <pozycja y="25" x="500" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Ziemia" warstwa="1">
+      <pozycja y="0" x="525" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Ziemia" warstwa="1">
+      <pozycja y="25" x="525" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Chata" warstwa="2">
+      <pozycja y="205" x="400" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Garaz" warstwa="2">
+      <pozycja y="224" x="480" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Chata" warstwa="2">
+      <pozycja y="204" x="75" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Garaz" warstwa="2">
+      <pozycja y="224" x="15" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="drzewo" warstwa="2">
+      <pozycja y="350" x="50" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="drzewo" warstwa="2">
+      <pozycja y="375" x="50" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="drzewo" warstwa="2">
+      <pozycja y="350" x="75" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="drzewo" warstwa="2">
+      <pozycja y="375" x="75" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="drzewo" warstwa="2">
+      <pozycja y="350" x="100" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="drzewo" warstwa="2">
+      <pozycja y="375" x="100" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="drzewo" warstwa="2">
+      <pozycja y="425" x="50" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="drzewo" warstwa="2">
+      <pozycja y="450" x="50" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="drzewo" warstwa="2">
+      <pozycja y="425" x="75" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="drzewo" warstwa="2">
+      <pozycja y="450" x="75" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="drzewo" warstwa="2">
+      <pozycja y="425" x="100" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="drzewo" warstwa="2">
+      <pozycja y="450" x="100" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="drzewo" warstwa="2">
+      <pozycja y="350" x="425" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="drzewo" warstwa="2">
+      <pozycja y="375" x="425" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="drzewo" warstwa="2">
+      <pozycja y="350" x="450" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="drzewo" warstwa="2">
+      <pozycja y="375" x="450" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="drzewo" warstwa="2">
+      <pozycja y="350" x="475" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="drzewo" warstwa="2">
+      <pozycja y="375" x="475" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="drzewo" warstwa="2">
+      <pozycja y="425" x="425" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="drzewo" warstwa="2">
+      <pozycja y="450" x="425" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="drzewo" warstwa="2">
+      <pozycja y="425" x="450" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="drzewo" warstwa="2">
+      <pozycja y="450" x="450" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="drzewo" warstwa="2">
+      <pozycja y="425" x="475" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="drzewo" warstwa="2">
+      <pozycja y="450" x="475" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="drzewo" warstwa="2">
+      <pozycja y="100" x="450" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="drzewo" warstwa="2">
+      <pozycja y="125" x="450" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="drzewo" warstwa="2">
+      <pozycja y="150" x="450" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="drzewo" warstwa="2">
+      <pozycja y="125" x="425" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="drzewo" warstwa="2">
+      <pozycja y="125" x="475" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="drzewo" warstwa="2">
+      <pozycja y="125" x="50" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="drzewo" warstwa="2">
+      <pozycja y="125" x="75" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="drzewo" warstwa="2">
+      <pozycja y="125" x="100" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="drzewo" warstwa="2">
+      <pozycja y="100" x="75" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="drzewo" warstwa="2">
+      <pozycja y="150" x="75" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Skrzynka" warstwa="2">
+      <pozycja y="400" x="75" />
+    </PrzeszkodaZapisOdczyt>
+    <PrzeszkodaZapisOdczyt nazwa_fabryczna="Skrzynka" warstwa="2">
+      <pozycja y="400" x="450" />
+    </PrzeszkodaZapisOdczyt>
+  </lista_przeszkod>
+</Mapa>

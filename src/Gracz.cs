@@ -53,7 +53,7 @@ namespace Rudy_103.src
         /// <param name="wytrzymalosc">Wytrzymałość maksymalna czołgu.</param>
         /// <param name="szybkosc">Szybkość maksymalna czołgu.</param>
         /// <param name="sila">Siła maksymalna strzałów czołgu.</param>
-        /// <param name="zasieg">Zasię maksymalny strzałów czołgu.</param>
+        /// <param name="zasieg">Zasięg maksymalny strzałów czołgu.</param>
         /// <param name="max_pociskow">Maksymalna ilość pocisków.</param>
         /// <param name="przeladowanie">Częstotliwość strzałów.</param>
         /// <param name="energia">Ilość żyć gracza.</param>
@@ -75,7 +75,7 @@ namespace Rudy_103.src
         /// <param name="wytrzymalosc">Wytrzymałość maksymalna czołgu.</param>
         /// <param name="szybkosc">Szybkość maksymalna czołgu.</param>
         /// <param name="sila">Siła maksymalna strzałów czołgu.</param>
-        /// <param name="zasieg">Zasię maksymalny strzałów czołgu.</param>
+        /// <param name="zasieg">Zasięg maksymalny strzałów czołgu.</param>
         /// <param name="max_pociskow">Maksymalna ilość pocisków.</param>
         /// <param name="przeladowanie">Częstotliwość strzałów.</param>
         /// <param name="energia">Ilość żyć gracza.</param>
@@ -119,7 +119,7 @@ namespace Rudy_103.src
                 XP_Aktualne -= XP_Potrzebne;
                 ++ilosc_punktow_ulepszen;
                 ++poziom;
-                XP_Potrzebne = poziom * 1000;
+                XP_Potrzebne = 750 + poziom * 500;
                 this.levelUp = true;
             }
         }

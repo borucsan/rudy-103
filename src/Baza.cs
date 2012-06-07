@@ -25,7 +25,7 @@ namespace Rudy_103.src
         /// <param name="energia">Wytrzymałość maksymalna przeszkody.</param>
         /// <param name="transparent">Czy uczestniczy w kolizjach.</param>
         public Baza(int X, int Y, int Szer, int Wys, int energia, bool transparent)
-            : base(X, Y, Szer, Wys, energia, transparent) { zniszczona = false; }
+            : base(X, Y, Szer, Wys, energia, transparent, Przeszkoda.TypPrzeszkody.BAZA) { zniszczona = false; }
         /// <summary>
         /// Konstruktor przeszkód.
         /// </summary>

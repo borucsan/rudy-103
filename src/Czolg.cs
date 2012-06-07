@@ -359,7 +359,8 @@ namespace Rudy_103.src
                     return true;
                 }
             }
-            return plansza.region.CzyKoliduje(this);
+            if (plansza.region.CzyKoliduje(this)) return true;
+            return plansza.podloza.CzyKoliduje(this);
         }
         /// <summary>
         /// Metoda zderzeń v.3.
@@ -398,6 +399,22 @@ namespace Rudy_103.src
                     ObliczPozycje(pr);
                     pozostaly_ruch = 0;
                     if(Zderzenie2(plansza)) wymiary.Location = poprzednia_pozycja;
+                }
+                else
+                {
+                    wymiary.Location = poprzednia_pozycja;
+                }
+                return true;
+            }
+            Przeszkoda pod = plansza.podloza.CzyKoliduje2(this) as Przeszkoda;
+            if (pod != null)
+            {
+                wymiary.Location = poprzednia_pozycja;
+                if (pozostaly_ruch == szybkosc)
+                {
+                    ObliczPozycje(pod);
+                    pozostaly_ruch = 0;
+                    if (Zderzenie2(plansza)) wymiary.Location = poprzednia_pozycja;
                 }
                 else
                 {

@@ -237,7 +237,8 @@ namespace Rudy_103.src
                     return true;
                 }
             }
-            return plansza.region.CzyKoliduje(this);
+            if(plansza.region.CzyKoliduje(this)) return true;
+            return plansza.podloza.CzyKoliduje(this);
         }
         /// <summary>
         /// Metoda zmiejszająca poziom energi przeciwnika.
@@ -249,8 +250,6 @@ namespace Rudy_103.src
             this.wytrzymalosc = this.wytrzymalosc - sila;
             return this.wytrzymalosc <= 0;
         }
-
-
         #region ICloneable Members
         /// <summary>
         /// Metoda klonuje przeciwnika.
