@@ -8,6 +8,7 @@ using System.Text;
 using System.Windows.Forms;
 using System.IO;
 using System.Xml.Serialization;
+using System.Threading;
 
 namespace Rudy_103.src
 {
@@ -18,7 +19,13 @@ namespace Rudy_103.src
     {
         private int wybrany_profil;
         //private bool isProfileSelected;
-        private ProfilGracza [] profile = new ProfilGracza[3];
+        /// <summary>
+        /// Event sprawdzający czy zakończono wczytywanie profili.
+        /// </summary>
+        public ManualResetEvent mre { get; private set; }
+        private UpdateRadioTextDelegate update = new UpdateRadioTextDelegate(UpdateRadioText);
+        
+        private ProfilGracza[] profile;
         
         /// <summary>
         /// Konstruktor formy profili.
@@ -27,10 +34,9 @@ namespace Rudy_103.src
         {
             InitializeComponent();
             timer1.Enabled = true;
-            for (int i = 0; i < 3; ++i)
-            {
-                WczytajProfilXml(i);
-            }
+            profile = new ProfilGracza[3];
+            mre  = new ManualResetEvent(false);
+            ThreadPool.QueueUserWorkItem(WczytajProfileasThread, mre);
             
         }
         private void WczytajProfilXml(int index)
@@ -55,21 +61,22 @@ namespace Rudy_103.src
                     }
                     profile[index].sciezka = path;
                     //rd.Text = profile[index].nazwa;
-                    rd.Text = profile[index].data.ToString();
+                    this.Invoke(update, profile[index].data.ToString(), rd);
+                    
                 }
                 catch (Exception ex)
                 {
                     MessageBox.Show("Błąd Wczytywania profiu! -" + ex.GetType() + "\n" + ex.Message, "Błąd wczytywania profilu", MessageBoxButtons.OK, MessageBoxIcon.Hand, MessageBoxDefaultButton.Button1);
                     profile[index] = new ProfilGracza();
                     profile[index].sciezka = path;
-                    rd.Text = "Pusty";
+                    this.Invoke(update, "Pusty", rd);
                 }
             }
             else
             {
                 profile[index] = new ProfilGracza();
                 profile[index].sciezka = path;
-                rd.Text = "Pusty";
+                this.Invoke(update, "Pusty", rd);
             }
         }
         private void timer1_Tick(object sender, EventArgs e)
@@ -166,6 +173,26 @@ namespace Rudy_103.src
             }
             dialog.Dispose();
             LoadCustomButton.Text = poprzedni;
+        }
+        private delegate void UpdateRadioTextDelegate(string text, RadioButton radio);
+        private static void UpdateRadioText(string text, RadioButton radio)
+        {
+            radio.Text = text;
+        }
+        private void WczytajProfileasThread(object stateInfo)
+        {
+            ManualResetEvent mre = (ManualResetEvent)stateInfo;
+            try
+            {
+                for (int i = 0; i < 3; ++i)
+                {
+                    WczytajProfilXml(i);
+                }
+            }
+            finally
+            {
+                mre.Set();
+            }
         }
         
     }

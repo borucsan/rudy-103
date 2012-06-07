@@ -126,6 +126,7 @@ namespace Rudy_103.src
         /// Metoda zderzeń dla pocisków.
         /// </summary>
         /// <param name="plansza">Obiekt planszy.</param>
+        /// <param name="fabryka">Fabryka obiektów</param>
         /// <returns>true jeśli wykryto trafienie.</returns>
         public bool Zderzenie(Plansza plansza, Fabryka fabryka)
         {

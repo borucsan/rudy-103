@@ -88,10 +88,7 @@ namespace Rudy_103.src
                     Przeszkoda pr = (iterator.lista[i].obiekt) as Przeszkoda;
                     if (poc.Wymiary.IntersectsWith(iterator.lista[i].Wymiary) && pr.energia > 0)
                     {
-                        if (pr.Uszkodz(poc.sila))
-                        {
-                            iterator.lista.RemoveAt(i);
-                        }
+                        pr.Uszkodz(poc.sila);
                         return true;
                     }
                 }
@@ -213,6 +210,7 @@ namespace Rudy_103.src
             {
                 if (rec.IntersectsWith(root.prawo.Wymiary)) RysujPodloze(root.prawo, rec, g, transparentPink);
             }
+            narysowane.Clear();
         }
         private void RysujPodloze(ElementDrzewa<Przeszkoda> iterator, Rectangle rec, Graphics g, System.Drawing.Imaging.ImageAttributes transparentPink)
         {
@@ -238,10 +236,36 @@ namespace Rudy_103.src
                 //Rysowanie przeszkód
                 for (int i = 0; i < iterator.lista.Count; ++i)
                 {
+                    
                     Przeszkoda pr = (iterator.lista[i].obiekt) as Przeszkoda;
                     if (rec.IntersectsWith(iterator.lista[i].Wymiary))
                     {
-                            pr.Rysuj(g, transparentPink);
+                        bool juznarysowane = false;
+                        for (int j = 0; j < narysowane.Count; ++j)
+                        {
+                            if (pr == narysowane[j])
+                            {
+                                juznarysowane = true;
+                                break;
+                            }
+                        }
+                        if (!juznarysowane)
+                        {
+                            if (Opcje.wlacz_podloza)
+                            {
+                                pr.Rysuj(g, transparentPink);
+                                this.narysowane.Add(pr);
+                            }
+                            else
+                            {
+                                if (pr.typ == Przeszkoda.TypPrzeszkody.WODA)
+                                {
+                                    pr.Rysuj(g, transparentPink);
+                                    this.narysowane.Add(pr);
+                                }
+                            }
+                        }
+                        
                     }
                 }
             }
@@ -284,38 +308,31 @@ namespace Rudy_103.src
                         RysujCienie(iterator.prawo, rec, g, transparentPink);
                     }
                 }
+                this.narysowane.Clear();
             }
             else
             {
                 for (int i = 0; i < iterator.lista.Count; ++i)
                 {
-                        Przeszkoda pr = (iterator.lista[i].obiekt) as Przeszkoda;
-                        if (rec.IntersectsWith(iterator.lista[i].Wymiary) && pr.energia > 0)
+                    Przeszkoda pr = (iterator.lista[i].obiekt) as Przeszkoda;
+                    if (rec.IntersectsWith(pr.Rec_cieni) && pr.energia > 0)
+                    {
+                        bool juznarysowane = false;
+                        for (int j = 0; j < narysowane.Count; ++j)
                         {
-                            if (iterator.lista[i].rysuj)
+                            if (pr == narysowane[j])
                             {
-                                pr.RysujCienie(g, transparentPink);
-                            }
-                            else
-                            {
-                                if(iterator.lista[i].element != null)
-                                {
-                                    if(!(iterator.lista[i].element.Wymiary.IntersectsWith(rec)))
-                                    {
-                                        pr.RysujCienie(g, transparentPink);
-                                    }
-                                }
+                                juznarysowane = true;
+                                break;
                             }
                         }
-                }
-                    for (int i = 0; i < iterator.lista.Count; ++i)
-                    {
-                        Przeszkoda pr = (iterator.lista[i].obiekt) as Przeszkoda;
-                        if (pr.energia < 0)
+                        if (!juznarysowane)
                         {
-                            iterator.lista.RemoveAt(i);
+                            pr.RysujCienie(g, transparentPink);
+                            narysowane.Add(pr);
                         }
                     }
+                }
             }
         }
 #endregion

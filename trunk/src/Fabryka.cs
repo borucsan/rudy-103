@@ -127,29 +127,29 @@ namespace Rudy_103.src
         private void TworzDomyslneWzorce()
         {
             //Wzorce przeszkód budynków
-            DodajWzorzecPrzeszkody("Budynek A", new Przeszkoda(0, 0, 100, 100, 40, false, Multimedia.budynekA));
-            DodajWzorzecPrzeszkody("Budynek B", new Przeszkoda(0, 0, 100, 100, 40, false, Multimedia.budynekB));
-            DodajWzorzecPrzeszkody("Budynek C", new Przeszkoda(0, 0, 100, 100, 40, false, Multimedia.budynekC));
-            DodajWzorzecPrzeszkody("Garaz", new Przeszkoda(0, 0, 50, 50, 30, false, Multimedia.garaz));
-            DodajWzorzecPrzeszkody("Chata", new Przeszkoda(0, 0, 70, 70, 30, false, Multimedia.chata));
+            DodajWzorzecPrzeszkody("Budynek A", new Przeszkoda(0, 0, 100, 100, 40, false, Przeszkoda.TypPrzeszkody.BUDYNKI, Multimedia.budynekA));
+            DodajWzorzecPrzeszkody("Budynek B", new Przeszkoda(0, 0, 100, 100, 40, false, Przeszkoda.TypPrzeszkody.BUDYNKI, Multimedia.budynekB));
+            DodajWzorzecPrzeszkody("Budynek C", new Przeszkoda(0, 0, 100, 100, 40, false, Przeszkoda.TypPrzeszkody.BUDYNKI, Multimedia.budynekC));
+            DodajWzorzecPrzeszkody("Garaz", new Przeszkoda(0, 0, 50, 50, 30, false, Przeszkoda.TypPrzeszkody.BUDYNKI, Multimedia.garaz));
+            DodajWzorzecPrzeszkody("Chata", new Przeszkoda(0, 0, 70, 70, 30, false, Przeszkoda.TypPrzeszkody.BUDYNKI, Multimedia.chata));
 
             //Wzorce podloza
-            DodajWzorzecPrzeszkody("Droga A1", new Przeszkoda(0, 0, 50, 50, 0, true, Multimedia.DrogaA1));
-            DodajWzorzecPrzeszkody("Droga A2", new Przeszkoda(0, 0, 50, 50, 0, true, Multimedia.DrogaA2));
-            DodajWzorzecPrzeszkody("Trawa", new Przeszkoda(0, 0, 25, 25, 0, true, Multimedia.Trawa));
-            DodajWzorzecPrzeszkody("Ziemia", new Przeszkoda(0, 0, 25, 25, 0, true, Multimedia.Ziemia));
-            DodajWzorzecPrzeszkody("Piasek", new Przeszkoda(0, 0, 25, 25, 0, true, Multimedia.Piasek));
-            DodajWzorzecPrzeszkody("Woda", new Przeszkoda(0, 0, 25, 25, 0, true, Multimedia.Woda));
+            DodajWzorzecPrzeszkody("Droga A1", new Przeszkoda(0, 0, 50, 50, 1, true, Przeszkoda.TypPrzeszkody.PODLOZA, Multimedia.DrogaA1));
+            DodajWzorzecPrzeszkody("Droga A2", new Przeszkoda(0, 0, 50, 50, 1, true,Przeszkoda.TypPrzeszkody.PODLOZA, Multimedia.DrogaA2));
+            DodajWzorzecPrzeszkody("Trawa", new Przeszkoda(0, 0, 25, 25, 1, true, Przeszkoda.TypPrzeszkody.PODLOZA, Multimedia.Trawa));
+            DodajWzorzecPrzeszkody("Ziemia", new Przeszkoda(0, 0, 25, 25, 1, true, Przeszkoda.TypPrzeszkody.PODLOZA, Multimedia.Ziemia));
+            DodajWzorzecPrzeszkody("Piasek", new Przeszkoda(0, 0, 25, 25, 1, true, Przeszkoda.TypPrzeszkody.PODLOZA, Multimedia.Piasek));
+            DodajWzorzecPrzeszkody("Woda", new Przeszkoda(0, 0, 25, 25, 1, false, Przeszkoda.TypPrzeszkody.WODA, Multimedia.Woda));
             
 
             //Wzorce przeszkód
-            DodajWzorzecPrzeszkody("Skrzynka", new Przeszkoda(0, 0, 25, 25, 20, false, Multimedia.skrzynia));
-            DodajWzorzecPrzeszkody("cegielka", new Przeszkoda(0, 0, 25, 25, 30, false, Multimedia.murA));
-            DodajWzorzecPrzeszkody("cegielka2", new Przeszkoda(0, 0, 25, 25, 40, false, Multimedia.murB));
-            DodajWzorzecPrzeszkody("cegielka3", new Przeszkoda(0, 0, 25, 25, 60, false, Multimedia.murC));
-            DodajWzorzecPrzeszkody("cegielka4", new Przeszkoda(0, 0, 25, 25, 80, false, Multimedia.murD));
-            DodajWzorzecPrzeszkody("mur", new Przeszkoda(0, 0, 25, 25, 20, false, Multimedia.murE));
-            DodajWzorzecPrzeszkody("drzewo", new Przeszkoda(0, 0, 25, 25, 0, true, Multimedia.drzewo));
+            DodajWzorzecPrzeszkody("Skrzynka", new Przeszkoda(0, 0, 25, 25, 20, false, Przeszkoda.TypPrzeszkody.MURY, Multimedia.skrzynia));
+            DodajWzorzecPrzeszkody("cegielka", new Przeszkoda(0, 0, 25, 25, 30, false, Przeszkoda.TypPrzeszkody.MURY, Multimedia.murA));
+            DodajWzorzecPrzeszkody("cegielka2", new Przeszkoda(0, 0, 25, 25, 40, false, Przeszkoda.TypPrzeszkody.MURY, Multimedia.murB));
+            DodajWzorzecPrzeszkody("cegielka3", new Przeszkoda(0, 0, 25, 25, 60, false, Przeszkoda.TypPrzeszkody.MURY, Multimedia.murC));
+            DodajWzorzecPrzeszkody("cegielka4", new Przeszkoda(0, 0, 25, 25, 80, false, Przeszkoda.TypPrzeszkody.MURY, Multimedia.murD));
+            DodajWzorzecPrzeszkody("mur", new Przeszkoda(0, 0, 25, 25, 20, false, Przeszkoda.TypPrzeszkody.MURY, Multimedia.murE));
+            DodajWzorzecPrzeszkody("drzewo", new Przeszkoda(0, 0, 25, 25, 1, true, Przeszkoda.TypPrzeszkody.DRZEWA, Multimedia.drzewo));
             
             //Wzorce przeciwników
             Przeciwnik [] enemy = new Przeciwnik[10];

@@ -28,18 +28,22 @@ namespace Rudy_103.src
         /// Profil gracza.
         /// </summary>
         private ProfilGracza profil;
+
+        private ManualResetEvent mre;
         /// <summary>
         /// Domyślny konstruktor Okna statystyk.
         /// </summary>
         /// <param name="ref_warsztat">Obiekt warsztatu.</param>
         /// <param name="ref_gracz">Obiekt gracza.</param>
         /// <param name="profil">Obiekt profilu.</param>
-        public Statystyki(Warsztat ref_warsztat, Gracz ref_gracz, ProfilGracza profil)
+        /// <param name="mre">Parametr blokady wątku zapisu.</param>
+        public Statystyki(Warsztat ref_warsztat, Gracz ref_gracz, ProfilGracza profil, ManualResetEvent mre)
         {
             InitializeComponent();
             this.warsztat = ref_warsztat;
             this.gracz = ref_gracz;
             this.profil = profil;
+            this.mre = mre;
             PunktyLabel.Text = "Punkty: " + gracz.ilosc_punktow_ulepszen;
             PoziomLabel.Text = "Poziom: " + gracz.poziom;
             UstawInformacje();
@@ -47,30 +51,16 @@ namespace Rudy_103.src
         
         private void ZamknijStatystykibutton_Click(object sender, EventArgs e)
         {
+            
+            warsztat.UstawStatystyki(gracz);
+            profil.PrzypiszInformacjedoProfilu(gracz, warsztat, true);
             Owner.Show();
             ((Gra)Owner).wlaczoneStatystyki = false;
-            warsztat.UstawStatystyki(gracz);
-            profil.punkty_level = gracz.ilosc_punktow_ulepszen;
-            profil.punkty = gracz.punkty;
-            profil.XP_Aktualne = gracz.XP_Aktualne;
-            profil.XP_Potrzebne = gracz.XP_Potrzebne;
-            profil.zycia = gracz.energia;
-            profil.ulepszenia.poziom_gracza = gracz.poziom;
-
-            profil.ulepszenia.poziom_ataku = warsztat.poziom_ataku;
-            profil.ulepszenia.poziom_magazynku = warsztat.poziom_magazynku;
-            profil.ulepszenia.poziom_muru = warsztat.poziom_muru;
-            profil.ulepszenia.poziom_szybkosci = warsztat.poziom_szybkosci;
-            profil.ulepszenia.poziom_wytrzymalosci = warsztat.poziom_pancerza;
-            profil.ulepszenia.poziom_zasiegu = warsztat.poziom_zasiegu;
-
-            profil.statystkyki.liczba_strzalow = gracz.Strzalow;
-            profil.statystkyki.strzalow_celnych = gracz.Trafien;
-
-            ThreadPool.QueueUserWorkItem(ZapiszDane);
             ((Gra)Owner).WznowGre();
             this.Close();
-
+            mre.WaitOne();
+            mre.Reset();
+            ThreadPool.QueueUserWorkItem(ZapiszDane, mre);
         }
 
         private void DodajStatyButton_Click(object sender, EventArgs e)
@@ -125,7 +115,15 @@ namespace Rudy_103.src
         }
         private void ZapiszDane(object stateInfo)
         {
-            profil.ZapiszDane();
+             ManualResetEvent mre = (ManualResetEvent)stateInfo;
+             try
+             {
+                 profil.ZapiszDane();
+             }
+             finally
+             {
+                 mre.Set();
+             }
         }
     }
 }
