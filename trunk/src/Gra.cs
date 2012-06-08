@@ -47,6 +47,7 @@ namespace Rudy_103.src
         Rectangle przyciskWylaczEnergie;
         Rectangle przyciskWylaczInformacje;
         Rectangle przyciskWylaczCieniowanie;
+        Rectangle przyciskWylaczPodloza;
         Rectangle przyciskWyjscia;
 
         Rectangle przyciskZamknijUkonczonyPoziom;
@@ -584,13 +585,13 @@ namespace Rudy_103.src
             {
                 #region RysowaniePaneluOpcji
                 g.Clear(Color.Black);
-                g.DrawString("Opcje", new Font("Arial", 10, FontStyle.Regular), new SolidBrush(Color.Yellow),
-                    new Rectangle(Kamera.Szerokosc_Ekranu / 2 - Narzedzia.PointToPixelVertical(50), 0, Narzedzia.PointToPixelVertical(100), Narzedzia.PointToPixelHorizontal(20)), drawFormat);
+                //g.DrawString("Opcje", new Font("Arial", 10, FontStyle.Regular), new SolidBrush(Color.Yellow),
+                    //new Rectangle(Kamera.Szerokosc_Ekranu / 2 - Narzedzia.PointToPixelVertical(50), 0, Narzedzia.PointToPixelVertical(100), Narzedzia.PointToPixelHorizontal(20)), drawFormat);
                 #endregion RysowaniePaneluOpcji
 
                 //int wysokosc_elementu = (Kamera.Wysokosc_Ekranu - 20 - (ilosc_opcji*5) ) / ilosc_opcji;
 
-                int aktualna_wysokosc = Narzedzia.PointToPixelHorizontal(25);
+                int aktualna_wysokosc = Narzedzia.PointToPixelHorizontal(0);
                     
                     #region Rysowanie Przycisku Radaru
                     przyciskWylaczRadar = new Rectangle(Kamera.Szerokosc_Ekranu / 2 - Narzedzia.PointToPixelVertical(100), aktualna_wysokosc, Narzedzia.PointToPixelVertical(200), Narzedzia.PointToPixelHorizontal(30));
@@ -635,6 +636,17 @@ namespace Rudy_103.src
                         przyciskWylaczCieniowanie, drawFormat);
                     aktualna_wysokosc += Narzedzia.PointToPixelHorizontal(35);
                     #endregion Rysowanie Przycisku Cieniowania
+
+                    #region Rysowanie Przycisku Podłoża
+                    przyciskWylaczPodloza = new Rectangle(Kamera.Szerokosc_Ekranu / 2 - Narzedzia.PointToPixelVertical(100), aktualna_wysokosc, Narzedzia.PointToPixelVertical(200), Narzedzia.PointToPixelHorizontal(30));
+                    g.DrawImage(Multimedia.przyciskImageZamknij, przyciskWylaczPodloza, 0, 0, Multimedia.przyciskImageZamknij.Width,
+                        Multimedia.przyciskImageZamknij.Height, GraphicsUnit.Pixel, transparentPink);
+                    if (Opcje.wlacz_podloza) g.DrawString("Wyłącz Podłoża", new Font("Arial", 10, FontStyle.Regular), new SolidBrush(Color.Green),
+                         przyciskWylaczPodloza, drawFormat);
+                    else g.DrawString("Włącz Podłoża", new Font("Arial", 10, FontStyle.Regular), new SolidBrush(Color.Red),
+                        przyciskWylaczPodloza, drawFormat);
+                    aktualna_wysokosc += Narzedzia.PointToPixelHorizontal(35);
+                    #endregion Rysowanie Przycisku Podłoża
 
                     #region Rysowanie Przycisku Wyjscia
                     przyciskWyjscia = new Rectangle(Kamera.Szerokosc_Ekranu / 2 - Narzedzia.PointToPixelVertical(100), aktualna_wysokosc, Narzedzia.PointToPixelVertical(200), Narzedzia.PointToPixelHorizontal(30));
@@ -874,6 +886,10 @@ namespace Rudy_103.src
                 if (mysz.IntersectsWith(przyciskWylaczCieniowanie))
                 {
                     Opcje.wlacz_cieniowanie = !Opcje.wlacz_cieniowanie;
+                }
+                if (mysz.IntersectsWith(przyciskWylaczPodloza))
+                {
+                    Opcje.wlacz_podloza = !Opcje.wlacz_podloza;
                 }
                 if (mysz.IntersectsWith(przyciskWyjscia))
                 {
