@@ -493,14 +493,14 @@ namespace Rudy_103.src
                 Rectangle prostokat3 = new Rectangle(0, 0, Narzedzia.PointToPixelVertical(30), Narzedzia.PointToPixelHorizontal(30));
                 for (int i = 0; i < player.energia; i++)
                 {
-                    g.DrawImage(Multimedia.polska_gracz[0], prostokat3, 0, 0, Multimedia.polska_gracz[0].Width, Multimedia.polska_gracz[0].Height, GraphicsUnit.Pixel, transparentPink);
+                    g.DrawImage(Multimedia.tank_bateria, prostokat3, 0, 0, Multimedia.tank_bateria.Width, Multimedia.tank_bateria.Height, GraphicsUnit.Pixel, transparentPink);
                     prostokat3.X += Narzedzia.PointToPixelVertical(35);
                 }
                 #endregion Lifes
             }
             if (przyciskStatystyk)
             {
-                przyciskStatystykProst = new Rectangle(Kamera.Prostokat_Kamery.Width - Narzedzia.PointToPixelHorizontal(52), Narzedzia.PointToPixelHorizontal(50), Narzedzia.PointToPixelVertical(50), Narzedzia.PointToPixelVertical(30));
+                przyciskStatystykProst = new Rectangle(Kamera.Prostokat_Kamery.Width - Narzedzia.PointToPixelHorizontal(52), Narzedzia.PointToPixelHorizontal(50), Narzedzia.PointToPixelVertical(52), Narzedzia.PointToPixelVertical(30));
                 Rectangle przyciskStatystykNapisProst = new Rectangle(Kamera.Prostokat_Kamery.Width - Narzedzia.PointToPixelHorizontal(50), Narzedzia.PointToPixelVertical(55), Narzedzia.PointToPixelVertical(50), Narzedzia.PointToPixelHorizontal(15));
                 g.DrawImage(Multimedia.przyciskImageZamknij, przyciskStatystykProst, 0, 0, Multimedia.przyciskImageZamknij.Width,
                     Multimedia.przyciskImageZamknij.Height, GraphicsUnit.Pixel, transparentPink);

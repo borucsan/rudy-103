@@ -37,7 +37,7 @@
             // 
             // timer1
             // 
-            this.timer1.Interval = 30;
+            this.timer1.Interval = 50;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
             // czas_rozgrywki
@@ -56,7 +56,7 @@
             // 
             // czas_odswiezania
             // 
-            this.czas_odswiezania.Interval = 30;
+            this.czas_odswiezania.Interval = 50;
             this.czas_odswiezania.Tick += new System.EventHandler(this.czas_odswiezania_Tick);
             // 
             // Gra

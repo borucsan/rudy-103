@@ -14,6 +14,7 @@ namespace Rudy_103.src
         public static Image [] interfejs_bateria;
         public static Image interfejs_informacje;
         public static Image interfejs_pole_radaru;
+        public static Image tank_bateria;
         //public static Image[] interfejs_radar; //Nowy radar
         public static Image pusta_mapa;
         public static Image przeszkoda_mapa;
@@ -111,6 +112,8 @@ namespace Rudy_103.src
             interfejs_informacje = new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Interfejs.menu.png"));
 
             interfejs_pole_radaru = new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Interfejs.pole_radaru.png"));
+
+            tank_bateria = new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Interfejs.tank_bateria.png"));
 
             pusta_mapa = new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Mapa.pusta_mapa.png"));
             przeszkoda_mapa = new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Mapa.przeszkoda.png"));
@@ -259,13 +262,19 @@ namespace Rudy_103.src
             eksplozja[3] = new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Efekty.Eksplozja.wybuch_4.png"));
             eksplozja[4] = new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Efekty.Eksplozja.wybuch_5.png"));
 
-            intro_images = new Image[6];
-            intro_images[0] = new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Intro.intro1.png"));
-            intro_images[1] = new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Intro.intro2.png"));
-            intro_images[2] = new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Intro.intro3.png"));
-            intro_images[3] = new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Intro.intro4.png"));
-            intro_images[4] = new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Intro.intro5.png"));
-            intro_images[5] = new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Intro.intro6.png"));
+            intro_images = new Image[12];
+            intro_images[0] = new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Intro.intro_1.png"));
+            intro_images[1] = new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Intro.intro_2.png"));
+            intro_images[2] = new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Intro.intro_3.png"));
+            intro_images[3] = new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Intro.intro_4.png"));
+            intro_images[4] = new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Intro.intro_5.png"));
+            intro_images[5] = new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Intro.intro_6.png"));
+            intro_images[6] = new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Intro.intro_7.png"));
+            intro_images[7] = new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Intro.intro_8.png"));
+            intro_images[8] = new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Intro.intro_9.png"));
+            intro_images[9] = new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Intro.intro_10.png"));
+            intro_images[10] = new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Intro.intro_11.png"));
+            intro_images[11] = new System.Drawing.Bitmap(execAssem.GetManifestResourceStream(@"Rudy_103.Resources.Intro.intro_12.png"));
 
             #endregion Efekty
 
