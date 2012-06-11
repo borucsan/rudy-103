@@ -53,9 +53,10 @@ namespace Rudy_103.src
 
             OdswiezEkran();
 
-            Intro_Animacja = new Animacja(Kamera.Prostokat_Kamery.Width / 2 - 100, Kamera.Prostokat_Kamery.Height / 2 - 100, 200, 200, 4, 1);
+            Intro_Animacja = new Animacja(Screen.PrimaryScreen.Bounds.Width / 2 - Narzedzia.PointToPixelHorizontal(100), Screen.PrimaryScreen.Bounds.Height / 2 - Narzedzia.PointToPixelHorizontal(120), Narzedzia.PointToPixelHorizontal(200), Narzedzia.PointToPixelHorizontal(200), 12, 1);
             Intro_Animacja.WczytajObrazy(Multimedia.intro_images);
-
+            this.pictureBox1.Location = new Point(Screen.PrimaryScreen.Bounds.Width / 2 - 100, this.pictureBox1.Location.Y);
+            this.pictureBox2.Location = new Point(Screen.PrimaryScreen.Bounds.Width / 2 - 100, this.pictureBox2.Location.Y);
             czas_odswiezania.Enabled = true;
             czas1.Enabled = true;
 
@@ -120,7 +121,7 @@ namespace Rudy_103.src
             using (Graphics g = Graphics.FromImage(buforBitmapy))
             {
                 g.Clear(Color.Black);
-                g.FillRectangle(new SolidBrush(Color.White), new Rectangle(0, 0, 800, 800));
+                //g.FillRectangle(new SolidBrush(Color.White), new Rectangle(0, 0, 800, 800));
                 if (isIntro)
                 {
                     Intro(g);
@@ -132,14 +133,14 @@ namespace Rudy_103.src
         private void Intro(Graphics g)
         {
             g.Clear(Color.Black);
-            Intro_Animacja.UstawPozycje(Kamera.Prostokat_Kamery.Width / 2 - 100, Kamera.Prostokat_Kamery.Height / 2 - 100);
+            //Intro_Animacja.UstawPozycje(Screen.PrimaryScreen.Bounds.Width / 2 - 100, Screen.PrimaryScreen.Bounds.Height / 2 - 100);
             Intro_Animacja.Rysuj(g, Narzedzia.transparentPink);
         }
        
         private void czas1_Tick(object sender, EventArgs e)
         {
             czas += 1;
-            if (czas == 4) 
+            if (czas == 12) 
             {
                 isIntro = false;
                 panel1.Visible = true;

@@ -28,7 +28,8 @@ namespace Rudy_103.src
         {
             InitializeComponent();
             lista_wynikow = new List<Wyniki>();
-
+            this.pictureBox1.Location = new Point(Screen.PrimaryScreen.Bounds.Width / 2 - 100, this.pictureBox1.Location.Y);
+            this.pictureBox2.Location = new Point(Screen.PrimaryScreen.Bounds.Width / 2 - 100, this.pictureBox2.Location.Y);
             string path = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().GetName().CodeBase) + @"/Wyniki.xml";
             if (File.Exists(path))
             {
@@ -57,6 +58,11 @@ namespace Rudy_103.src
         {
             Owner.Show();
             this.Close();
+        }
+
+        private void linkLabel1_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
